@@ -2,7 +2,7 @@
   "schema": 1,
   "version": "0.2.0-beta.7",
   "author": "deniy",
-  "created_utc": "2026-10-12T19:56:58.109052+00:00",
+  "created_utc": "2026-10-12T20:03:01.298115+00:00",
   "status": "reviewable local source snapshot",
   "repository_url": "https://github.com/deniy02020/wog-storage-helper",
   "public_tests": [
@@ -3495,8 +3495,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 5101,
-      "sha256": "c8fb2f1826511c20e0920a15501988d1dd8c8d44f1c18028c0b8d63b09753656",
+      "bytes": 5199,
+      "sha256": "303cce1fe3bbb8daa08fc15567d15a7cc6797ab206e05fc7f46fc0509b0a36aa",
       "origin": "sanitized public source-kit template"
     },
     {
@@ -3627,8 +3627,8 @@
     },
     {
       "path": "docs/CODE_SIGNING.md",
-      "bytes": 4270,
-      "sha256": "ececf92d155db56465cbf4286dbc8f41572188a59c73f65a1b847bd7ac23944b",
+      "bytes": 5693,
+      "sha256": "26434ae10968a8420a21bdd78cbb3d537843566cc059a8609f1a47f906cd7d5b",
       "origin": "sanitized public source-kit template"
     },
     {
@@ -6725,14 +6725,14 @@
     },
     {
       "path": "release-kit/source-kit/templates/README.md",
-      "bytes": 5101,
-      "sha256": "c8fb2f1826511c20e0920a15501988d1dd8c8d44f1c18028c0b8d63b09753656",
+      "bytes": 5199,
+      "sha256": "303cce1fe3bbb8daa08fc15567d15a7cc6797ab206e05fc7f46fc0509b0a36aa",
       "origin": "sanitized public source-kit template"
     },
     {
       "path": "release-kit/source-kit/templates/docs/CODE_SIGNING.md",
-      "bytes": 4270,
-      "sha256": "ececf92d155db56465cbf4286dbc8f41572188a59c73f65a1b847bd7ac23944b",
+      "bytes": 5693,
+      "sha256": "26434ae10968a8420a21bdd78cbb3d537843566cc059a8609f1a47f906cd7d5b",
       "origin": "sanitized public source-kit template"
     },
     {

@@ -13,6 +13,34 @@ then stores explicitly unsigned CI evidence. All outputs use a new
 Python/dependency versions and GitHub Actions commit SHAs are pinned; repeatable
 commands do not imply byte-identical PE builds or signatures.
 
+## Project responsibilities
+
+| Responsibility | Project member |
+| --- | --- |
+| Committer and maintainer | [deniy](https://github.com/deniy02020) |
+| Reviewer of proposed source/build changes | [deniy](https://github.com/deniy02020) |
+| Release approval | [deniy](https://github.com/deniy02020) |
+
+These describe current project responsibilities. Provider account roles,
+signing-request approver permissions and required approval arrangements remain
+pending provider review and configuration; no provisioned SignPath role is claimed.
+
+## Privacy
+
+The program keeps settings, event logs and captured screenshots on the user's
+computer. It does not collect telemetry or transfer those files or other user
+information to networked systems unless specifically requested by the user or
+the person installing or operating it. Normal game sorting needs no server
+or online account.
+
+User-requested downloads and developer build/signing tools are separate online
+operations. GitHub hosts source, CI and explicitly uploaded build artifacts;
+optional SignPath requests send only the requested build artifacts for signing.
+They do not upload the user's local profile, event logs or gameplay captures.
+Use of those services is governed by the
+[GitHub privacy statement](https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement)
+and [SignPath privacy policy](https://about.signpath.io/privacy-policy).
+
 ## Approved signing order
 
 1. After the provider has approved the project, configure a protected

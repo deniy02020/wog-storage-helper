@@ -3,7 +3,8 @@
 A local Windows helper for Steam app 4891320. Maintainer: **deniy**.
 
 [Source repository](https://github.com/deniy02020/wog-storage-helper) ·
-[Code signing policy](docs/CODE_SIGNING.md)
+[Code signing policy](docs/CODE_SIGNING.md) ·
+[Download Beta.6](https://github.com/deniy02020/wog-storage-helper/releases/tag/v0.2.0-beta.6)
 
 This source revision prepares the Beta.7 Windows build/signing pipeline.
 The released Beta.6 archive is preserved separately; this preparation does
