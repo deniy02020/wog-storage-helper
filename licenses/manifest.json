@@ -1,0 +1,380 @@
+{
+  "schema": 1,
+  "generated_utc": "2026-10-11T23:29:37.404518+00:00",
+  "status": "requested_components_collected",
+  "scope": "Installed Python/Tcl/Tk, NumPy/Pillow/OpenCV wheel notices, PyInstaller licence and exception",
+  "components": [
+    {
+      "id": "numpy",
+      "name": "numpy",
+      "version": "2.5.4",
+      "declared_license": "BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0",
+      "role": "runtime",
+      "notice_files": [
+        "licenses/numpy/numpy-2.5.4.dist-info/licenses/LICENSE.txt",
+        "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/_core/include/numpy/libdivide/LICENSE.txt",
+        "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/_core/src/common/pythoncapi-compat/COPYING",
+        "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/_core/src/highway/LICENSE",
+        "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/_core/src/multiarray/dragon4_LICENSE.txt",
+        "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/_core/src/npysort/x86-simd-sort/LICENSE.md",
+        "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/_core/src/umath/svml/LICENSE",
+        "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/fft/pocketfft/LICENSE.md",
+        "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/linalg/lapack_lite/LICENSE.txt",
+        "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/ma/LICENSE",
+        "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/random/LICENSE.md",
+        "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/random/src/distributions/LICENSE.md",
+        "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/random/src/mt19937/LICENSE.md",
+        "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/random/src/pcg64/LICENSE.md",
+        "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/random/src/philox/LICENSE.md",
+        "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/random/src/sfc64/LICENSE.md",
+        "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/random/src/splitmix64/LICENSE.md",
+        "licenses/numpy/numpy/_core/include/numpy/random/LICENSE.txt",
+        "licenses/numpy/numpy/ma/LICENSE",
+        "licenses/numpy/numpy/random/LICENSE.md"
+      ]
+    },
+    {
+      "id": "pillow",
+      "name": "pillow",
+      "version": "12.3.0",
+      "declared_license": "MIT-CMU",
+      "role": "runtime",
+      "notice_files": [
+        "licenses/pillow/pillow-12.3.0.dist-info/licenses/LICENSE"
+      ]
+    },
+    {
+      "id": "opencv-python-headless",
+      "name": "opencv-python-headless",
+      "version": "4.14.0.94",
+      "declared_license": "Apache 2.0",
+      "role": "runtime",
+      "notice_files": [
+        "licenses/opencv-python-headless/cv2/LICENSE-3RD-PARTY.txt",
+        "licenses/opencv-python-headless/cv2/LICENSE.txt",
+        "licenses/opencv-python-headless/opencv_python_headless-4.14.0.94.dist-info/LICENSE-3RD-PARTY.txt",
+        "licenses/opencv-python-headless/opencv_python_headless-4.14.0.94.dist-info/LICENSE.txt"
+      ]
+    },
+    {
+      "id": "pyinstaller",
+      "name": "pyinstaller",
+      "version": "6.22.3",
+      "declared_license": "GPLv2-or-later with a special exception which allows to use PyInstaller to build and distribute non-free programs (including commercial ones)",
+      "role": "build tool and bundled bootloader",
+      "notice_files": [
+        "licenses/pyinstaller/pyinstaller-6.22.3.dist-info/licenses/COPYING.txt"
+      ]
+    },
+    {
+      "id": "python",
+      "name": "Python",
+      "version": "3.13.15",
+      "declared_license": "See authentic bundled licence text; historical notices may also apply",
+      "role": "runtime",
+      "notice_files": [
+        "licenses/python/LICENSE.txt"
+      ]
+    },
+    {
+      "id": "tcl",
+      "name": "Tcl",
+      "version": "8.6.15",
+      "declared_license": "See authentic bundled licence text; historical notices may also apply",
+      "role": "runtime",
+      "notice_files": [
+        "licenses/tcl/upstream/tcl-8.6.15-license.terms"
+      ],
+      "notice_source": "verified upstream exact tag; installed Tcl licence missing"
+    },
+    {
+      "id": "tk",
+      "name": "Tk",
+      "version": "8.6.15",
+      "declared_license": "See authentic bundled licence text; historical notices may also apply",
+      "role": "runtime",
+      "notice_files": [
+        "licenses/tk/tcl/tk8.6/license.terms"
+      ]
+    }
+  ],
+  "files": [
+    {
+      "component": "numpy",
+      "source_relative": "numpy-2.5.4.dist-info/licenses/LICENSE.txt",
+      "path": "licenses/numpy/numpy-2.5.4.dist-info/licenses/LICENSE.txt",
+      "sha256": "a804dff0ead9fadc5293456410bcbfc32bf024be9c4513459663fb7b442d2341",
+      "bytes": 45831,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "numpy",
+      "source_relative": "numpy-2.5.4.dist-info/licenses/numpy/_core/include/numpy/libdivide/LICENSE.txt",
+      "path": "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/_core/include/numpy/libdivide/LICENSE.txt",
+      "sha256": "d544761558b510866c21f7e8a2d5716fca76e0b98117e3b6b86314db7244d150",
+      "bytes": 1039,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "numpy",
+      "source_relative": "numpy-2.5.4.dist-info/licenses/numpy/_core/src/common/pythoncapi-compat/COPYING",
+      "path": "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/_core/src/common/pythoncapi-compat/COPYING",
+      "sha256": "aea41976c720f91bd19725c16916a1ace40eb1ea42620d340e587a5de4bbcea0",
+      "bytes": 704,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "numpy",
+      "source_relative": "numpy-2.5.4.dist-info/licenses/numpy/_core/src/highway/LICENSE",
+      "path": "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/_core/src/highway/LICENSE",
+      "sha256": "d208152e2777ffd0126eacc1bd21c0320d69e4e6b622d21a2a12a47e8ef73763",
+      "bytes": 21155,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "numpy",
+      "source_relative": "numpy-2.5.4.dist-info/licenses/numpy/_core/src/multiarray/dragon4_LICENSE.txt",
+      "path": "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/_core/src/multiarray/dragon4_LICENSE.txt",
+      "sha256": "b0fd592d4ead563148e3977e7b589169d46a5ef2ff133c755a81af880a3fc919",
+      "bytes": 1441,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "numpy",
+      "source_relative": "numpy-2.5.4.dist-info/licenses/numpy/_core/src/npysort/x86-simd-sort/LICENSE.md",
+      "path": "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/_core/src/npysort/x86-simd-sort/LICENSE.md",
+      "sha256": "a732977853530066790c42817087f4829b518dd98d340c916acbfd227e39d3cb",
+      "bytes": 1542,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "numpy",
+      "source_relative": "numpy-2.5.4.dist-info/licenses/numpy/_core/src/umath/svml/LICENSE",
+      "path": "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/_core/src/umath/svml/LICENSE",
+      "sha256": "585483905b13d4b42f800c55ba99e89d6e2e33ccd5f503e201c07531d148ff41",
+      "bytes": 1573,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "numpy",
+      "source_relative": "numpy-2.5.4.dist-info/licenses/numpy/fft/pocketfft/LICENSE.md",
+      "path": "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/fft/pocketfft/LICENSE.md",
+      "sha256": "8db000e158c162e7249787852d8c69764706502ccee725c06641b31c1e95c8af",
+      "bytes": 1523,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "numpy",
+      "source_relative": "numpy-2.5.4.dist-info/licenses/numpy/linalg/lapack_lite/LICENSE.txt",
+      "path": "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/linalg/lapack_lite/LICENSE.txt",
+      "sha256": "19060ef465e1797d682ee0fc3081bd25ab1395e995e43d25c9d13c95d9a3cd6b",
+      "bytes": 2314,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "numpy",
+      "source_relative": "numpy-2.5.4.dist-info/licenses/numpy/ma/LICENSE",
+      "path": "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/ma/LICENSE",
+      "sha256": "d78dbb208b80d92b4d333e41a4baae50d12444f46e53199fa7726a91de6e2da7",
+      "bytes": 1616,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "numpy",
+      "source_relative": "numpy-2.5.4.dist-info/licenses/numpy/random/LICENSE.md",
+      "path": "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/random/LICENSE.md",
+      "sha256": "b4bc2f4fa1c95778f1ed3dd8f14706bece399475b978f9f34b5d3cd72521b48a",
+      "bytes": 3582,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "numpy",
+      "source_relative": "numpy-2.5.4.dist-info/licenses/numpy/random/src/distributions/LICENSE.md",
+      "path": "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/random/src/distributions/LICENSE.md",
+      "sha256": "cf5619f25b112d5ce7c896efffc8e610bcb345dfadcc19f2c1460aa48fff2c9e",
+      "bytes": 2805,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "numpy",
+      "source_relative": "numpy-2.5.4.dist-info/licenses/numpy/random/src/mt19937/LICENSE.md",
+      "path": "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/random/src/mt19937/LICENSE.md",
+      "sha256": "92c10699884321f1c2947fe2a70ab23b0fbf1507f756d89dd08f38c61fc3d4fa",
+      "bytes": 2986,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "numpy",
+      "source_relative": "numpy-2.5.4.dist-info/licenses/numpy/random/src/pcg64/LICENSE.md",
+      "path": "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/random/src/pcg64/LICENSE.md",
+      "sha256": "41190663b77bee5302386495a07b7eabfbfa571aa0ae2f11da6764162062fc4f",
+      "bytes": 1176,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "numpy",
+      "source_relative": "numpy-2.5.4.dist-info/licenses/numpy/random/src/philox/LICENSE.md",
+      "path": "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/random/src/philox/LICENSE.md",
+      "sha256": "322ac46d870c8aeead6c53adcccc839296fb3c8e456eae155081297daf7f8013",
+      "bytes": 1540,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "numpy",
+      "source_relative": "numpy-2.5.4.dist-info/licenses/numpy/random/src/sfc64/LICENSE.md",
+      "path": "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/random/src/sfc64/LICENSE.md",
+      "sha256": "28cad82ce1379dc529df30da78ec012d7d0d1d576b03ddcb93388aee53659f59",
+      "bytes": 1253,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "numpy",
+      "source_relative": "numpy-2.5.4.dist-info/licenses/numpy/random/src/splitmix64/LICENSE.md",
+      "path": "licenses/numpy/numpy-2.5.4.dist-info/licenses/numpy/random/src/splitmix64/LICENSE.md",
+      "sha256": "454ec7350e478e037061850b67395753b425b1cb0a34bbc26290b020bf89d763",
+      "bytes": 340,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "numpy",
+      "source_relative": "numpy/_core/include/numpy/random/LICENSE.txt",
+      "path": "licenses/numpy/numpy/_core/include/numpy/random/LICENSE.txt",
+      "sha256": "d544761558b510866c21f7e8a2d5716fca76e0b98117e3b6b86314db7244d150",
+      "bytes": 1039,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "numpy",
+      "source_relative": "numpy/ma/LICENSE",
+      "path": "licenses/numpy/numpy/ma/LICENSE",
+      "sha256": "d78dbb208b80d92b4d333e41a4baae50d12444f46e53199fa7726a91de6e2da7",
+      "bytes": 1616,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "numpy",
+      "source_relative": "numpy/random/LICENSE.md",
+      "path": "licenses/numpy/numpy/random/LICENSE.md",
+      "sha256": "b4bc2f4fa1c95778f1ed3dd8f14706bece399475b978f9f34b5d3cd72521b48a",
+      "bytes": 3582,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "pillow",
+      "source_relative": "pillow-12.3.0.dist-info/licenses/LICENSE",
+      "path": "licenses/pillow/pillow-12.3.0.dist-info/licenses/LICENSE",
+      "sha256": "4f7866a74802c6326f81faff59a56546b6aec2b10b91973e0e9308de95e79857",
+      "bytes": 78016,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "opencv-python-headless",
+      "source_relative": "cv2/LICENSE-3RD-PARTY.txt",
+      "path": "licenses/opencv-python-headless/cv2/LICENSE-3RD-PARTY.txt",
+      "sha256": "e24e3768561906cc7ccba808f2e8bb4b4bcb2988fece11656b7b56cf14da6bc5",
+      "bytes": 182909,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "opencv-python-headless",
+      "source_relative": "cv2/LICENSE.txt",
+      "path": "licenses/opencv-python-headless/cv2/LICENSE.txt",
+      "sha256": "edef0fac1eb08d29d34563f724742e078da2513e196133a12c6ad9ff01e26107",
+      "bytes": 1090,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "opencv-python-headless",
+      "source_relative": "opencv_python_headless-4.14.0.94.dist-info/LICENSE-3RD-PARTY.txt",
+      "path": "licenses/opencv-python-headless/opencv_python_headless-4.14.0.94.dist-info/LICENSE-3RD-PARTY.txt",
+      "sha256": "e24e3768561906cc7ccba808f2e8bb4b4bcb2988fece11656b7b56cf14da6bc5",
+      "bytes": 182909,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "opencv-python-headless",
+      "source_relative": "opencv_python_headless-4.14.0.94.dist-info/LICENSE.txt",
+      "path": "licenses/opencv-python-headless/opencv_python_headless-4.14.0.94.dist-info/LICENSE.txt",
+      "sha256": "edef0fac1eb08d29d34563f724742e078da2513e196133a12c6ad9ff01e26107",
+      "bytes": 1090,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "pyinstaller",
+      "source_relative": "pyinstaller-6.22.3.dist-info/licenses/COPYING.txt",
+      "path": "licenses/pyinstaller/pyinstaller-6.22.3.dist-info/licenses/COPYING.txt",
+      "sha256": "0598064c7d2718e38d7914a7d08343b2fa008e3bea9ebba2aa7a6ffa5900dd64",
+      "bytes": 32604,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "python",
+      "source_relative": "LICENSE.txt",
+      "path": "licenses/python/LICENSE.txt",
+      "sha256": "62bec384df47b0328307db41455ff6ea2559e5546b394ac69148561b21703120",
+      "bytes": 33861,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    },
+    {
+      "component": "tcl",
+      "source_relative": "upstream/tcl-8.6.15-license.terms",
+      "path": "licenses/tcl/upstream/tcl-8.6.15-license.terms",
+      "sha256": "c0a69a2bfd757361ec7e6143973b103c90409316b49e9c88db26ad6388e79f16",
+      "bytes": 2255,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "verified_upstream",
+      "provenance": {
+        "component": "Tcl",
+        "version": "8.6.15",
+        "source_url": "https://raw.githubusercontent.com/tcltk/tcl/core-8-6-15/license.terms",
+        "source_tag": "core-8-6-15",
+        "sha256": "c0a69a2bfd757361ec7e6143973b103c90409316b49e9c88db26ad6388e79f16",
+        "size_bytes": 2255,
+        "reason": "Installed Tcl licence missing; exact matching upstream tag supplied offline"
+      }
+    },
+    {
+      "component": "tk",
+      "source_relative": "tcl/tk8.6/license.terms",
+      "path": "licenses/tk/tcl/tk8.6/license.terms",
+      "sha256": "0d1e4405f6273f091732764ed89b57066be63ce64869be6c71ea337dc4f2f9b5",
+      "bytes": 2307,
+      "text_encoding": "utf-8-sig",
+      "source_kind": "installed"
+    }
+  ],
+  "missing": [],
+  "notice_sha256": "8e8238c78288a41d97a53898e90f1df659464d57ca1caaeb82c2c894116d6596",
+  "excluded": [
+    "XML data/model files",
+    "Absolute installation paths",
+    "Other unrequested package/data files"
+  ]
+}

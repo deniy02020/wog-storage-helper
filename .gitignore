@@ -1,0 +1,15 @@
+__pycache__/
+*.py[cod]
+.venv/
+.test-tmp*/
+build/
+dist/
+installer/build*/
+installer/dist*/
+profile/
+verification/
+diagnostics/
+.openai/
+.sites-runtime/
+*.log
+*.bak

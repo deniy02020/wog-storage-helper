@@ -1,0 +1,13 @@
+{
+  "tests": 248,
+  "failures": 0,
+  "errors": 0,
+  "skips": 0,
+  "exit_code": 0,
+  "elapsed_seconds": 1.399,
+  "imported_outside_export": [],
+  "native_input": false,
+  "scope": "Only the allowlisted synthetic public test subset, run from exported source.",
+  "full_private_corpus": "The historical 913-test local development corpus includes withheld private fixtures and is not reproduced by this snapshot.",
+  "manifest_sha256": "abe42ddd8f3dc7bd1c047c2275ffa0b1069e1ccdac100ee2b3794aac00ac99c0"
+}

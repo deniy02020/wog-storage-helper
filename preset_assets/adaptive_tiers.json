@@ -1,0 +1,3002 @@
+{
+  "schema": 1,
+  "context_rect": [
+    0,
+    0,
+    8,
+    35
+  ],
+  "badge_rect": [
+    1,
+    14,
+    4,
+    25
+  ],
+  "canonical_cell_size": [
+    65,
+    65
+  ],
+  "max_rmse": 14.0,
+  "min_margin": 5.0,
+  "tier_color_map": {
+    "1": "grey",
+    "2": "green",
+    "3": "blue",
+    "4": "red",
+    "5": "purple",
+    "6": "yellow"
+  },
+  "tiers": {
+    "4": [
+      {
+        "image": "adaptive_tier_T4_001.png",
+        "sha256": "05b5501e8ea8bba5bd01adc1e4bdc2f4699aa2ce9b3f2c9d89ffb99527b9ae68",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 2,
+        "rect": [
+          955,
+          588,
+          963,
+          623
+        ],
+        "baseline_badge_rmse": 10.468809127807617,
+        "baseline_badge_margin": 28.658540725708008,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T4_002.png",
+        "sha256": "af23ffcfa920004cdb3679eea7b174f1d1efc416871a8ee940e15e296447757f",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 3,
+        "rect": [
+          1020,
+          588,
+          1028,
+          623
+        ],
+        "baseline_badge_rmse": 0.30151134729385376,
+        "baseline_badge_margin": 52.09518665075302,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T4_003.png",
+        "sha256": "9463a10933bd5cae20626813d4602fda60c12eb4fe39655e136f885575a1d90d",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 4,
+        "rect": [
+          1085,
+          588,
+          1093,
+          623
+        ],
+        "baseline_badge_rmse": 0.20100755989551544,
+        "baseline_badge_margin": 60.896446511149406,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T4_004.png",
+        "sha256": "39235a60da3ac7badf37e876efc8f776da445f5b0c7d9758792503c93dafde7d",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 2,
+        "rect": [
+          955,
+          588,
+          963,
+          623
+        ],
+        "baseline_badge_rmse": 10.468809127807617,
+        "baseline_badge_margin": 28.658540725708008,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T4_005.png",
+        "sha256": "c0ef79cb8072b5040e99878b9b4fea06439d7f49735160eae5077c4fbfbe1849",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 3,
+        "rect": [
+          1020,
+          588,
+          1028,
+          623
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 52.33796691894531,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T4_006.png",
+        "sha256": "89f83b3824a500790f5146938b5edf688af4103fbd484bf65b8bb0361f9f1577",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 4,
+        "rect": [
+          1085,
+          588,
+          1093,
+          623
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 61.0888557434082,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T4_007.png",
+        "sha256": "986bc2219d803bac2b04543cc797db2981fe0d82b2140471289a854dcb303198",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 2,
+        "rect": [
+          955,
+          588,
+          963,
+          623
+        ],
+        "baseline_badge_rmse": 10.468809127807617,
+        "baseline_badge_margin": 28.658540725708008,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T4_008.png",
+        "sha256": "fd6a842abad21afb04db45cb4a7e7a27503745707d8ea65614d475cbde3e3a94",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 3,
+        "rect": [
+          1020,
+          588,
+          1028,
+          623
+        ],
+        "baseline_badge_rmse": 0.31782084703445435,
+        "baseline_badge_margin": 52.02246159315109,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T4_009.png",
+        "sha256": "6b37ff3391ee227aecf31c142704a392a897985123248c53c465b1090ec7f718",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 7,
+        "rect": [
+          955,
+          653,
+          963,
+          688
+        ],
+        "baseline_badge_rmse": 10.60303020477295,
+        "baseline_badge_margin": 29.113896369934082,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T4_010.png",
+        "sha256": "3a6ad74da6e76779fcb04a8b1b8ee6883554809ca8944adac94fb84534da2617",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 8,
+        "rect": [
+          1020,
+          653,
+          1028,
+          688
+        ],
+        "baseline_badge_rmse": 1.5308279991149902,
+        "baseline_badge_margin": 51.47069787979126,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T4_011.png",
+        "sha256": "5e438b6572bdc0889d81f1793ea18e8579dc24fa654e9cd61ff97b6c0f7e05f7",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 9,
+        "rect": [
+          1085,
+          653,
+          1093,
+          688
+        ],
+        "baseline_badge_rmse": 1.206045389175415,
+        "baseline_badge_margin": 59.99794936180115,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T4_012.png",
+        "sha256": "0878290c51026a0f62bd365d9c8e2b5626efb1a0e1903378f4459519f7083e16",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 10,
+        "rect": [
+          1150,
+          653,
+          1158,
+          688
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 57.05057144165039,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T4_013.png",
+        "sha256": "de31f2d112955240c0d6f42256b43807b727884fee74cee49766cd6418771790",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 11,
+        "rect": [
+          890,
+          718,
+          898,
+          753
+        ],
+        "baseline_badge_rmse": 6.110927581787109,
+        "baseline_badge_margin": 31.927200317382812,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T4_014.png",
+        "sha256": "7a9b2cb50939ada9deb5380ad6c43fa900249943d726bd12888688fe48f8237a",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 12,
+        "rect": [
+          955,
+          718,
+          963,
+          753
+        ],
+        "baseline_badge_rmse": 10.868358612060547,
+        "baseline_badge_margin": 29.526912689208984,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      }
+    ],
+    "3": [
+      {
+        "image": "adaptive_tier_T3_001.png",
+        "sha256": "b85a6a872a879283463e5b6fc498696a651c4a0490c536aea617a5a522195be2",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 5,
+        "rect": [
+          1150,
+          588,
+          1158,
+          623
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 41.26007843017578,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_002.png",
+        "sha256": "be70182ef7de00dca7db2ba5c3fa83b9fcc3d5f5b808f89abe2de61e3b7980d1",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 6,
+        "rect": [
+          890,
+          653,
+          898,
+          688
+        ],
+        "baseline_badge_rmse": 1.4736747741699219,
+        "baseline_badge_margin": 39.0998649597168,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_003.png",
+        "sha256": "1630ca95a0744d4eae1dc70b6cb82e5ff6dbf1148dde5392ebcc87a44bde6adb",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 7,
+        "rect": [
+          955,
+          653,
+          963,
+          688
+        ],
+        "baseline_badge_rmse": 1.5175738334655762,
+        "baseline_badge_margin": 40.1038556098938,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_004.png",
+        "sha256": "01147707e0a51f6e842cf770b3e5716176ad3af91091c0491466a8a501494f3a",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 8,
+        "rect": [
+          1020,
+          653,
+          1028,
+          688
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 42.43450164794922,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_005.png",
+        "sha256": "c2844123397f1befd60fce23f0db98cabc02cba4c908fc979b8c99550f9eb895",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 9,
+        "rect": [
+          1085,
+          653,
+          1093,
+          688
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 43.884490966796875,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_006.png",
+        "sha256": "a788bfb4bd279ad07a06b4fbc20bb6f4ffb476a40c8edb88d9d1eec1132ef4ff",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 10,
+        "rect": [
+          1150,
+          653,
+          1158,
+          688
+        ],
+        "baseline_badge_rmse": 1.005037784576416,
+        "baseline_badge_margin": 40.243043422698975,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_007.png",
+        "sha256": "668ebd7d5d4702d8b8f0ca31ebb62e4a1960b2a378a2a66d6565c3dc50a4a2bd",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 11,
+        "rect": [
+          890,
+          718,
+          898,
+          753
+        ],
+        "baseline_badge_rmse": 2.6647720336914062,
+        "baseline_badge_margin": 37.95853042602539,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_008.png",
+        "sha256": "1fd0e74b937bd25cf0fe24f94345be0f12fa0eba879b8e46cfd3db96599e09dd",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 12,
+        "rect": [
+          955,
+          718,
+          963,
+          753
+        ],
+        "baseline_badge_rmse": 2.7524094581604004,
+        "baseline_badge_margin": 38.80247259140015,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_009.png",
+        "sha256": "e887d7a410820f939c4cf64e939b2570fae19bdcda89886823bd285f04d6f642",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 13,
+        "rect": [
+          1020,
+          718,
+          1028,
+          753
+        ],
+        "baseline_badge_rmse": 1.201850414276123,
+        "baseline_badge_margin": 41.29105043411255,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_010.png",
+        "sha256": "99f4f41349709da71b825d5840d0035c0d2ee86fb58ddbcd6237a514804b735c",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 14,
+        "rect": [
+          1085,
+          718,
+          1093,
+          753
+        ],
+        "baseline_badge_rmse": 1.100963830947876,
+        "baseline_badge_margin": 42.87205481529236,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_011.png",
+        "sha256": "c2ef2437cf79ee45ab96bfc84ed50a4637ea5bc52d394cb41e88a2eb6b7bec7b",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 15,
+        "rect": [
+          1150,
+          718,
+          1158,
+          753
+        ],
+        "baseline_badge_rmse": 1.7494587898254395,
+        "baseline_badge_margin": 39.52983045578003,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_012.png",
+        "sha256": "4894c7c1534cceebac7166ce1aa8e67a11bd2120ca953dd51567b515e86b9869",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 16,
+        "rect": [
+          890,
+          783,
+          898,
+          818
+        ],
+        "baseline_badge_rmse": 3.2921700477600098,
+        "baseline_badge_margin": 37.37884283065796,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_013.png",
+        "sha256": "4ce74089333fd0b3fc9a287e34c1cac7374a2104fc04dd1ee67f77752fe70f28",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 17,
+        "rect": [
+          955,
+          783,
+          963,
+          818
+        ],
+        "baseline_badge_rmse": 3.4318766593933105,
+        "baseline_badge_margin": 38.02322435379028,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_014.png",
+        "sha256": "4ca252346250d737af84ad28ee6eb2305215de7888ca9768fa632c275b2d37dd",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 18,
+        "rect": [
+          1020,
+          783,
+          1028,
+          818
+        ],
+        "baseline_badge_rmse": 2.047417640686035,
+        "baseline_badge_margin": 40.441439628601074,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_015.png",
+        "sha256": "c1d7c31c3405db37126fdb86ec1dd356b9f26b067c9346fe487b8ff8ce74dc27",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 19,
+        "rect": [
+          1085,
+          783,
+          1093,
+          818
+        ],
+        "baseline_badge_rmse": 1.8586407899856567,
+        "baseline_badge_margin": 42.116445422172546,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_016.png",
+        "sha256": "04e9347aa985de9216446ac64a560c813a4b2f02368dbbe9212876597754eda1",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 20,
+        "rect": [
+          1150,
+          783,
+          1158,
+          818
+        ],
+        "baseline_badge_rmse": 2.211083173751831,
+        "baseline_badge_margin": 39.05242085456848,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_017.png",
+        "sha256": "760426c418b85b6b582f316b061ecbdaa8af40afeca768c5eed59c30835f57ae",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 21,
+        "rect": [
+          890,
+          848,
+          898,
+          883
+        ],
+        "baseline_badge_rmse": 3.9746673107147217,
+        "baseline_badge_margin": 36.770163774490356,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_018.png",
+        "sha256": "966d0872cdf99c5dc6ec0e7bc146ede71411c059977cda73594e5520c87eb22a",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 11,
+        "rect": [
+          890,
+          718,
+          898,
+          753
+        ],
+        "baseline_badge_rmse": 2.6647720336914062,
+        "baseline_badge_margin": 37.95853042602539,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_019.png",
+        "sha256": "ada6a7e483a266981d3623b8a8b457f33a485ee71455cd6ab670476145ad7e57",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 12,
+        "rect": [
+          955,
+          718,
+          963,
+          753
+        ],
+        "baseline_badge_rmse": 2.7524094581604004,
+        "baseline_badge_margin": 38.80247259140015,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_020.png",
+        "sha256": "f2bd428ce7337e829a908268e67df447b690f8239c5bb8b893e1645e7374f4fa",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 13,
+        "rect": [
+          1020,
+          718,
+          1028,
+          753
+        ],
+        "baseline_badge_rmse": 1.201850414276123,
+        "baseline_badge_margin": 41.29105043411255,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_021.png",
+        "sha256": "8687172aeab239c3a7da947eb972798ec5c8c2693d5abb06e00fd6dd2b6c870a",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 14,
+        "rect": [
+          1085,
+          718,
+          1093,
+          753
+        ],
+        "baseline_badge_rmse": 1.100963830947876,
+        "baseline_badge_margin": 42.87205481529236,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_022.png",
+        "sha256": "20c4a031a217e7a0332bbc0e0c1aecb29cacd85e4975a0363810859056ec9ea0",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 15,
+        "rect": [
+          1150,
+          718,
+          1158,
+          753
+        ],
+        "baseline_badge_rmse": 2.00252366065979,
+        "baseline_badge_margin": 39.309545278549194,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_023.png",
+        "sha256": "d7229cf8f5dd045413a7d35c1e1815f3579ea11ef2fc71c62831ffc01635eb26",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 16,
+        "rect": [
+          890,
+          783,
+          898,
+          818
+        ],
+        "baseline_badge_rmse": 3.2921700477600098,
+        "baseline_badge_margin": 37.37884283065796,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_024.png",
+        "sha256": "0f57b5ebd20da817b5c86360f0d53d5074710cdcf3440c4b7ea495b2c8cfe368",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 17,
+        "rect": [
+          955,
+          783,
+          963,
+          818
+        ],
+        "baseline_badge_rmse": 3.4318766593933105,
+        "baseline_badge_margin": 38.02322435379028,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_025.png",
+        "sha256": "5982cc1dad8761ec3c76674a595bc5bed713cb86753314a74bc37d60e71ddcec",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 18,
+        "rect": [
+          1020,
+          783,
+          1028,
+          818
+        ],
+        "baseline_badge_rmse": 2.047417640686035,
+        "baseline_badge_margin": 40.441439628601074,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_026.png",
+        "sha256": "e693db796195c98df705e60c152cac20a10c82e2f9e6199ef25d1c808433f285",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 19,
+        "rect": [
+          1085,
+          783,
+          1093,
+          818
+        ],
+        "baseline_badge_rmse": 1.8586407899856567,
+        "baseline_badge_margin": 42.116445422172546,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_027.png",
+        "sha256": "4026704def51a66a4a27caf4a5d0b696f8c2ca299768c98e9914e131475939ff",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 33,
+        "rect": [
+          1020,
+          978,
+          1028,
+          1013
+        ],
+        "baseline_badge_rmse": 3.7254245281219482,
+        "baseline_badge_margin": 38.856168031692505,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_028.png",
+        "sha256": "744ce01ca0ecc1caab6beca00f9532317b62b6aca282d390fc8ff4dd6bb24854",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 34,
+        "rect": [
+          1085,
+          978,
+          1093,
+          1013
+        ],
+        "baseline_badge_rmse": 3.2066848278045654,
+        "baseline_badge_margin": 40.734275102615356,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_029.png",
+        "sha256": "628234cedb96b81edbabdb50bc6562b1f969b42a3126e236a9c90fd333dea477",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 4,
+        "rect": [
+          1085,
+          588,
+          1093,
+          623
+        ],
+        "baseline_badge_rmse": 1.2102258205413818,
+        "baseline_badge_margin": 42.70774292945862,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_030.png",
+        "sha256": "5268a00c76ee8e2a780dc41eb4e993b29e353f05cc68eb22a38aa6af95c61da0",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 5,
+        "rect": [
+          1150,
+          588,
+          1158,
+          623
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 41.26007843017578,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_031.png",
+        "sha256": "c56a66bccaa7f649405d54e591a66e62fe1a314148d628878e7e2d04847a424d",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 6,
+        "rect": [
+          890,
+          653,
+          898,
+          688
+        ],
+        "baseline_badge_rmse": 1.4736747741699219,
+        "baseline_badge_margin": 39.0998649597168,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_032.png",
+        "sha256": "b906cff0894730c117e174eb6d9bd83ba6749f54a9c98beaa448e9bef581cb87",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 7,
+        "rect": [
+          955,
+          653,
+          963,
+          688
+        ],
+        "baseline_badge_rmse": 1.5175738334655762,
+        "baseline_badge_margin": 40.1038556098938,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_033.png",
+        "sha256": "b19fcc1388d7cde795f56f6b0704ccb7a052b6922f287784ddfc31488675bb77",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 8,
+        "rect": [
+          1020,
+          653,
+          1028,
+          688
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 42.43450164794922,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_034.png",
+        "sha256": "c502c1c505e5745373c2680c4ccac403b8e2aa82c24c6372fa6a98163d542b9e",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 10,
+        "rect": [
+          1150,
+          653,
+          1158,
+          688
+        ],
+        "baseline_badge_rmse": 1.005037784576416,
+        "baseline_badge_margin": 40.243043422698975,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_035.png",
+        "sha256": "c5992b308ab5c7bf1d87c2adcbfa2e3a3c6ef71ad7216a217f2126b1a98885c2",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 12,
+        "rect": [
+          955,
+          718,
+          963,
+          753
+        ],
+        "baseline_badge_rmse": 2.7524094581604004,
+        "baseline_badge_margin": 38.80247259140015,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_036.png",
+        "sha256": "63905d7b65ebe08194b43a0e1bbaf17090b66f06c1a74676e4a29dc6cbefd970",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 13,
+        "rect": [
+          1020,
+          718,
+          1028,
+          753
+        ],
+        "baseline_badge_rmse": 1.201850414276123,
+        "baseline_badge_margin": 41.29105043411255,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_037.png",
+        "sha256": "a0f3a8b5ba2fc957268574b315eaaad8504ac7b665b1abd410f1b9041b952173",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 15,
+        "rect": [
+          1150,
+          718,
+          1158,
+          753
+        ],
+        "baseline_badge_rmse": 1.7494587898254395,
+        "baseline_badge_margin": 39.52983045578003,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_038.png",
+        "sha256": "1fe7bca3c49ad6ec8d5bda40a55526d5ed3e09a18d3c7de3bc7fb8b28f97d670",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 25,
+        "rect": [
+          1150,
+          848,
+          1158,
+          883
+        ],
+        "baseline_badge_rmse": 2.572190046310425,
+        "baseline_badge_margin": 38.74745488166809,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_039.png",
+        "sha256": "a14a495c0148ac05b9b7e636b57da4ef5baff069f016b6b542481c2445ec43e4",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 26,
+        "rect": [
+          890,
+          913,
+          898,
+          948
+        ],
+        "baseline_badge_rmse": 4.433572292327881,
+        "baseline_badge_margin": 36.3343071937561,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_040.png",
+        "sha256": "ad97486a17c1cdb28aeebd0604caf156a1b5df79505f36c052bb4c88bb8ce903",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 1,
+        "rect": [
+          890,
+          588,
+          898,
+          623
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 40.53829574584961,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_041.png",
+        "sha256": "af5421d65c026fa0558a463f3656c1268149a3125d8d52ffe51e098b305342da",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 2,
+        "rect": [
+          955,
+          588,
+          963,
+          623
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 41.693931579589844,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_042.png",
+        "sha256": "335a43704e448dc7ffbe2c5b2427e02f981d25c03cd2638e44cec08ecafaa069",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 3,
+        "rect": [
+          1020,
+          588,
+          1028,
+          623
+        ],
+        "baseline_badge_rmse": 1.3295400142669678,
+        "baseline_badge_margin": 41.10222268104553,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T3_043.png",
+        "sha256": "fe0f07b904a1b79fc45ec0e691c9fe54fd4eb4771e6c9b3867152762465861d6",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 13,
+        "rect": [
+          1020,
+          718,
+          1028,
+          753
+        ],
+        "baseline_badge_rmse": 1.201850414276123,
+        "baseline_badge_margin": 41.29105043411255,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      }
+    ],
+    "2": [
+      {
+        "image": "adaptive_tier_T2_001.png",
+        "sha256": "25a1c81736e6db2ad9181754516c9926a3a9242ebe0d766a7453264c34e50967",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 22,
+        "rect": [
+          955,
+          848,
+          963,
+          883
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.336769104003906,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_002.png",
+        "sha256": "5b8771b3411dee2fae602cd817d928ea31b4711fc9d55857d7e670dca15339fc",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 23,
+        "rect": [
+          1020,
+          848,
+          1028,
+          883
+        ],
+        "baseline_badge_rmse": 0.34815531969070435,
+        "baseline_badge_margin": 31.032210052013397,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_003.png",
+        "sha256": "968a92296f21a3d4c6d25d44b1187406068072293fdc1ff7ccf0e198b17f4e86",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 24,
+        "rect": [
+          1085,
+          848,
+          1093,
+          883
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.963863372802734,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_004.png",
+        "sha256": "42775748c3c19b329edfe1717493874006b6debc45b20ef71ff5f072eca282db",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 25,
+        "rect": [
+          1150,
+          848,
+          1158,
+          883
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 34.884803771972656,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_005.png",
+        "sha256": "7ac75026b4fec6ece66ebb6a123644ea76c645263fe830bc416695c787096ef5",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 26,
+        "rect": [
+          890,
+          913,
+          898,
+          948
+        ],
+        "baseline_badge_rmse": 1.537412166595459,
+        "baseline_badge_margin": 34.68873071670532,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_006.png",
+        "sha256": "b708d0081b25ecabf74dd3736a59d543b40a2e7cb0e760fe87e2b05f6c520887",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 27,
+        "rect": [
+          955,
+          913,
+          963,
+          948
+        ],
+        "baseline_badge_rmse": 1.2185436487197876,
+        "baseline_badge_margin": 31.063045859336853,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_007.png",
+        "sha256": "f0dfe9dc9717f45f97f9964de6b3ea8722aa791fbccb501b35ea69e62055ef8e",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 28,
+        "rect": [
+          1020,
+          913,
+          1028,
+          948
+        ],
+        "baseline_badge_rmse": 1.3521400690078735,
+        "baseline_badge_margin": 29.92682683467865,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_008.png",
+        "sha256": "e39f7ef629b93f4606a9bbcc002c6fa8eb274c0d153889fa600f8a5fe6814a35",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 29,
+        "rect": [
+          1085,
+          913,
+          1093,
+          948
+        ],
+        "baseline_badge_rmse": 1.0298572778701782,
+        "baseline_badge_margin": 31.934154868125916,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_009.png",
+        "sha256": "2223627e36405a84e75f73a778fd80cea9b837c82bb177370a94d1a97364cf62",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 30,
+        "rect": [
+          1150,
+          913,
+          1158,
+          948
+        ],
+        "baseline_badge_rmse": 0.7977240085601807,
+        "baseline_badge_margin": 33.939821004867554,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_010.png",
+        "sha256": "b5d0d77623e57ecc089d5d9f07fb4600f69a651ab7f568fcae565c1009fcc369",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 31,
+        "rect": [
+          890,
+          978,
+          898,
+          1013
+        ],
+        "baseline_badge_rmse": 2.2852182388305664,
+        "baseline_badge_margin": 34.051589012145996,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_011.png",
+        "sha256": "fd2bb92ebecde25a27ce6c576ded9e0976626ac8677572c5870831f28038adba",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 32,
+        "rect": [
+          955,
+          978,
+          963,
+          1013
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.209068298339844,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_012.png",
+        "sha256": "bb6dab9e036bbfc5d2bd8964a2c27808016af1028c2bfb311e82f790f9711888",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 33,
+        "rect": [
+          1020,
+          978,
+          1028,
+          1013
+        ],
+        "baseline_badge_rmse": 2.025095224380493,
+        "baseline_badge_margin": 29.15829825401306,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_013.png",
+        "sha256": "7502ecfe424526738e64df8e7f8bd9d57bedc2a6f41b4c916876621fba047350",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 34,
+        "rect": [
+          1085,
+          978,
+          1093,
+          1013
+        ],
+        "baseline_badge_rmse": 1.5634719133377075,
+        "baseline_badge_margin": 31.43346869945526,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_014.png",
+        "sha256": "e4b85853036b385cbe49204a06135816d8f58a0d812f3d6734113e4990d5b1a8",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 35,
+        "rect": [
+          1150,
+          978,
+          1158,
+          1013
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 34.843082427978516,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_015.png",
+        "sha256": "83031d0dbd33d1fb91cabe37646a63041ff22daeeef23cc6caadcbac449d2d43",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 36,
+        "rect": [
+          890,
+          1043,
+          898,
+          1078
+        ],
+        "baseline_badge_rmse": 3.2844905853271484,
+        "baseline_badge_margin": 33.19118309020996,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_016.png",
+        "sha256": "35c318011d220f0ec95e8974695c8d778cb566c85623080f1346d677a27ffb17",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 37,
+        "rect": [
+          955,
+          1043,
+          963,
+          1078
+        ],
+        "baseline_badge_rmse": 1.5341236591339111,
+        "baseline_badge_margin": 30.62991213798523,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_017.png",
+        "sha256": "8dd9c11d8bc5ce997975e602d33e04b8fe73378b127a6a7e6197c705b71cef5a",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 38,
+        "rect": [
+          1020,
+          1043,
+          1028,
+          1078
+        ],
+        "baseline_badge_rmse": 2.837341070175171,
+        "baseline_badge_margin": 28.248235940933228,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_018.png",
+        "sha256": "8ee921dc198c5635b8ceeaffc3b1798ddaaf22edb72958f328c5e27336819b82",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 39,
+        "rect": [
+          1085,
+          1043,
+          1093,
+          1078
+        ],
+        "baseline_badge_rmse": 2.4162747859954834,
+        "baseline_badge_margin": 30.63755440711975,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_019.png",
+        "sha256": "107c55cddb09770ee354d4f18e158d5a1eb243eecd22ef00de79344003f062c5",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "13d3b89ba7bcc54f9f1dc43efbd2be883bc083d3a119b13a4dd25e89f28954f3",
+        "inventory_cell": 40,
+        "rect": [
+          1150,
+          1043,
+          1158,
+          1078
+        ],
+        "baseline_badge_rmse": 0.9744203090667725,
+        "baseline_badge_margin": 33.67592453956604,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_020.png",
+        "sha256": "9c6b43025d5a6eae179c3b56c961d27416b9e6f7c6271c07d12059e29b13cd7f",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 21,
+        "rect": [
+          890,
+          848,
+          898,
+          883
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 36.09513473510742,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_021.png",
+        "sha256": "a93b8e4005e31ce96268bf54696c1a6e433c48dd355ce5bcad5198f323c7e5c7",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 22,
+        "rect": [
+          955,
+          848,
+          963,
+          883
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.336769104003906,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_022.png",
+        "sha256": "55973266538b61afc4a66f3871ccb32247a04b8f82d0a65b1718d3c261a9a959",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 23,
+        "rect": [
+          1020,
+          848,
+          1028,
+          883
+        ],
+        "baseline_badge_rmse": 0.34815531969070435,
+        "baseline_badge_margin": 31.032210052013397,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_023.png",
+        "sha256": "4518efd64024ac6f23f477ebcc69581c4cf554a3886a9748d97dddd0d54930a2",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 24,
+        "rect": [
+          1085,
+          848,
+          1093,
+          883
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.963863372802734,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_024.png",
+        "sha256": "760a34bd072972a46f125bfe0a450a1c71fdff5d66db43bd282c2316928c7400",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 29,
+        "rect": [
+          1085,
+          913,
+          1093,
+          948
+        ],
+        "baseline_badge_rmse": 1.0298572778701782,
+        "baseline_badge_margin": 31.934154868125916,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_025.png",
+        "sha256": "c6dae33f02d0573611b3cfd717fbce5e47dafff5666f05973b6530c531270ee5",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 31,
+        "rect": [
+          890,
+          978,
+          898,
+          1013
+        ],
+        "baseline_badge_rmse": 2.2852182388305664,
+        "baseline_badge_margin": 34.051589012145996,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_026.png",
+        "sha256": "d0d08c69979d79b56542f1a9aa5b7c0370da8498991d5b50c1b928aab31b0d08",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 32,
+        "rect": [
+          955,
+          978,
+          963,
+          1013
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.209068298339844,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_027.png",
+        "sha256": "e63dab3a3a8a71ff5e7c6a5b286f564a62ef4ea36a03ccceab7e7bb818598004",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "d5b92e7cfd75737d97a885b42143330e1fef004c7bac6073a30a332bad52259d",
+        "inventory_cell": 35,
+        "rect": [
+          1150,
+          978,
+          1158,
+          1013
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 34.843082427978516,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_028.png",
+        "sha256": "b7acf9ccc79b592222e2c5e32a699b4a23bba1d67f1c8cdaa0266fd11ac3ee48",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 19,
+        "rect": [
+          1085,
+          783,
+          1093,
+          818
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.85720443725586,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_029.png",
+        "sha256": "bf5cdac2d93f38cabfee6f4e0977994776b6080ea9a619abc685cabd6c85d435",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 20,
+        "rect": [
+          1150,
+          783,
+          1158,
+          818
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 34.796958923339844,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_030.png",
+        "sha256": "8188b4bada43e2902a2ad1eb8e00f110df090738fd5a1dc2d3b49082f46dc592",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 30,
+        "rect": [
+          1150,
+          913,
+          1158,
+          948
+        ],
+        "baseline_badge_rmse": 0.7977240085601807,
+        "baseline_badge_margin": 33.939821004867554,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_031.png",
+        "sha256": "67210ff2b3ff42a4797e8d315f11b1f502e47993eed6fe5b446ae78204e398bb",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 31,
+        "rect": [
+          890,
+          978,
+          898,
+          1013
+        ],
+        "baseline_badge_rmse": 2.2852182388305664,
+        "baseline_badge_margin": 34.051589012145996,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_032.png",
+        "sha256": "e63271533a8b247cf9c04d5a00c056b05535f748a9e90d30c731db9630b42cbc",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 33,
+        "rect": [
+          1020,
+          978,
+          1028,
+          1013
+        ],
+        "baseline_badge_rmse": 2.025095224380493,
+        "baseline_badge_margin": 29.15829825401306,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_033.png",
+        "sha256": "8354765e4f685206bf782fc0b662dbe6c6874c33c40013558a14e213d2d1e90f",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 34,
+        "rect": [
+          1085,
+          978,
+          1093,
+          1013
+        ],
+        "baseline_badge_rmse": 1.5634719133377075,
+        "baseline_badge_margin": 31.43346869945526,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_034.png",
+        "sha256": "25f2b5b2fd1840b8af156c0b4cd8a60c5b81f7a42c14d1aac82797a4197c4b70",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 6,
+        "rect": [
+          890,
+          653,
+          898,
+          688
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 35.712799072265625,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_035.png",
+        "sha256": "b7fa084234a106025601dde080dd613c66747fe1472940ab7b0869c857dc4f6b",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 7,
+        "rect": [
+          955,
+          653,
+          963,
+          688
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.51743698120117,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_036.png",
+        "sha256": "7a89424703d44790b4cf11b1aa4982083c38885d7883d814339910f91e4c6bc6",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 8,
+        "rect": [
+          1020,
+          653,
+          1028,
+          688
+        ],
+        "baseline_badge_rmse": 0.3333333432674408,
+        "baseline_badge_margin": 31.293276458978653,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_037.png",
+        "sha256": "50862cd5335426fdc1e2524404a6729fa6cb9f0ce3b60f674a1b85e42b27a2de",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 9,
+        "rect": [
+          1085,
+          653,
+          1093,
+          688
+        ],
+        "baseline_badge_rmse": 0.822658896446228,
+        "baseline_badge_margin": 31.919524788856506,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_038.png",
+        "sha256": "3f864290719246b1e0a56b6d23b819b6348f116a0a60d36378c45605f0405041",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 10,
+        "rect": [
+          1150,
+          653,
+          1158,
+          688
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 34.8635139465332,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_039.png",
+        "sha256": "d1bdd3efb809025d75545670344aae6b6572e018fbcc72c3e8a1ad224343a424",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 11,
+        "rect": [
+          890,
+          718,
+          898,
+          753
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 35.8453483581543,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_040.png",
+        "sha256": "cce9bc60103fbbe75d6139e49fe27b9e0bec17f57fd64cc386003703e107be57",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 12,
+        "rect": [
+          955,
+          718,
+          963,
+          753
+        ],
+        "baseline_badge_rmse": 1.1849220991134644,
+        "baseline_badge_margin": 31.27390968799591,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_041.png",
+        "sha256": "dc24e3262aa288a70061f0c8dc92a8a9bc29c11df28a070093b47c68b4a65529",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 13,
+        "rect": [
+          1020,
+          718,
+          1028,
+          753
+        ],
+        "baseline_badge_rmse": 0.3333333432674408,
+        "baseline_badge_margin": 31.223414093255997,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_042.png",
+        "sha256": "144e92730c190b5fd73c28c7086b0f42a7b63eacb836389c2e411a6880c8f5f3",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 14,
+        "rect": [
+          1085,
+          718,
+          1093,
+          753
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.85105514526367,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_043.png",
+        "sha256": "aeb1470e9e0050e28c3f7c8cab3d4f62dbcc0de0655b73863125b808e48ed269",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 15,
+        "rect": [
+          1150,
+          718,
+          1158,
+          753
+        ],
+        "baseline_badge_rmse": 0.7784989476203918,
+        "baseline_badge_margin": 34.18222874403,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_044.png",
+        "sha256": "89c8859fda11bf5fc9463f865c94c40cbbd2e74bee08fad979f057ebf03d9609",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 16,
+        "rect": [
+          890,
+          783,
+          898,
+          818
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 35.96476745605469,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_045.png",
+        "sha256": "a21cf8ea1d75ef64603480f9b2d93c9db5365d351e70d3ff022c61f2f9e345b5",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 17,
+        "rect": [
+          955,
+          783,
+          963,
+          818
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.39762496948242,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_046.png",
+        "sha256": "0e4ebcd7983eb58d1592946130e9be287911a211afa1c35b9573f965aaa26167",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 18,
+        "rect": [
+          1020,
+          783,
+          1028,
+          818
+        ],
+        "baseline_badge_rmse": 0.34815531969070435,
+        "baseline_badge_margin": 31.110651671886444,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_047.png",
+        "sha256": "1d9a839a2e97175c78629cd97fed8918ebccb2e9ddd71894394816fe141b5509",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 19,
+        "rect": [
+          1085,
+          783,
+          1093,
+          818
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.85720443725586,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_048.png",
+        "sha256": "22eafb5b6ef57ac51ae95c077ef35edc0ff1cf3acb893836361dc4dfb9e17b84",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 20,
+        "rect": [
+          1150,
+          783,
+          1158,
+          818
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 34.796958923339844,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_049.png",
+        "sha256": "9c9de0ed739efbeec08f93932db631a5b50fc3e15200ae6654f3a030c88eb8a7",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 21,
+        "rect": [
+          890,
+          848,
+          898,
+          883
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 36.09513473510742,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_050.png",
+        "sha256": "a96cc8a1299a02ef28275f5ffeed65d329e975be843e62901c8ecb26b431c76b",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 23,
+        "rect": [
+          1020,
+          848,
+          1028,
+          883
+        ],
+        "baseline_badge_rmse": 0.34815531969070435,
+        "baseline_badge_margin": 31.032210052013397,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_051.png",
+        "sha256": "dcacf017b6e6ef7a60781fc5e2cabe31bbb1a2c9e92f7ed1c57575fea1ef402f",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 24,
+        "rect": [
+          1085,
+          848,
+          1093,
+          883
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.963863372802734,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_052.png",
+        "sha256": "1b827b6409f6d3bc28874ba57d69cc4cf1a34e7879ae041435e8a3d46ef3824d",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 25,
+        "rect": [
+          1150,
+          848,
+          1158,
+          883
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 34.884803771972656,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_053.png",
+        "sha256": "6e56ae6404569054c21f403bd58ee42ab2963babd4a744ddfcc6bd6979ad10e4",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 27,
+        "rect": [
+          955,
+          913,
+          963,
+          948
+        ],
+        "baseline_badge_rmse": 1.2185436487197876,
+        "baseline_badge_margin": 31.063045859336853,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_054.png",
+        "sha256": "7495d6bd421dfb5b9bec7234da9f8581ad89fd3d9081a26df9a79a5882d8550c",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 30,
+        "rect": [
+          1150,
+          913,
+          1158,
+          948
+        ],
+        "baseline_badge_rmse": 0.7977240085601807,
+        "baseline_badge_margin": 33.939821004867554,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_055.png",
+        "sha256": "75a256cd0fe1281cc8637ea8bd9859c6c3dd729cdfb141f127c05c3c7983d933",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 35,
+        "rect": [
+          1150,
+          978,
+          1158,
+          1013
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 34.843082427978516,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_056.png",
+        "sha256": "444262ca3b6adf36f5f2d390e90c42420ae4df7cb89dc9d214346216fe0f27f9",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 39,
+        "rect": [
+          1085,
+          1043,
+          1093,
+          1078
+        ],
+        "baseline_badge_rmse": 2.2270150184631348,
+        "baseline_badge_margin": 30.73883581161499,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_057.png",
+        "sha256": "694341f95644f9ef61928cbc2f0d168c279ba85123f78780c7739049b9f235d0",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 40,
+        "rect": [
+          1150,
+          1043,
+          1158,
+          1078
+        ],
+        "baseline_badge_rmse": 0.9744203090667725,
+        "baseline_badge_margin": 33.67592453956604,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_058.png",
+        "sha256": "d558327ef005cb673a30b1f126dc605eac760fd4874b3ee36395eead6978ed15",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 15,
+        "rect": [
+          1150,
+          718,
+          1158,
+          753
+        ],
+        "baseline_badge_rmse": 0.7784989476203918,
+        "baseline_badge_margin": 34.18222874403,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_059.png",
+        "sha256": "bfb5881fcca9f6afd3fce6ab666462285bfffe81f574f6073d726fdb4ba43d0d",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 18,
+        "rect": [
+          1020,
+          783,
+          1028,
+          818
+        ],
+        "baseline_badge_rmse": 0.34815531969070435,
+        "baseline_badge_margin": 31.110651671886444,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_060.png",
+        "sha256": "bb1d2c0fb49f3a13d71601b27b28e74640ed9018e6c483937662b2dfb4dabc6d",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 20,
+        "rect": [
+          1150,
+          783,
+          1158,
+          818
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 34.796958923339844,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_061.png",
+        "sha256": "a4259e0912f9eda9789a5ed1ca581061c45582462d0711706406f2469c09e666",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 22,
+        "rect": [
+          955,
+          848,
+          963,
+          883
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.336769104003906,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_062.png",
+        "sha256": "71e14fdea8c0eb4d9c7bccc313f4d2ee3d6a611e791a977ce89a148f9d67b50a",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 23,
+        "rect": [
+          1020,
+          848,
+          1028,
+          883
+        ],
+        "baseline_badge_rmse": 0.34815531969070435,
+        "baseline_badge_margin": 31.032210052013397,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_063.png",
+        "sha256": "71a7e4c15004b6874b30a81b41fbf1457221205543eb04c4e3c72485c4fd2fc0",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 25,
+        "rect": [
+          1150,
+          848,
+          1158,
+          883
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 34.884803771972656,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_064.png",
+        "sha256": "6f4834f9c8c5cabc5afae5dad49547f299465bd223b8ab6bbf6402a21b6a7917",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 26,
+        "rect": [
+          890,
+          913,
+          898,
+          948
+        ],
+        "baseline_badge_rmse": 1.537412166595459,
+        "baseline_badge_margin": 34.68873071670532,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_065.png",
+        "sha256": "4b59df52170b715defb7492662c4d64b02834b3c45816f92412815fea7d004a6",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 29,
+        "rect": [
+          1085,
+          913,
+          1093,
+          948
+        ],
+        "baseline_badge_rmse": 1.0298572778701782,
+        "baseline_badge_margin": 31.934154868125916,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_066.png",
+        "sha256": "84185c05c961244d1e97963722519fa9614ea6f682c4a25c54958c2186c7c889",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 30,
+        "rect": [
+          1150,
+          913,
+          1158,
+          948
+        ],
+        "baseline_badge_rmse": 11.067743301391602,
+        "baseline_badge_margin": 25.407236099243164,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_067.png",
+        "sha256": "8cbedfb07a00366b405ec6c7629be7088525dfd0dd0c6f69bdf90249981aabb7",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 32,
+        "rect": [
+          955,
+          978,
+          963,
+          1013
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.209068298339844,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_068.png",
+        "sha256": "57d520b43965c4afde74d406fe3966b10375630d54412d96ca5ed48cf75685c8",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 33,
+        "rect": [
+          1020,
+          978,
+          1028,
+          1013
+        ],
+        "baseline_badge_rmse": 2.025095224380493,
+        "baseline_badge_margin": 29.15829825401306,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_069.png",
+        "sha256": "b234dff04229d58d8caa7cf1589cd27f61dd4a702060b2aa4b7c93d2b06fe58d",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 34,
+        "rect": [
+          1085,
+          978,
+          1093,
+          1013
+        ],
+        "baseline_badge_rmse": 1.5634719133377075,
+        "baseline_badge_margin": 31.43346869945526,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_070.png",
+        "sha256": "0d9f35a6baf5a7cf15d1d20248e89d73903de029e6003fa6c566100151c55cb3",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 35,
+        "rect": [
+          1150,
+          978,
+          1158,
+          1013
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 34.843082427978516,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_071.png",
+        "sha256": "dfd214e2efb0c3e3cf4f1eff8f66aa36ac5227c66f9129dc3dbf1498fb42d412",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 36,
+        "rect": [
+          890,
+          1043,
+          898,
+          1078
+        ],
+        "baseline_badge_rmse": 3.2844905853271484,
+        "baseline_badge_margin": 33.19118309020996,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_072.png",
+        "sha256": "f98581f05f9cd381f1ec70c545f2d6cb9a5d41136b217ac2871823c6f4c7865d",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 3,
+        "rect": [
+          1020,
+          588,
+          1028,
+          623
+        ],
+        "baseline_badge_rmse": 0.3333333432674408,
+        "baseline_badge_margin": 31.400406509637833,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_073.png",
+        "sha256": "d1224f98c05ead1ce96de45c2a92d3ae77d2f406d8f34dff9df255c7ae2e6f9c",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 4,
+        "rect": [
+          1085,
+          588,
+          1093,
+          623
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.74140930175781,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_074.png",
+        "sha256": "6b33382a55a4893fa0409c59289decc2fd7e93ec56640f9ec3263c28e4c7b9dc",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 5,
+        "rect": [
+          1150,
+          588,
+          1158,
+          623
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 34.950904846191406,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_075.png",
+        "sha256": "08787309d161210954b7114d6a4bad850e4e842bf31c2eeacd440a33366b5893",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 7,
+        "rect": [
+          955,
+          653,
+          963,
+          688
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.51743698120117,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_076.png",
+        "sha256": "65786b2485b6846a3a27b315b451eed6fe361b906bd78699a8523471f9c07c07",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 11,
+        "rect": [
+          890,
+          718,
+          898,
+          753
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 35.8453483581543,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_077.png",
+        "sha256": "9a9eb18361351d8b8b6c1781439aefb2cad6e2d35b5dea7082bd1221bbd513d2",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 12,
+        "rect": [
+          955,
+          718,
+          963,
+          753
+        ],
+        "baseline_badge_rmse": 1.1849220991134644,
+        "baseline_badge_margin": 31.27390968799591,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_078.png",
+        "sha256": "12ca68fac37c3f1caf78a196bbe3f5d655a0ea9a4258f542cfedc1f10b2dccf5",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 14,
+        "rect": [
+          1085,
+          718,
+          1093,
+          753
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.85105514526367,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_079.png",
+        "sha256": "fe97ab4632aeec6641d9e0198afe920ca7eeaa4a0e1982b8eadd65530919c443",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 15,
+        "rect": [
+          1150,
+          718,
+          1158,
+          753
+        ],
+        "baseline_badge_rmse": 1.7115176916122437,
+        "baseline_badge_margin": 34.43954050540924,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_080.png",
+        "sha256": "d5335bf94f04a840cd8eaf9890f06fe845c5f10e910464e0797bd2eade41caa3",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 18,
+        "rect": [
+          1020,
+          783,
+          1028,
+          818
+        ],
+        "baseline_badge_rmse": 0.34815531969070435,
+        "baseline_badge_margin": 31.110651671886444,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_081.png",
+        "sha256": "f8eb006df9572977fc898c0f420ad415a07e2f91e9e602264fe7d9df54a0f383",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 19,
+        "rect": [
+          1085,
+          783,
+          1093,
+          818
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.85720443725586,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_082.png",
+        "sha256": "9b23a5af0b0621452f89ba94dcfe06ffcff7804081082ae764556ec82b590ef3",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 20,
+        "rect": [
+          1150,
+          783,
+          1158,
+          818
+        ],
+        "baseline_badge_rmse": 8.145148277282715,
+        "baseline_badge_margin": 28.417927742004395,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_083.png",
+        "sha256": "bb03c0445697f838b12ab56e0dabbd26c2ad0a8b7d2e203d1433f2ff266464a8",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 22,
+        "rect": [
+          955,
+          848,
+          963,
+          883
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.336769104003906,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_084.png",
+        "sha256": "763e018f0a98442c290053e57a5d187b7f55254fc7aad120af864c9cd07cd5bc",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 23,
+        "rect": [
+          1020,
+          848,
+          1028,
+          883
+        ],
+        "baseline_badge_rmse": 0.34815531969070435,
+        "baseline_badge_margin": 31.032210052013397,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_085.png",
+        "sha256": "cd29845f41b2bd2007691567df2f401cad35715c37afded82cf5c96572a12915",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 24,
+        "rect": [
+          1085,
+          848,
+          1093,
+          883
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.963863372802734,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_086.png",
+        "sha256": "2a827403de1107c4314d21056e2c25f797cdf7f1ad5c807ce09d899eaa1bc6eb",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 26,
+        "rect": [
+          890,
+          913,
+          898,
+          948
+        ],
+        "baseline_badge_rmse": 1.537412166595459,
+        "baseline_badge_margin": 34.68873071670532,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_087.png",
+        "sha256": "90348abefa6e7b0b59ee1fb03eedeb1a7c8d4c871e1d08d1b5f02b0b84a264cc",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "e17d2b8f543c2065e159edb2716e531c3e54096b49285c82efd204012b2c1511",
+        "inventory_cell": 1,
+        "rect": [
+          890,
+          588,
+          898,
+          623
+        ],
+        "baseline_badge_rmse": 1.537412166595459,
+        "baseline_badge_margin": 34.057249546051025,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_088.png",
+        "sha256": "93a355559da9feb4e83beb5da042956ddd06327293eeb4399608f349450a1b9c",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "e17d2b8f543c2065e159edb2716e531c3e54096b49285c82efd204012b2c1511",
+        "inventory_cell": 3,
+        "rect": [
+          1020,
+          588,
+          1028,
+          623
+        ],
+        "baseline_badge_rmse": 0.3333333432674408,
+        "baseline_badge_margin": 31.400406509637833,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_089.png",
+        "sha256": "587809b1c73d3e77dce458ad404a82d82338b5653c30e53ca8aa378108cfb84a",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "e17d2b8f543c2065e159edb2716e531c3e54096b49285c82efd204012b2c1511",
+        "inventory_cell": 4,
+        "rect": [
+          1085,
+          588,
+          1093,
+          623
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.74140930175781,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_090.png",
+        "sha256": "de042f3b38f514bc39da0c9d7d9157d96f556f9bc3f44b5c86b76ff08510bff7",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "e17d2b8f543c2065e159edb2716e531c3e54096b49285c82efd204012b2c1511",
+        "inventory_cell": 20,
+        "rect": [
+          1150,
+          783,
+          1158,
+          818
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 34.796958923339844,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_091.png",
+        "sha256": "c3523dadbbe658b5c1c8abdd2566f00c7809ccdbce8dc47c1daaaf58d4b372e2",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "e17d2b8f543c2065e159edb2716e531c3e54096b49285c82efd204012b2c1511",
+        "inventory_cell": 21,
+        "rect": [
+          890,
+          848,
+          898,
+          883
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 36.09513473510742,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_092.png",
+        "sha256": "4ef167493ae31407d033c742fb2adcba08fae75b2e07dd5c12c660f017d0ee5f",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "e17d2b8f543c2065e159edb2716e531c3e54096b49285c82efd204012b2c1511",
+        "inventory_cell": 22,
+        "rect": [
+          955,
+          848,
+          963,
+          883
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 32.336769104003906,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_093.png",
+        "sha256": "2f4a91d75c54aacc2b3e4d4f43b514a471e3f5f96d8d6facec257cf589b8d77b",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "e17d2b8f543c2065e159edb2716e531c3e54096b49285c82efd204012b2c1511",
+        "inventory_cell": 25,
+        "rect": [
+          1150,
+          848,
+          1158,
+          883
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 34.884803771972656,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_094.png",
+        "sha256": "f649fd6c187ec8101ee4cf9e5a5704292fe5aaa74099e7c802e47c1544b20ffa",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "e17d2b8f543c2065e159edb2716e531c3e54096b49285c82efd204012b2c1511",
+        "inventory_cell": 26,
+        "rect": [
+          890,
+          913,
+          898,
+          948
+        ],
+        "baseline_badge_rmse": 1.537412166595459,
+        "baseline_badge_margin": 34.68873071670532,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T2_095.png",
+        "sha256": "369b878d59eae574bde43c53da378371a57f37dd40e579118722a4109b1d5011",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "e17d2b8f543c2065e159edb2716e531c3e54096b49285c82efd204012b2c1511",
+        "inventory_cell": 28,
+        "rect": [
+          1020,
+          913,
+          1028,
+          948
+        ],
+        "baseline_badge_rmse": 1.3521400690078735,
+        "baseline_badge_margin": 29.92682683467865,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      }
+    ],
+    "1": [
+      {
+        "image": "adaptive_tier_T1_001.png",
+        "sha256": "41a914eca254a5188cac90f9127f6ace245597fe58f33aa12d708a1d99cb99ef",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 27,
+        "rect": [
+          955,
+          913,
+          963,
+          948
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 36.360984802246094,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_002.png",
+        "sha256": "74cbe40a0e05d8cd329b620933e1083ebd817411e61dffa3c4c5a554258d356d",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 28,
+        "rect": [
+          1020,
+          913,
+          1028,
+          948
+        ],
+        "baseline_badge_rmse": 0.5318160057067871,
+        "baseline_badge_margin": 31.645880222320557,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_003.png",
+        "sha256": "dae50647a94deca5c0180a2689847fefa91cc615a2a91f1899b69211e5105d0d",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "2d84889622b7b42a95428cefcc9d3917b2b77feb8fea1532c2c17458d2309746",
+        "inventory_cell": 29,
+        "rect": [
+          1085,
+          913,
+          1093,
+          948
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 31.191814422607422,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_004.png",
+        "sha256": "b4e2216c6a691ebc7f2c3a50245b9b8a6b8676cc58354ac32b46d37855fa4b47",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 32,
+        "rect": [
+          955,
+          978,
+          963,
+          1013
+        ],
+        "baseline_badge_rmse": 0.22473327815532684,
+        "baseline_badge_margin": 36.16457565128803,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_005.png",
+        "sha256": "710fbb4b8d63ccd90ca2807eb5e194793a8579dee1bce8a659e9ce10cba08366",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 33,
+        "rect": [
+          1020,
+          978,
+          1028,
+          1013
+        ],
+        "baseline_badge_rmse": 0.5412294268608093,
+        "baseline_badge_margin": 31.677089512348175,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_006.png",
+        "sha256": "59ca4580ec8ec838d859ff845548bc2639f0a3a57c8c72ec84f7106f950256bd",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 34,
+        "rect": [
+          1085,
+          978,
+          1093,
+          1013
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 31.272506713867188,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_007.png",
+        "sha256": "66bf48ca2f494ac8d09d37dd73c991a14c455fc3f78089f707cf3a2fa8657688",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 36,
+        "rect": [
+          890,
+          1043,
+          898,
+          1078
+        ],
+        "baseline_badge_rmse": 0.24618299305438995,
+        "baseline_badge_margin": 35.50901643931866,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_008.png",
+        "sha256": "ab6abbc53b6b55a60a1677a0f724a1ed9f92655102b3a2b8a77475a5e7dcb96f",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "948ae74dbc20564e30a3300824e45652bbee8bab44e6e6121dc449311258a2d2",
+        "inventory_cell": 37,
+        "rect": [
+          955,
+          1043,
+          963,
+          1078
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 36.405818939208984,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_009.png",
+        "sha256": "615b42f3206b793f3820086875659c48f2caa80a7a3b8fc867a784e51bddf660",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 6,
+        "rect": [
+          890,
+          653,
+          898,
+          688
+        ],
+        "baseline_badge_rmse": 3.1430540084838867,
+        "baseline_badge_margin": 33.00045871734619,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_010.png",
+        "sha256": "8b118aa76b5791169a4f14a0a7570c6aeb66fbaaf679ff4ea11ece67bcd7c78e",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 37,
+        "rect": [
+          955,
+          1043,
+          963,
+          1078
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 36.405818939208984,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_011.png",
+        "sha256": "177a274d4b2b292be312bab4a7a8a5d85efc5574a07a3aff7b5bdd319a8f6ee8",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 38,
+        "rect": [
+          1020,
+          1043,
+          1028,
+          1078
+        ],
+        "baseline_badge_rmse": 0.5412294268608093,
+        "baseline_badge_margin": 31.695113956928253,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_012.png",
+        "sha256": "36a5ab1f81697e9227634a3a6205bebe10d3d1bbe7e4fdbad7b07bb299916266",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 39,
+        "rect": [
+          1085,
+          1043,
+          1093,
+          1078
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 31.35540771484375,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_013.png",
+        "sha256": "1521201a23acca5524d8b112770ec5081d65a976fec0816f60773531f9ec1448",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 40,
+        "rect": [
+          1150,
+          1043,
+          1158,
+          1078
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 34.146297454833984,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_014.png",
+        "sha256": "9a75f84859fda2029e1283de83262ea775b92f445d839124cab636fd49a589f2",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 1,
+        "rect": [
+          890,
+          588,
+          898,
+          623
+        ],
+        "baseline_badge_rmse": 3.4141712188720703,
+        "baseline_badge_margin": 32.832319259643555,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_015.png",
+        "sha256": "c293cf23fb7b31aeb851fe9494b1bde417591413430fdaa35bc7d2565d2159bc",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 2,
+        "rect": [
+          955,
+          588,
+          963,
+          623
+        ],
+        "baseline_badge_rmse": 1.6636335849761963,
+        "baseline_badge_margin": 35.1687753200531,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_016.png",
+        "sha256": "eff8bdd72e59115a06d62cc75c1722a7a55e34fe782dca272dc786c1f978f5d3",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 30,
+        "rect": [
+          1150,
+          913,
+          1158,
+          948
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 33.82187271118164,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_017.png",
+        "sha256": "4f48fc8e8fb12e452c052e41963c9d40188220bf3385944d5bafcea8ac4ce74a",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 31,
+        "rect": [
+          890,
+          978,
+          898,
+          1013
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 35.73372268676758,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_018.png",
+        "sha256": "9760cd5b9253d6674bc8615b7572e2f4198229bc9f8bead749f5e99d95c4e144",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 34,
+        "rect": [
+          1085,
+          978,
+          1093,
+          1013
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 31.272506713867188,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_019.png",
+        "sha256": "b185acd29561c56a3e94a9b371390a9b1e6db7b2bf280720e3a5d353fe9f0338",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 35,
+        "rect": [
+          1150,
+          978,
+          1158,
+          1013
+        ],
+        "baseline_badge_rmse": 0.5318160057067871,
+        "baseline_badge_margin": 33.41079568862915,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_020.png",
+        "sha256": "8c6e16ad1e79ad58ae0382c5a6dcff667bab0f0fc3c162e70fb9446bf04fddb0",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 38,
+        "rect": [
+          1020,
+          1043,
+          1028,
+          1078
+        ],
+        "baseline_badge_rmse": 0.5412294268608093,
+        "baseline_badge_margin": 31.695113956928253,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_021.png",
+        "sha256": "752a145370fa4e58bc12395d3d3c0495ef2193597af5aa3a2ffe6ecd33838754",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 39,
+        "rect": [
+          1085,
+          1043,
+          1093,
+          1078
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 31.35540771484375,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_022.png",
+        "sha256": "174ae08e67e7bebbc462f9341485e6c9f7fc9fea1d04611aa7b791ab99310ecc",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "4ece476c147c4c5fcf8ddfb1662028e25dd90b3271b882c68911495d725ff99c",
+        "inventory_cell": 40,
+        "rect": [
+          1150,
+          1043,
+          1158,
+          1078
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 34.146297454833984,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_023.png",
+        "sha256": "8935f617acdc3fffc255e09c2ed2fda03d72086a04d8f1d4f75cf68797f52b2e",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "e17d2b8f543c2065e159edb2716e531c3e54096b49285c82efd204012b2c1511",
+        "inventory_cell": 5,
+        "rect": [
+          1150,
+          588,
+          1158,
+          623
+        ],
+        "baseline_badge_rmse": 2.3333334922790527,
+        "baseline_badge_margin": 30.39959192276001,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T1_024.png",
+        "sha256": "ea61e5f56c4694330697e0ac2cb5915486fb58c2aa7c1e92774baa640f135ff3",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "e17d2b8f543c2065e159edb2716e531c3e54096b49285c82efd204012b2c1511",
+        "inventory_cell": 6,
+        "rect": [
+          890,
+          653,
+          898,
+          688
+        ],
+        "baseline_badge_rmse": 3.1430540084838867,
+        "baseline_badge_margin": 33.00045871734619,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      }
+    ],
+    "6": [
+      {
+        "image": "adaptive_tier_T6_001.png",
+        "sha256": "c6abf9ba9df0ca5e5c3c7b380d18507afc51ba0d0857f5cd8c37eae1a7108a46",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 1,
+        "rect": [
+          890,
+          588,
+          898,
+          623
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 35.20445251464844,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T6_002.png",
+        "sha256": "0034c891384eea08513cf39c2aaa96ab88c4e0fa3cc29d22d4b3cac7b9cf32ae",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 2,
+        "rect": [
+          955,
+          588,
+          963,
+          623
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 38.51314926147461,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      }
+    ],
+    "5": [
+      {
+        "image": "adaptive_tier_T5_001.png",
+        "sha256": "8cf91e5ae73b2e11f643b409fd0ac6dd2e8695e4a415953e89d3fb5e8e8064cf",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 3,
+        "rect": [
+          1020,
+          588,
+          1028,
+          623
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 51.15998077392578,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T5_002.png",
+        "sha256": "e3160c733041737ac7ddff3d2eb6217a3d44c69167c74ee8fafc422dc4e2807c",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 4,
+        "rect": [
+          1085,
+          588,
+          1093,
+          623
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 50.70193862915039,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T5_003.png",
+        "sha256": "5a5d9f4ae429ad86b65042cdec69af02008f1c7a737404f89d1fdcd4f3813263",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "a9813fdf03d89c14ca58ba91fb39f4b8332228da9a7b97128186edeb1debbbe9",
+        "inventory_cell": 5,
+        "rect": [
+          1150,
+          588,
+          1158,
+          623
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 45.5515022277832,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      },
+      {
+        "image": "adaptive_tier_T5_004.png",
+        "sha256": "864da22b9de2a7d4d4f27ae33f4f718caf02dfcb1032843a43799f8c3afcf4af",
+        "source_image": "private-source-withheld.png",
+        "source_sha256": "e17d2b8f543c2065e159edb2716e531c3e54096b49285c82efd204012b2c1511",
+        "inventory_cell": 2,
+        "rect": [
+          955,
+          588,
+          963,
+          623
+        ],
+        "baseline_badge_rmse": 0.0,
+        "baseline_badge_margin": 56.3119010925293,
+        "label_basis": "Unchanged native badge classifier plus user-confirmed tier color map; no new tooltip claim."
+      }
+    ]
+  },
+  "evidence": "Each PNG is an unchanged native 8x35 crop, including neighbor pixels for physical resampling. Source full frames are private and not required resources.",
+  "native_alternate_scales_confirmed": false,
+  "backgrounds": [
+    {
+      "image": "adaptive_tier_background_001.png",
+      "sha256": "5d44f265fd9657c747eda700e10bfbed9082c164dd25c4d5a97affc9e4763364",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "0862a4e46942c4cbe740804aee4245e8b40f505c64ed7944927369e172fb3475",
+      "inventory_cell": 36,
+      "rect": [
+        890,
+        1043,
+        898,
+        1078
+      ],
+      "canonical_empty": true,
+      "canonical_empty_rmse": 1.186079740524292,
+      "label_basis": "Unchanged canonical classifier empty=True in saved native full frame; no item Tier assigned."
+    }
+  ],
+  "supported_model_scale_range": [
+    0.35,
+    1.5
+  ],
+  "physical_border_offsets": {
+    "default_x": [
+      -1,
+      0,
+      1
+    ],
+    "small_single_pixel_x": [
+      -1,
+      0,
+      1,
+      2
+    ],
+    "small_max_scale": 0.5,
+    "small_probe_width": 1,
+    "reason": "Actual Unity native27px cells retain a colored physical stem2px from cell origin. Extra offset samples one border pixel only; larger probes keep the old bound to avoid icon pixels."
+  },
+  "physical_render_phase": {
+    "default_bound": 0.5,
+    "small_bound": 1.0,
+    "small_max_scale": 0.5,
+    "step": 0.25,
+    "reason": "Bounded physical sampling phase for the actual Unity low-scale frame; known neighbor context supplies the resampling halo. RMSE14 and margin5 against allsix tiers and background remain unchanged."
+  }
+}

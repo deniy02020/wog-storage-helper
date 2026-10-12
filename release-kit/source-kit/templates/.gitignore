@@ -1,0 +1,27 @@
+# Local settings and private evidence
+profile/
+data/
+verification/
+diagnostics/
+logs/
+*.log
+*.stderr
+*.bak
+*.pyc
+__pycache__/
+.venv/
+.env
+.env.*
+
+# Generated programs and local packaging work
+build/
+dist/
+releases/
+installer/build/
+installer/dist/
+installer/resources/
+release-kit/source-kit/*-test-tmp/
+release-kit/source-kit/stage-*/
+release-kit/source-kit/*.zip
+release-kit/source-kit/*.json
+!release-kit/source-kit/source-policy.json

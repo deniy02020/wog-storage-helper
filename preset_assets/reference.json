@@ -1,0 +1,1006 @@
+{
+  "schema": 1,
+  "reference_size": [
+    1245,
+    1190
+  ],
+  "source": "Private original reference evidence withheld from this source snapshot.",
+  "coordinate_system": "Half-open pixel rectangles in the cropped reference image; offset inventory and storage independently by their detected headers. Do not assume this image is the full game client.",
+  "inventory": {
+    "rect": [
+      462,
+      105,
+      787,
+      625
+    ],
+    "rows": 8,
+    "columns": 5
+  },
+  "storage": {
+    "rect": [
+      823,
+      166,
+      1223,
+      632
+    ],
+    "rows": 7,
+    "columns": 6
+  },
+  "badge": [
+    1,
+    14,
+    4,
+    25
+  ],
+  "icon_rect": [
+    4,
+    3,
+    60,
+    59
+  ],
+  "mode": "right",
+  "anchors": [
+    {
+      "pane": "inventory",
+      "rect": [
+        34,
+        51,
+        267,
+        92
+      ],
+      "image": "inventory_header.png",
+      "minimum_ncc": 0.95
+    },
+    {
+      "pane": "storage",
+      "rect": [
+        818,
+        52,
+        1018,
+        91
+      ],
+      "image": "storage_header.png",
+      "minimum_ncc": 0.95
+    }
+  ],
+  "tiers": {
+    "3": [
+      "tier_3_cell_00.png",
+      "tier_3_cell_01.png",
+      "tier_3_cell_08.png",
+      "tier_3_native_phase_cell_05_20261011.png",
+      "tier_3_native_phase_cell_08_20261011.png",
+      "tier_3_native_shifted_index_29_20261012.png"
+    ],
+    "2": [
+      "tier_2_cell_02.png",
+      "tier_2_cell_03.png",
+      "tier_2_cell_04.png",
+      "tier_2_cell_05.png",
+      "tier_2_cell_06.png",
+      "tier_2_cell_07.png",
+      "tier_2_cell_09.png",
+      "tier_2_cell_10.png",
+      "tier_2_cell_12.png",
+      "tier_2_cell_13.png",
+      "tier_2_cell_14.png",
+      "tier_2_cell_15.png",
+      "tier_2_cell_16.png",
+      "tier_2_cell_17.png",
+      "tier_2_cell_18.png",
+      "tier_2_cell_19.png",
+      "tier_2_cell_20.png",
+      "tier_2_cell_21.png",
+      "tier_2_cell_22.png",
+      "tier_2_cell_23.png",
+      "tier_2_cell_24.png",
+      "tier_2_cell_31.png",
+      "tier_2_cell_34.png"
+    ],
+    "1": [
+      "tier_1_cell_11.png",
+      "tier_1_cell_25.png",
+      "tier_1_cell_26.png",
+      "tier_1_cell_27.png",
+      "tier_1_cell_28.png",
+      "tier_1_cell_29.png",
+      "tier_1_cell_30.png",
+      "tier_1_cell_32.png",
+      "tier_1_cell_33.png",
+      "tier_1_cell_36.png",
+      "tier_1_cell_37.png",
+      "tier_1_cell_38.png",
+      "tier_1_cell_39.png",
+      "tier_1_native_shifted_index_29_20261012.png",
+      "tier_1_native_shifted_index_14_phase_01_20261012.png"
+    ],
+    "4": [
+      "tier_4_native_phase_cell_03_20261011.png",
+      "tier_4_native_phase_cell_04_20261011.png",
+      "tier_4_native_bag_cell_10_20261011.png"
+    ],
+    "6": [
+      "tier_6_native_bag_cell_01_20261011.png",
+      "tier_6_native_bag_cell_02_20261011.png",
+      "tier_6_native_shifted_index_13_20261012.png"
+    ],
+    "5": [
+      "tier_5_native_bag_cell_03_20261011.png",
+      "tier_5_native_bag_cell_04_20261011.png",
+      "tier_5_native_bag_cell_05_20261011.png",
+      "tier_5_native_compaction_cell_02_20261011.png",
+      "tier_5_native_shifted_index_14_20261012.png"
+    ]
+  },
+  "provisional_equipped_tiers": {
+    "4": [
+      "tier_5_equipped_0.png",
+      "tier_5_equipped_1.png",
+      "tier_5_equipped_2.png",
+      "tier_5_equipped_3.png"
+    ],
+    "5": [
+      "tier_4_equipped_0.png",
+      "tier_4_equipped_1.png",
+      "tier_4_equipped_2.png"
+    ]
+  },
+  "enabled_reference_tiers": [
+    3
+  ],
+  "inventory_empty": [
+    "inventory_empty.png",
+    "inventory_empty_native_complete_index_36_20261012.png"
+  ],
+  "storage_empty": [
+    "storage_empty_cell_00.png",
+    "storage_empty_cell_01.png",
+    "storage_empty_cell_02.png",
+    "storage_empty_cell_03.png",
+    "storage_empty_cell_04.png",
+    "storage_empty_cell_05.png",
+    "storage_empty_cell_06.png",
+    "storage_empty_cell_07.png",
+    "storage_empty_cell_08.png",
+    "storage_empty_cell_09.png",
+    "storage_empty_cell_10.png",
+    "storage_empty_cell_11.png",
+    "storage_empty_cell_12.png",
+    "storage_empty_cell_13.png",
+    "storage_empty_cell_14.png",
+    "storage_empty_cell_15.png",
+    "storage_empty_cell_16.png",
+    "storage_empty_cell_17.png",
+    "storage_empty_cell_18.png",
+    "storage_empty_cell_19.png",
+    "storage_empty_cell_20.png",
+    "storage_empty_cell_21.png",
+    "storage_empty_cell_22.png",
+    "storage_empty_cell_23.png",
+    "storage_empty_cell_24.png",
+    "storage_empty_cell_25.png",
+    "storage_empty_cell_26.png",
+    "storage_empty_cell_27.png",
+    "storage_empty_cell_28.png",
+    "storage_empty_cell_29.png",
+    "storage_empty_cell_30.png",
+    "storage_empty_cell_31.png",
+    "storage_empty_cell_32.png",
+    "storage_empty_cell_33.png",
+    "storage_empty_cell_34.png",
+    "storage_empty_cell_35.png",
+    "storage_empty_cell_36.png",
+    "storage_empty_cell_37.png",
+    "storage_empty_cell_38.png",
+    "storage_empty_cell_39.png",
+    "storage_empty_cell_40.png",
+    "storage_empty_cell_41.png"
+  ],
+  "pages": [
+    {
+      "id": 1,
+      "button_rect": [
+        818,
+        109,
+        867,
+        146
+      ],
+      "point": [
+        841,
+        127
+      ],
+      "marker_rect": [
+        824,
+        116,
+        830,
+        136
+      ],
+      "button": [
+        841,
+        127
+      ],
+      "marker": [
+        824,
+        116,
+        830,
+        136
+      ]
+    },
+    {
+      "id": 2,
+      "button_rect": [
+        868,
+        109,
+        918,
+        146
+      ],
+      "point": [
+        893,
+        127
+      ],
+      "marker_rect": [
+        874,
+        116,
+        880,
+        136
+      ],
+      "button": [
+        893,
+        127
+      ],
+      "marker": [
+        874,
+        116,
+        880,
+        136
+      ]
+    },
+    {
+      "id": 3,
+      "button_rect": [
+        920,
+        109,
+        969,
+        146
+      ],
+      "point": [
+        945,
+        127
+      ],
+      "marker_rect": [
+        926,
+        116,
+        932,
+        136
+      ],
+      "button": [
+        945,
+        127
+      ],
+      "marker": [
+        926,
+        116,
+        932,
+        136
+      ]
+    },
+    {
+      "id": 4,
+      "button_rect": [
+        970,
+        109,
+        1020,
+        146
+      ],
+      "point": [
+        995,
+        127
+      ],
+      "marker_rect": [
+        976,
+        116,
+        982,
+        136
+      ],
+      "button": [
+        995,
+        127
+      ],
+      "marker": [
+        976,
+        116,
+        982,
+        136
+      ]
+    }
+  ],
+  "page_active_sample": "page_active.png",
+  "page_inactive_sample": "page_inactive.png",
+  "page_marker_size": [
+    6,
+    20
+  ],
+  "known_labels": {
+    "inventory_tier3_equipment_indices": [
+      0,
+      1,
+      8
+    ],
+    "inventory_empty_indices": [
+      35
+    ],
+    "inventory_material_indices": [
+      21,
+      22,
+      23,
+      24,
+      28
+    ],
+    "storage_empty_count": 42
+  },
+  "limitations": [
+    "Historical T4 red and T5 purple equipped-item samples were confirmed by the user and earlier live tooltips; filenames retain their historical names. Actual native bag-frame variants are listed separately in native_frame_phase_provenance and native_bag_tier_samples. Recognition on saved images does not itself prove transfer.",
+    "The icon_rect field is only a candidate geometry; the existing raw-artwork matcher did not recognize the known equipment on this screenshot. Equipment matching must be validated independently before automatic transfer.",
+    "T6 yellow/gold native bag-frame samples were added on 2026-10-11 according to the user-confirmed color map. The saved tooltip Tier text is unreadable; no tooltip Tier 6 confirmation or native T6 transfer is claimed. A new supervised transfer is required."
+  ],
+  "active_page_image": "page_active.png",
+  "inactive_page_image": "page_inactive.png",
+  "sort_button": {
+    "rect": [
+      738,
+      635,
+      779,
+      685
+    ],
+    "image": "sort_button_static.png"
+  },
+  "tier_color_map": {
+    "1": "grey",
+    "2": "green",
+    "3": "blue",
+    "4": "red",
+    "5": "purple",
+    "6": "yellow"
+  },
+  "tier_color_map_source": "User confirmed actual game Tier colors on 2026-10-11; red Tier 4 and purple Tier 5 also observed in live tooltips.",
+  "equipment_label_samples": [
+    "equipment_label_native_red_20261011.png",
+    "equipment_label_native_yellow_20261011.png",
+    "equipment_label_native_phase_cell_02_20261011.png",
+    "equipment_label_native_phase_cell_03_20261011.png",
+    "equipment_label_native_phase_cell_04_20261011.png",
+    "equipment_label_native_phase_cell_05_20261011.png",
+    "equipment_label_native_phase_cell_06_20261011.png",
+    "equipment_label_native_phase_cell_07_20261011.png",
+    "equipment_label_native_phase_cell_08_20261011.png",
+    "equipment_label_native_phase_cell_09_20261011.png",
+    "equipment_label_native_phase_cell_10_20261011.png",
+    "equipment_label_native_phase_cell_11_20261011.png",
+    "equipment_label_native_phase_cell_12_20261011.png",
+    "equipment_label_native_phase_cell_13_20261011.png",
+    "equipment_label_native_phase_cell_14_20261011.png",
+    "equipment_label_native_phase_cell_15_20261011.png",
+    "equipment_label_native_phase_cell_16_20261011.png",
+    "equipment_label_native_phase_cell_17_20261011.png",
+    "equipment_label_native_ring_yellow_20261011.png"
+  ],
+  "equipment_label_provenance": {
+    "source_image": "private-source-withheld.png",
+    "source_date": "2026-10-11",
+    "coordinate_system": "native full-client half-open pixels",
+    "samples": [
+      {
+        "image": "equipment_label_native_red_20261011.png",
+        "rect": [
+          907,
+          757,
+          930,
+          772
+        ],
+        "inventory_cell": 11,
+        "contents": "Lv. letters and outline only; level digits excluded"
+      },
+      {
+        "image": "equipment_label_native_yellow_20261011.png",
+        "rect": [
+          1101,
+          757,
+          1123,
+          772
+        ],
+        "inventory_cell": 14,
+        "contents": "Lv. letters and outline only; level digits excluded"
+      }
+    ],
+    "thresholds_unchanged": {
+      "max_rmse": 15.0,
+      "min_similarity": 0.9
+    },
+    "native_phase_source_image": "private-source-withheld.png",
+    "native_phase_samples": [
+      {
+        "image": "equipment_label_native_phase_cell_02_20261011.png",
+        "rect": [
+          972,
+          628,
+          991,
+          643
+        ],
+        "inventory_cell": 2,
+        "contents": "L and v letters with outline; conservatively truncated before level digits",
+        "label_color": "yellow"
+      },
+      {
+        "image": "equipment_label_native_phase_cell_03_20261011.png",
+        "rect": [
+          1037,
+          628,
+          1056,
+          643
+        ],
+        "inventory_cell": 3,
+        "contents": "L and v letters with outline; conservatively truncated before level digits",
+        "label_color": "yellow"
+      },
+      {
+        "image": "equipment_label_native_phase_cell_04_20261011.png",
+        "rect": [
+          1100,
+          628,
+          1120,
+          643
+        ],
+        "inventory_cell": 4,
+        "contents": "L and v letters with outline; conservatively truncated before level digits",
+        "label_color": "red"
+      },
+      {
+        "image": "equipment_label_native_phase_cell_05_20261011.png",
+        "rect": [
+          1165,
+          628,
+          1185,
+          643
+        ],
+        "inventory_cell": 5,
+        "contents": "L and v letters with outline; conservatively truncated before level digits",
+        "label_color": "red"
+      },
+      {
+        "image": "equipment_label_native_phase_cell_06_20261011.png",
+        "rect": [
+          907,
+          693,
+          927,
+          708
+        ],
+        "inventory_cell": 6,
+        "contents": "L and v letters with outline; conservatively truncated before level digits",
+        "label_color": "red"
+      },
+      {
+        "image": "equipment_label_native_phase_cell_07_20261011.png",
+        "rect": [
+          971,
+          693,
+          991,
+          708
+        ],
+        "inventory_cell": 7,
+        "contents": "L and v letters with outline; conservatively truncated before level digits",
+        "label_color": "red"
+      },
+      {
+        "image": "equipment_label_native_phase_cell_08_20261011.png",
+        "rect": [
+          1036,
+          693,
+          1056,
+          708
+        ],
+        "inventory_cell": 8,
+        "contents": "L and v letters with outline; conservatively truncated before level digits",
+        "label_color": "red"
+      },
+      {
+        "image": "equipment_label_native_phase_cell_09_20261011.png",
+        "rect": [
+          1100,
+          693,
+          1120,
+          708
+        ],
+        "inventory_cell": 9,
+        "contents": "L and v letters with outline; conservatively truncated before level digits",
+        "label_color": "red"
+      },
+      {
+        "image": "equipment_label_native_phase_cell_10_20261011.png",
+        "rect": [
+          1165,
+          693,
+          1185,
+          708
+        ],
+        "inventory_cell": 10,
+        "contents": "L and v letters with outline; conservatively truncated before level digits",
+        "label_color": "red"
+      },
+      {
+        "image": "equipment_label_native_phase_cell_11_20261011.png",
+        "rect": [
+          907,
+          757,
+          927,
+          772
+        ],
+        "inventory_cell": 11,
+        "contents": "L and v letters with outline; conservatively truncated before level digits",
+        "label_color": "red"
+      },
+      {
+        "image": "equipment_label_native_phase_cell_12_20261011.png",
+        "rect": [
+          972,
+          757,
+          991,
+          772
+        ],
+        "inventory_cell": 12,
+        "contents": "L and v letters with outline; conservatively truncated before level digits",
+        "label_color": "yellow"
+      },
+      {
+        "image": "equipment_label_native_phase_cell_13_20261011.png",
+        "rect": [
+          1037,
+          757,
+          1056,
+          772
+        ],
+        "inventory_cell": 13,
+        "contents": "L and v letters with outline; conservatively truncated before level digits",
+        "label_color": "yellow"
+      },
+      {
+        "image": "equipment_label_native_phase_cell_14_20261011.png",
+        "rect": [
+          1101,
+          757,
+          1120,
+          772
+        ],
+        "inventory_cell": 14,
+        "contents": "L and v letters with outline; conservatively truncated before level digits",
+        "label_color": "yellow"
+      },
+      {
+        "image": "equipment_label_native_phase_cell_15_20261011.png",
+        "rect": [
+          1165,
+          757,
+          1184,
+          772
+        ],
+        "inventory_cell": 15,
+        "contents": "L and v letters with outline; conservatively truncated before level digits",
+        "label_color": "yellow"
+      },
+      {
+        "image": "equipment_label_native_phase_cell_16_20261011.png",
+        "rect": [
+          908,
+          822,
+          927,
+          837
+        ],
+        "inventory_cell": 16,
+        "contents": "L and v letters with outline; conservatively truncated before level digits",
+        "label_color": "yellow"
+      },
+      {
+        "image": "equipment_label_native_phase_cell_17_20261011.png",
+        "rect": [
+          972,
+          822,
+          991,
+          837
+        ],
+        "inventory_cell": 17,
+        "contents": "L and v letters with outline; conservatively truncated before level digits",
+        "label_color": "yellow"
+      }
+    ],
+    "ring_sample": {
+      "image": "equipment_label_native_ring_yellow_20261011.png",
+      "source_image": "private-source-withheld.png",
+      "inventory_cell": 1,
+      "rect": [
+        907,
+        628,
+        930,
+        643
+      ],
+      "size": [
+        23,
+        15
+      ],
+      "contents": "Full yellow Lv. letters with one-pixel outline padding; first level digit begins at native x930 and is excluded",
+      "game_tier_confirmed": 3,
+      "game_tier_source": "Private native tooltip evidence; original diagnostic filename withheld."
+    }
+  },
+  "native_frame_phase_provenance": {
+    "source_image": "private-source-withheld.png",
+    "inventory_cells_by_tier": {
+      "3": [
+        5,
+        8
+      ],
+      "4": [
+        3,
+        4
+      ]
+    },
+    "contents": "Exact current unhovered left-frame samples; no geometry or threshold changes"
+  },
+  "panel_controls": {
+    "inventory_open": [
+      {
+        "image": "panel_menu_open.png",
+        "max_rmse": 20
+      }
+    ],
+    "storage_open": {
+      "image": "panel_storage_open.png"
+    }
+  },
+  "native_bag_tier_samples": [
+    {
+      "image": "tier_6_native_bag_cell_01_20261011.png",
+      "tier": 6,
+      "color": "yellow/gold",
+      "inventory_index": 0,
+      "inventory_cell": 1,
+      "source_image": "private-source-withheld.png",
+      "rect": [
+        891,
+        602,
+        894,
+        613
+      ],
+      "label_basis": "User-confirmed Tier color map and visible unhovered native bag frame.",
+      "tooltip_tier_confirmed_for_this_sample": false
+    },
+    {
+      "image": "tier_6_native_bag_cell_02_20261011.png",
+      "tier": 6,
+      "color": "yellow/gold",
+      "inventory_index": 1,
+      "inventory_cell": 2,
+      "source_image": "private-source-withheld.png",
+      "rect": [
+        956,
+        602,
+        959,
+        613
+      ],
+      "label_basis": "User-confirmed Tier color map and visible unhovered native bag frame.",
+      "tooltip_tier_confirmed_for_this_sample": false
+    },
+    {
+      "image": "tier_5_native_bag_cell_03_20261011.png",
+      "tier": 5,
+      "color": "purple",
+      "inventory_index": 2,
+      "inventory_cell": 3,
+      "source_image": "private-source-withheld.png",
+      "rect": [
+        1021,
+        602,
+        1024,
+        613
+      ],
+      "label_basis": "User-confirmed Tier color map and visible unhovered native bag frame.",
+      "tooltip_tier_confirmed_for_this_sample": false
+    },
+    {
+      "image": "tier_5_native_bag_cell_04_20261011.png",
+      "tier": 5,
+      "color": "purple",
+      "inventory_index": 3,
+      "inventory_cell": 4,
+      "source_image": "private-source-withheld.png",
+      "rect": [
+        1086,
+        602,
+        1089,
+        613
+      ],
+      "label_basis": "User-confirmed Tier color map and visible unhovered native bag frame.",
+      "tooltip_tier_confirmed_for_this_sample": false
+    },
+    {
+      "image": "tier_5_native_bag_cell_05_20261011.png",
+      "tier": 5,
+      "color": "purple",
+      "inventory_index": 4,
+      "inventory_cell": 5,
+      "source_image": "private-source-withheld.png",
+      "rect": [
+        1151,
+        602,
+        1154,
+        613
+      ],
+      "label_basis": "User-confirmed Tier color map and visible unhovered native bag frame.",
+      "tooltip_tier_confirmed_for_this_sample": false
+    },
+    {
+      "image": "tier_4_native_bag_cell_10_20261011.png",
+      "tier": 4,
+      "color": "red",
+      "inventory_index": 9,
+      "inventory_cell": 10,
+      "source_image": "private-source-withheld.png",
+      "rect": [
+        1151,
+        667,
+        1154,
+        678
+      ],
+      "label_basis": "User-confirmed Tier color map and visible unhovered native bag frame.",
+      "tooltip_tier_confirmed_for_this_sample": false
+    },
+    {
+      "image": "tier_5_native_compaction_cell_02_20261011.png",
+      "tier": 5,
+      "color": "purple",
+      "inventory_index": 1,
+      "inventory_cell": 2,
+      "source_image": "private-source-withheld.png",
+      "rect": [
+        956,
+        602,
+        959,
+        613
+      ],
+      "label_basis": "User-confirmed purple=T5 and observed unhovered native bag frame after 17 confirmed T3-T6 transfers.",
+      "tooltip_tier_confirmed_for_this_sample": false,
+      "source_sha256": "e17d2b8f543c2065e159edb2716e531c3e54096b49285c82efd204012b2c1511",
+      "sample_sha256": "71ef6cf7157a4714133fdd2468c5f0223b48d24cbaf6644e39e6b1e590bc8dd3",
+      "previous_model_best_tier": 5,
+      "previous_model_rmse": 25.83592414855957,
+      "calibration_scope": "Exact current 3x11 left-frame variant; unchanged geometry and recognition thresholds."
+    }
+  ],
+  "supplemental_native_tiers": {
+    "schema": 1,
+    "canonical_badge": [
+      1,
+      14,
+      4,
+      25
+    ],
+    "canonical_cell_size": [
+      65,
+      65
+    ],
+    "tiers": {
+      "6": [
+        {
+          "image": "tier_6_native_shifted_index_13_20261012.png",
+          "sha256": "0169e83692711cf64e1668c168545cd9601a5ba242ed966310bcb5300b7ed67b",
+          "rgb_sha256": "a0af0ac48e2b7904f2acbf3b057c25b29495dc9157db1e7644931c97c7458e6d",
+          "source_image": "private-source-withheld.png",
+          "source_file_sha256": "d484f212002f8b940883eed3d04314cf1c1bcc7efb03655fcd327836331763e3",
+          "source_rgb_sha256": "afac9cdbae8aa7ae05a8b07b410dc4b09012299bad007dee4ea9a98c0bce6758",
+          "source_cell_rect": [
+            1085,
+            749,
+            1150,
+            814
+          ],
+          "source_cell_size": [
+            65,
+            65
+          ],
+          "inventory_cell_index": 13,
+          "inventory_index_basis": "zero-based index in the physically visible 7-row by 5-column grid",
+          "normalization": "Convert full source cell to RGB; resize full cell to 65x65 with Pillow BILINEAR only if size differs; crop half-open badge [1,14,4,25].",
+          "tier_basis": "User-confirmed game tier/color mapping: blue=T3, purple=T5, gold/yellow=T6; observed native item frame color.",
+          "tooltip_tier_confirmed_for_this_sample": false
+        }
+      ],
+      "5": [
+        {
+          "image": "tier_5_native_shifted_index_14_20261012.png",
+          "sha256": "31a3bfd529b28498fa1c63c6a8b4d4b062f4c5c9399dcce39e7ee6bc3bec99f7",
+          "rgb_sha256": "c803974f755f4907b055d61523c86ac23b6ca69136a3b2e0c2c1157861ad166b",
+          "source_image": "private-source-withheld.png",
+          "source_file_sha256": "d484f212002f8b940883eed3d04314cf1c1bcc7efb03655fcd327836331763e3",
+          "source_rgb_sha256": "afac9cdbae8aa7ae05a8b07b410dc4b09012299bad007dee4ea9a98c0bce6758",
+          "source_cell_rect": [
+            1150,
+            749,
+            1215,
+            814
+          ],
+          "source_cell_size": [
+            65,
+            65
+          ],
+          "inventory_cell_index": 14,
+          "inventory_index_basis": "zero-based index in the physically visible 7-row by 5-column grid",
+          "normalization": "Convert full source cell to RGB; resize full cell to 65x65 with Pillow BILINEAR only if size differs; crop half-open badge [1,14,4,25].",
+          "tier_basis": "User-confirmed game tier/color mapping: blue=T3, purple=T5, gold/yellow=T6; observed native item frame color.",
+          "tooltip_tier_confirmed_for_this_sample": false
+        }
+      ],
+      "3": [
+        {
+          "image": "tier_3_native_shifted_index_29_20261012.png",
+          "sha256": "b713aa7ab4dc0916146db1d1c71f0f29fadc7e5206cc556ede200d3f355ced65",
+          "rgb_sha256": "0ee669e9ce3dedf7b0e5053326058e93d13b452d6360f5b03ba08e5decaa78f6",
+          "source_image": "private-source-withheld.png",
+          "source_file_sha256": "d484f212002f8b940883eed3d04314cf1c1bcc7efb03655fcd327836331763e3",
+          "source_rgb_sha256": "afac9cdbae8aa7ae05a8b07b410dc4b09012299bad007dee4ea9a98c0bce6758",
+          "source_cell_rect": [
+            1150,
+            943,
+            1215,
+            1007
+          ],
+          "source_cell_size": [
+            65,
+            64
+          ],
+          "inventory_cell_index": 29,
+          "inventory_index_basis": "zero-based index in the physically visible 7-row by 5-column grid",
+          "normalization": "Convert full source cell to RGB; resize full cell to 65x65 with Pillow BILINEAR only if size differs; crop half-open badge [1,14,4,25].",
+          "tier_basis": "User-confirmed game tier/color mapping: blue=T3, purple=T5, gold/yellow=T6; observed native item frame color.",
+          "tooltip_tier_confirmed_for_this_sample": false
+        }
+      ],
+      "1": [
+        {
+          "image": "tier_1_native_shifted_index_29_20261012.png",
+          "sha256": "6e88cee76bf5166ca67213bcd14e25f369d4b651a9a9d4bdad752136dfad3826",
+          "rgb_sha256": "975033465524b42bf63d9b5a3f689f427e2ff706acac82863358b33cc3c11898",
+          "source_image": "private-source-withheld.png",
+          "source_file_sha256": "3c243d36bdb06a34c93b12a6533bb695e78306d94fca6bc4f95c5c475d886acb",
+          "source_rgb_sha256": "50f28f5d3da78786003488657bede0577004d4924bc4ccf344ec929e68b3a195",
+          "source_rgba_sha256": "9671ec1bb9064d6dbb75840892438065734b3794ae7a34eec6b02c99524055c5",
+          "source_image_size": [
+            325,
+            520
+          ],
+          "source_image_basis": "Existing native readback viewport crop, no additional capture or game input.",
+          "source_viewport_client_rect": [
+            890,
+            588,
+            1215,
+            1108
+          ],
+          "source_cell_rect": [
+            260,
+            325,
+            325,
+            390
+          ],
+          "source_cell_size": [
+            65,
+            65
+          ],
+          "source_cell_client_rect": [
+            1150,
+            913,
+            1215,
+            978
+          ],
+          "inventory_cell_index": 29,
+          "inventory_index_basis": "Zero-based index in the original fully visible 8-row by 5-column inventory grid; source_cell_rect is relative to the saved viewport crop.",
+          "normalization": "Convert full source cell to RGB; resize full cell to 65x65 with Pillow BILINEAR only if size differs; crop half-open badge [1,14,4,25]. Actual source cell is 65x65 and was not resized.",
+          "native_observation_utc": "2026-10-12T17:56:43.160786+00:00",
+          "tier_basis": "User-confirmed game tier/color mapping: grey=T1; observed native grey item frame of an occupied belt. This is a negative Tier1 recognition sample; transfer eligibility is unchanged.",
+          "tooltip_tier_confirmed_for_this_sample": false
+        },
+        {
+          "image": "tier_1_native_shifted_index_14_phase_01_20261012.png",
+          "sha256": "864f2b880c3c1e7f0c769073afb63d772f4a7b95d5f2574c4655d40375815022",
+          "rgb_sha256": "c964913b0d3d5523c570ae062767f59f744d3ed3b0abc707cdbc9a9d922bd535",
+          "source_image": "private-source-withheld.png",
+          "source_file_sha256": "d67917d28ed87e506a7c1cfea7bd4b74a22bba3a7024b54524eb5139a6a6d673",
+          "source_rgb_sha256": "b506004287f10ebdc6e307c9bf6b69342eb1611cfc16194d32de392127fe34b7",
+          "source_rgba_sha256": "9feaf1c848340782066ae5f81a3767aab331955d960c385ac2967cc6e36ffd06",
+          "source_image_size": [
+            325,
+            520
+          ],
+          "source_image_basis": "Existing native readback viewport crop, no additional capture or game input.",
+          "source_viewport_client_rect": [
+            890,
+            588,
+            1215,
+            1108
+          ],
+          "source_grid": {
+            "rect": [
+              890,
+              591,
+              1215,
+              1107
+            ],
+            "rows": 8,
+            "columns": 5
+          },
+          "source_cell_rect": [
+            260,
+            132,
+            325,
+            196
+          ],
+          "source_cell_size": [
+            65,
+            64
+          ],
+          "source_cell_client_rect": [
+            1150,
+            720,
+            1215,
+            784
+          ],
+          "inventory_cell_index": 14,
+          "inventory_index_basis": "Zero-based index in the independently measured complete 8-row by 5-column scrolled inventory grid; source_cell_rect is relative to the saved original viewport crop.",
+          "normalization": "Convert full source cell to RGB; resize full 65x64 cell to 65x65 with Pillow BILINEAR; only then crop half-open badge [1,14,4,25].",
+          "native_observation_utc": "2026-10-12T17:56:58.776348+00:00",
+          "tier_basis": "User-confirmed game tier/color mapping: grey=T1; SAME grey belt Lv40 observed on genuine later scrolled rows. This is a negative Tier1 recognition sample; transfer eligibility is unchanged.",
+          "tooltip_tier_confirmed_for_this_sample": false
+        }
+      ]
+    }
+  },
+  "supplemental_native_inventory_empty": {
+    "schema": 1,
+    "canonical_cell_size": [
+      65,
+      65
+    ],
+    "max_empty_rmse_unchanged": 12,
+    "samples": [
+      {
+        "image": "inventory_empty_native_complete_index_36_20261012.png",
+        "sha256": "3172d60dd172459e0df3e7d31635e962d539ea7508f66f132a998456fea2e042",
+        "rgb_sha256": "9a7bacd4efe97da04c91b829c25953ffed718f0d4ffd8e54c7934c0c97a7d02e",
+        "source_image": "private-source-withheld.png",
+        "source_file_sha256": "cc5589d4e602cf8258f2772ca151d863b439d2a9c6ff67355d66b53e680f6c1e",
+        "source_rgb_sha256": "1114ee266f1f0a3b8589e9b772179f2316b823920aeb9945c6b5722a79145008",
+        "source_client_size": [
+          1670,
+          1670
+        ],
+        "source_grid": {
+          "rect": [
+            890,
+            588,
+            1215,
+            1108
+          ],
+          "rows": 8,
+          "columns": 5
+        },
+        "source_cell_index": 36,
+        "source_cell_rect": [
+          955,
+          1043,
+          1020,
+          1108
+        ],
+        "normalization": "None: exact full native65x65 RGB cell; no resize, padding, masking or synthetic pixels.",
+        "observed_contents": "Visibly empty grey inventory cell: no item icon, colored item frame or Lv glyph.",
+        "geometry_evidence": "Both full headers and native8x5 inventory/7x6 storage grids passed unchanged raw RGB/pitch/segment guards.",
+        "private_frame_packaged": false
+      }
+    ]
+  }
+}

@@ -1,0 +1,144 @@
+{
+  "schema": 1,
+  "purpose": "Builtin proved neutral header-bar parking and activation. Caption fingerprint is required; no public configuration or saved coordinates.",
+  "records": [
+    {
+      "id": "inventory_header_parking_native_1670_20261012",
+      "pane": "inventory",
+      "image": "inventory_header_parking_native_1670_20261012.png",
+      "canonical_pixels_sha256": "caa07278b26f8d78594e9fcdd0e91896ed579d5523a352e4ba77403c90a61c89",
+      "canonical_scale": 1.0,
+      "source_anchor_rect": [
+        462,
+        534,
+        695,
+        575
+      ],
+      "source_rect": [
+        840,
+        540,
+        880,
+        568
+      ],
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "a86dd524eecdaa1caf54f058ecc9302c9d6704b1cde98d03d5fac9ab13145efd",
+      "sample_sha256": "d3a1962e61eb5e82cd00702251613ebaed263ed905b413692f15798c9ea0ea1e",
+      "basis": "Exact native blank header-bar RGB crop outside caption, grids and controls. No resampling; private full source is not distributed."
+    },
+    {
+      "id": "storage_header_parking_native_1670_20261012",
+      "pane": "storage",
+      "image": "storage_header_parking_native_1670_20261012.png",
+      "canonical_pixels_sha256": "0acd54f4b006872f4fae53cf9a095e94becff09140a0c697bc22f46d33d79fcd",
+      "canonical_scale": 1.0,
+      "source_anchor_rect": [
+        1246,
+        535,
+        1446,
+        574
+      ],
+      "source_rect": [
+        1580,
+        540,
+        1610,
+        568
+      ],
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "a86dd524eecdaa1caf54f058ecc9302c9d6704b1cde98d03d5fac9ab13145efd",
+      "sample_sha256": "52a278b295b72d1687ed7e1691002e752f22c195d067ec74e9459a79c9864b3b",
+      "basis": "Exact native blank header-bar RGB crop outside caption, grids and controls. No resampling; private full source is not distributed."
+    },
+    {
+      "id": "inventory_header_parking_native_696_20261012",
+      "pane": "inventory",
+      "image": "inventory_header_parking_native_696_20261012.png",
+      "canonical_pixels_sha256": "caa07278b26f8d78594e9fcdd0e91896ed579d5523a352e4ba77403c90a61c89",
+      "canonical_scale": 0.4175,
+      "source_anchor_rect": [
+        193,
+        222,
+        291,
+        240
+      ],
+      "source_rect": [
+        351,
+        225,
+        368,
+        236
+      ],
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "77f51838ee204e3310f0829af7314cb576720fa2fed3f289ba84cd2ba36691c8",
+      "sample_sha256": "222b6c23be031dda4990bab95256603f985b6f94c85c9eb3b35301b23a4ea801",
+      "basis": "Exact native blank header-bar RGB crop outside caption, grids and controls. No resampling; private full source is not distributed."
+    },
+    {
+      "id": "storage_header_parking_native_696_20261012",
+      "pane": "storage",
+      "image": "storage_header_parking_native_696_20261012.png",
+      "canonical_pixels_sha256": "0acd54f4b006872f4fae53cf9a095e94becff09140a0c697bc22f46d33d79fcd",
+      "canonical_scale": 0.4175,
+      "source_anchor_rect": [
+        519,
+        223,
+        603,
+        240
+      ],
+      "source_rect": [
+        658,
+        225,
+        671,
+        237
+      ],
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "77f51838ee204e3310f0829af7314cb576720fa2fed3f289ba84cd2ba36691c8",
+      "sample_sha256": "a85adbe5da1b7ee31e61ca8563d2f388f0dd2e11bc3ca44223bfd725a8fe9a59",
+      "basis": "Exact native blank header-bar RGB crop outside caption, grids and controls. No resampling; private full source is not distributed."
+    },
+    {
+      "id": "inventory_header_parking_native_1182_20261012",
+      "pane": "inventory",
+      "image": "inventory_header_parking_native_1182_20261012.png",
+      "canonical_pixels_sha256": "caa07278b26f8d78594e9fcdd0e91896ed579d5523a352e4ba77403c90a61c89",
+      "canonical_scale": 0.7075,
+      "source_anchor_rect": [
+        327,
+        378,
+        492,
+        407
+      ],
+      "source_rect": [
+        594,
+        382,
+        623,
+        402
+      ],
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "17d77bb4c004bed7ef851318438420190ce9e48e1747483c7eba59dd493ebd20",
+      "sample_sha256": "1c58216f20d352467c4457f3895fc8829596eee2a56aa0cdbf070d58ad53073d",
+      "basis": "Exact native blank header-bar RGB crop outside caption, grids and controls. No resampling; private full source is not distributed."
+    },
+    {
+      "id": "storage_header_parking_native_1182_20261012",
+      "pane": "storage",
+      "image": "storage_header_parking_native_1182_20261012.png",
+      "canonical_pixels_sha256": "0acd54f4b006872f4fae53cf9a095e94becff09140a0c697bc22f46d33d79fcd",
+      "canonical_scale": 0.7075,
+      "source_anchor_rect": [
+        882,
+        379,
+        1024,
+        407
+      ],
+      "source_rect": [
+        1118,
+        383,
+        1140,
+        402
+      ],
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "17d77bb4c004bed7ef851318438420190ce9e48e1747483c7eba59dd493ebd20",
+      "sample_sha256": "a3df249c750202d6f24dc94f8009d8dd3e0e00ae4d9b00484077750baf5bcf14",
+      "basis": "Exact native blank header-bar RGB crop outside caption, grids and controls. No resampling; private full source is not distributed."
+    }
+  ]
+}

@@ -1,0 +1,213 @@
+{
+  "schema": 1,
+  "purpose": "Bounded genuine UI raster variants. Full private captures are not distribution assets. Canonical geometry and RGB thresholds are unchanged.",
+  "headers": [
+    {
+      "id": "inventory_header_native_696_20261012",
+      "image": "inventory_header_native_696_20261012.png",
+      "canonical_image": "inventory_header.png",
+      "pane": "inventory",
+      "canonical_scale": 0.4175,
+      "source_image": "private-source-withheld.png",
+      "source_rect": [
+        193,
+        222,
+        291,
+        240
+      ],
+      "source_anchor_rect": [
+        193,
+        222,
+        291,
+        240
+      ],
+      "source_sha256": "77f51838ee204e3310f0829af7314cb576720fa2fed3f289ba84cd2ba36691c8",
+      "sample_sha256": "2ac2b4e9189c1967468265c7f7c3896778220dbe9901518fa55c5c431085660f",
+      "canonical_pixels_sha256": "caa07278b26f8d78594e9fcdd0e91896ed579d5523a352e4ba77403c90a61c89",
+      "raster_basis": "Exact half-open native RGB crop, no resampling. Slider percentage is not inferred from client dimensions.",
+      "grid_pitch": {
+        "native": [
+          26.95,
+          26.91071428571429
+        ],
+        "canonical_native": [
+          64.7,
+          64.48214285714286
+        ]
+      },
+      "scale_basis": "Independent neutral separator pitch X/Y compared with actual native baseline; header affine bounds pass strict grid evidence before adoption."
+    },
+    {
+      "id": "storage_header_native_696_20261012",
+      "image": "storage_header_native_696_20261012.png",
+      "canonical_image": "storage_header.png",
+      "pane": "storage",
+      "canonical_scale": 0.4175,
+      "source_image": "private-source-withheld.png",
+      "source_rect": [
+        519,
+        223,
+        603,
+        240
+      ],
+      "source_anchor_rect": [
+        519,
+        223,
+        603,
+        240
+      ],
+      "source_sha256": "77f51838ee204e3310f0829af7314cb576720fa2fed3f289ba84cd2ba36691c8",
+      "sample_sha256": "d71f41466354ee9a896e807886ab90a9fe33ef43e9b1ffb5e0afdae0fdddf32e",
+      "canonical_pixels_sha256": "0acd54f4b006872f4fae53cf9a095e94becff09140a0c697bc22f46d33d79fcd",
+      "raster_basis": "Exact half-open native RGB crop, no resampling. Slider percentage is not inferred from client dimensions.",
+      "grid_pitch": {
+        "native": [
+          27.757142857142846,
+          27.696428571428573
+        ],
+        "canonical_native": [
+          66.6142857142857,
+          66.48214285714286
+        ]
+      },
+      "scale_basis": "Independent neutral separator pitch X/Y compared with actual native baseline; header affine bounds pass strict grid evidence before adoption."
+    },
+    {
+      "id": "inventory_header_native_1182_20261012",
+      "image": "inventory_header_native_1182_20261012.png",
+      "canonical_image": "inventory_header.png",
+      "pane": "inventory",
+      "canonical_scale": 0.7075,
+      "source_image": "private-source-withheld.png",
+      "source_rect": [
+        327,
+        378,
+        492,
+        407
+      ],
+      "source_anchor_rect": [
+        327,
+        378,
+        492,
+        407
+      ],
+      "source_sha256": "17d77bb4c004bed7ef851318438420190ce9e48e1747483c7eba59dd493ebd20",
+      "sample_sha256": "a84a9e3b06e1ef23d72658716450ad3e0a27e1f1f618b406ae4d579067227e31",
+      "canonical_pixels_sha256": "caa07278b26f8d78594e9fcdd0e91896ed579d5523a352e4ba77403c90a61c89",
+      "raster_basis": "Exact half-open native RGB crop, no resampling. Slider percentage is not inferred from client dimensions.",
+      "grid_pitch": {
+        "native": [
+          45.75,
+          45.66071428571429
+        ],
+        "canonical_native": [
+          64.7,
+          64.48214285714286
+        ]
+      },
+      "scale_basis": "Independent neutral separator pitch X/Y compared with actual native baseline; header affine bounds pass strict grid evidence before adoption."
+    }
+  ],
+  "controls": [
+    {
+      "id": "sort_button_native_696_20261012",
+      "image": "sort_button_native_696_20261012.png",
+      "canonical_image": "sort_button_static.png",
+      "pane": "inventory",
+      "canonical_scale": 0.4175,
+      "source_image": "private-source-withheld.png",
+      "source_rect": [
+        487,
+        466,
+        504,
+        487
+      ],
+      "source_anchor_rect": [
+        193,
+        222,
+        291,
+        240
+      ],
+      "source_sha256": "77f51838ee204e3310f0829af7314cb576720fa2fed3f289ba84cd2ba36691c8",
+      "sample_sha256": "f0c18c7bc49ff3443609124c84defb001d2d3fc05aaf375c99c891be45c57457",
+      "canonical_pixels_sha256": "141ff263dc7e1d0da39d21c0f06d7b56f3f7ad1cb5933a18cbf9dc205492800b",
+      "raster_basis": "Exact half-open native RGB crop, no resampling. Slider percentage is not inferred from client dimensions.",
+      "purpose": "sort_control"
+    },
+    {
+      "id": "sort_button_native_1182_20261012",
+      "image": "sort_button_native_1182_20261012.png",
+      "canonical_image": "sort_button_static.png",
+      "pane": "inventory",
+      "canonical_scale": 0.7075,
+      "source_image": "private-source-withheld.png",
+      "source_rect": [
+        825,
+        791,
+        854,
+        827
+      ],
+      "source_anchor_rect": [
+        327,
+        378,
+        492,
+        407
+      ],
+      "source_sha256": "17d77bb4c004bed7ef851318438420190ce9e48e1747483c7eba59dd493ebd20",
+      "sample_sha256": "41cef4af5c5179f1f1dfe67eeffeb4f65cac6d00c35953b67a336590518bf4c6",
+      "canonical_pixels_sha256": "141ff263dc7e1d0da39d21c0f06d7b56f3f7ad1cb5933a18cbf9dc205492800b",
+      "raster_basis": "Exact half-open native RGB crop, no resampling. Slider percentage is not inferred from client dimensions.",
+      "purpose": "sort_control"
+    },
+    {
+      "id": "panel_storage_open_native_696_20261012",
+      "image": "panel_storage_open_native_696_20261012.png",
+      "canonical_image": "panel_storage_open.png",
+      "pane": "inventory",
+      "canonical_scale": 0.4175,
+      "source_image": "private-source-withheld.png",
+      "source_rect": [
+        437,
+        498,
+        496,
+        511
+      ],
+      "source_anchor_rect": [
+        193,
+        222,
+        291,
+        240
+      ],
+      "source_sha256": "77f51838ee204e3310f0829af7314cb576720fa2fed3f289ba84cd2ba36691c8",
+      "sample_sha256": "485a57060f0c0788bc503672e227dbde3199e46232895ec60950df709e76acfe",
+      "canonical_pixels_sha256": "8c659ac88dbe45276ad5d5f3f04e3746792f9dfebd34177ff102446759b70be9",
+      "raster_basis": "Exact half-open native RGB crop, no resampling. Slider percentage is not inferred from client dimensions.",
+      "purpose": "opening_control"
+    },
+    {
+      "id": "panel_storage_open_native_1182_20261012",
+      "image": "panel_storage_open_native_1182_20261012.png",
+      "canonical_image": "panel_storage_open.png",
+      "pane": "inventory",
+      "canonical_scale": 0.7075,
+      "source_image": "private-source-withheld.png",
+      "source_rect": [
+        743,
+        846,
+        843,
+        868
+      ],
+      "source_anchor_rect": [
+        327,
+        378,
+        492,
+        407
+      ],
+      "source_sha256": "17d77bb4c004bed7ef851318438420190ce9e48e1747483c7eba59dd493ebd20",
+      "sample_sha256": "64c1c67a8536100d22f1b49c838bdea1c0c8b37913286645b23dbc2a23f16ae1",
+      "canonical_pixels_sha256": "8c659ac88dbe45276ad5d5f3f04e3746792f9dfebd34177ff102446759b70be9",
+      "raster_basis": "Exact half-open native RGB crop, no resampling. Slider percentage is not inferred from client dimensions.",
+      "purpose": "opening_control"
+    }
+  ]
+}
