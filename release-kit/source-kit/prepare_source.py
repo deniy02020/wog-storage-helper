@@ -28,24 +28,27 @@ GENERATED = {MANIFEST, "SOURCE_SHA256SUMS.txt", "PUBLIC_TEST_RESULT.json"}
 MODULES = tuple(("adaptive_tiers app auto_layout autocalibration core dashboard game_identity "
     "gearlabel helper_config i18n input_activity instance inventory_cycle inventory_motion_policy "
     "inventory_samples inventory_scroller inventory_viewport inventory_walk package_release panels "
-    "paths runtime storage_cycle storage_pages supplemental_tiers ui_brand ui_filters ui_journal "
+    "paths runtime release_identity windows_signing storage_cycle storage_pages supplemental_tiers ui_brand ui_filters ui_journal "
     "ui_theme ui_time_picker ui_vault_motion ui_widgets windows").split())
 INSTALLER_MODULES = tuple(("__init__ build core launcher license_resources uninstall_launcher "
     "verify_real_payload windows_integration wizard").split())
 TESTS = tuple(("test_core test_inventory_cycle test_inventory_scroller test_inventory_walk "
     "test_storage_cycle test_i18n test_ui_journal test_runtime_walk_session test_auto_waiting_i18n "
-    "test_runtime_sorted_batches").split())
+    "test_runtime_sorted_batches test_release_identity test_windows_signing installer.test_signing_build ci.test_pipeline").split())
 PUBLIC_TESTS = TESTS + ("test_public_resources",)
-FILES = {*(name + ".py" for name in MODULES), *(name + ".py" for name in TESTS),
+FILES = {*(name + ".py" for name in MODULES), *(name.replace(".", "/") + ".py" for name in TESTS),
     *("installer/" + name + ".py" for name in INSTALLER_MODULES),
     "installer/Setup.spec", "installer/Uninstaller.spec", "installer/strings_ru.json",
     "installer/installer_locales.json", "WoGStorageHelper.spec", "locales.json", "LICENSE", "AUTHORS.md",
     "requirements.txt", "requirements-lock.txt", "requirements-build-lock.txt", "build.bat",
     "build_installer.bat", "install.bat", "run.bat", "run-exe.bat", "selftest.bat",
     "preset_assets/reference.json", "preset_assets/adaptive_tiers.json",
-    "preset_assets/adaptive_ui.json", "preset_assets/header_parking.json"}
-TEMPLATES = {"README.md", "ATTRIBUTION.md", ".gitignore", "docs/STEAM_RELEASE.md",
-    "docs/STATE.md", "preset_assets/CALIBRATION.md", "installer/README.md", "test_public_resources.py"}
+    "preset_assets/adaptive_ui.json", "preset_assets/header_parking.json",
+    "ci/__init__.py", "ci/windows_build.py", "ci/resume_signing.py", "ci/signpath.py", "ci/actions-pins.json",
+    ".github/workflows/windows-build.yml", ".github/workflows/signing-resume.yml"}
+TEMPLATES = {"README.md", "ATTRIBUTION.md", ".gitignore", ".gitattributes", "docs/STEAM_RELEASE.md",
+    "docs/STATE.md", "docs/CODE_SIGNING.md", "docs/SIGNPATH_APPLICATION_DRAFT.md", ".github/SECURITY.md",
+    "preset_assets/CALIBRATION.md", "installer/README.md", "test_public_resources.py"}
 JSON_MODELS = {"preset_assets/reference.json", "preset_assets/adaptive_tiers.json",
     "preset_assets/adaptive_ui.json", "preset_assets/header_parking.json"}
 FORBIDDEN_PARTS = {".git", ".venv", "verification", "diagnostics", "profile", "data", "logs",
@@ -224,7 +227,7 @@ def stage(label):
                         "origin": "sanitized public source-kit template"})
     manifest = {"schema": 1, "version": document["version"], "author": "deniy",
         "created_utc": datetime.now(timezone.utc).isoformat(), "status": "reviewable local source snapshot",
-        "repository_url": None, "public_tests": list(PUBLIC_TESTS),
+        "repository_url": "https://github.com/deniy02020/wog-storage-helper", "public_tests": list(PUBLIC_TESTS),
         "privacy": "No profiles, logs, diagnostics, full game screenshots, binaries or credentials. Original private image filenames are replaced in exported provenance only; source hashes and geometry remain.",
         "code_semantics": "Production Python is byte-exact except one private-source comment; its AST is verified identical. Recognition PNG bytes are unchanged.",
         "images": list(images.values()), "files": sorted(records, key=lambda record: record["path"])}
@@ -296,7 +299,7 @@ suite=unittest.defaultTestLoader.loadTestsFromNames(sys.argv[2:])
 result=unittest.TextTestRunner(verbosity=1).run(suite)
 escaped=[]
 for name,module in tuple(sys.modules.items()):
-    if name.split('.')[0] in set(sys.argv[2:])|set(%r)|{'installer'}:
+    if name.split('.')[0] in {value.split('.')[0] for value in sys.argv[2:]}|set(%r)|{'installer','ci'}:
         filename=getattr(module,'__file__',None)
         if filename and not pathlib.Path(filename).resolve().is_relative_to(root):escaped.append(name)
 report={'tests':result.testsRun,'failures':len(result.failures),'errors':len(result.errors),

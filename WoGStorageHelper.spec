@@ -1,5 +1,6 @@
 # Build on Windows using the pinned project environment; no live user profile.
 from pathlib import Path
+from release_identity import pe_version_info
 
 root = Path(SPECPATH).resolve()
 assets = root / "preset_assets"
@@ -29,5 +30,6 @@ exe = EXE(
     debug=False, bootloader_ignore_signals=False, strip=False, upx=False,
     console=False, disable_windowed_traceback=False, uac_admin=False,
     icon=str(root / "assets" / "wog_storage_helper.ico"),
+    version=pe_version_info("app"),
 )
 coll = COLLECT(exe, a.binaries, a.datas, strip=False, upx=False, name="WoGStorageHelper")

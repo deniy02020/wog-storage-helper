@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "version": "0.2.0-beta.6",
+  "version": "0.2.0-beta.7",
   "author": "deniy",
-  "created_utc": "2026-10-12T18:24:24.668839+00:00",
+  "created_utc": "2026-10-12T19:56:58.109052+00:00",
   "status": "reviewable local source snapshot",
-  "repository_url": null,
+  "repository_url": "https://github.com/deniy02020/wog-storage-helper",
   "public_tests": [
     "test_core",
     "test_inventory_cycle",
@@ -16,6 +16,10 @@
     "test_runtime_walk_session",
     "test_auto_waiting_i18n",
     "test_runtime_sorted_batches",
+    "test_release_identity",
+    "test_windows_signing",
+    "installer.test_signing_build",
+    "ci.test_pipeline",
     "test_public_resources"
   ],
   "privacy": "No profiles, logs, diagnostics, full game screenshots, binaries or credentials. Original private image filenames are replaced in exported provenance only; source hashes and geometry remain.",
@@ -3438,9 +3442,35 @@
   ],
   "files": [
     {
+      "path": ".gitattributes",
+      "bytes": 88,
+      "sha256": "50b50da1c3703e4ace7a8250fe6118931219daeaa3464208feb320ccdb266df2",
+      "origin": "sanitized public source-kit template"
+    },
+    {
+      "path": ".github/SECURITY.md",
+      "bytes": 963,
+      "sha256": "9ef847dbce8694c0e96c356bad0afc945e580c10d94d45101925873d0d61e84a",
+      "origin": "sanitized public source-kit template"
+    },
+    {
+      "path": ".github/workflows/signing-resume.yml",
+      "bytes": 6829,
+      "sha256": "98091f1d3209ff7cec50b59449ba1ec290cb4379eb170e8184c86283a53a46d7",
+      "original_source_sha256": "98091f1d3209ff7cec50b59449ba1ec290cb4379eb170e8184c86283a53a46d7",
+      "sanitized_fields": []
+    },
+    {
+      "path": ".github/workflows/windows-build.yml",
+      "bytes": 5906,
+      "sha256": "74bde73e36f3c667cfe1f504fc20dcfa711ed5aaebad4eb61de655347113918d",
+      "original_source_sha256": "74bde73e36f3c667cfe1f504fc20dcfa711ed5aaebad4eb61de655347113918d",
+      "sanitized_fields": []
+    },
+    {
       "path": ".gitignore",
-      "bytes": 438,
-      "sha256": "a84197ee4120b67dde34b8c0cea711b180c2c974802d9528b3628420cbdaa2bb",
+      "bytes": 554,
+      "sha256": "ffedd480b023180d90da0b66bb978d41b5ea95f47b8ddc44adbfc0d3a26cc128",
       "origin": "sanitized public source-kit template"
     },
     {
@@ -3465,8 +3495,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 4320,
-      "sha256": "d7896bf596698d43c6746e4899e8ff4da1ddb3353fd62c9b3dde78739fad2bd8",
+      "bytes": 5101,
+      "sha256": "c8fb2f1826511c20e0920a15501988d1dd8c8d44f1c18028c0b8d63b09753656",
       "origin": "sanitized public source-kit template"
     },
     {
@@ -3478,9 +3508,9 @@
     },
     {
       "path": "WoGStorageHelper.spec",
-      "bytes": 1746,
-      "sha256": "ba5805fa4b2e53e2ee1df88b51bac65f735f26be63c9bddeb12d2c70722c1853",
-      "original_source_sha256": "ba5805fa4b2e53e2ee1df88b51bac65f735f26be63c9bddeb12d2c70722c1853",
+      "bytes": 1827,
+      "sha256": "5d902b7b5098ad52763db0aaccfe86f1a485f2e7cb21266de6c44f6f97384d19",
+      "original_source_sha256": "5d902b7b5098ad52763db0aaccfe86f1a485f2e7cb21266de6c44f6f97384d19",
       "sanitized_fields": []
     },
     {
@@ -3540,6 +3570,48 @@
       "sanitized_fields": []
     },
     {
+      "path": "ci/__init__.py",
+      "bytes": 73,
+      "sha256": "0ef74b0d0b1e9c975214b5999c8ca7d2e5019d4c1e1823eb3bf7db112f2cc2b1",
+      "original_source_sha256": "0ef74b0d0b1e9c975214b5999c8ca7d2e5019d4c1e1823eb3bf7db112f2cc2b1",
+      "sanitized_fields": []
+    },
+    {
+      "path": "ci/actions-pins.json",
+      "bytes": 812,
+      "sha256": "f629a9f6970e4976bac1d2f5a27e1cfee0a6312861b4cbdb46fc5da41665a679",
+      "original_source_sha256": "f629a9f6970e4976bac1d2f5a27e1cfee0a6312861b4cbdb46fc5da41665a679",
+      "sanitized_fields": []
+    },
+    {
+      "path": "ci/resume_signing.py",
+      "bytes": 9130,
+      "sha256": "825b8eb80074a4440d77ee6877e49828a7ba946141d40dcd117ddb9516b5afe1",
+      "original_source_sha256": "825b8eb80074a4440d77ee6877e49828a7ba946141d40dcd117ddb9516b5afe1",
+      "sanitized_fields": []
+    },
+    {
+      "path": "ci/signpath.py",
+      "bytes": 9095,
+      "sha256": "5dfae665b86769dcda81ac755665666f4686b4dc7e32a561b5fe7cda09998c34",
+      "original_source_sha256": "5dfae665b86769dcda81ac755665666f4686b4dc7e32a561b5fe7cda09998c34",
+      "sanitized_fields": []
+    },
+    {
+      "path": "ci/test_pipeline.py",
+      "bytes": 7396,
+      "sha256": "62f2f24d1e677829d3879d88a4f86f426bd5292d394852fa9ea6eb46a92cb8ad",
+      "original_source_sha256": "62f2f24d1e677829d3879d88a4f86f426bd5292d394852fa9ea6eb46a92cb8ad",
+      "sanitized_fields": []
+    },
+    {
+      "path": "ci/windows_build.py",
+      "bytes": 6161,
+      "sha256": "f19686ad227b1313c7371051d81828a55a83aa4cd9754bbc1bf1b6c27856334f",
+      "original_source_sha256": "f19686ad227b1313c7371051d81828a55a83aa4cd9754bbc1bf1b6c27856334f",
+      "sanitized_fields": []
+    },
+    {
       "path": "core.py",
       "bytes": 12534,
       "sha256": "404f185a5b76e131c405c5843d1a3aecaeeeb35acb0ce5b3973b59766ceb03be",
@@ -3552,6 +3624,18 @@
       "sha256": "9408cf31ba97b343bf7f62675a9f0ac0912348a1fc4eadbb485a748932690054",
       "original_source_sha256": "9408cf31ba97b343bf7f62675a9f0ac0912348a1fc4eadbb485a748932690054",
       "sanitized_fields": []
+    },
+    {
+      "path": "docs/CODE_SIGNING.md",
+      "bytes": 4270,
+      "sha256": "ececf92d155db56465cbf4286dbc8f41572188a59c73f65a1b847bd7ac23944b",
+      "origin": "sanitized public source-kit template"
+    },
+    {
+      "path": "docs/SIGNPATH_APPLICATION_DRAFT.md",
+      "bytes": 2884,
+      "sha256": "e8fa3088f997c5c36effd7d402e10a88995ff17cbdd4f8bdd74e1860207848f2",
+      "origin": "sanitized public source-kit template"
     },
     {
       "path": "docs/STATE.md",
@@ -3610,21 +3694,21 @@
     {
       "path": "installer/README.md",
       "bytes": 1016,
-      "sha256": "e032e7095c245d2f79ca68066dd43c12ad1bb6255f2d8f43fddce3bd9b03d9ba",
+      "sha256": "92c5478d6a34803c7f988957bb6fe4141b1e76d91e6772d71bd3a2dd5c99ec5f",
       "origin": "sanitized public source-kit template"
     },
     {
       "path": "installer/Setup.spec",
-      "bytes": 1387,
-      "sha256": "d8daec8aacb4c268b42011a91d2e3eab009723204f8e66646422007fb0c20a35",
-      "original_source_sha256": "d8daec8aacb4c268b42011a91d2e3eab009723204f8e66646422007fb0c20a35",
+      "bytes": 1531,
+      "sha256": "d0a8460a66cfd7ea06c9c0fd1ca73c1e899eb35636b38c6f1e9d90ca2ed4b57b",
+      "original_source_sha256": "d0a8460a66cfd7ea06c9c0fd1ca73c1e899eb35636b38c6f1e9d90ca2ed4b57b",
       "sanitized_fields": []
     },
     {
       "path": "installer/Uninstaller.spec",
-      "bytes": 1143,
-      "sha256": "8ed39566c799ef7b3b22a2484bdc834a5d9a339edac911ad0ed9d553d9d7c007",
-      "original_source_sha256": "8ed39566c799ef7b3b22a2484bdc834a5d9a339edac911ad0ed9d553d9d7c007",
+      "bytes": 1228,
+      "sha256": "a7d6eead149bcc84a80cd7656eb6457095964a4cb3ee5751bd1b2a74884fd268",
+      "original_source_sha256": "a7d6eead149bcc84a80cd7656eb6457095964a4cb3ee5751bd1b2a74884fd268",
       "sanitized_fields": []
     },
     {
@@ -3636,9 +3720,9 @@
     },
     {
       "path": "installer/build.py",
-      "bytes": 21449,
-      "sha256": "7a67ce4bb5ea3c42291808bf1173dd009a6b1d98d91eeb1d9ba937ed192694df",
-      "original_source_sha256": "7a67ce4bb5ea3c42291808bf1173dd009a6b1d98d91eeb1d9ba937ed192694df",
+      "bytes": 27995,
+      "sha256": "7a6ea4c6f236bf82cb2bdb5f294497632708844021068522571c9f7b52bc175a",
+      "original_source_sha256": "7a6ea4c6f236bf82cb2bdb5f294497632708844021068522571c9f7b52bc175a",
       "sanitized_fields": []
     },
     {
@@ -3674,6 +3758,13 @@
       "bytes": 3629,
       "sha256": "fbd531fedffb3be4cdead8be59466fd3550f86bb393178eb0419b0bcd6e50ec8",
       "original_source_sha256": "fbd531fedffb3be4cdead8be59466fd3550f86bb393178eb0419b0bcd6e50ec8",
+      "sanitized_fields": []
+    },
+    {
+      "path": "installer/test_signing_build.py",
+      "bytes": 7316,
+      "sha256": "7884a50fa2ac679e69bb726f751aab98c3e7da8a702117ac8c38e6ac832f923e",
+      "original_source_sha256": "7884a50fa2ac679e69bb726f751aab98c3e7da8a702117ac8c38e6ac832f923e",
       "sanitized_fields": []
     },
     {
@@ -6598,20 +6689,32 @@
     },
     {
       "path": "release-kit/source-kit/prepare_source.py",
-      "bytes": 19982,
-      "sha256": "67ff37b4bc51e9ea67b93e3c42cf4d01f2f672b2503b1dfa2d89c9626035f6dd",
+      "bytes": 20504,
+      "sha256": "f3732e8a5a830480a236635ebe700632af00eed6c74acf69eaa163be93b18d32",
       "origin": "sanitized public source-kit template"
     },
     {
       "path": "release-kit/source-kit/source-policy.json",
       "bytes": 86873,
-      "sha256": "1779440b2c19a3d9fcb0e9d3f491ab1a844ed05dddfd1744620df3f91ddd69b4",
+      "sha256": "f2fec8ca076192ec1f33e6129bedcd37db02a823e93c7262e449e6cea501a193",
+      "origin": "sanitized public source-kit template"
+    },
+    {
+      "path": "release-kit/source-kit/templates/.gitattributes",
+      "bytes": 88,
+      "sha256": "50b50da1c3703e4ace7a8250fe6118931219daeaa3464208feb320ccdb266df2",
+      "origin": "sanitized public source-kit template"
+    },
+    {
+      "path": "release-kit/source-kit/templates/.github/SECURITY.md",
+      "bytes": 963,
+      "sha256": "9ef847dbce8694c0e96c356bad0afc945e580c10d94d45101925873d0d61e84a",
       "origin": "sanitized public source-kit template"
     },
     {
       "path": "release-kit/source-kit/templates/.gitignore",
-      "bytes": 438,
-      "sha256": "a84197ee4120b67dde34b8c0cea711b180c2c974802d9528b3628420cbdaa2bb",
+      "bytes": 554,
+      "sha256": "ffedd480b023180d90da0b66bb978d41b5ea95f47b8ddc44adbfc0d3a26cc128",
       "origin": "sanitized public source-kit template"
     },
     {
@@ -6622,8 +6725,20 @@
     },
     {
       "path": "release-kit/source-kit/templates/README.md",
-      "bytes": 4320,
-      "sha256": "d7896bf596698d43c6746e4899e8ff4da1ddb3353fd62c9b3dde78739fad2bd8",
+      "bytes": 5101,
+      "sha256": "c8fb2f1826511c20e0920a15501988d1dd8c8d44f1c18028c0b8d63b09753656",
+      "origin": "sanitized public source-kit template"
+    },
+    {
+      "path": "release-kit/source-kit/templates/docs/CODE_SIGNING.md",
+      "bytes": 4270,
+      "sha256": "ececf92d155db56465cbf4286dbc8f41572188a59c73f65a1b847bd7ac23944b",
+      "origin": "sanitized public source-kit template"
+    },
+    {
+      "path": "release-kit/source-kit/templates/docs/SIGNPATH_APPLICATION_DRAFT.md",
+      "bytes": 2884,
+      "sha256": "e8fa3088f997c5c36effd7d402e10a88995ff17cbdd4f8bdd74e1860207848f2",
       "origin": "sanitized public source-kit template"
     },
     {
@@ -6641,7 +6756,7 @@
     {
       "path": "release-kit/source-kit/templates/installer/README.md",
       "bytes": 1016,
-      "sha256": "e032e7095c245d2f79ca68066dd43c12ad1bb6255f2d8f43fddce3bd9b03d9ba",
+      "sha256": "92c5478d6a34803c7f988957bb6fe4141b1e76d91e6772d71bd3a2dd5c99ec5f",
       "origin": "sanitized public source-kit template"
     },
     {
@@ -6655,6 +6770,13 @@
       "bytes": 4297,
       "sha256": "fa373373f6aad93bf1da6f315971bce62abd68bf8e1927264667bd2189313162",
       "origin": "sanitized public source-kit template"
+    },
+    {
+      "path": "release_identity.py",
+      "bytes": 2626,
+      "sha256": "af68bf46cd6db43f1a7f24fdc3d22493e85b06a273a0b688aa7345fa9d8c8c62",
+      "original_source_sha256": "af68bf46cd6db43f1a7f24fdc3d22493e85b06a273a0b688aa7345fa9d8c8c62",
+      "sanitized_fields": []
     },
     {
       "path": "requirements-build-lock.txt",
@@ -6777,6 +6899,13 @@
       "origin": "sanitized public source-kit template"
     },
     {
+      "path": "test_release_identity.py",
+      "bytes": 2396,
+      "sha256": "1a4f7f5c6fb53f0a4371c627da83d49c9bf2e5aa71b30c34509de2b71f17ba9d",
+      "original_source_sha256": "1a4f7f5c6fb53f0a4371c627da83d49c9bf2e5aa71b30c34509de2b71f17ba9d",
+      "sanitized_fields": []
+    },
+    {
       "path": "test_runtime_sorted_batches.py",
       "bytes": 29345,
       "sha256": "2ab38c020c2660945b2a5a613ca23f67a5c4166309a8ce349fd4e65cfc31ca11",
@@ -6802,6 +6931,13 @@
       "bytes": 12353,
       "sha256": "1043c23db7b1558eafd1f780ed838fe73aa519b57bb77be8a8920fe42a97a3e7",
       "original_source_sha256": "1043c23db7b1558eafd1f780ed838fe73aa519b57bb77be8a8920fe42a97a3e7",
+      "sanitized_fields": []
+    },
+    {
+      "path": "test_windows_signing.py",
+      "bytes": 13218,
+      "sha256": "87243335878767fcc76ef708cbe95eecbbfce5727e970caf264c8bb6094bd7e2",
+      "original_source_sha256": "87243335878767fcc76ef708cbe95eecbbfce5727e970caf264c8bb6094bd7e2",
       "sanitized_fields": []
     },
     {
@@ -6858,6 +6994,13 @@
       "bytes": 60746,
       "sha256": "b6b3f4c460dee591006889aae3c98a3f3dc7aea32f7f4ef6de6187abafe2708b",
       "original_source_sha256": "b6b3f4c460dee591006889aae3c98a3f3dc7aea32f7f4ef6de6187abafe2708b",
+      "sanitized_fields": []
+    },
+    {
+      "path": "windows_signing.py",
+      "bytes": 15910,
+      "sha256": "4704f943ff267f08146aa6f9d68637021d0c26d264d333b82a480ac8ad147f9c",
+      "original_source_sha256": "4704f943ff267f08146aa6f9d68637021d0c26d264d333b82a480ac8ad147f9c",
       "sanitized_fields": []
     }
   ]

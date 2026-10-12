@@ -7,6 +7,7 @@ import hashlib
 import json
 from io import BytesIO
 import math
+import os
 from pathlib import Path
 import re
 import shutil
@@ -16,6 +17,7 @@ from zipfile import ZipFile
 
 from installer.core import EXECUTABLE, PRODUCT_DIRECTORY, InstallError, file_hash, payload_files
 from installer.license_resources import licensing_hashes, verify_wrapper_licenses
+from release_identity import release_version
 
 PROJECT = Path(__file__).resolve().parents[1]
 INSTALLER = PROJECT / "installer"
@@ -299,45 +301,120 @@ def verify_release_payload(payload: Path):
             "authentic_license_resources": len(authentic), "license_sha256": authentic}
 
 
-def build(payload: Path, version: str | None = None):
+def _freeze(name: str, output: str, *, version: str, output_root: Path):
+    environment = os.environ.copy()
+    environment["WOG_HELPER_BUILD_VERSION"] = version
+    environment["WOG_HELPER_INSTALLER_RESOURCES"] = str(output_root / "resources")
+    subprocess.run([sys.executable, "-m", "PyInstaller", "--noconfirm", "--clean",
+                    "--distpath", str(output_root / "dist" / output),
+                    "--workpath", str(output_root / "build" / output), str(INSTALLER / name)],
+                   cwd=PROJECT, env=environment, check=True)
+
+
+def _require_compiler():
     import PyInstaller
-    from i18n import validate_catalog, _catalog
     if PyInstaller.__version__ != "6.22.3":
         raise InstallError("This local build requires the locked PyInstaller 6.22.3 environment.")
+
+
+def build_uninstaller(version: str | None = None, *, output_root: Path | None = None):
+    """Build only an unsigned own wrapper for a later explicit signing request."""
+    _require_compiler()
+    version = release_version(version)
+    destination = Path(output_root).absolute() if output_root is not None else INSTALLER
+    _freeze("Uninstaller.spec", "uninstaller", version=version, output_root=destination)
+    uninstaller = destination / "dist/uninstaller/WoGStorageHelperUninstall.exe"
+    licenses = verify_wrapper_licenses(uninstaller, licensing_hashes(PROJECT))
+    result = {"schema": 1, "version": version, "signing_state": "unsigned",
+              "uninstaller": str(uninstaller), "uninstaller_sha256": file_hash(uninstaller),
+              "uninstaller_bytes": uninstaller.stat().st_size, "uninstaller_licenses": licenses}
+    (uninstaller.parent / "uninstaller_build_metadata.json").write_text(
+        json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    return result
+
+
+def build(payload: Path, version: str | None = None, *, signer=None,
+          signed_uninstaller: Path | None = None, require_signed_inputs=False,
+          defer_setup_signing=False, output_root: Path | None = None,
+          verifier=None, payload_verifier=None):
+    """Build unsigned by default, or enforce signatures before every embedded hash.
+
+    A signer callback is explicit build code, not a command imported from a manifest.
+    The verifier always checks the returned bytes independently of that callback.
+    """
+    from i18n import validate_catalog, _catalog
+    from windows_signing import verify_owned_executable, verify_signed_payload
+    _require_compiler()
+    version = release_version(version)
+    if not isinstance(require_signed_inputs, bool) or not isinstance(defer_setup_signing, bool):
+        raise InstallError("Signing gate flags must be explicit booleans.")
+    require_signed_inputs = require_signed_inputs or signer is not None
+    if signed_uninstaller is not None and not require_signed_inputs:
+        raise InstallError("A pre-signed uninstaller requires the signed-input release gate.")
+    if defer_setup_signing and (not require_signed_inputs or signer is not None):
+        raise InstallError("Deferred cloud Setup signing requires verified signed inputs and no local signer.")
+    if require_signed_inputs and signer is None and signed_uninstaller is None:
+        raise InstallError("Signed builds require a verified signed uninstaller or an explicit signer.")
+    verifier = verifier or verify_owned_executable
+    payload_verifier = payload_verifier or verify_signed_payload
+    destination = Path(output_root).absolute() if output_root is not None else INSTALLER
     # Reading/hash verification is sufficient for an explicitly selected source.
     # Strict Windows final-path queries can need privileges beyond file reads.
     payload = Path(payload).absolute()
     if not payload.is_file():
         raise FileNotFoundError(payload)
+    stable_payload_hash = file_hash(payload)
     facts = verify_release_payload(payload)
+    signatures = {}
+    if require_signed_inputs:
+        signatures["app"] = payload_verifier(payload, version=version)
+        if signatures["app"]["sha256"] != facts["exe_sha256"]:
+            raise InstallError("The app bytes changed between payload and signature audits.")
     validate_catalog({"messages": _catalog()})
-    resources = INSTALLER / "resources"
-    resources.mkdir(exist_ok=True)
+    resources = destination / "resources"
+    resources.mkdir(parents=True, exist_ok=True)
     target_payload = resources / "payload.zip"
     if payload != target_payload:
         shutil.copyfile(payload, target_payload)
     digest = file_hash(target_payload)
+    if digest != stable_payload_hash or file_hash(payload) != stable_payload_hash:
+        raise InstallError("The verified payload changed before embedding.")
     stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    metadata = {"schema": 1, "version": version or "local-beta-" + stamp.replace(":", ""),
+    metadata = {"schema": 1, "version": version,
                 "built_at_utc": stamp, "payload_name": payload.name, "sha256": digest, **facts}
     (resources / "payload_metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
-    def freeze(name, output):
-        subprocess.run([sys.executable, "-m", "PyInstaller", "--noconfirm", "--clean",
-                        "--distpath", str(INSTALLER / "dist" / output),
-                        "--workpath", str(INSTALLER / "build" / output), str(INSTALLER / name)],
-                       cwd=PROJECT, check=True)
-    freeze("Uninstaller.spec", "uninstaller")
-    uninstaller = INSTALLER / "dist" / "uninstaller" / "WoGStorageHelperUninstall.exe"
+    if signed_uninstaller is None:
+        _freeze("Uninstaller.spec", "uninstaller", version=version, output_root=destination)
+        uninstaller = destination / "dist/uninstaller/WoGStorageHelperUninstall.exe"
+        if signer is not None:
+            signer(uninstaller)
+    else:
+        uninstaller = Path(signed_uninstaller).resolve(strict=True)
+    if require_signed_inputs:
+        signatures["uninstaller"] = verifier(uninstaller, role="uninstaller", version=version,
+                                              expected_signer=signatures["app"]["signer_thumbprint"])
     metadata["uninstaller_licenses"] = verify_wrapper_licenses(uninstaller, facts["license_sha256"])
     shutil.copyfile(uninstaller, resources / "uninstaller.exe")
-    metadata["uninstaller_sha256"] = file_hash(uninstaller)
+    metadata["uninstaller_sha256"] = file_hash(resources / "uninstaller.exe")
+    if (file_hash(uninstaller) != metadata["uninstaller_sha256"] or (require_signed_inputs
+            and signatures["uninstaller"]["sha256"] != metadata["uninstaller_sha256"])):
+        raise InstallError("The verified uninstaller changed before embedding.")
     (resources / "payload_metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
-    freeze("Setup.spec", "setup")
-    setup = INSTALLER / "dist" / "setup" / "WoGStorageHelperSetup.exe"
+    _freeze("Setup.spec", "setup", version=version, output_root=destination)
+    setup = destination / "dist/setup/WoGStorageHelperSetup.exe"
+    if signer is not None:
+        signer(setup)
+    if require_signed_inputs and not defer_setup_signing:
+        signatures["setup"] = verifier(setup, role="setup", version=version,
+                                         expected_signer=signatures["app"]["signer_thumbprint"])
     metadata["setup_licenses"] = verify_wrapper_licenses(setup, facts["license_sha256"])
     result = {**metadata, "setup": str(setup), "setup_sha256": file_hash(setup),
-              "setup_bytes": setup.stat().st_size, "uninstaller_bytes": uninstaller.stat().st_size}
-    (INSTALLER / "dist" / "setup" / "setup_metadata.json").write_text(
+              "setup_bytes": setup.stat().st_size, "uninstaller_bytes": uninstaller.stat().st_size,
+              "signatures": signatures, "signing_state": ("awaiting_setup_signature" if defer_setup_signing
+                 else "signed" if require_signed_inputs else "unsigned")}
+    if "setup" in signatures and signatures["setup"]["sha256"] != result["setup_sha256"]:
+        raise InstallError("The signed Setup changed before its final hash was recorded.")
+    (destination / "dist/setup/setup_metadata.json").write_text(
         json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(result, ensure_ascii=False, indent=2))
     return result
@@ -345,10 +422,35 @@ def build(payload: Path, version: str | None = None):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description="Build local branded setup from the final verified full-onedir ZIP.")
-    parser.add_argument("--payload", required=True, type=Path)
+    parser.add_argument("--payload", type=Path)
     parser.add_argument("--version")
+    parser.add_argument("--output-root", type=Path)
+    parser.add_argument("--stage-uninstaller", action="store_true")
+    parser.add_argument("--signed-uninstaller", type=Path)
+    parser.add_argument("--require-signed-inputs", action="store_true")
+    parser.add_argument("--defer-setup-signing", action="store_true")
+    parser.add_argument("--signtool", type=Path)
+    parser.add_argument("--certificate-thumbprint")
+    parser.add_argument("--timestamp-url")
     args = parser.parse_args(argv)
-    build(args.payload, args.version)
+    options = (args.signtool, args.certificate_thumbprint, args.timestamp_url)
+    if any(value is not None for value in options) and not all(value is not None for value in options):
+        parser.error("Local signing requires --signtool, --certificate-thumbprint and --timestamp-url together.")
+    if args.stage_uninstaller:
+        if args.payload is not None or args.signed_uninstaller is not None or any(options) or args.require_signed_inputs or args.defer_setup_signing:
+            parser.error("--stage-uninstaller accepts only --version and --output-root.")
+        print(json.dumps(build_uninstaller(args.version, output_root=args.output_root), indent=2))
+        return
+    if args.payload is None:
+        parser.error("--payload is required unless --stage-uninstaller is selected.")
+    signer = None
+    if all(value is not None for value in options):
+        from windows_signing import CertificateStoreSigner
+        signer = CertificateStoreSigner(signtool=args.signtool, thumbprint=args.certificate_thumbprint,
+                                         timestamp_url=args.timestamp_url)
+    build(args.payload, args.version, signer=signer, signed_uninstaller=args.signed_uninstaller,
+          require_signed_inputs=args.require_signed_inputs, defer_setup_signing=args.defer_setup_signing,
+          output_root=args.output_root)
 
 
 if __name__ == "__main__":

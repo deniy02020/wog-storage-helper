@@ -1,0 +1,132 @@
+name: Windows build and signing preparation
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      request_signing:
+        description: Submit the owned app and uninstaller to an already approved SignPath project
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: windows-build-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  unsigned:
+    runs-on: windows-2022
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.13.15'
+          architecture: x64
+          cache: pip
+          cache-dependency-path: |
+            requirements-lock.txt
+            requirements-build-lock.txt
+      - name: Install pinned build dependencies
+        run: python -m pip install -r requirements-build-lock.txt
+      - name: Public synthetic tests, without game input
+        run: python -B -m unittest discover -v
+      - name: Build isolated unsigned app, portable bundle and setup
+        run: python -B -m ci.windows_build --output-root .ci-work/beta7-preparation
+      - name: Store unsigned build evidence (not a public release)
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: unsigned-beta7-preparation
+          path: .ci-work/beta7-preparation/artifacts/*
+          if-no-files-found: error
+          retention-days: 14
+      - name: Upload only the owned app for a future signing request
+        if: github.event_name == 'workflow_dispatch' && inputs.request_signing
+        id: app
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: app-signing-input
+          path: .ci-work/beta7-preparation/artifacts/WoGStorageHelper.exe
+          if-no-files-found: error
+          retention-days: 14
+      - name: Upload only the owned uninstaller for a future signing request
+        if: github.event_name == 'workflow_dispatch' && inputs.request_signing
+        id: uninstaller
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: uninstaller-signing-input
+          path: .ci-work/beta7-preparation/artifacts/WoGStorageHelperUninstall.exe
+          if-no-files-found: error
+          retention-days: 14
+    outputs:
+      app_artifact_id: ${{ steps.app.outputs.artifact-id }}
+      uninstaller_artifact_id: ${{ steps.uninstaller.outputs.artifact-id }}
+
+  submit-signing:
+    if: github.event_name == 'workflow_dispatch' && inputs.request_signing && github.ref == 'refs/heads/main'
+    needs: unsigned
+    runs-on: windows-2022
+    timeout-minutes: 30
+    environment: code-signing
+    permissions:
+      contents: read
+      actions: read
+    env:
+      SIGNPATH_ORGANIZATION_ID: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+      SIGNPATH_PROJECT_SLUG: ${{ vars.SIGNPATH_PROJECT_SLUG }}
+      SIGNPATH_SIGNING_POLICY_SLUG: ${{ vars.SIGNPATH_SIGNING_POLICY_SLUG }}
+      SIGNPATH_APP_CONFIGURATION: ${{ vars.SIGNPATH_APP_CONFIGURATION }}
+      SIGNPATH_UNINSTALLER_CONFIGURATION: ${{ vars.SIGNPATH_UNINSTALLER_CONFIGURATION }}
+      SIGNPATH_SETUP_CONFIGURATION: ${{ vars.SIGNPATH_SETUP_CONFIGURATION }}
+      SIGNPATH_API_TOKEN: ${{ secrets.SIGNPATH_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.13.15'
+      - name: Require actual approved configuration before sending anything
+        run: python -B -m ci.signpath config
+      - name: Request app signature asynchronously
+        id: app
+        uses: signpath/github-action-submit-signing-request@f6d04783b4569d051e0c80105fe66e82819d0092 # v3.0
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: ${{ vars.SIGNPATH_PROJECT_SLUG }}
+          signing-policy-slug: ${{ vars.SIGNPATH_SIGNING_POLICY_SLUG }}
+          artifact-configuration-slug: ${{ vars.SIGNPATH_APP_CONFIGURATION }}
+          github-artifact-id: ${{ needs.unsigned.outputs.app_artifact_id }}
+          wait-for-completion: 'false'
+      - name: Request uninstaller signature asynchronously
+        id: uninstaller
+        uses: signpath/github-action-submit-signing-request@f6d04783b4569d051e0c80105fe66e82819d0092 # v3.0
+        with:
+          api-token: ${{ secrets.SIGNPATH_API_TOKEN }}
+          organization-id: ${{ vars.SIGNPATH_ORGANIZATION_ID }}
+          project-slug: ${{ vars.SIGNPATH_PROJECT_SLUG }}
+          signing-policy-slug: ${{ vars.SIGNPATH_SIGNING_POLICY_SLUG }}
+          artifact-configuration-slug: ${{ vars.SIGNPATH_UNINSTALLER_CONFIGURATION }}
+          github-artifact-id: ${{ needs.unsigned.outputs.uninstaller_artifact_id }}
+          wait-for-completion: 'false'
+      - name: Save actual request IDs; submitted means pending, never signed
+        if: always() && steps.app.outputs.signing-request-id != ''
+        env:
+          SIGNPATH_APP_REQUEST: ${{ steps.app.outputs.signing-request-id }}
+          SIGNPATH_UNINSTALLER_REQUEST: ${{ steps.uninstaller.outputs.signing-request-id }}
+        run: python -B -m ci.signpath receipt --output signing-requests.json
+      - name: Preserve asynchronous request receipt
+        if: always() && steps.app.outputs.signing-request-id != ''
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: signing-requests
+          path: signing-requests.json
+          if-no-files-found: error
+          retention-days: 14

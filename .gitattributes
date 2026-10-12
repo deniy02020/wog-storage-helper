@@ -1,2 +1,2 @@
-# Preserve release manifests and dependency licence hashes on every platform.
+# Preserve exact source, model and authentic licence bytes on Windows checkout.
 * -text

@@ -1,6 +1,7 @@
 # Small separate uninstaller: no application payload is embedded twice.
 from pathlib import Path
 from installer.license_resources import licensing_datas
+from release_identity import pe_version_info
 
 project = Path(SPECPATH).resolve().parent
 installer = project / 'installer'
@@ -19,4 +20,4 @@ pyz = PYZ(a.pure)
 exe = EXE(pyz, a.scripts, a.binaries, a.datas, [], name='WoGStorageHelperUninstall',
           debug=False, bootloader_ignore_signals=False, strip=False, upx=False,
           console=False, disable_windowed_traceback=False, uac_admin=False,
-          icon=str(project / 'assets' / 'wog_storage_helper.ico'))
+          icon=str(project / 'assets' / 'wog_storage_helper.ico'), version=pe_version_info('uninstaller'))

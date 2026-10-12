@@ -1,0 +1,12 @@
+{
+  "checked_utc_date": "2026-10-12",
+  "verification": "Official repository git ls-remote tags and pinned action.yml; direct commit tags, Node 24.",
+  "actions": {
+    "actions/checkout": {"tag": "v7.0.1", "sha": "3d3c42e5aac5ba805825da76410c181273ba90b1"},
+    "actions/setup-python": {"tag": "v7.0.0", "sha": "5fda3b95a4ea91299a34e894583c3862153e4b97"},
+    "actions/upload-artifact": {"tag": "v7.0.2", "sha": "cf430e030ddbb5b0abf93d22962f4752f3646cd9"},
+    "actions/download-artifact": {"tag": "v8.0.2", "sha": "9000827ccba6bdab643e8b6fd33ac0654aef8333"},
+    "signpath/github-action-submit-signing-request": {"tag": "v3.0", "sha": "f6d04783b4569d051e0c80105fe66e82819d0092"}
+  },
+  "sources": ["https://docs.signpath.io/trusted-build-systems/github", "https://docs.signpath.io/build-system-integration"]
+}

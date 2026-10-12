@@ -2,6 +2,13 @@
 
 A local Windows helper for Steam app 4891320. Maintainer: **deniy**.
 
+[Source repository](https://github.com/deniy02020/wog-storage-helper) ·
+[Code signing policy](docs/CODE_SIGNING.md)
+
+This source revision prepares the Beta.7 Windows build/signing pipeline.
+The released Beta.6 archive is preserved separately; this preparation does
+not claim a signed release, SignPath approval or widespread adoption.
+
 Choose any of T3–T6, set an interval of at least 30 minutes, and press Start.
 The first cycle begins immediately. Equipment and gems use the same tier
 selection; item levels are not filters. T1/T2 are recognised internally but
@@ -57,8 +64,14 @@ all monitors/DPI settings or extended AFK operation.
 .\.venv\Scripts\python.exe -m pip install -r requirements-build-lock.txt
 .\build.bat
 .\.venv\Scripts\python.exe -B package_release.py --create
-.\build_installer.bat --payload releases\<archive-created-by-package_release>.zip --version 0.2.0-beta.6
+.\build_installer.bat --payload releases\<archive-created-by-package_release>.zip --version 0.2.0-beta.7
 ```
+
+GitHub Windows CI builds from pinned dependencies and action commits, using
+an isolated `.ci-work/beta7-preparation` workspace. Its default output is
+explicitly unsigned evidence, with no signing secret required and no automatic
+release publication. Builds can be repeated; byte-identical PE/signature output
+is not claimed. Approved signing remains a separate, resumable operation.
 
 The application build is an onedir bundle: distribute the complete
 `dist\WoGStorageHelper` folder, including `_internal`. The installer builder
@@ -86,5 +99,5 @@ Helper's own code and original assets: [MIT](LICENSE), Copyright (c) 2026 deniy.
 Game-derived fragments and dependencies retain their separate rights; see
 [ATTRIBUTION.md](ATTRIBUTION.md), [AUTHORS.md](AUTHORS.md) and
 [THIRD_PARTY_NOTICES.txt](THIRD_PARTY_NOTICES.txt). No Valve or publisher
-endorsement is claimed. No public repository URL has been assigned in this
-local review snapshot.
+endorsement is claimed. Profiles, private diagnostic frames, logs, credentials,
+virtual environments and old compiled releases are excluded from this source.
