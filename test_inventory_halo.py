@@ -13,7 +13,7 @@ from auto_layout import LayoutError, measure_grid
 from core import Rect
 from inventory_halo import (CAP_OFFSETS, FULL_OFFSETS, InventoryHaloModels,
                             verify_inventory_halo_resources)
-from inventory_viewport import recognize_inventory_viewport
+from inventory_viewport import recognize_inventory_viewport, _lattice
 
 
 ASSETS = Path(__file__).parent / "preset_assets"
@@ -51,12 +51,12 @@ class InventoryHaloProofTests(unittest.TestCase):
         cls.models = InventoryHaloModels(ASSETS)
         cls.document = json.loads((ASSETS / "inventory_halos.json").read_text(encoding="utf-8"))
 
-    def scene(self, *, with_frame=True, offset=0):
+    def scene(self, *, with_frame=True, offset=0, model_index=0):
         (image,), rect = generated_frames(offsets=(offset,))
         origin = rect.left + 4*65, rect.top + 4*65-offset
         # Genuine bundled narrow lanes painted onto an explicitly SYNTHETIC
         # grid. No item icon, label, game screenshot or native result is made.
-        model = self.models.models["full"][0]
+        model = self.models.models["full"][model_index]
         for label, sample in model.items():
             if label.startswith("frame_") and not with_frame:
                 continue
@@ -75,6 +75,31 @@ class InventoryHaloProofTests(unittest.TestCase):
         self.assertEqual(len(evidence.vertical_stripes), 5)
         self.assertEqual(len(evidence.horizontal_stripes), 8)
         self.assertAlmostEqual(evidence.pitch_y, 65., delta=1.)
+
+    def test_additional_bundled_raster_keeps_original_lattice_and_requires_opaque_rails(self):
+        # Any newly approved border-only raster uses the SAME proof contract;
+        # this test has no native capture path or private provenance filename.
+        image, rect, origin = self.scene(model_index=-1)
+        with self.assertRaises(LayoutError):
+            measure_grid(image, rect, 8, 5, GAP, 1.)
+        evidence = self.prove(image, rect)
+        self.assertEqual(len(evidence.vertical_stripes), 5)
+        self.assertEqual(len(evidence.horizontal_stripes), 8)
+        image.paste("black", (origin[0]-1, origin[1]+12, origin[0]+4, origin[1]+48))
+        with self.assertRaises(LayoutError):
+            self.prove(image, rect)
+
+    def test_additional_raster_does_not_accept_flat_pink_or_an_unrelated_occlusion(self):
+        image, rect, origin = self.scene(model_index=-1)
+        # Halo-colored regions without the simultaneously matched opaque
+        # frame rails remain arbitrary overlays, even using genuine RGB.
+        image.paste((209, 127, 130), (origin[0]-20, origin[1]-4, origin[0]+64, origin[1]+80))
+        with self.assertRaises(LayoutError):
+            self.prove(image, rect)
+        image, rect, _ = self.scene(model_index=-1)
+        image.paste("black", (rect.left, rect.top+60, rect.left+65, rect.top+65))
+        with self.assertRaises(LayoutError):
+            self.prove(image, rect)
 
     def test_plain_grid_uses_identical_raw_proof_without_loading_halo_resources(self):
         (image,), rect = generated_frames(offsets=(0,))
@@ -215,6 +240,72 @@ class InventoryHaloProofTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             verify_inventory_halo_resources(item,
                 lambda path: content if path == name else (ASSETS/path).read_bytes())
+
+    def one_full_cue(self, models=None):
+        # A deliberately isolated authenticated cue prevents an unrelated
+        # sample from hiding which gate established this synthetic proof.
+        clone = InventoryHaloModels.__new__(InventoryHaloModels)
+        clone.models = {"full": models or [self.models.models["full"][-1]]}
+        clone._rendered = {}; clone._normalized = {}
+        return clone
+
+    def changed_patch_pixels(self, label, *, constant=None):
+        image, rect, origin = self.scene(model_index=-1)
+        pixels = np.asarray(image, dtype=np.float32).copy()
+        a,b,c,d = FULL_OFFSETS[label]
+        observed = pixels[origin[1]+b:origin[1]+d,origin[0]+a:origin[0]+c]
+        if constant is None:
+            observed += np.where(np.arange(observed.shape[1])%2,18.,-18.)[None,:,None]
+        else:
+            observed += constant
+        return pixels, rect, origin
+
+    def test_symmetric_raster_normalization_requires_both_raw_rails_then_every_patch(self):
+        pixels, rect, origin = self.changed_patch_pixels("frame_top")
+        cue = self.one_full_cue()
+        # A fine synthetic raster phase exceeds RAW10, but symmetric bounded
+        # normalization establishes the SAME cue's every tiny RGB patch.
+        with patch("inventory_halo._halo_raster", side_effect=lambda array: array):
+            self.assertIsNone(cue.match(pixels,rect,"full",origin,1.))
+        cue = self.one_full_cue()
+        self.assertIsNotNone(cue.match(pixels,rect,"full",origin,1.))
+        pixels, rect, origin = self.changed_patch_pixels("halo_top",constant=35.)
+        self.assertIsNone(self.one_full_cue().match(pixels,rect,"full",origin,1.))
+
+    def test_normalization_cannot_hide_a_raw_opposite_rail_mismatch(self):
+        pixels, rect, origin = self.changed_patch_pixels("frame_left")
+        with patch("inventory_halo._halo_raster", side_effect=AssertionError("Raw veto must happen first")):
+            self.assertIsNone(self.one_full_cue().match(pixels,rect,"full",origin,1.))
+
+    def test_opposite_rails_from_different_cues_cannot_be_combined(self):
+        image,rect,origin = self.scene(model_index=-1)
+        a = dict(self.models.models["full"][-1]); b = dict(a)
+        a["frame_right"] = Image.new("RGB",a["frame_right"].size,"black")
+        b["frame_left"] = Image.new("RGB",b["frame_left"].size,"black")
+        with patch("inventory_halo._halo_raster",side_effect=AssertionError("Same cue bilateral veto")):
+            self.assertIsNone(self.one_full_cue([a,b]).match(np.asarray(image,dtype=np.float32),
+                                                          rect,"full",origin,1.))
+
+    def test_one_skipped_band_only_suggests_a_regular_candidate_and_default_proof_rejects(self):
+        runs = [(60+65*i,65+65*i) for i in range(8) if i != 3]
+        with self.assertRaises(LayoutError):
+            _lattice(runs,520,65.,1.)
+        pitch,offset = _lattice(runs,520,65.,1.,candidate_gaps=True)
+        self.assertAlmostEqual(pitch,65.)
+        self.assertAlmostEqual(offset,62.)
+        # Candidate inference itself never supplies the missing actual pixels.
+        (image,),rect = generated_frames(offsets=(0,))
+        image.paste("black",(rect.left,rect.top+3*65+60,rect.right,rect.top+4*65))
+        with self.assertRaises(LayoutError):
+            self.prove(image,rect)
+
+    def test_gap_candidate_requires_spanning_raw_bands_correct_pitch_and_at_most_one_gap(self):
+        cases = [([(60+65*i,65+65*i) for i in range(8) if i not in (2,4)],520,65.),
+                 ([(60+58*i,65+58*i) for i in range(8)],520,65.),
+                 ([(60+65*i,65+65*i) for i in range(4)],520,65.)]
+        for runs,length,pitch in cases:
+            with self.subTest(runs=runs),self.assertRaises(LayoutError):
+                _lattice(runs,length,pitch,1.,candidate_gaps=True)
 
 
 if __name__ == "__main__":

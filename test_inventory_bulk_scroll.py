@@ -70,6 +70,31 @@ class BulkRGBProofTests(unittest.TestCase):
         self.assertEqual(self.prove(before, after), 320.)
         self.assertEqual(self.prove(after, before, "up"), 320.)
 
+    def fractional_pitch_pair(self):
+        # Explicit generated65px chrome rerasterized to64.5px pitch, leaving
+        # neutral padding in the full520px viewport. Equal input-row division
+        # drifts by several pixels, while the actual observed lattice is valid.
+        scene = SyntheticInventory()
+        scene.body = scene.body.resize((325,2064),Image.Resampling.BILINEAR)
+        return scene.frame(285),scene.frame(0)
+
+    def test_fractional_chrome_padding_does_not_replace_actual_whole_row_overlap(self):
+        before,after = self.fractional_pitch_pair()
+        self.assertEqual((before[1].grid.rows,after[1].grid.rows),(7,8))
+        self.assertAlmostEqual(before[1].row_pitch,64.5)
+        self.assertEqual(self.prove(before,after,"up"),285.)
+        self.assertEqual(self.prove(after,before,"down"),285.)
+
+    def test_unique_rgb_cannot_excuse_wrong_or_missing_actual_separator_evidence(self):
+        before,after = self.fractional_pitch_pair()
+        evidence = after[1].evidence
+        mutations = (replace(evidence,horizontal_stripes=tuple((a+4,b+4)
+                       for a,b in evidence.horizontal_stripes)),
+                     replace(evidence,horizontal_stripes=evidence.horizontal_stripes[1:]))
+        for changed in mutations:
+            with self.subTest(changed=changed),self.assertRaises(InventoryMotionUnknown):
+                self.prove(before,(after[0],replace(after[1],evidence=changed)),"up")
+
     def test_scaled_window_uses_same_physical_rgb_and_complete_overlap_policy(self):
         for scale in (.50, .7075, 1.):
             with self.subTest(scale=scale):

@@ -2,7 +2,7 @@
   "schema": 1,
   "version": "0.2.0-beta.8",
   "author": "deniy",
-  "created_utc": "2026-10-13T14:23:07.958268+00:00",
+  "created_utc": "2026-10-13T18:09:37.251411+00:00",
   "status": "reviewable local source snapshot",
   "repository_url": "https://github.com/deniy02020/wog-storage-helper",
   "public_tests": [
@@ -9328,6 +9328,642 @@
       ],
       "mode": "RGB",
       "rgb_sha256": "8c29952d7c50edc6a428337da203d1c443347e0d6708d49f8e686c6a67cb327c"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_479.png",
+      "sha256": "4deefaa0fa57acb6fdbbdbde36536135ad546d28a1ead5964f4df851a7fe8886",
+      "bytes": 248,
+      "format": "PNG",
+      "size": [
+        37,
+        3
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "dde1a6d4ffd2d29d846a5d479a9f642f73e18922c1ed99b575569e622216e32c"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_480.png",
+      "sha256": "99f91512304e414e1297c5f97ee97affe2155749fef99f9f92950de1bfda23f6",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "7caa6730a085be9c8a3306a6662025db864977ee6d11bbecb13816f9795b79ce"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_481.png",
+      "sha256": "2a98538fc0a371aec6bdc2852ef89cbc6062bc2d0d7fda7b5e387d664e1e982e",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "f3d925a56be3865de820121d19a2296d5a7136892d7c86452ea854f1dff8cc7f"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_482.png",
+      "sha256": "eca44f6386175405396321f76bb13abc8a56dfe1577bd69afc6fb93ed499b991",
+      "bytes": 187,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "d1c2ddd27f22e712638863e0bbaab9962e1dc36ae53b8d213f3ad2212366dc97"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_483.png",
+      "sha256": "6d586d1ba83a4e27dda821789b8fc4720449a008d5872edcfc9222d09d45de06",
+      "bytes": 227,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "72ed3208a6201b5f084d5128ab0f115ea6f04961e9f694871afe8d0d9543cd53"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_484.png",
+      "sha256": "44d4cfa71e8edc18eabd7d64d0b54ae0e66a6bc681ae0ec68fee27256404a7ff",
+      "bytes": 579,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "9ad8696e7612e5db49dfde11c0564cd48e1ff62734796931941d690a1f03fd87"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_485.png",
+      "sha256": "fa02b7406fd848f2e52835d4c370678771dea34745babbe4104c51a414917383",
+      "bytes": 614,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "0ced5b48234c60ffd72abaf3048fbf277296bc3ade7000aa511519020881ad2c"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_486.png",
+      "sha256": "82fbc537490ee5c7dd324c6195ee240d96fb23e3ce33eb0b29f0b57f11090013",
+      "bytes": 675,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "8311661f650cfc9107fd65cbda735c8018ad3a334a5b38ff1d38d1e23a559c66"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_487.png",
+      "sha256": "06c86d82a8d94739bb4260102073b6d4fa5e7f270a7ff77ec3a4d542b1922489",
+      "bytes": 712,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "ecce84981b1fc7a96ac153e65c976ccb628a0b3dd8715a9b10230838042f6214"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_488.png",
+      "sha256": "02d88328cc5f0101a030d303c8fddbdac68ca96059ab59601478b29c6c3bc133",
+      "bytes": 184,
+      "format": "PNG",
+      "size": [
+        4,
+        15
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "8a73d008229597d9d45e18c48d160f5f43b51d167be40e8d190fa43dad6150d4"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_489.png",
+      "sha256": "1b1546c276b700c58e323d76d186184d38234550dad8772322b63398c4aec20a",
+      "bytes": 186,
+      "format": "PNG",
+      "size": [
+        4,
+        15
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "9e4b576f345559c86e0ba0b200ad9d8dcc3f8a56c2be4de2129531062ab60ee2"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_490.png",
+      "sha256": "32b427c7e8517da9f1cc99168e55b2753116454c7aa358bd08327213af6da98f",
+      "bytes": 254,
+      "format": "PNG",
+      "size": [
+        37,
+        3
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "0056cb995fd00f1343c44246d403f86340fe41770cce9a4fc1f8f8ef8bb01a50"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_491.png",
+      "sha256": "bdcfe5588ce4f0784862c027634eb22bafdbe54cc41cec9c80acecdacd312d13",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "9ae3c2cb882116e58da78c1d599739702d86cef8781595d3579868320bbfdcb7"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_492.png",
+      "sha256": "93cf3b2e755cdebb1a3ed7452316cfe5f87fc3f76c9d78da8c3228195a3710f7",
+      "bytes": 183,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "fd0393c2be05491c2905a8ddef1179c7eae0b294d34a686f4d3b8c351f13d07b"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_493.png",
+      "sha256": "883af3a5074a7266132d2f9ec90bbd0e6bf8df610c4f06b205f938f9503a6eff",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "dc3aeef5c10c9caaf4602ac2fae6c53e099606187a3f9752e3c0323ea0b8ce68"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_494.png",
+      "sha256": "6c0c7bac86191f778a9deb644da1f3a434507082e50e1a24c0e2ad46c2006329",
+      "bytes": 239,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "225b2dda1232493f1f6193944ee6024c1120c59b4b1044235e4becd9ed123a03"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_495.png",
+      "sha256": "f491c2f3545dc1b60b29977bd92c5fc968599b793a9474ebea4297caec5b9a16",
+      "bytes": 612,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "1262a5bd5df16e0e1e7142208b21de8c162fd3fab0598c7ca61162a7d7a2ed2e"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_496.png",
+      "sha256": "f1182978a552a6c398a034063e9e08fe911af88fa2837bf96fe36ef2712d55a3",
+      "bytes": 598,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "9777375f031e645b104ee31e749c06af4d5919d8c0ffefc8d50a8018d4b31183"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_497.png",
+      "sha256": "990e96b62eb3b077346f63f43cdfc5965a8fa6c271cc30cdc8adccfa256a99d0",
+      "bytes": 671,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "321d86f0532b22e8b1516e43621911e8e1bfae098747946903003db8a4af5d04"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_498.png",
+      "sha256": "f70fe47e202810292eccc194f8096dc23d2b01cf0ee8d0fb6790bffcb255309d",
+      "bytes": 706,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "dc96e16b911715e4f32ccb343a6ff8516bee39ca3a99378a1b02e22d8b9c68db"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_499.png",
+      "sha256": "2a0b14f458a614bd414b7370dc97c5bf03cb74319053e9e8d7510aa8e2f00f53",
+      "bytes": 255,
+      "format": "PNG",
+      "size": [
+        37,
+        3
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "d235a27f7d9cf5373b938542d2c5ba3989032078e42dfd38e36a58deb20aff12"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_500.png",
+      "sha256": "bd1333b6b15ea9f23b3895baa7f2357c219d342dd615a1d735117240b7051dd5",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "59412ad7cbc701855b7d6d8e2ba8225cbf24d73e92a5f3763ac1d590c62baf42"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_501.png",
+      "sha256": "3116b565ef12fb3bac9e630099ec53be4d083acf21e7c4b2edf616a7633912fc",
+      "bytes": 182,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "8c44263363e4452f12a3535d6ed3a71c6f58538dd533350afb8e95bdcbec3d8d"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_502.png",
+      "sha256": "bf3c4850d74a83dbe94fdc400a5270080def451208522b91b19b85a4b430e7a6",
+      "bytes": 232,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "7d4febfa804633af03bb807eb95cbc3e9c0b5091b89cc39b86346819b8b0e2e9"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_503.png",
+      "sha256": "e4f8d6d75c2d148b0cddaacf21e58a2e43d4e34948900cb4c85162bc3f6992ae",
+      "bytes": 611,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "b5c5a84f0bbca8f3b0800bf0966678122e643606de207ed9efc003803c2925c2"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_504.png",
+      "sha256": "a0bd278f480bbffcc4bb1a37e5885dea8baf8cc639dad35c4ad07ead473a63fd",
+      "bytes": 603,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "ee3abf6026af47ee133f5182b6792ad31022233d2be0916da3924895d962106a"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_505.png",
+      "sha256": "89fec89658e08f3df9873e63ad6ec92ed4ecd83433a25db901e8cfd2cc812559",
+      "bytes": 681,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "f4beb5012a823eaf511139d662c433836bced75e5bd3d760ea73a6cf8cff4414"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_506.png",
+      "sha256": "e46c72197704e8dd07d12e50c6998df33d8f69a07a565693d68b78aa3c5ca46a",
+      "bytes": 702,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "a24c97a68306cb81e6005ca4e94a86d70025db67ed30c8032db8be9ea59cd0fe"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_507.png",
+      "sha256": "2d6d28aea4c210129b3193d58e22361bb41d44014c79b436abcdec900ff3870b",
+      "bytes": 247,
+      "format": "PNG",
+      "size": [
+        37,
+        3
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "2e20ca7d5494254f57fb57a6104526b67144573ca27bc2db5832563898e33952"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_508.png",
+      "sha256": "99abac875d439ed1089d10fb6aa6ff372bb37c8b382714491d8c4bd56656f5a9",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "86e115472c279cc4a85191c70ca9332588fb9a2bc72422c954b987a853e7668f"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_509.png",
+      "sha256": "80ba038c6967e24c07eadef759197fe4548746e08467d81fc0fc0a2bf4ae1734",
+      "bytes": 182,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "fc58de2d73f08191a51e9d9a4d111bd58ec6dfec1ad69a48103868b186fd6270"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_510.png",
+      "sha256": "0323641ce77bff616e9036210eb734cb1f4872d4d03fd24e0a214b83be14af97",
+      "bytes": 236,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "0708a65fbf732cb71255f1c415d970f1d83e7a18c2ce377558718f501796bd54"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_511.png",
+      "sha256": "ea7768e88b7a29f75949470d512ad82a1a3f3b5ff78d8d77d8606e2af93f29ad",
+      "bytes": 618,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "476fe47de53b2e9f0319246aa4b706a70288c0aa46e8d3e3f820b5f142b7dd91"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_512.png",
+      "sha256": "62e4bd15f7fec324c1ba299396f9056f34332e900d075228dcb1809c148b333a",
+      "bytes": 602,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "15d071cf6c6c471e5385b2cdbde5d304cf2a52a964365eba67afbc8b5a5c4c4a"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_513.png",
+      "sha256": "bb365f9dfb30a23f3e8f7507c021f1d3092b41dc4a415d72eda703442fe8b28f",
+      "bytes": 683,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "48ccfe84cadd8ad961602986dc8abe0a57a17fa8d69cd571c88bda030809e06a"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_514.png",
+      "sha256": "16cdb0572a31b179834b8e6f06581d699d692b7887bb2127999a29f65adf0c3c",
+      "bytes": 712,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "91ff371d6b13fb7193782b1268fd84c4e5dcc447b3c2184153031e7c1e761eb8"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_515.png",
+      "sha256": "e614c6718d93401b942f1f9b277c35cb413ed01741dca30f6d7023b1bfc33b00",
+      "bytes": 253,
+      "format": "PNG",
+      "size": [
+        37,
+        3
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "33965c6d70028ee4db84eff6b9e77614a63f11ac15dbbceaa3b44571e895b8c0"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_516.png",
+      "sha256": "5d7a11fb0d123a79d8d538715897fe335a9b7f7fe0890e9d3449213e0a2ce209",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "c880517a2220551a4e262085945f7c51ebc4b2e305100adc58cf51808f6ece6b"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_517.png",
+      "sha256": "18663d0ed5ac96d1f1e00ad515d279a3c44c5997d03fd142c468cdef5ffe9655",
+      "bytes": 183,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "9bd9f8c3765b3ffd35ec98294071d14be3b334e272353aa8f62e4bdec8f4af34"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_518.png",
+      "sha256": "522cdc80d47371bc239f5bdde9b9d0c0d83fa5a01146634e2f76e20cb74414ea",
+      "bytes": 241,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "bfa275ef49075d8fa6d482f0cc983fb7eabe33fd9f6ce63deb78aab862ef7aaa"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_519.png",
+      "sha256": "7f47f7f06f7c48a72b494aab462f8a3272b9dc0f668a37a517ee7d48d4fb95d3",
+      "bytes": 603,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "46009480f6297950c3fbbd2d2edf0bdf8be2cdcd5ffb6b88485d975369dc6639"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_520.png",
+      "sha256": "d5a55484bab8d819372894d17a9563f3f9120b535aa66a445518d7f9a331d0bc",
+      "bytes": 603,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "7fead8fb31a662efe7bf77d653f95de3676e6ca0125cf4a0f9f45eb4c4cfca07"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_521.png",
+      "sha256": "543d259829f938998b583f11c7678d53d73ac9fd88cfea9c07319e081b128b14",
+      "bytes": 657,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "af3f452f52c3c3cee056c9db0863f023c38ea6328d0214209a5663d654fd10fb"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_522.png",
+      "sha256": "0b80e55833a834b16844b1c2f72fe816e5ab52785aa07d2dbd10b199f97a0670",
+      "bytes": 685,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "c60b99b514bd300199bd3d4599301ac4904719d5bfc3a3bb59eed6fcb8bb5e5c"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_523.png",
+      "sha256": "21a0963fe3e0e3f637ed00cdfa1c53b3448f559a2cc1d271da7de1497a54b315",
+      "bytes": 258,
+      "format": "PNG",
+      "size": [
+        37,
+        3
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "adc1cd906db614ecdecd8716d15ac0ab28885046019d5842831a6539e0b4bd57"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_524.png",
+      "sha256": "ad45174044084170c14c47b0df56ad7fbc322b3c1783c218c432d815dd6df913",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "152d9d18029e3577ed7646feca7f362042d4f863757b5b2246969a0e96de4533"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_525.png",
+      "sha256": "fa440b36351396d2165797de9fb1a8e879017d353756c317a546ddfefbb726ea",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "2560bb08fa07c0963f2889cc657e7dbf99b9c099fccbf59884cda660319a3454"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_526.png",
+      "sha256": "30e36ee4d5feb7b7bc8a99a1f9e7aae8d9190ed4e76737622a8334ead9cdb036",
+      "bytes": 180,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "97714caa9e86e6e9e86965c2d6abdaea5dccaf362433bafe59afddcbc8827e6d"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_527.png",
+      "sha256": "e323adfb625163c6a6d01185a190ee3f681228c6d35d796c46913b2a8d1b984a",
+      "bytes": 219,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "8ba255370d45b3bb1415adaa084daf3b81cab3f12fd07ee9a755b3d139bbd25e"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_528.png",
+      "sha256": "3e99d5404d75884ebb5febfd8feba400c0cabd5a0c94b34d11b212509fa09f08",
+      "bytes": 586,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "032d752d2d29662218abe6421373238bd245f835e1fd449cbba95e17106f539e"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_529.png",
+      "sha256": "65fb666cedea1442412ed090288250a2036aabe4b95ac02f0f106986eb502696",
+      "bytes": 612,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "e57ed46cb53ed2ea674f4b52cba12ac2e5d075cff4319244e329f3d4a3018128"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_530.png",
+      "sha256": "883a382a351ae6042dc0964f7734e597dfe0cec0fc3f609e42991617ab6caf0e",
+      "bytes": 667,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "c485332c4b398e3728c2311f0ee8efdff29914566d341d12ef3bddbb3295549c"
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_531.png",
+      "sha256": "ef3ffdace01b568c3cc0979530ad76a7f5e2d85a5e0cb77b808d8521c96b3f61",
+      "bytes": 702,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ],
+      "mode": "RGB",
+      "rgb_sha256": "e6409e57ae7422085c2800e87d00efaebb9bda42ae348a431f32dcb06ef3fe20"
     }
   ],
   "files": [
@@ -9715,9 +10351,9 @@
     },
     {
       "path": "inventory_halo.py",
-      "bytes": 14234,
-      "sha256": "b3aef1d644fbc01a4ab09e9bf1d975b093dcc1a0fd886320a7763f1860350f45",
-      "original_source_sha256": "b3aef1d644fbc01a4ab09e9bf1d975b093dcc1a0fd886320a7763f1860350f45",
+      "bytes": 16675,
+      "sha256": "80011de009febbde371a15922656d484260b56e5c8e9ee8c5a84fe4a5855fc76",
+      "original_source_sha256": "80011de009febbde371a15922656d484260b56e5c8e9ee8c5a84fe4a5855fc76",
       "sanitized_fields": []
     },
     {
@@ -9743,9 +10379,9 @@
     },
     {
       "path": "inventory_viewport.py",
-      "bytes": 26823,
-      "sha256": "bd3e5d5c5325d108ac6df175a4b5e12009b87c731448bc349566cc4fbf6edfd4",
-      "original_source_sha256": "bd3e5d5c5325d108ac6df175a4b5e12009b87c731448bc349566cc4fbf6edfd4",
+      "bytes": 28541,
+      "sha256": "32bce66517ec8198e4146085909a9a5f0480c0ac3b14c97c3b50864d22ba80bf",
+      "original_source_sha256": "32bce66517ec8198e4146085909a9a5f0480c0ac3b14c97c3b50864d22ba80bf",
       "sanitized_fields": []
     },
     {
@@ -15062,10 +15698,381 @@
       "sanitized_fields": []
     },
     {
+      "path": "preset_assets/inventory_halo_T4_479.png",
+      "bytes": 248,
+      "sha256": "4deefaa0fa57acb6fdbbdbde36536135ad546d28a1ead5964f4df851a7fe8886",
+      "original_source_sha256": "4deefaa0fa57acb6fdbbdbde36536135ad546d28a1ead5964f4df851a7fe8886",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_480.png",
+      "bytes": 185,
+      "sha256": "99f91512304e414e1297c5f97ee97affe2155749fef99f9f92950de1bfda23f6",
+      "original_source_sha256": "99f91512304e414e1297c5f97ee97affe2155749fef99f9f92950de1bfda23f6",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_481.png",
+      "bytes": 185,
+      "sha256": "2a98538fc0a371aec6bdc2852ef89cbc6062bc2d0d7fda7b5e387d664e1e982e",
+      "original_source_sha256": "2a98538fc0a371aec6bdc2852ef89cbc6062bc2d0d7fda7b5e387d664e1e982e",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_482.png",
+      "bytes": 187,
+      "sha256": "eca44f6386175405396321f76bb13abc8a56dfe1577bd69afc6fb93ed499b991",
+      "original_source_sha256": "eca44f6386175405396321f76bb13abc8a56dfe1577bd69afc6fb93ed499b991",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_483.png",
+      "bytes": 227,
+      "sha256": "6d586d1ba83a4e27dda821789b8fc4720449a008d5872edcfc9222d09d45de06",
+      "original_source_sha256": "6d586d1ba83a4e27dda821789b8fc4720449a008d5872edcfc9222d09d45de06",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_484.png",
+      "bytes": 579,
+      "sha256": "44d4cfa71e8edc18eabd7d64d0b54ae0e66a6bc681ae0ec68fee27256404a7ff",
+      "original_source_sha256": "44d4cfa71e8edc18eabd7d64d0b54ae0e66a6bc681ae0ec68fee27256404a7ff",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_485.png",
+      "bytes": 614,
+      "sha256": "fa02b7406fd848f2e52835d4c370678771dea34745babbe4104c51a414917383",
+      "original_source_sha256": "fa02b7406fd848f2e52835d4c370678771dea34745babbe4104c51a414917383",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_486.png",
+      "bytes": 675,
+      "sha256": "82fbc537490ee5c7dd324c6195ee240d96fb23e3ce33eb0b29f0b57f11090013",
+      "original_source_sha256": "82fbc537490ee5c7dd324c6195ee240d96fb23e3ce33eb0b29f0b57f11090013",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_487.png",
+      "bytes": 712,
+      "sha256": "06c86d82a8d94739bb4260102073b6d4fa5e7f270a7ff77ec3a4d542b1922489",
+      "original_source_sha256": "06c86d82a8d94739bb4260102073b6d4fa5e7f270a7ff77ec3a4d542b1922489",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_488.png",
+      "bytes": 184,
+      "sha256": "02d88328cc5f0101a030d303c8fddbdac68ca96059ab59601478b29c6c3bc133",
+      "original_source_sha256": "02d88328cc5f0101a030d303c8fddbdac68ca96059ab59601478b29c6c3bc133",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_489.png",
+      "bytes": 186,
+      "sha256": "1b1546c276b700c58e323d76d186184d38234550dad8772322b63398c4aec20a",
+      "original_source_sha256": "1b1546c276b700c58e323d76d186184d38234550dad8772322b63398c4aec20a",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_490.png",
+      "bytes": 254,
+      "sha256": "32b427c7e8517da9f1cc99168e55b2753116454c7aa358bd08327213af6da98f",
+      "original_source_sha256": "32b427c7e8517da9f1cc99168e55b2753116454c7aa358bd08327213af6da98f",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_491.png",
+      "bytes": 185,
+      "sha256": "bdcfe5588ce4f0784862c027634eb22bafdbe54cc41cec9c80acecdacd312d13",
+      "original_source_sha256": "bdcfe5588ce4f0784862c027634eb22bafdbe54cc41cec9c80acecdacd312d13",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_492.png",
+      "bytes": 183,
+      "sha256": "93cf3b2e755cdebb1a3ed7452316cfe5f87fc3f76c9d78da8c3228195a3710f7",
+      "original_source_sha256": "93cf3b2e755cdebb1a3ed7452316cfe5f87fc3f76c9d78da8c3228195a3710f7",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_493.png",
+      "bytes": 185,
+      "sha256": "883af3a5074a7266132d2f9ec90bbd0e6bf8df610c4f06b205f938f9503a6eff",
+      "original_source_sha256": "883af3a5074a7266132d2f9ec90bbd0e6bf8df610c4f06b205f938f9503a6eff",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_494.png",
+      "bytes": 239,
+      "sha256": "6c0c7bac86191f778a9deb644da1f3a434507082e50e1a24c0e2ad46c2006329",
+      "original_source_sha256": "6c0c7bac86191f778a9deb644da1f3a434507082e50e1a24c0e2ad46c2006329",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_495.png",
+      "bytes": 612,
+      "sha256": "f491c2f3545dc1b60b29977bd92c5fc968599b793a9474ebea4297caec5b9a16",
+      "original_source_sha256": "f491c2f3545dc1b60b29977bd92c5fc968599b793a9474ebea4297caec5b9a16",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_496.png",
+      "bytes": 598,
+      "sha256": "f1182978a552a6c398a034063e9e08fe911af88fa2837bf96fe36ef2712d55a3",
+      "original_source_sha256": "f1182978a552a6c398a034063e9e08fe911af88fa2837bf96fe36ef2712d55a3",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_497.png",
+      "bytes": 671,
+      "sha256": "990e96b62eb3b077346f63f43cdfc5965a8fa6c271cc30cdc8adccfa256a99d0",
+      "original_source_sha256": "990e96b62eb3b077346f63f43cdfc5965a8fa6c271cc30cdc8adccfa256a99d0",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_498.png",
+      "bytes": 706,
+      "sha256": "f70fe47e202810292eccc194f8096dc23d2b01cf0ee8d0fb6790bffcb255309d",
+      "original_source_sha256": "f70fe47e202810292eccc194f8096dc23d2b01cf0ee8d0fb6790bffcb255309d",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_499.png",
+      "bytes": 255,
+      "sha256": "2a0b14f458a614bd414b7370dc97c5bf03cb74319053e9e8d7510aa8e2f00f53",
+      "original_source_sha256": "2a0b14f458a614bd414b7370dc97c5bf03cb74319053e9e8d7510aa8e2f00f53",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_500.png",
+      "bytes": 185,
+      "sha256": "bd1333b6b15ea9f23b3895baa7f2357c219d342dd615a1d735117240b7051dd5",
+      "original_source_sha256": "bd1333b6b15ea9f23b3895baa7f2357c219d342dd615a1d735117240b7051dd5",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_501.png",
+      "bytes": 182,
+      "sha256": "3116b565ef12fb3bac9e630099ec53be4d083acf21e7c4b2edf616a7633912fc",
+      "original_source_sha256": "3116b565ef12fb3bac9e630099ec53be4d083acf21e7c4b2edf616a7633912fc",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_502.png",
+      "bytes": 232,
+      "sha256": "bf3c4850d74a83dbe94fdc400a5270080def451208522b91b19b85a4b430e7a6",
+      "original_source_sha256": "bf3c4850d74a83dbe94fdc400a5270080def451208522b91b19b85a4b430e7a6",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_503.png",
+      "bytes": 611,
+      "sha256": "e4f8d6d75c2d148b0cddaacf21e58a2e43d4e34948900cb4c85162bc3f6992ae",
+      "original_source_sha256": "e4f8d6d75c2d148b0cddaacf21e58a2e43d4e34948900cb4c85162bc3f6992ae",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_504.png",
+      "bytes": 603,
+      "sha256": "a0bd278f480bbffcc4bb1a37e5885dea8baf8cc639dad35c4ad07ead473a63fd",
+      "original_source_sha256": "a0bd278f480bbffcc4bb1a37e5885dea8baf8cc639dad35c4ad07ead473a63fd",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_505.png",
+      "bytes": 681,
+      "sha256": "89fec89658e08f3df9873e63ad6ec92ed4ecd83433a25db901e8cfd2cc812559",
+      "original_source_sha256": "89fec89658e08f3df9873e63ad6ec92ed4ecd83433a25db901e8cfd2cc812559",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_506.png",
+      "bytes": 702,
+      "sha256": "e46c72197704e8dd07d12e50c6998df33d8f69a07a565693d68b78aa3c5ca46a",
+      "original_source_sha256": "e46c72197704e8dd07d12e50c6998df33d8f69a07a565693d68b78aa3c5ca46a",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_507.png",
+      "bytes": 247,
+      "sha256": "2d6d28aea4c210129b3193d58e22361bb41d44014c79b436abcdec900ff3870b",
+      "original_source_sha256": "2d6d28aea4c210129b3193d58e22361bb41d44014c79b436abcdec900ff3870b",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_508.png",
+      "bytes": 185,
+      "sha256": "99abac875d439ed1089d10fb6aa6ff372bb37c8b382714491d8c4bd56656f5a9",
+      "original_source_sha256": "99abac875d439ed1089d10fb6aa6ff372bb37c8b382714491d8c4bd56656f5a9",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_509.png",
+      "bytes": 182,
+      "sha256": "80ba038c6967e24c07eadef759197fe4548746e08467d81fc0fc0a2bf4ae1734",
+      "original_source_sha256": "80ba038c6967e24c07eadef759197fe4548746e08467d81fc0fc0a2bf4ae1734",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_510.png",
+      "bytes": 236,
+      "sha256": "0323641ce77bff616e9036210eb734cb1f4872d4d03fd24e0a214b83be14af97",
+      "original_source_sha256": "0323641ce77bff616e9036210eb734cb1f4872d4d03fd24e0a214b83be14af97",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_511.png",
+      "bytes": 618,
+      "sha256": "ea7768e88b7a29f75949470d512ad82a1a3f3b5ff78d8d77d8606e2af93f29ad",
+      "original_source_sha256": "ea7768e88b7a29f75949470d512ad82a1a3f3b5ff78d8d77d8606e2af93f29ad",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_512.png",
+      "bytes": 602,
+      "sha256": "62e4bd15f7fec324c1ba299396f9056f34332e900d075228dcb1809c148b333a",
+      "original_source_sha256": "62e4bd15f7fec324c1ba299396f9056f34332e900d075228dcb1809c148b333a",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_513.png",
+      "bytes": 683,
+      "sha256": "bb365f9dfb30a23f3e8f7507c021f1d3092b41dc4a415d72eda703442fe8b28f",
+      "original_source_sha256": "bb365f9dfb30a23f3e8f7507c021f1d3092b41dc4a415d72eda703442fe8b28f",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_514.png",
+      "bytes": 712,
+      "sha256": "16cdb0572a31b179834b8e6f06581d699d692b7887bb2127999a29f65adf0c3c",
+      "original_source_sha256": "16cdb0572a31b179834b8e6f06581d699d692b7887bb2127999a29f65adf0c3c",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_515.png",
+      "bytes": 253,
+      "sha256": "e614c6718d93401b942f1f9b277c35cb413ed01741dca30f6d7023b1bfc33b00",
+      "original_source_sha256": "e614c6718d93401b942f1f9b277c35cb413ed01741dca30f6d7023b1bfc33b00",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_516.png",
+      "bytes": 185,
+      "sha256": "5d7a11fb0d123a79d8d538715897fe335a9b7f7fe0890e9d3449213e0a2ce209",
+      "original_source_sha256": "5d7a11fb0d123a79d8d538715897fe335a9b7f7fe0890e9d3449213e0a2ce209",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_517.png",
+      "bytes": 183,
+      "sha256": "18663d0ed5ac96d1f1e00ad515d279a3c44c5997d03fd142c468cdef5ffe9655",
+      "original_source_sha256": "18663d0ed5ac96d1f1e00ad515d279a3c44c5997d03fd142c468cdef5ffe9655",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_518.png",
+      "bytes": 241,
+      "sha256": "522cdc80d47371bc239f5bdde9b9d0c0d83fa5a01146634e2f76e20cb74414ea",
+      "original_source_sha256": "522cdc80d47371bc239f5bdde9b9d0c0d83fa5a01146634e2f76e20cb74414ea",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_519.png",
+      "bytes": 603,
+      "sha256": "7f47f7f06f7c48a72b494aab462f8a3272b9dc0f668a37a517ee7d48d4fb95d3",
+      "original_source_sha256": "7f47f7f06f7c48a72b494aab462f8a3272b9dc0f668a37a517ee7d48d4fb95d3",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_520.png",
+      "bytes": 603,
+      "sha256": "d5a55484bab8d819372894d17a9563f3f9120b535aa66a445518d7f9a331d0bc",
+      "original_source_sha256": "d5a55484bab8d819372894d17a9563f3f9120b535aa66a445518d7f9a331d0bc",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_521.png",
+      "bytes": 657,
+      "sha256": "543d259829f938998b583f11c7678d53d73ac9fd88cfea9c07319e081b128b14",
+      "original_source_sha256": "543d259829f938998b583f11c7678d53d73ac9fd88cfea9c07319e081b128b14",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_522.png",
+      "bytes": 685,
+      "sha256": "0b80e55833a834b16844b1c2f72fe816e5ab52785aa07d2dbd10b199f97a0670",
+      "original_source_sha256": "0b80e55833a834b16844b1c2f72fe816e5ab52785aa07d2dbd10b199f97a0670",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_523.png",
+      "bytes": 258,
+      "sha256": "21a0963fe3e0e3f637ed00cdfa1c53b3448f559a2cc1d271da7de1497a54b315",
+      "original_source_sha256": "21a0963fe3e0e3f637ed00cdfa1c53b3448f559a2cc1d271da7de1497a54b315",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_524.png",
+      "bytes": 185,
+      "sha256": "ad45174044084170c14c47b0df56ad7fbc322b3c1783c218c432d815dd6df913",
+      "original_source_sha256": "ad45174044084170c14c47b0df56ad7fbc322b3c1783c218c432d815dd6df913",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_525.png",
+      "bytes": 185,
+      "sha256": "fa440b36351396d2165797de9fb1a8e879017d353756c317a546ddfefbb726ea",
+      "original_source_sha256": "fa440b36351396d2165797de9fb1a8e879017d353756c317a546ddfefbb726ea",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_526.png",
+      "bytes": 180,
+      "sha256": "30e36ee4d5feb7b7bc8a99a1f9e7aae8d9190ed4e76737622a8334ead9cdb036",
+      "original_source_sha256": "30e36ee4d5feb7b7bc8a99a1f9e7aae8d9190ed4e76737622a8334ead9cdb036",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_527.png",
+      "bytes": 219,
+      "sha256": "e323adfb625163c6a6d01185a190ee3f681228c6d35d796c46913b2a8d1b984a",
+      "original_source_sha256": "e323adfb625163c6a6d01185a190ee3f681228c6d35d796c46913b2a8d1b984a",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_528.png",
+      "bytes": 586,
+      "sha256": "3e99d5404d75884ebb5febfd8feba400c0cabd5a0c94b34d11b212509fa09f08",
+      "original_source_sha256": "3e99d5404d75884ebb5febfd8feba400c0cabd5a0c94b34d11b212509fa09f08",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_529.png",
+      "bytes": 612,
+      "sha256": "65fb666cedea1442412ed090288250a2036aabe4b95ac02f0f106986eb502696",
+      "original_source_sha256": "65fb666cedea1442412ed090288250a2036aabe4b95ac02f0f106986eb502696",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_530.png",
+      "bytes": 667,
+      "sha256": "883a382a351ae6042dc0964f7734e597dfe0cec0fc3f609e42991617ab6caf0e",
+      "original_source_sha256": "883a382a351ae6042dc0964f7734e597dfe0cec0fc3f609e42991617ab6caf0e",
+      "sanitized_fields": []
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_531.png",
+      "bytes": 702,
+      "sha256": "ef3ffdace01b568c3cc0979530ad76a7f5e2d85a5e0cb77b808d8521c96b3f61",
+      "original_source_sha256": "ef3ffdace01b568c3cc0979530ad76a7f5e2d85a5e0cb77b808d8521c96b3f61",
+      "sanitized_fields": []
+    },
+    {
       "path": "preset_assets/inventory_halos.json",
-      "bytes": 296364,
-      "sha256": "786bf21f30dcefe89ae1ca93d413f3f3e3f2ca3cb9a2b5b7509aa160916c8ffe",
-      "original_source_sha256": "cf5173b149ba4544934b89e68090cc8aec93af1a499a65b91dcc2004d5358bfd",
+      "bytes": 327588,
+      "sha256": "f2f97ca16b237fc771b1fdf9bb2fe68b538ba03203eaf476ebac5d622f8c1676",
+      "original_source_sha256": "907acaabf2843dfb61bb7de0551682b34e2611aaa15782d4ceee411dba6da923",
       "sanitized_fields": [
         "records.0.source_image",
         "records.1.source_image",
@@ -15545,7 +16552,60 @@
         "records.475.source_image",
         "records.476.source_image",
         "records.477.source_image",
-        "records.478.source_image"
+        "records.478.source_image",
+        "records.479.source_image",
+        "records.480.source_image",
+        "records.481.source_image",
+        "records.482.source_image",
+        "records.483.source_image",
+        "records.484.source_image",
+        "records.485.source_image",
+        "records.486.source_image",
+        "records.487.source_image",
+        "records.488.source_image",
+        "records.489.source_image",
+        "records.490.source_image",
+        "records.491.source_image",
+        "records.492.source_image",
+        "records.493.source_image",
+        "records.494.source_image",
+        "records.495.source_image",
+        "records.496.source_image",
+        "records.497.source_image",
+        "records.498.source_image",
+        "records.499.source_image",
+        "records.500.source_image",
+        "records.501.source_image",
+        "records.502.source_image",
+        "records.503.source_image",
+        "records.504.source_image",
+        "records.505.source_image",
+        "records.506.source_image",
+        "records.507.source_image",
+        "records.508.source_image",
+        "records.509.source_image",
+        "records.510.source_image",
+        "records.511.source_image",
+        "records.512.source_image",
+        "records.513.source_image",
+        "records.514.source_image",
+        "records.515.source_image",
+        "records.516.source_image",
+        "records.517.source_image",
+        "records.518.source_image",
+        "records.519.source_image",
+        "records.520.source_image",
+        "records.521.source_image",
+        "records.522.source_image",
+        "records.523.source_image",
+        "records.524.source_image",
+        "records.525.source_image",
+        "records.526.source_image",
+        "records.527.source_image",
+        "records.528.source_image",
+        "records.529.source_image",
+        "records.530.source_image",
+        "records.531.source_image"
       ]
     },
     {
@@ -16521,13 +17581,13 @@
     {
       "path": "release-kit/source-kit/prepare_source.py",
       "bytes": 21167,
-      "sha256": "d74bc0acd26effd5fe3c57e0665d7a5f7ca542e6876ec55fed0c74f26ff64b05",
+      "sha256": "d473c80ed7f38079d8ca61bceab43be6d0675cdb0a1ffee5b0d632bd92a272b6",
       "origin": "sanitized public source-kit template"
     },
     {
       "path": "release-kit/source-kit/source-policy.json",
-      "bytes": 264986,
-      "sha256": "ad7be89e54411119b2f85ed406825af0ba31dd7ef177dea7e15b0c102a4bd1e1",
+      "bytes": 284278,
+      "sha256": "99a0ea2b23aaf981b7f714bf5d3a289d898d66c8de0eea29a019b588d1bf6317",
       "origin": "sanitized public source-kit template"
     },
     {
@@ -16598,8 +17658,8 @@
     },
     {
       "path": "release-kit/source-kit/templates/test_public_resources.py",
-      "bytes": 5169,
-      "sha256": "c35964085fb5a8c7afd614d6c03b14db55642006b50ef7bfcf27604ae115047e",
+      "bytes": 5221,
+      "sha256": "92d903acbec43addac961bb7f1ce87dfe2bc70187d1b66522dfc7049bd8b83d0",
       "origin": "sanitized public source-kit template"
     },
     {
@@ -16732,9 +17792,9 @@
     },
     {
       "path": "test_inventory_bulk_scroll.py",
-      "bytes": 13183,
-      "sha256": "41e58e4eede94b9cd5506f766bc3ae470739beeeac1943e246d3907471c67a5c",
-      "original_source_sha256": "41e58e4eede94b9cd5506f766bc3ae470739beeeac1943e246d3907471c67a5c",
+      "bytes": 14629,
+      "sha256": "f96bc450488efbb02bdd0f26b8fc8a813641834f7a34286928b8001ac67711ed",
+      "original_source_sha256": "f96bc450488efbb02bdd0f26b8fc8a813641834f7a34286928b8001ac67711ed",
       "sanitized_fields": []
     },
     {
@@ -16746,9 +17806,9 @@
     },
     {
       "path": "test_inventory_halo.py",
-      "bytes": 11361,
-      "sha256": "b7d429da7b125009cdfc955f7b11233b00698bf50799607642482de105d324a8",
-      "original_source_sha256": "b7d429da7b125009cdfc955f7b11233b00698bf50799607642482de105d324a8",
+      "bytes": 16639,
+      "sha256": "3a053967ae8fdb5693cbc1aa106a2dae8d5dd23f225296397c18099c34534ed6",
+      "original_source_sha256": "3a053967ae8fdb5693cbc1aa106a2dae8d5dd23f225296397c18099c34534ed6",
       "sanitized_fields": []
     },
     {
@@ -16781,8 +17841,8 @@
     },
     {
       "path": "test_public_resources.py",
-      "bytes": 5169,
-      "sha256": "c35964085fb5a8c7afd614d6c03b14db55642006b50ef7bfcf27604ae115047e",
+      "bytes": 5221,
+      "sha256": "92d903acbec43addac961bb7f1ce87dfe2bc70187d1b66522dfc7049bd8b83d0",
       "origin": "sanitized public source-kit template"
     },
     {

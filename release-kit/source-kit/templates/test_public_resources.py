@@ -71,7 +71,8 @@ class PublicResourceTests(unittest.TestCase):
                             for record in model["records"]))
         names = verify_inventory_halo_resources(model, lambda name: (ASSETS / name).read_bytes())
         self.assertEqual(names, {record["image"] for record in model["records"]})
-        self.assertEqual(len(names), 479)
+        self.assertEqual(len(names), 532)
+        self.assertEqual(len(model["models"]), 128)
         self.assertTrue(all(min(record["dimensions"]) <= 4
                             and max(record["dimensions"]) <= 100
                             and record["dimensions"][0]*record["dimensions"][1] <= 400

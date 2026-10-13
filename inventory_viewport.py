@@ -51,16 +51,29 @@ def _merged_runs(projection, scale):
     return merged
 
 
-def _lattice(runs, length, expected, scale):
+def _lattice(runs, length, expected, scale, *, candidate_gaps=False):
     # Clipped first/last separator centers cannot measure physical pitch; the
     # visible part is still checked by the per-segment guards below.
     complete = [(a, b) for a, b in runs if a > 0 and b < length]
     if len(complete) < 3:
         raise LayoutError("Inventory viewport cannot establish complete row pitch")
     centers = np.array([(a + b - 1) / 2 for a, b in complete])
-    pitch, offset = np.polyfit(np.arange(len(centers)), centers, 1)
+    indices = np.arange(len(centers))
+    if candidate_gaps:
+        # Candidate generation ONLY: a supported halo may obscure one band.
+        # Retain its integer index instead of fitting surviving bands as
+        # consecutive. The caller still needs exact authenticated halo lanes
+        # and the unchanged complete-grid/per-cell proof before acceptance.
+        if len(centers) < 5 or centers[-1]-centers[0] < expected*4-1.8*scale:
+            raise LayoutError("Inventory halo lacks spatially spanning raw row evidence")
+        indices = np.rint((centers-centers[0])/expected).astype(int)
+        differences = np.diff(indices)
+        missing = int(indices[-1]+1-len(indices))
+        if (np.any(differences < 1) or np.any(differences > 2) or missing > 1):
+            raise LayoutError("Inventory halo raw rows cannot establish bounded integer gaps")
+    pitch, offset = np.polyfit(indices, centers, 1)
     if (abs(pitch - expected) > max(1.5 * scale, expected * .025)
-            or np.max(np.abs(centers - (offset + pitch * np.arange(len(centers))))) > 1.8 * scale):
+            or np.max(np.abs(centers - (offset + pitch * indices))) > 1.8 * scale):
         raise LayoutError("Inventory viewport pitch contradicts the header transform")
     return float(pitch), float(offset % pitch)
 
@@ -401,17 +414,33 @@ def inventory_bulk_ready(image: Image.Image, view: InventoryViewport, *, directi
 
 
 def _complete_overlap(before: InventoryViewport, after: InventoryViewport, displacement: int) -> int:
-    """Count actual whole old rows that still lie in the new complete grid."""
-    old, new = before.grid, after.grid
-    boundaries = [new.cell_rect(row * new.columns).top for row in range(new.rows)]
-    boundaries.append(new.rect.bottom)
+    """Certify the same complete rows using their observed separator lattice.
+
+    GridSpec divides an input rectangle evenly; neutral raster padding can
+    accumulate several pixels at its last row. It is not physical motion
+    evidence. Use each already-proved row's ACTUAL separator center instead.
+    The first complete row alone needs its leading center extrapolated one
+    independently fitted pitch; its complete crop was established beforehand.
+    Both ends must match the SAME new complete row at the original1.5px bound.
+    """
+    def boundaries(view):
+        stripes = view.evidence.horizontal_stripes
+        grid = view.grid
+        if (len(stripes) != grid.rows
+                or abs(view.evidence.pitch_y-view.row_pitch) > max(.75,view.row_pitch*.0125)
+                or any(not 0 <= a < b <= grid.rect.height for a,b in stripes)):
+            raise LayoutError("Bulk overlap lacks its proved complete-row separators")
+        centers = [grid.rect.top+(a+b-1)/2 for a,b in stripes]
+        if any(abs((b-a)-view.row_pitch)>1.5 for a,b in zip(centers,centers[1:])):
+            raise LayoutError("Bulk overlap separator pitch contradicts the viewport")
+        return [centers[0]-view.row_pitch,*centers]
+
+    old,new = boundaries(before),boundaries(after)
     count = 0
-    for row in range(old.rows):
-        cell = old.cell_rect(row * old.columns)
-        top, bottom = cell.top - displacement, cell.bottom - displacement
-        if (top >= new.rect.top - 1.5 and bottom <= new.rect.bottom + 1.5
-                and min(abs(top - edge) for edge in boundaries) <= 1.5
-                and min(abs(bottom - edge) for edge in boundaries) <= 1.5):
+    for a,b in zip(old,old[1:]):
+        top,bottom = a-displacement,b-displacement
+        if any(abs(top-start)<=1.5 and abs(bottom-end)<=1.5
+               for start,end in zip(new,new[1:])):
             count += 1
     return count
 

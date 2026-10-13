@@ -33,6 +33,31 @@ BOTTOM_CAP_OFFSETS = {key: FULL_OFFSETS[key] for key in ("frame_bottom_left", "f
 MAX_PATCH_RMSE = 10.0
 
 
+def _halo_raster(array):
+    """Symmetric sigma1.5 physical-pixel raster normalization, without masks.
+
+    Every RGB pixel of BOTH matched tiny patches participates. Full cues may
+    use this only after their two opposite opaque side rails independently
+    pass RAW RMSE10 on the SAME cue. Headers, raw lattice, grid and item proof
+    retain their original pixels/thresholds. No clipped cap gets this route.
+    """
+    positions = np.arange(-5, 6, dtype=np.float32)
+    kernel = np.exp(-positions*positions/(2*1.5*1.5))
+    kernel /= kernel.sum()
+    result = array
+    for axis in (array.ndim-3, array.ndim-2):
+        pads = [(0, 0)]*array.ndim
+        pads[axis] = (5, 5)
+        source = np.pad(result, pads, mode="edge")
+        normalized = np.zeros_like(result)
+        for index, weight in enumerate(kernel):
+            slices = [slice(None)]*array.ndim
+            slices[axis] = slice(index, index+array.shape[axis])
+            normalized += source[tuple(slices)]*weight
+        result = normalized
+    return result
+
+
 class InventoryHaloModels:
     def __init__(self, directory):
         directory = Path(directory).resolve()
@@ -100,6 +125,7 @@ class InventoryHaloModels:
         if not all(self.models.values()):
             raise ValueError("Both full and clipped-cap halo proofs are required")
         self._rendered = {}
+        self._normalized = {}
 
     def rendered(self, kind, scale):
         key = kind, round(scale, 6)
@@ -116,6 +142,7 @@ class InventoryHaloModels:
                 values[label] = (rect, np.stack(arrays))
             if len(self._rendered) >= 12:
                 self._rendered.clear()
+                self._normalized.clear()
             self._rendered[key] = values
         return self._rendered[key]
 
@@ -123,6 +150,8 @@ class InventoryHaloModels:
         rendered = self.rendered(kind, scale)
         surviving = np.ones(len(self.models[kind]), dtype=bool)
         halo_rects = []
+        observed = []
+        raw_rails = {}
         for label, (relative, samples) in rendered.items():
             target = relative.translated(*origin)
             if label.startswith("halo_"):
@@ -139,9 +168,33 @@ class InventoryHaloModels:
             actual = image_array[target.top:target.bottom, target.left:target.right]
             errors = np.sqrt(np.mean((samples - actual) ** 2, axis=(1, 2, 3)))
             surviving &= errors <= MAX_PATCH_RMSE
+            observed.append((label, samples, actual, target))
+            if label in ("frame_left", "frame_right"):
+                raw_rails[label] = errors <= MAX_PATCH_RMSE
+        if halo_rects and surviving.any():
+            return halo_rects  # Complete original raw proof remains sufficient.
+        if kind != "full" or not halo_rects or len(raw_rails) != 2:
+            return None
+        surviving = raw_rails["frame_left"] & raw_rails["frame_right"]
+        if not surviving.any():
+            return None  # Cheap raw bilateral veto before ANY normalization.
+        for label, samples, actual, target in observed:
+            relative = rendered[label][0]
+            full_target = relative.translated(*origin)
+            clipping = (target.top-full_target.top, target.bottom-full_target.top,
+                        target.left-full_target.left, target.right-full_target.left)
+            key = kind, round(scale, 6), label, clipping
+            normalized = self._normalized.get(key)
+            if normalized is None:
+                normalized = _halo_raster(samples)
+                if len(self._normalized) >= 256:
+                    self._normalized.clear()
+                self._normalized[key] = normalized
+            errors = np.sqrt(np.mean((normalized-_halo_raster(actual))**2, axis=(1, 2, 3)))
+            surviving &= errors <= MAX_PATCH_RMSE
             if not surviving.any():
                 return None
-        return halo_rects if halo_rects and surviving.any() else None
+        return halo_rects if surviving.any() else None
 
 
 @functools.lru_cache(maxsize=1)
@@ -161,9 +214,10 @@ def prove_inventory_halo_mask(image, rect, rows, columns, gap_color, scale, mask
     """Return only model-supported gutter evidence, or reject the whole grid.
 
     Lattice candidates require original neutral RGB in at least three columns
-    on EVERY row boundary and three whole row segments at EVERY column. A matched
-    halo cannot invent pitch, a missing complete row, a cropped cell or an end.
-    The caller runs the unchanged complete lattice/per-segment guards again.
+    on every observed band and three whole row segments at every column. One
+    skipped integer band can suggest a candidate only; authenticated frame and
+    halo lanes must then restore the unchanged ALL-row/per-segment proof. A
+    matched halo cannot invent a complete row, a cropped cell or an endpoint.
     """
     from auto_layout import LayoutError, _runs
     if rows not in (7, 8) or columns != 5:
@@ -189,18 +243,16 @@ def prove_inventory_halo_mask(image, rect, rows, columns, gap_color, scale, mask
     support = np.stack([mask[:, rect.width*c//columns:rect.width*(c+1)//columns].mean(axis=1)
                         for c in range(columns)])
     ys = _runs((support >= .78).sum(axis=0) >= 3)
-    valid_count = rows-1 <= len(ys) <= rows+1 if allow_shifted else len(ys) == rows
+    valid_count = rows-2 <= len(ys) <= rows+1 if allow_shifted else rows-1 <= len(ys) <= rows
     if not valid_count or any(b-a > math.ceil(10*scale) for a, b in ys):
         raise LayoutError("Inventory halo lacks every independently observed row")
     complete = [(a, b) for a, b in ys if a > 0 and b < rect.height]
     if len(complete) < 3:
         raise LayoutError("Inventory halo cannot establish complete row pitch")
-    centers = np.array([(a+b-1)/2 for a, b in complete])
-    pitch, offset = np.polyfit(np.arange(len(centers)), centers, 1)
     expected = rect.height / rows
-    if (abs(pitch-expected) > max(1.5*scale, expected*.025)
-            or np.max(abs(centers-(offset+pitch*np.arange(len(centers))))) > 1.8*scale
-            or (not allow_shifted and abs((ys[-1][0]+ys[-1][1]-1)/2-(rect.height-3*scale)) > 6*scale)):
+    from inventory_viewport import _lattice
+    pitch, offset = _lattice(ys, rect.height, expected, scale, candidate_gaps=True)
+    if (not allow_shifted and abs((ys[-1][0]+ys[-1][1]-1)/2-(rect.height-3*scale)) > 6*scale):
         raise LayoutError("Inventory halo lattice contradicts header geometry")
     first = (offset+3*scale) % pitch
     if min(first, pitch-first) <= max(.75, 1.25*scale):
