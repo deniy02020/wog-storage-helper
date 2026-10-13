@@ -4,7 +4,8 @@ from __future__ import annotations
 import copy
 import math
 
-MIN_INTERVAL = 1800
+MIN_INTERVAL = 60
+DEFAULT_INTERVAL = 1800
 MAX_INTERVAL = 86400
 IDLE_SECONDS = 600
 
@@ -16,13 +17,13 @@ def default_transfer_filters():
 
 def validate_interval(value):
     if isinstance(value, bool):
-        raise ValueError("Интервал: от 1800 до 86400 секунд (30 минут — 24 часа).")
+        raise ValueError("Интервал: от 60 до 86400 секунд (1 минута — 24 часа).")
     try:
         interval = float(str(value).strip().replace(",", "."))
     except (TypeError, ValueError):
-        raise ValueError("Интервал: от 1800 до 86400 секунд (30 минут — 24 часа).") from None
+        raise ValueError("Интервал: от 60 до 86400 секунд (1 минута — 24 часа).") from None
     if not math.isfinite(interval) or not MIN_INTERVAL <= interval <= MAX_INTERVAL:
-        raise ValueError("Интервал: от 1800 до 86400 секунд (30 минут — 24 часа).")
+        raise ValueError("Интервал: от 60 до 86400 секунд (1 минута — 24 часа).")
     return interval
 
 
@@ -53,7 +54,7 @@ def migrate_profile(profile):
     result = copy.deepcopy(profile)
     if "include_gems" in result and not isinstance(result["include_gems"], bool):
         raise ValueError("Историческая настройка самоцветов должна быть логическим значением.")
-    old = result.get("interval", MIN_INTERVAL)
+    old = result.get("interval", DEFAULT_INTERVAL)
     # Only valid historical short intervals receive the new minimum.
     if not isinstance(old, bool):
         try:

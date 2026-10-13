@@ -3,10 +3,17 @@ import os
 import unittest
 from unittest.mock import patch
 
-from release_identity import EXECUTABLES, expected_strings, numeric_version, pe_version_info, release_version
+from release_identity import DEFAULT_RELEASE_VERSION, EXECUTABLES, expected_strings, numeric_version, pe_version_info, release_version
 
 
 class ReleaseIdentityTests(unittest.TestCase):
+    def test_local_default_is_new_beta_without_changing_explicit_old_versions(self):
+        with patch.dict(os.environ, {}, clear=True):
+            self.assertEqual(release_version(), "0.2.0-beta.8")
+        self.assertEqual(DEFAULT_RELEASE_VERSION, "0.2.0-beta.8")
+        self.assertEqual(release_version("0.2.0-beta.6"), "0.2.0-beta.6")
+        self.assertEqual(release_version("0.2.0-beta.7"), "0.2.0-beta.7")
+
     def test_beta_and_stable_binary_versions(self):
         self.assertEqual(numeric_version(release_version("0.2.0-beta.7")), (0, 2, 0, 7))
         self.assertEqual(numeric_version(release_version("1.2.3")), (1, 2, 3, 0))
@@ -31,13 +38,13 @@ class ReleaseIdentityTests(unittest.TestCase):
         from PyInstaller.utils.win32.versioninfo import VSVersionInfo
         for role, (filename, _description) in EXECUTABLES.items():
             with self.subTest(role=role):
-                resource = pe_version_info(role, "0.2.0-beta.7")
+                resource = pe_version_info(role, "0.2.0-beta.8")
                 parsed = VSVersionInfo()
                 parsed.fromRaw(resource.toRaw())
                 delivered = {entry.name: entry.val for entry in parsed.kids[0].kids[0].kids}
-                self.assertEqual(delivered, expected_strings(role, "0.2.0-beta.7"))
+                self.assertEqual(delivered, expected_strings(role, "0.2.0-beta.8"))
                 self.assertEqual(delivered["OriginalFilename"], filename)
-                self.assertEqual(parsed.ffi.fileVersionLS, 7)
+                self.assertEqual(parsed.ffi.fileVersionLS, 8)
                 self.assertEqual(parsed.ffi.fileFlags, 2)
 
     def test_unknown_product_role_is_rejected(self):

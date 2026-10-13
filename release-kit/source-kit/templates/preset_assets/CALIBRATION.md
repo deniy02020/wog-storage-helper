@@ -14,5 +14,12 @@ and never enable low-tier transfers. Gems and equipment share the tier filter.
 Full game frames, user profiles, captures and internal development history are
 excluded from this source snapshot.
 
+The Beta.8 resource set adds 479 narrow T4 border/gutter lane PNGs and five
+paired T4 badge/context samples. Lane images contain no item icon or level
+label. They support only a bounded alternate gutter proof; independent neutral
+row/column evidence and normal complete-grid checks remain required. Native
+source filenames are redacted in the exported model while their hashes and
+crop geometry remain. The source image sentinel is never opened at runtime.
+
 Game-derived fragments retain their respective rights. Helper's own code and
 original product assets use MIT; third-party notices are preserved separately.

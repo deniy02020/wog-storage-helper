@@ -16,6 +16,8 @@ import urllib.request
 import uuid
 import zipfile
 
+from release_identity import DEFAULT_RELEASE_VERSION
+
 CONFIGURATION_KEYS = {"app": "SIGNPATH_APP_CONFIGURATION", "uninstaller": "SIGNPATH_UNINSTALLER_CONFIGURATION",
                       "setup": "SIGNPATH_SETUP_CONFIGURATION"}
 FILENAMES = {"app": "WoGStorageHelper.exe", "uninstaller": "WoGStorageHelperUninstall.exe",
@@ -69,7 +71,7 @@ def receipt(environ=None):
                 for role in roles if env.get("SIGNPATH_" + role.upper() + "_REQUEST")}
     if not requests:
         raise ValueError("No actual submitted request ID is available")
-    return {"schema": 1, "state": "submitted_not_signed", "version": "0.2.0-beta.7",
+    return {"schema": 1, "state": "submitted_not_signed", "version": DEFAULT_RELEASE_VERSION,
             **settings, **github_origin(env), "requests": requests}
 
 

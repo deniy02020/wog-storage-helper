@@ -117,7 +117,12 @@
     "4": [
       "tier_4_native_phase_cell_03_20261011.png",
       "tier_4_native_phase_cell_04_20261011.png",
-      "tier_4_native_bag_cell_10_20261011.png"
+      "tier_4_native_bag_cell_10_20261011.png",
+      "tier_4_native_halo_index_24_phase_00_20261013.png",
+      "tier_4_native_halo_index_24_phase_35_20261013.png",
+      "tier_4_native_halo_index_24_phase_13_20261013.png",
+      "tier_4_native_halo_index_24_phase_25_20261013.png",
+      "tier_4_native_halo_index_24_phase_36_20261013.png"
     ],
     "6": [
       "tier_6_native_bag_cell_01_20261011.png",
@@ -956,6 +961,193 @@
           "native_observation_utc": "2026-10-12T17:56:58.776348+00:00",
           "tier_basis": "User-confirmed game tier/color mapping: grey=T1; SAME grey belt Lv40 observed on genuine later scrolled rows. This is a negative Tier1 recognition sample; transfer eligibility is unchanged.",
           "tooltip_tier_confirmed_for_this_sample": false
+        }
+      ],
+      "4": [
+        {
+          "image": "tier_4_native_halo_index_24_phase_00_20261013.png",
+          "sha256": "3d05db04eccaed1265e5cb9e7c231c175c8202d374630f573500d4bfc8c9f7f1",
+          "rgb_sha256": "33152fe70a6d663114a15bebd5251a9a43aead3f912d48d89ae652ad5a5702b3",
+          "source_image": "private-source-withheld.png",
+          "source_file_sha256": "1bd801eb9e65b5f072fdfa1c696dfb7a40c5f022b2dd5f8f309af6e66a39354f",
+          "source_rgb_sha256": "acc36c24cd724c6f99159e9d649c2a21e5a56005ce292c768587da700aeb3131",
+          "source_image_size": [
+            1670,
+            1670
+          ],
+          "source_grid": {
+            "rect": [
+              890,
+              588,
+              1215,
+              1108
+            ],
+            "rows": 8,
+            "columns": 5
+          },
+          "source_cell_rect": [
+            1150,
+            848,
+            1215,
+            913
+          ],
+          "source_cell_size": [
+            65,
+            65
+          ],
+          "inventory_cell_index": 24,
+          "native_phase": 0,
+          "tier_basis": "User-confirmed game tier/color mapping: red=T4. Approved genuine red boots, the same item through native halo phases; no new tooltip claim.",
+          "tooltip_tier_confirmed_for_this_sample": false,
+          "normalization": "Convert the genuine full 65x65 source cell to RGB; BILINEAR normalization is unnecessary at this native size. Crop the exact half-open badge [1,14,4,25] without resizing, repainting or masking."
+        },
+        {
+          "image": "tier_4_native_halo_index_24_phase_35_20261013.png",
+          "sha256": "400805214bd9f1a9c49dfec45e8adbf41b60b98548d41df109b882c3a530839b",
+          "rgb_sha256": "25ccbeba7d49026bde9c0847c0f63c4036b7f0d1ed5ce0618279e6f42a123c1c",
+          "source_image": "private-source-withheld.png",
+          "source_file_sha256": "a7225b9a26c3e768c2cee8ee7004460f70aea1e0320b645c9c449d0268d3f3a5",
+          "source_rgb_sha256": "2bd9d79d42d61b8e2ef9ed9ba6ff159b498d23d7ddc4e2730b4ff214f3e47557",
+          "source_image_size": [
+            1670,
+            1670
+          ],
+          "source_grid": {
+            "rect": [
+              890,
+              588,
+              1215,
+              1108
+            ],
+            "rows": 8,
+            "columns": 5
+          },
+          "source_cell_rect": [
+            1150,
+            848,
+            1215,
+            913
+          ],
+          "source_cell_size": [
+            65,
+            65
+          ],
+          "inventory_cell_index": 24,
+          "native_phase": 35,
+          "tier_basis": "User-confirmed game tier/color mapping: red=T4. Approved genuine red boots, the same item through native halo phases; no new tooltip claim.",
+          "tooltip_tier_confirmed_for_this_sample": false,
+          "normalization": "Convert the genuine full 65x65 source cell to RGB; BILINEAR normalization is unnecessary at this native size. Crop the exact half-open badge [1,14,4,25] without resizing, repainting or masking."
+        },
+        {
+          "image": "tier_4_native_halo_index_24_phase_13_20261013.png",
+          "sha256": "b1ab333d033deab319234be717b5d6e1b0b9721eaf1cc13f3844afbee9efd52f",
+          "rgb_sha256": "d787d43a0fe9367391de391fd1ee7ef0717f4862f6a5813d3ae4da8699b0ef5e",
+          "source_image": "private-source-withheld.png",
+          "source_file_sha256": "9de90ef19ffcd6d0b79aac72820a89f2ce9f42a3df227302496ac341fe087dad",
+          "source_rgb_sha256": "726e7df64a62b6c279d1e8253e4da28883e1884bde13475af5c7a84a854890d3",
+          "source_image_size": [
+            1670,
+            1670
+          ],
+          "source_grid": {
+            "rect": [
+              890,
+              588,
+              1215,
+              1108
+            ],
+            "rows": 8,
+            "columns": 5
+          },
+          "source_cell_rect": [
+            1150,
+            848,
+            1215,
+            913
+          ],
+          "source_cell_size": [
+            65,
+            65
+          ],
+          "inventory_cell_index": 24,
+          "native_phase": 13,
+          "tier_basis": "User-confirmed game tier/color mapping: red=T4. Approved genuine red boots, the same item through native halo phases; no new tooltip claim.",
+          "tooltip_tier_confirmed_for_this_sample": false,
+          "normalization": "Convert the genuine full 65x65 source cell to RGB; BILINEAR normalization is unnecessary at this native size. Crop the exact half-open badge [1,14,4,25] without resizing, repainting or masking."
+        },
+        {
+          "image": "tier_4_native_halo_index_24_phase_25_20261013.png",
+          "sha256": "c6d898d2b9622a740762dbf57dd5a242cdd489e56c3129149373ca94dac7bcae",
+          "rgb_sha256": "b565c31d63f0a71e64ff6fb8ef5c42ef7a4f1857c6e570e68b9322b7a8edc10d",
+          "source_image": "private-source-withheld.png",
+          "source_file_sha256": "00befe3b7c7b032c9d9dfd45f6ccf556945f46a02c2296a30996fd67679a334f",
+          "source_rgb_sha256": "acc3a16ad9d1b1985b4e57e0033b9c72471b4a5c4f764fb3df9df22322217f2b",
+          "source_image_size": [
+            1670,
+            1670
+          ],
+          "source_grid": {
+            "rect": [
+              890,
+              588,
+              1215,
+              1108
+            ],
+            "rows": 8,
+            "columns": 5
+          },
+          "source_cell_rect": [
+            1150,
+            848,
+            1215,
+            913
+          ],
+          "source_cell_size": [
+            65,
+            65
+          ],
+          "inventory_cell_index": 24,
+          "native_phase": 25,
+          "tier_basis": "User-confirmed game tier/color mapping: red=T4. Approved genuine red boots, the same item through native halo phases; no new tooltip claim.",
+          "tooltip_tier_confirmed_for_this_sample": false,
+          "normalization": "Convert the genuine full 65x65 source cell to RGB; BILINEAR normalization is unnecessary at this native size. Crop the exact half-open badge [1,14,4,25] without resizing, repainting or masking."
+        },
+        {
+          "image": "tier_4_native_halo_index_24_phase_36_20261013.png",
+          "sha256": "62459e8f93fc76a15366b4e4d38323342f5ff230a209d7e38e6b123496e5ae6d",
+          "rgb_sha256": "8c29952d7c50edc6a428337da203d1c443347e0d6708d49f8e686c6a67cb327c",
+          "source_image": "private-source-withheld.png",
+          "source_file_sha256": "f4f3d372ac7be1728647d4ce27dfaf3e9cf7a6689e6f3131aca2bd47c00f516c",
+          "source_rgb_sha256": "f90dec467f5bd40ad37fd542f95213b0c88203c2629cdc82d930707c772c36d8",
+          "source_image_size": [
+            1670,
+            1670
+          ],
+          "source_grid": {
+            "rect": [
+              890,
+              588,
+              1215,
+              1108
+            ],
+            "rows": 8,
+            "columns": 5
+          },
+          "source_cell_rect": [
+            1150,
+            848,
+            1215,
+            913
+          ],
+          "source_cell_size": [
+            65,
+            65
+          ],
+          "inventory_cell_index": 24,
+          "native_phase": 36,
+          "tier_basis": "User-confirmed game tier/color mapping: red=T4. Approved genuine red boots, the same item through native halo phases; no new tooltip claim.",
+          "tooltip_tier_confirmed_for_this_sample": false,
+          "normalization": "Convert the genuine full 65x65 source cell to RGB; BILINEAR normalization is unnecessary at this native size. Crop the exact half-open badge [1,14,4,25] without resizing, repainting or masking."
         }
       ]
     }

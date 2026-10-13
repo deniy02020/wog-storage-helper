@@ -17,6 +17,7 @@ from zipfile import ZipFile
 
 from installer.core import EXECUTABLE, PRODUCT_DIRECTORY, InstallError, file_hash, payload_files
 from installer.license_resources import licensing_hashes, verify_wrapper_licenses
+from inventory_halo import verify_inventory_halo_resources
 from release_identity import release_version
 
 PROJECT = Path(__file__).resolve().parents[1]
@@ -250,6 +251,7 @@ def verify_release_payload(payload: Path):
                 "_internal/preset_assets/reference.json", "_internal/preset_assets/adaptive_tiers.json",
                 "_internal/preset_assets/adaptive_ui.json",
                 "_internal/preset_assets/header_parking.json",
+                "_internal/preset_assets/inventory_halos.json",
                 "README.md", "ATTRIBUTION.md",
                 "THIRD_PARTY_NOTICES.txt", "_internal/THIRD_PARTY_NOTICES.txt",
                 "_internal/licenses/manifest.json",
@@ -284,6 +286,17 @@ def verify_release_payload(payload: Path):
             raise InstallError("Invalid header parking model JSON.") from error
         parking_samples = verify_header_parking_resources(parking,
             lambda name:archive.read(f"{PRODUCT_DIRECTORY}/_internal/preset_assets/{name}"))
+        halo_bytes = archive.read(f"{PRODUCT_DIRECTORY}/_internal/preset_assets/inventory_halos.json")
+        try:
+            if len(halo_bytes) > 1024 * 1024:
+                raise ValueError("Inventory halo manifest exceeds its bounded size")
+            halo = json.loads(halo_bytes)
+            if not isinstance(halo, dict):
+                raise ValueError("Inventory halo manifest must be an object")
+            halo_samples = verify_inventory_halo_resources(halo,
+                lambda name:archive.read(f"{PRODUCT_DIRECTORY}/_internal/preset_assets/{name}"))
+        except (ValueError, TypeError, KeyError, OSError) as error:
+            raise InstallError("Invalid inventory halo model or resource: " + str(error)) from error
         authentic = licensing_hashes(PROJECT)
         for name, digest in authentic.items():
             relative = "_internal/" + name
@@ -294,10 +307,12 @@ def verify_release_payload(payload: Path):
         if hashlib.sha256(archive.read(PRODUCT_DIRECTORY + "/THIRD_PARTY_NOTICES.txt")).hexdigest() != authentic["THIRD_PARTY_NOTICES.txt"]:
             raise InstallError("Release third-party notices checksum mismatch.")
     return {"file_count": len(entries), "uncompressed_bytes": size, "exe_sha256": executable_hash,
-            "referenced_samples": len(samples | adaptive_samples | ui_samples | parking_samples),
+            "referenced_samples": len(samples | adaptive_samples | ui_samples | parking_samples | halo_samples),
             "adaptive_context_samples": len(adaptive_samples), "adaptive_ui_samples": len(ui_samples),
             "headerparking_model_sha256":hashlib.sha256(parking_bytes).hexdigest(),
             "headerparking_sample_count":len(parking_samples),
+            "inventoryhalo_model_sha256":hashlib.sha256(halo_bytes).hexdigest(),
+            "inventoryhalo_sample_count":len(halo_samples),
             "authentic_license_resources": len(authentic), "license_sha256": authentic}
 
 

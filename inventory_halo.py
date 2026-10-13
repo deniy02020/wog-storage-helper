@@ -1,0 +1,266 @@
+"""Authenticated narrow T4 frame rails prove its glow in grid gutters only.
+
+This is an alternate pixel proof, not a color exemption. Every accepted glow
+requires the same model's opaque frame rails AND gutter lanes on the current
+frame. Only those exact gutter rectangles can contribute separator evidence.
+Item icons, labels, centers and arbitrary pink pixels never establish a grid.
+"""
+from __future__ import annotations
+
+import functools
+import hashlib
+from io import BytesIO
+import json
+import math
+from pathlib import Path
+import re
+
+import numpy as np
+from PIL import Image
+
+from core import Rect
+
+
+FULL_OFFSETS = {"frame_top": [6, 0, 43, 3], "frame_bottom_left": [0, 51, 4, 60],
+    "frame_bottom_right": [56, 51, 60, 60], "frame_left": [0, 12, 3, 48],
+    "frame_right": [57, 12, 60, 48], "halo_top": [-20, -4, 64, 0],
+    "halo_bottom": [-20, 60, 64, 64], "halo_left": [-4, -20, 0, 80],
+    "halo_right": [60, -20, 64, 80]}
+CAP_OFFSETS = {"frame_top": [6, 0, 43, 3], "halo_top": [-20, -4, 64, 0],
+    "halo_left": [-4, -12, 0, 3], "halo_right": [60, -12, 64, 3]}
+BOTTOM_CAP_OFFSETS = {key: FULL_OFFSETS[key] for key in ("frame_bottom_left", "frame_bottom_right",
+                                                      "halo_bottom", "halo_left", "halo_right")}
+MAX_PATCH_RMSE = 10.0
+
+
+class InventoryHaloModels:
+    def __init__(self, directory):
+        directory = Path(directory).resolve()
+        manifest = directory / "inventory_halos.json"
+        if manifest.stat().st_size > 1024 * 1024:
+            raise ValueError("Inventory halo manifest exceeds its bounded size")
+        data = json.loads(manifest.read_text(encoding="utf-8"))
+        self._initialize(data, lambda name: (directory / name).read_bytes())
+
+    def _initialize(self, data, read_resource):
+        if (not isinstance(data, dict) or data.get("schema") != 1 or data.get("tier") != 4
+                or data.get("body_size") != [60, 60]
+                or data.get("max_patch_rmse") != MAX_PATCH_RMSE
+                or data.get("full_offsets") != FULL_OFFSETS
+                or data.get("cap_offsets") != CAP_OFFSETS
+                or data.get("bottom_cap_offsets") != BOTTOM_CAP_OFFSETS):
+            raise ValueError("Inventory halo proof geometry or thresholds differ")
+        records, models = data.get("records"), data.get("models")
+        if (not isinstance(records, list) or not 1 <= len(records) <= 600
+                or not isinstance(models, list) or not 1 <= len(models) <= 128):
+            raise ValueError("Inventory halo sample count is unbounded")
+        self.samples = {}
+        for record in records:
+            if not isinstance(record, dict):
+                raise ValueError("Inventory halo sample must be an object")
+            name = record.get("image")
+            if (not isinstance(name, str) or not re.fullmatch(r"inventory_halo_T4_\d{3}\.png", name)
+                    or name in self.samples):
+                raise ValueError("Inventory halo sample filename is invalid")
+            content = read_resource(name)
+            if (not isinstance(content, bytes) or len(content) > 20000
+                    or hashlib.sha256(content).hexdigest() != record.get("sha256")):
+                raise ValueError("Inventory halo sample checksum differs")
+            with Image.open(BytesIO(content)) as source:
+                if source.format != "PNG":
+                    raise ValueError("Inventory halo sample must contain PNG pixels")
+                sample = source.convert("RGB")
+            rect = Rect(*record.get("source_rect", ()))
+            if (sample.size != tuple(record.get("dimensions", ()))
+                    or sample.size != (rect.width, rect.height)
+                    or min(sample.size) < 1 or max(sample.size) > 100
+                    or sample.width * sample.height > 500
+                    or hashlib.sha256(sample.tobytes()).hexdigest() != record.get("pixels_sha256")):
+                raise ValueError("Inventory halo lane dimensions or pixels differ")
+            self.samples[name] = sample
+        self.models = {"full": [], "cap": [], "bottom_cap": []}
+        for model in models:
+            if not isinstance(model, dict):
+                raise ValueError("Inventory halo model must be an object")
+            kind, patches = model.get("kind"), model.get("patches")
+            offsets = {"full": FULL_OFFSETS, "cap": CAP_OFFSETS,
+                       "bottom_cap": BOTTOM_CAP_OFFSETS}.get(kind)
+            if (offsets is None or isinstance(model.get("canonical_scale"), bool)
+                    or model.get("canonical_scale") != 1.0
+                    or not isinstance(patches, dict) or set(patches) != set(offsets)):
+                raise ValueError("Inventory halo model has unproved lanes")
+            selected = {}
+            for label, name in patches.items():
+                sample = self.samples.get(name)
+                rect = Rect(*offsets[label])
+                if sample is None or sample.size != (rect.width, rect.height):
+                    raise ValueError("Inventory halo lane does not fit its model")
+                selected[label] = sample
+            self.models[kind].append(selected)
+        if not all(self.models.values()):
+            raise ValueError("Both full and clipped-cap halo proofs are required")
+        self._rendered = {}
+
+    def rendered(self, kind, scale):
+        key = kind, round(scale, 6)
+        if key not in self._rendered:
+            offsets = {"full": FULL_OFFSETS, "cap": CAP_OFFSETS,
+                       "bottom_cap": BOTTOM_CAP_OFFSETS}[kind]
+            values = {}
+            for label, box in offsets.items():
+                rect = Rect(*(round(value * scale) for value in box))
+                if min(rect.width, rect.height) < 1:
+                    raise ValueError("Inventory halo lanes are below physical pixel resolution")
+                arrays = [np.asarray(model[label].resize((rect.width, rect.height),
+                    Image.Resampling.BILINEAR), dtype=np.float32) for model in self.models[kind]]
+                values[label] = (rect, np.stack(arrays))
+            if len(self._rendered) >= 12:
+                self._rendered.clear()
+            self._rendered[key] = values
+        return self._rendered[key]
+
+    def match(self, image_array, viewport, kind, origin, scale):
+        rendered = self.rendered(kind, scale)
+        surviving = np.ones(len(self.models[kind]), dtype=bool)
+        halo_rects = []
+        for label, (relative, samples) in rendered.items():
+            target = relative.translated(*origin)
+            if label.startswith("halo_"):
+                clipped = Rect(max(target.left, viewport.left), max(target.top, viewport.top),
+                               min(target.right, viewport.right), min(target.bottom, viewport.bottom))
+                if clipped.width <= 0 or clipped.height <= 0:
+                    continue  # No gutter outside this viewport can establish proof.
+                samples = samples[:, clipped.top-target.top:clipped.bottom-target.top,
+                                  clipped.left-target.left:clipped.right-target.left]
+                target = clipped
+                halo_rects.append(target)
+            if not target.fits(image_array.shape[1], image_array.shape[0]):
+                return None
+            actual = image_array[target.top:target.bottom, target.left:target.right]
+            errors = np.sqrt(np.mean((samples - actual) ** 2, axis=(1, 2, 3)))
+            surviving &= errors <= MAX_PATCH_RMSE
+            if not surviving.any():
+                return None
+        return halo_rects if halo_rects and surviving.any() else None
+
+
+@functools.lru_cache(maxsize=1)
+def default_models():
+    from paths import resource_path
+    return InventoryHaloModels(resource_path("preset_assets"))
+
+
+def verify_inventory_halo_resources(document, read_resource) -> set[str]:
+    """Authenticate bundled model geometry and every declared tiny PNG lane."""
+    model = InventoryHaloModels.__new__(InventoryHaloModels)
+    model._initialize(document, read_resource)
+    return set(model.samples)
+
+
+def prove_inventory_halo_mask(image, rect, rows, columns, gap_color, scale, mask, *, allow_shifted=False):
+    """Return only model-supported gutter evidence, or reject the whole grid.
+
+    Lattice candidates require original neutral RGB in at least three columns
+    on EVERY row boundary and three whole row segments at EVERY column. A matched
+    halo cannot invent pitch, a missing complete row, a cropped cell or an end.
+    The caller runs the unchanged complete lattice/per-segment guards again.
+    """
+    from auto_layout import LayoutError, _runs
+    if rows not in (7, 8) or columns != 5:
+        raise LayoutError("Inventory halo proof requires its bounded inventory lattice")
+    xs = _runs(mask.mean(axis=0) >= .78)
+    if len(xs) != columns:
+        # A 100px halo occupies more of a seven-row crop than an eight-row
+        # viewport. Keep .78 unchanged: independent untouched row segments
+        # establish ALL column positions, before any halo contributes pixels.
+        x_support = np.stack([mask[rect.height*r//rows:rect.height*(r+1)//rows].mean(axis=0)
+                              for r in range(rows)])
+        xs = _runs((x_support >= .78).sum(axis=0) >= 3)
+    xs = [run for run in xs if run[1] > max(2, round(4*scale))]
+    if len(xs) != columns or any(b-a > math.ceil(10*scale) for a, b in xs):
+        raise LayoutError("Inventory halo lacks independent column lattice evidence")
+    x_centers = np.array([(a+b-1)/2 for a,b in xs])
+    x_pitch, x_offset = np.polyfit(np.arange(columns), x_centers, 1)
+    expected_x = rect.width/columns
+    if (abs(x_pitch-expected_x) > max(1.5*scale, expected_x*.025)
+            or np.max(abs(x_centers-(x_offset+x_pitch*np.arange(columns)))) > 1.8*scale
+            or abs(x_centers[-1]-(rect.width-3*scale)) > 6*scale):
+        raise LayoutError("Inventory halo column lattice contradicts header geometry")
+    support = np.stack([mask[:, rect.width*c//columns:rect.width*(c+1)//columns].mean(axis=1)
+                        for c in range(columns)])
+    ys = _runs((support >= .78).sum(axis=0) >= 3)
+    valid_count = rows-1 <= len(ys) <= rows+1 if allow_shifted else len(ys) == rows
+    if not valid_count or any(b-a > math.ceil(10*scale) for a, b in ys):
+        raise LayoutError("Inventory halo lacks every independently observed row")
+    complete = [(a, b) for a, b in ys if a > 0 and b < rect.height]
+    if len(complete) < 3:
+        raise LayoutError("Inventory halo cannot establish complete row pitch")
+    centers = np.array([(a+b-1)/2 for a, b in complete])
+    pitch, offset = np.polyfit(np.arange(len(centers)), centers, 1)
+    expected = rect.height / rows
+    if (abs(pitch-expected) > max(1.5*scale, expected*.025)
+            or np.max(abs(centers-(offset+pitch*np.arange(len(centers))))) > 1.8*scale
+            or (not allow_shifted and abs((ys[-1][0]+ys[-1][1]-1)/2-(rect.height-3*scale)) > 6*scale)):
+        raise LayoutError("Inventory halo lattice contradicts header geometry")
+    first = (offset+3*scale) % pitch
+    if min(first, pitch-first) <= max(.75, 1.25*scale):
+        first = 0.
+    candidates = set()
+    for a, b in ys:
+        y = (a+b-1)//2
+        row = round((y+3*scale-first)/pitch)-1 if allow_shifted else min(rows-1, int(y / expected))
+        for col in range(columns):
+            if mask[y, rect.width*col//columns:rect.width*(col+1)//columns].mean() < .72:
+                for candidate_row in (row, row+1):
+                    for candidate_col in (col, col+1):
+                        if candidate_col < columns and -1 <= candidate_row <= rows:
+                            candidates.add((candidate_row, candidate_col))
+    for col, (a, b) in enumerate(xs):
+        x = (a+b-1)//2
+        for nominal_row in range(rows):
+            row = math.floor(((nominal_row+.5)*expected-first)/pitch) if allow_shifted else nominal_row
+            if mask[rect.height*nominal_row//rows:rect.height*(nominal_row+1)//rows, x].mean() < .72:
+                for candidate_row in (row, row+1):
+                    for candidate_col in (col, col+1):
+                        if candidate_col < columns and -1 <= candidate_row <= rows:
+                            candidates.add((candidate_row, candidate_col))
+    if not candidates:
+        raise LayoutError("No complete cell requires an authenticated halo proof")
+    models = default_models()
+    pixels = np.asarray(image.convert("RGB"), dtype=np.float32)
+    proved = mask.copy()
+    radius = max(2, math.ceil(5*scale))
+    matched = False
+    for row, col in sorted(candidates):
+        base_y = first+row*pitch if allow_shifted else row*expected
+        kind = ("bottom_cap" if base_y < 0 else
+                "cap" if base_y+60*scale > rect.height else "full")
+        base = (rect.left + round(col*rect.width/columns), rect.top + round(base_y))
+        best = None
+        for dy in range(-radius, radius+1):
+            for dx in range(-radius, radius+1):
+                origin = base[0]+dx, base[1]+dy
+                if kind == "cap":
+                    # A cap is a CLIPPED cell, never part of the subsequently
+                    # proved complete-row input crop. Its top rail must show.
+                    if not (origin[1] <= rect.bottom+radius and origin[1]+60*scale > rect.bottom):
+                        continue
+                elif kind == "bottom_cap":
+                    if not (origin[1] < rect.top and origin[1]+51*scale >= rect.top):
+                        continue
+                elif origin[1]+round(60*scale) > rect.bottom+1:
+                    continue
+                lanes = models.match(pixels, rect, kind, origin, scale)
+                if lanes is not None:
+                    best = lanes
+                    break
+            if best is not None:
+                break
+        if best is not None:
+            matched = True
+            for lane in best:
+                proved[lane.top-rect.top:lane.bottom-rect.top,
+                       lane.left-rect.left:lane.right-rect.left] = True
+    if not matched:
+        raise LayoutError("Missing or occluded gutters have no authenticated T4 frame/halo proof")
+    return proved

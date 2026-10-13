@@ -88,7 +88,10 @@ class RuntimeWalkSessionTests(unittest.TestCase):
         self.runner.check_stop.assert_called_once_with()
         self.runner.desktop.window_info.assert_any_call(5)
         self.assertEqual(self.walk.call_args.kwargs["selected_tiers"], {3, 5})
-        self.assertEqual(self.walk.call_args.kwargs["inventory_snapshot"].__self__, first)
+        observed = object()
+        with patch.object(first, "snapshot", return_value=observed) as snapshot:
+            self.assertIs(self.walk.call_args.kwargs["inventory_snapshot"](), observed)
+        snapshot.assert_called_once_with()
 
     def test_changed_native_handle_pid_or_executable_discards_calibration(self):
         variants = ("handle", "pid", "executable")

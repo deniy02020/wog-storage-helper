@@ -20,7 +20,7 @@ from input_activity import UserActivityInterrupted
 from windows import FocusUnavailable, WindowGeometryChanged
 from inventory_cycle import run_inventory_cycle
 from storage_cycle import find_storage_capacity
-from inventory_motion_policy import MAXIMUM_WHEEL_ROW_FRACTION
+from inventory_motion_policy import MAXIMUM_WHEEL_ROW_FRACTION, MAXIMUM_BULK_PULSES
 
 
 def make_grid(data):
@@ -35,12 +35,19 @@ class SafeLayoutChange(LayoutChangedDuringOperation):
     """A cycle may reacquire visible geometry before transfer input is issued."""
 
 
+class SafePreflightChange(RuntimeError):
+    """Fresh observations changed before any item transfer input was sent."""
+
+
 LAYOUT_RETRY_SECONDS = 2.0
 LAYOUT_READBACK_SECONDS = 4.0
 LAYOUT_WAITING = "Ожидаю, пока игровые панели станут видны. Проверка повторится автоматически."
 FOCUS_RETRY_SECONDS = 2.0
 FOCUS_WAITING = "Ожидаю доступа к игре."
-INVENTORY_PENDING = "Видимые предметы обработаны. Полная проверка продолжится в следующем цикле."
+INVENTORY_PENDING = "Полная проверка инвентаря пока не подтверждена. Повторю в следующем цикле."
+PREFLIGHT_WAITING = "Сумка обновляется. Повторю распознавание перед переносом."
+PREFLIGHT_ATTEMPTS = 3
+SAFE_QUICK_RETRY_ATTEMPTS = 3
 
 
 class Runner:
@@ -437,43 +444,19 @@ class Runner:
             raise
 
     def _once(self, sort):
+        self._candidate_free_scan = None
         if sort:
             self.state("working", "Сортирую оставшиеся предметы")
             if self.panel_controller is not None:
                 self.prepare_panels()
             self.sort_inventory()
         self.state("working", "Распознаю предметы и проверяю хранилище.")
-        before = self._capture_valid_layout()
-        inv, store = self.scans(before)
-        self._last_inventory_scan = inv
-        eligible = any(cell.empty is False and cell.tier in (3, 4, 5, 6)
-                       and self.filters.get(str(cell.tier), {}).get("enabled")
-                       for cell in inv.cells)
-        if not eligible:
+        selection = self._fresh_transfer_selection()
+        if selection is None:
+            self._candidate_free_scan = self._last_inventory_scan
             self.log("Предметов, подходящих выбранным тирам, нет.")
             return False
-        candidate = self.find_candidate(before, inv, store)
-        if not store.empty_count:
-            before, inv, store, candidate = self.next_storage_page(before)
-            self._last_inventory_scan = inv
-        if candidate is None:
-            self.log("Предметов, подходящих выбранным тирам, нет.")
-            return False
-        # Choose the item again on the fresh frame. Animated glints are not an
-        # identity requirement: the user selects tiers, including gems.
-        fresh = self._capture_valid_layout()
-        inv2, store2 = self.scans(fresh)
-        if [c.label for c in inv.cells] != [c.label for c in inv2.cells]:
-            raise RuntimeError("Состав сумки изменился во время распознавания. Перенос отменён.")
-        if [c.empty for c in store.cells] != [c.empty for c in store2.cells]:
-            raise RuntimeError("Хранилище изменилось во время распознавания. Перенос отменён.")
-        current_candidate = self.find_candidate(fresh, inv2, store2)
-        if (current_candidate is None
-                or current_candidate.source_index != candidate.source_index
-                or current_candidate.destination_index != candidate.destination_index
-                or current_candidate.tier != candidate.tier):
-            raise RuntimeError("Выбранная вещь изменилась. Перенос отменён.")
-        candidate, before, inv, store = current_candidate, fresh, inv2, store2
+        candidate, before, inv, store = selection
         self.check_stop()
         mode = self.profile["mode"]
         source, destination = candidate.source_rect.center, candidate.destination_rect.center
@@ -508,10 +491,58 @@ class Runner:
                 verification = verify_transfer(inv, after_inv, store, after_store, candidate)
         if not verification.ok:
             raise RuntimeError("Перенос не подтверждён; повторных кликов не будет. " + verification.reason)
+        self._transfer_input_issued = False
         self._last_inventory_scan = after_inv
         self.log(f"Перенесён T{candidate.tier}: сумка {candidate.source_index + 1} → хранилище {candidate.destination_index + 1}.")
         self.state("working", "Перенос подтверждён. Проверяю следующую вещь.")
         return True
+
+    def _fresh_transfer_selection(self):
+        """Discard stale decisions, never retry an issued item input.
+
+        A passive drop or a classifier transition can change an unrelated cell.
+        Automatic mode reacquires the whole baseline and requires a new matching
+        pair under the ordinary geometry/focus/activity guards before acting.
+        """
+        automatic = self.canonical_profile.get("automatic_layout") is True
+        before = self._capture_valid_layout()
+        inv, store = self.scans(before)
+        for attempt in range(PREFLIGHT_ATTEMPTS if automatic else 1):
+            self._last_inventory_scan = inv
+            eligible = any(cell.empty is False and cell.tier in (3, 4, 5, 6)
+                           and self.filters.get(str(cell.tier), {}).get("enabled")
+                           for cell in inv.cells)
+            if not eligible:
+                return None
+            candidate = self.find_candidate(before, inv, store)
+            if not store.empty_count:
+                before, inv, store, candidate = self.next_storage_page(before)
+                self._last_inventory_scan = inv
+            if candidate is None:
+                return None
+            fresh = self._capture_valid_layout()
+            inv2, store2 = self.scans(fresh)
+            reason = None
+            if [c.label for c in inv.cells] != [c.label for c in inv2.cells]:
+                reason = "Состав сумки изменился во время распознавания. Перенос отменён."
+            elif [c.empty for c in store.cells] != [c.empty for c in store2.cells]:
+                reason = "Хранилище изменилось во время распознавания. Перенос отменён."
+            else:
+                current = self.find_candidate(fresh, inv2, store2)
+                if (current is None or current.source_index != candidate.source_index
+                        or current.destination_index != candidate.destination_index
+                        or current.tier != candidate.tier):
+                    reason = "Выбранная вещь изменилась. Перенос отменён."
+                else:
+                    return current, fresh, inv2, store2
+            if not automatic:
+                raise RuntimeError(reason)
+            self.log("Диагностика повторного распознавания до переноса: " + reason)
+            if attempt + 1 == PREFLIGHT_ATTEMPTS:
+                raise SafePreflightChange(reason)
+            self.check_stop()
+            self.wait(.12)
+            before, inv, store = fresh, inv2, store2
 
     def sort_inventory(self):
         spec = self.profile.get("sort_button")
@@ -529,6 +560,9 @@ class Runner:
             self._park_inventory_readback()
         else:
             self._park_and_capture()
+        # The interface action has completed its guarded readback. A later
+        # observation can be reacquired; an uncertain item input cannot.
+        self._transfer_input_issued = False
 
     def _layout_binding(self, profile=None):
         profile = self.profile if profile is None else profile
@@ -612,12 +646,39 @@ class Runner:
         after = self._inventory_viewport_frame(image)
         if after.geometry_identity != before.geometry_identity:
             raise LayoutChangedDuringOperation("Положение или масштаб игры изменились во время прокрутки.")
+        self._transfer_input_issued = False
+        return after
+
+    def _scroll_inventory_bulk(self, delta, count):
+        if (isinstance(delta, bool) or not isinstance(delta, int) or not 1 <= abs(delta) <= 53
+                or isinstance(count, bool) or not isinstance(count, int)
+                or not 2 <= count <= MAXIMUM_BULK_PULSES):
+            raise ValueError("Bulk inventory input needs two to ten identical fine pulses")
+        burst = getattr(self.desktop, "scroll_burst", None)
+        if not callable(burst):
+            raise RuntimeError("Guarded native inventory burst is unavailable")
+        before = self._inventory_viewport_frame()
+        self.check_stop()
+        self._issue_transfer(burst, self.handle,
+                             before.payload[0].viewport.center, self.size, delta, count)
+        self.wait(.25)
+        image = self._park_inventory_readback()
+        after = self._inventory_viewport_frame(image)
+        if after.geometry_identity != before.geometry_identity:
+            raise LayoutChangedDuringOperation("Положение или масштаб игры изменились во время прокрутки.")
+        self._inventory_bulk_receipt = (after.geometry_identity, delta, count)
+        self._transfer_input_issued = False
+        logging.info("Inventory bulk input: delta=%s pulses=%s guarded_geometry_readback=True", delta, count)
+        # A matching geometry readback is not a displacement or endpoint.
+        # The controller separately proves unique RGB overlap before walking.
         return after
 
     def _walk_inventory(self, *, sorted_after_sort=False):
         from inventory_scroller import InventoryScroller
-        from inventory_viewport import measure_inventory_motion, prove_inventory_translation
+        from inventory_viewport import (measure_inventory_motion, prove_inventory_translation,
+                                        inventory_bulk_ready, prove_inventory_bulk_translation)
         from inventory_walk import (run_inventory_walk, certify_sorted_prefix,
+                                    certify_full_inventory_top, InventoryWalkObservation,
                                     _validate_observation, _endpoint)
         def motion(before, after, *, direction, maximum_step):
             maximum_step = min(maximum_step, before.payload[0].row_pitch * MAXIMUM_WHEEL_ROW_FRACTION,
@@ -627,6 +688,18 @@ class Runner:
         def calibrate(before, after, *, direction, maximum_step):
             return prove_inventory_translation(before.payload[1], after.payload[1],
                                                before.payload[0], after.payload[0], direction, pixel_step=True)
+        def bulk_ready(frame, *, direction, maximum_rows, minimum_overlap_rows):
+            return inventory_bulk_ready(frame.payload[1], frame.payload[0], direction=direction,
+                maximum_rows=maximum_rows, minimum_overlap_rows=minimum_overlap_rows)
+        def bulk_motion(before, after, *, direction, maximum_rows, minimum_overlap_rows):
+            distance = prove_inventory_bulk_translation(before.payload[1], after.payload[1],
+                before.payload[0], after.payload[0], direction,
+                maximum_rows=maximum_rows, minimum_overlap_rows=minimum_overlap_rows)
+            receipt = getattr(self, "_inventory_bulk_receipt", None)
+            pulses = (receipt[2] if receipt is not None and receipt[0] == after.geometry_identity else None)
+            logging.info("Inventory bulk proof: direction=%s pixels=%.3f rows=%.3f pulses=%s overlap_min=%s",
+                direction, distance, distance / before.row_pitch_pixels, pulses, minimum_overlap_rows)
+            return distance
         info_reader = getattr(self.desktop, "window_info", None)
         info = info_reader(self.handle) if callable(info_reader) else None
         identity = ((info.process_id, info.executable)
@@ -637,14 +710,18 @@ class Runner:
             scroller = previous[1]
             scroller.begin_cycle()
         else:
+            has_bulk = callable(getattr(self.desktop, "scroll_burst", None))
             scroller = InventoryScroller(sample=self._inventory_viewport_frame, wheel=self._scroll_inventory,
                 measure_motion=motion, calibrate_motion=calibrate, check_stop=self.check_stop, pause=self.wait,
+                bulk_wheel=self._scroll_inventory_bulk if has_bulk else None,
+                bulk_ready=bulk_ready if has_bulk else None, bulk_motion=bulk_motion if has_bulk else None,
                 wheel_delta=31, max_wheel_inputs=512, max_seconds=900)
             self._inventory_scroll_session = (context, scroller)
         unsorted_transfers = 0
         sorted_since_transfer = sorted_after_sort is True
         sort_epoch = 1 if sorted_since_transfer else 0
         full_sorted_top = False
+        sorted_audit_state = None
         batch_deadline = time.monotonic() + 900
         selected = {int(tier) for tier, rule in self.filters.items()
                     if rule.get("enabled") and int(tier) >= 3}
@@ -707,27 +784,65 @@ class Runner:
                 scroller.invalidate()
             return count
 
+        def sorted_top(observation):
+            viewport = self.profile.get("inventory_viewport", {}).get("rect")
+            if not isinstance(viewport, list) or len(viewport) != 4:
+                return False
+            scale = self.profile.get("layout_scales", {}).get("inventory", 1.)
+            return certify_full_inventory_top(observation, Rect(*viewport),
+                self.canonical_inv.rows, self.canonical_inv.columns, scale)
+
+        def audit_sorted_top(observation):
+            nonlocal sorted_audit_state
+            if (not isinstance(observation, InventoryWalkObservation)
+                    or observation.offset_pixels != 0):
+                return
+            state = (sort_epoch, sorted_since_transfer, sorted_top(observation),
+                certify_sorted_prefix(observation.scan, selected, require_boundary=False),
+                certify_sorted_prefix(observation.scan, selected), observation.scan.unknown_count,
+                observation.scan.grid.rows, observation.scan.grid.rect.as_box(),
+                tuple(self.profile.get("inventory_viewport", {}).get("rect", ())),
+                tuple("empty" if cell.empty is True else cell.tier
+                      for cell in observation.scan.cells))
+            if state != sorted_audit_state:
+                sorted_audit_state = state
+                # Private native diagnostics distinguish a raster crop from
+                # unknown tiers/order. They do not add user-facing events.
+                logging.info("Inventory sorted-prefix audit: epoch=%s fresh_sort=%s full_top=%s "
+                    "known_order=%s boundary=%s unknown=%s rows=%s crop=%s viewport=%s labels=%s", *state)
+
         def sorted_boundary(observation):
             nonlocal full_sorted_top, sorted_since_transfer
+            audit_sorted_top(observation)
             if not sorted_since_transfer:
                 return False
             if not certify_sorted_prefix(observation.scan, selected, require_boundary=False):
                 sorted_since_transfer = False
                 full_sorted_top = False
                 return False
-            viewport = self.profile.get("inventory_viewport", {}).get("rect")
-            if (observation.offset_pixels == 0 and observation.top_proof is not None
-                    and isinstance(viewport, list) and len(viewport) == 4
-                    and observation.scan.grid.rows == self.canonical_inv.rows
-                    and observation.scan.grid.rect == Rect(*viewport)):
+            if sorted_top(observation):
                 # A partial first row cannot certify the sorted prefix. A
-                # lower tier later can end only the same overlapping pass.
+                # bounded eight-row raster inset retains every complete row.
+                # A lower tier later can end only the same overlapping pass.
                 full_sorted_top = True
             return full_sorted_top and certify_sorted_prefix(observation.scan, selected)
 
+        def fresh_snapshot():
+            observation = scroller.snapshot()
+            audit_sorted_top(observation)
+            candidate_free = getattr(self, "_candidate_free_scan", None)
+            if (candidate_free is not None and not getattr(self, "_transfer_input_issued", False)
+                    and any(cell.empty is False and cell.tier in selected
+                            for cell in observation.scan.cells)):
+                # Loot can arrive after the independently observed empty pass.
+                # Keep the walk's strict false-transfer invariant; discard this
+                # stale exhaustion decision and start a new guarded cycle.
+                raise SafePreflightChange("Состав сумки изменился во время распознавания. Перенос отменён.")
+            return observation
+
         return run_inventory_walk(reset_to_top=scroller.reset_to_top,
-            inventory_snapshot=scroller.snapshot, transfer=transfer, transfer_batch=transfer_batch,
-            sorted_boundary=sorted_boundary, sorted_epoch=lambda: sort_epoch,
+            inventory_snapshot=fresh_snapshot, transfer=transfer, transfer_batch=transfer_batch,
+            sorted_boundary=sorted_boundary, sorted_epoch=lambda: sort_epoch, sorted_top=sorted_top,
             scroll_down=scroller.scroll_down,
             selected_tiers=selected,
             check_stop=self.check_stop, pause=self.wait)
@@ -807,6 +922,7 @@ class Runner:
                     raise RuntimeError("Переключение страницы хранилища не подтвердилось.")
             elif self.selected_page(fresh) != page_id:
                 raise RuntimeError("Переключение страницы хранилища не подтвердилось.")
+            self._transfer_input_issued = False
         return fresh
 
     def next_storage_page(self, image):
@@ -829,6 +945,14 @@ class Runner:
         from inventory_scroller import InventoryCalibrationPending, InventoryScrollUnconfirmed
         try:
             return self._run_inventory_cycle_impl()
+        except LayoutChangedDuringOperation as error:
+            # Observation after a completed, confirmed interface action may
+            # become stale while Unity finishes scrolling. Reacquire next
+            # cycle only when no issued input is still awaiting verification.
+            if (self.canonical_profile.get("automatic_layout") is True
+                    and not getattr(self, "_transfer_input_issued", False)):
+                raise SafeLayoutChange(str(error)) from error
+            raise
         except InventoryCalibrationPending as error:
             self.log("Диагностика калибровки инвентаря: " + error.reason)
             result = run_inventory_cycle(transfer=self.once,
@@ -859,7 +983,7 @@ class Runner:
             walked = self._walk_inventory(sorted_after_sort=True)
             if not walked.complete:
                 self.log("Диагностика обхода инвентаря: " + walked.outcome)
-                raise RuntimeError("Проверка инвентаря не завершена. Работа остановлена.")
+                return self._inventory_pending(walked)
             return walked
         result = run_inventory_cycle(transfer=self.once,
             inventory_snapshot=lambda: self._last_inventory_scan,
@@ -875,10 +999,25 @@ class Runner:
                 self.state("working", "Распознаю предметы и проверяю хранилище.")
                 walked = self._walk_inventory()
                 if walked.complete:
-                    return walked
+                    from dataclasses import replace
+                    return replace(walked, transfers=result.transfers + walked.transfers)
                 self.log("Диагностика обхода инвентаря: " + walked.outcome)
-            raise RuntimeError("Проверка инвентаря не завершена. Работа остановлена.")
+                return self._inventory_pending(walked, prior_transfers=result.transfers)
+            return self._inventory_pending(result)
         return result
+
+    def _inventory_pending(self, result, *, prior_transfers=0):
+        from inventory_walk import InventoryWalkResult
+        from inventory_cycle import InventoryCycleResult
+        allowed = ({"unknown", "bounded", "top_unconfirmed", "endpoint_unconfirmed"}
+                   if isinstance(result, InventoryWalkResult) else
+                   {"unknown", "hidden_unconfirmed", "bounded", "sort_unavailable"}
+                   if isinstance(result, InventoryCycleResult) else set())
+        if result.outcome not in allowed:
+            raise RuntimeError("Проверка инвентаря не завершена. Работа остановлена.")
+        self.log(INVENTORY_PENDING)
+        return InventoryWalkResult("pending", prior_transfers + result.transfers,
+                                   getattr(result, "scrolls", 0), getattr(result, "resets", 0))
 
     def inspect_storage_pages(self):
         """Audit configured existing pages without sorting, transfer or trust writes."""
@@ -956,6 +1095,7 @@ class Runner:
     def monitor(self, interval):
         interval = validate_interval(interval)
         paused = False
+        safe_failure_streak = 0
         while True:
             self.check_stop()
             token = None
@@ -977,6 +1117,7 @@ class Runner:
                                 raise RuntimeError("Новое окно игры не определено однозначно.")
                             if is_alive(self.desktop, replacement):
                                 self.handle = replacement
+                                safe_failure_streak = 0
                                 self.state("paused", "Игра снова найдена. Ожидаю следующую проверку.")
                     self.wait(0.3)
                     continue
@@ -1035,6 +1176,7 @@ class Runner:
             cycle_error = None
             layout_pending = False
             inventory_pending = False
+            preflight_pending = False
             try:
                 self.check_stop()
                 if token is not None:
@@ -1047,18 +1189,25 @@ class Runner:
                     self.check_stop()
                     if not self.desktop.active(self.handle) or (is_alive is not None and not is_alive(self.desktop, self.handle)):
                         raise RuntimeError("Окно игры потеряло фокус во время отрисовки. Фоновая проверка отменена.")
-                if paused:
-                    self.log("Окно игры активно: продолжаю.")
-                    paused = False
                 # Rescan after each verified move; compaction never reuses old positions.
                 result = self._run_inventory_cycle()
                 inventory_pending = getattr(result, "outcome", None) == "pending"
+                safe_failure_streak = 0
+                if paused:
+                    self.log("Окно игры активно: продолжаю.")
+                    paused = False
             except SafeLayoutChange as error:
                 cycle_error = error
                 layout_pending = True
+                safe_failure_streak += 1
                 if not paused:
                     self.log(LAYOUT_WAITING)
                 paused = True
+            except SafePreflightChange as error:
+                cycle_error = error
+                preflight_pending = True
+                safe_failure_streak += 1
+                self.log(PREFLIGHT_WAITING)
             except UserActivityInterrupted as error:
                 cycle_error = error
                 self.log(str(error))
@@ -1079,8 +1228,11 @@ class Runner:
                         if cycle_error is None:
                             raise
                         self.log("Не удалось восстановить прежнее окно: " + str(error))
-            delay = LAYOUT_RETRY_SECONDS if layout_pending else interval
+            quick_retry = ((layout_pending or preflight_pending)
+                           and safe_failure_streak < SAFE_QUICK_RETRY_ATTEMPTS)
+            delay = LAYOUT_RETRY_SECONDS if quick_retry else interval
             self.state("waiting", LAYOUT_WAITING if layout_pending else
+                       PREFLIGHT_WAITING if preflight_pending else
                        INVENTORY_PENDING if inventory_pending else
                        "Проверка закончена. Ожидаю следующий цикл.",
                        time.monotonic() + delay)

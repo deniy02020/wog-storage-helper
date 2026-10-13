@@ -8,13 +8,18 @@ import tkinter as tk
 from ui_widgets import _AnimatedCanvas, ScalarTween, mix_color
 from ui_theme import ACCENT, TEXT, MUTED, GREEN, BORDER
 
-INTERVALS = tuple(range(1800, 86401, 1800))
+INTERVALS = (60,) + tuple(range(1800, 86401, 1800))
 
 def interval_index(seconds):
     value = float(seconds)
     if not math.isfinite(value):
         raise ValueError("Interval must be finite")
-    return min(len(INTERVALS)-1, max(0, round(value/1800)-1))
+    index = bisect_left(INTERVALS, value)
+    if index == 0:
+        return 0
+    if index == len(INTERVALS):
+        return index - 1
+    return index - 1 if value - INTERVALS[index - 1] < INTERVALS[index] - value else index
 
 def displayed_interval(actual, index, position):
     if index == interval_index(actual) and abs(index-position) < 1e-6:

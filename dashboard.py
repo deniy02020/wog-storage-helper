@@ -584,12 +584,16 @@ if __name__ == "__main__":
         result = unittest.TextTestRunner(verbosity=2).run(unittest.defaultTestLoader.discover(str(BASE)))
         raise SystemExit(not result.wasSuccessful())
     from instance import SingleInstance
+    from app_startup import startup_options, schedule_explicit_start
     from tkinter import messagebox
+    startup = startup_options(sys.argv[1:])
     guard = SingleInstance()
     try:
         if not guard.acquire():
             raise SystemExit(0)
-        ProductApp().mainloop()
+        application = ProductApp()
+        schedule_explicit_start(application, startup)
+        application.mainloop()
     except Exception as exc:
         if sys.stderr is not None:
             print(str(exc), file=sys.stderr)

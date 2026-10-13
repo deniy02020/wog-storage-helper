@@ -149,6 +149,43 @@ def certify_sorted_prefix(scan: GridScan, selected_tiers: Collection[int],
     return not require_boundary or lower_sentinel or empty_suffix
 
 
+def certify_full_inventory_top(observation: InventoryWalkObservation, viewport: Rect,
+                               rows: int, columns: int, scale: float) -> bool:
+    """Check the complete first grid at an independently proved absolute Top.
+
+    The native recognizer supplies COMPLETE input rows after all separator and
+    per-cell guards. Fractional raster pitch may inset that grid by a few
+    pixels inside the header-bound viewport. Exact rectangle equality would
+    reject a genuine eight-row grid, even though no complete row was dropped.
+    The allowance is limited to the recognizer's existing three-pixel neutral
+    separator tail plus 1.8-pixel fitted phase, at the proved native scale.
+    Seven-row/partial views, sideways crops and a changed pitch never prove the
+    beginning. This geometric predicate does not prove Sort or item ordering.
+    """
+    if (not isinstance(viewport, Rect)
+            or any(isinstance(count, bool) or not isinstance(count, int) or count < 1
+                   for count in (rows, columns))
+            or not _number(scale, positive=True) or not .35 <= scale <= 1.5):
+        return False
+    if viewport.width < columns or viewport.height < rows:
+        return False
+    observation = _validate_observation(observation)
+    if not _endpoint(observation, "top"):
+        return False
+    grid = observation.scan.grid
+    if (grid.rows != rows or grid.columns != columns
+            or grid.rect.left != viewport.left or grid.rect.right != viewport.right):
+        return False
+    top = grid.rect.top - viewport.top
+    bottom = viewport.bottom - grid.rect.bottom
+    raster_margin = max(1, math.ceil(4.8 * scale))
+    nominal_pitch = viewport.height / rows
+    pitch_tolerance = max(.75, nominal_pitch * .0125)
+    return (0 <= top <= raster_margin and 0 <= bottom <= raster_margin
+            and abs(observation.row_pitch_pixels - nominal_pitch) <= 1e-7
+            and abs(grid.rect.height / rows - nominal_pitch) <= pitch_tolerance)
+
+
 def run_inventory_walk(
     *,
     reset_to_top: Callable[[], InventoryWalkObservation],
@@ -157,6 +194,7 @@ def run_inventory_walk(
     transfer_batch: Callable[..., int] | None = None,
     sorted_boundary: Callable[[InventoryWalkObservation], bool] | None = None,
     sorted_epoch: Callable[[], int] | None = None,
+    sorted_top: Callable[[InventoryWalkObservation], bool] | None = None,
     scroll_down: Callable[[InventoryWalkObservation], InventoryWalkObservation],
     selected_tiers: Collection[int],
     check_stop: Callable[[], None],
@@ -203,6 +241,9 @@ def run_inventory_walk(
     It must return a monotonic nonnegative integer. Advancing it clears a known
     ordering contradiction only on a fresh proved Top; unknown observations
     remain conservative until independently verified progress starts a new pass.
+    A native sorted_top callback additionally proves that the final Top scan
+    includes the complete beginning, rather than only lower complete rows below
+    a clipped first row. Failure leaves completion unconfirmed, without input.
 
     Before completion the caller resets top again and checks its fresh view.
     New selected items there restart the walk. Limits are operational bounds,
@@ -223,6 +264,8 @@ def run_inventory_walk(
         raise ValueError("Sorted inventory boundary proof must be callable")
     if sorted_epoch is not None and not callable(sorted_epoch):
         raise ValueError("Sorted inventory epoch proof must be callable")
+    if sorted_top is not None and not callable(sorted_top):
+        raise ValueError("Sorted inventory Top proof must be callable")
 
     start = clock()
     transfers = scrolls = resets = 0
@@ -362,6 +405,15 @@ def run_inventory_walk(
                     return result("top_unconfirmed")
                 if timed_out():
                     return result("bounded")
+                if sorted_top is not None:
+                    full_top = sorted_top(final_top)
+                    if not isinstance(full_top, bool):
+                        raise ValueError("Sorted Top result must be a verified boolean")
+                    check_stop()
+                    if timed_out():
+                        return result("bounded")
+                    if not full_top:
+                        return result("top_unconfirmed")
                 if eligible(final_top):
                     view = final_top
                     pass_unknown = bool(final_top.scan.unknown_count)

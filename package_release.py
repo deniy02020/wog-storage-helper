@@ -15,6 +15,7 @@ import zipfile
 from PIL import Image
 from installer.license_resources import licensing_hashes
 from installer.build import verify_header_parking_resources
+from inventory_halo import verify_inventory_halo_resources
 
 
 ROOT = Path(__file__).resolve().parent
@@ -176,6 +177,14 @@ def create_release() -> dict:
     parking_samples = verify_header_parking_resources(parking,
         lambda name:files[f"_internal/preset_assets/{name}"].read_bytes())
     samples.update(parking_samples)
+    halo_relative = "_internal/preset_assets/inventory_halos.json"
+    halo_path = files.get(halo_relative)
+    if halo_path is None or sha256(halo_path) != sha256(ROOT / "preset_assets/inventory_halos.json"):
+        raise ValueError("Built inventory halo model missing or stale; rebuild first.")
+    halo = json.loads(halo_path.read_text(encoding="utf-8"))
+    halo_samples = verify_inventory_halo_resources(halo,
+        lambda name: files[f"_internal/preset_assets/{name}"].read_bytes())
+    samples.update(halo_samples)
     for records in list(adaptive["tiers"].values()) + [adaptive["backgrounds"], ui["headers"], ui["controls"]]:
         for record in records:
             expected = record.get("sha256", record.get("sample_sha256"))
@@ -244,6 +253,8 @@ def create_release() -> dict:
         "adaptive_context_sample_count": len(adaptive_samples),
         "adaptive_ui_model_sha256": source_hashes[ui_relative],
         "adaptive_ui_sample_count": len(ui_samples),
+        "inventory_halo_model_sha256": source_hashes[halo_relative],
+        "inventory_halo_sample_count": len(halo_samples),
         "headerparking_model_sha256": source_hashes[parking_relative],
         "headerparking_sample_count": len(parking_samples),
         "referenced_calibration_sample_count": len(samples), "largest_calibration_asset": largest_sample,

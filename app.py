@@ -20,8 +20,9 @@ from storage_cycle import StorageFull, STORAGE_FULL_MESSAGE
 from windows import FocusUnavailable, WindowsDesktop
 
 from paths import BASE, get_profile_dir, bootstrap_new_profile
-from helper_config import migrate_profile, validate_interval, validate_transfer_filters
+from helper_config import MIN_INTERVAL, migrate_profile, validate_interval, validate_transfer_filters
 from i18n import tr, translate_message, get_locale
+from session_logging import configure_session_logging
 
 PROFILE_DIR = get_profile_dir()
 
@@ -178,7 +179,7 @@ class App(tk.Tk):
         interval_row.pack(anchor="w", pady=8)
         ttk.Label(interval_row, text="Интервал проверки, секунд:").pack(side="left")
         self.interval = tk.StringVar(value=str(self.profile.get("interval", 1800)))
-        ttk.Spinbox(interval_row, from_=1800, to=86400, textvariable=self.interval, width=7).pack(side="left", padx=8)
+        ttk.Spinbox(interval_row, from_=MIN_INTERVAL, to=86400, textvariable=self.interval, width=7).pack(side="left", padx=8)
         ttk.Label(interval_row, text="Ячейка сумки:").pack(side="left", padx=(12, 0))
         self.tooltip_cell = tk.StringVar(value="1")
         ttk.Spinbox(interval_row, from_=1, to=40, textvariable=self.tooltip_cell, width=4).pack(side="left", padx=5)
@@ -193,8 +194,7 @@ class App(tk.Tk):
         ttk.Label(self, textvariable=self.status, wraplength=1000).pack(anchor="w")
         self.log_widget = tk.Text(self, height=5, state="disabled", wrap="word")
         self.log_widget.pack(fill="x", pady=5)
-        logging.basicConfig(filename=PROFILE_DIR / "helper.log", encoding="utf-8", level=logging.INFO,
-                            format="%(asctime)s %(message)s")
+        configure_session_logging(PROFILE_DIR)
         self.refresh_windows()
         self.update_info()
         self.after(100, self.poll)
@@ -535,6 +535,7 @@ class App(tk.Tk):
                 self.cancel.set()
                 self.events.put(("log", str(exc)))
             except Exception as exc:
+                logging.exception("Helper cycle stopped: %s", exc)
                 self.events.put(("log", str(exc)))
             finally:
                 self.events.put(("panels_ready", ready))
@@ -629,6 +630,7 @@ class App(tk.Tk):
                 self.cancel.set()
                 self.events.put(("log", str(exc)))
             except Exception as exc:
+                logging.exception("Helper cycle stopped: %s", exc)
                 self.events.put(("log", str(exc)))
             finally:
                 self.events.put(("finished", None))

@@ -16,7 +16,8 @@ from PIL import Image
 
 from auto_layout import GridEvidence, LayoutError, _runs, measure_grid
 from core import GridSpec, Rect
-from inventory_motion_policy import MAXIMUM_WHEEL_ROW_FRACTION, InventoryMotionUnobservable
+from inventory_motion_policy import (MAXIMUM_WHEEL_ROW_FRACTION, InventoryMotionUnobservable,
+                                     MAXIMUM_BULK_ROWS, MINIMUM_BULK_OVERLAP_ROWS)
 
 
 class InventoryMotionUnknown(LayoutError):
@@ -117,7 +118,8 @@ def recognize_inventory_viewport(image: Image.Image, viewport: Rect, rows: int,
         raise LayoutError("Inventory viewport geometry is unproved or clipped")
     full_grid_error = None
     try:
-        evidence = measure_grid(image, viewport, rows, columns, gap_color, scale)
+        evidence = measure_grid(image, viewport, rows, columns, gap_color, scale,
+                                allow_inventory_halo=True)
     except LayoutError as error:
         evidence = None
         full_grid_error = error
@@ -137,6 +139,17 @@ def recognize_inventory_viewport(image: Image.Image, viewport: Rect, rows: int,
 
     array = np.asarray(image.crop(viewport.as_box()).convert("RGB"), dtype=np.float32)
     mask = np.max(np.abs(array - gap_color), axis=2) <= 6
+    # A proved opaque frame may cover gutter lanes while its scroll phase is
+    # shifted. Establish the whole observed lattice with the same narrow halo
+    # evidence; the final COMPLETE-row crop still receives every strong guard.
+    try:
+        from inventory_halo import prove_inventory_halo_mask
+        halo_mask = prove_inventory_halo_mask(image, viewport, rows, columns,
+            gap_color, scale, mask, allow_shifted=True)
+    except LayoutError:
+        pass  # No authenticated halo: the original raw proof remains required.
+    else:
+        mask = halo_mask
     xs = _merged_runs(np.mean(mask, axis=0), scale)
     xs = [run for run in xs if run[1] > max(2, round(4 * scale))]
     if len(xs) != columns:
@@ -176,7 +189,8 @@ def recognize_inventory_viewport(image: Image.Image, viewport: Rect, rows: int,
     # separator guards. Native animated item chrome may bleed into a clipped
     # partial cell ABOVE this crop; it is not an input cell and cannot authorize
     # any action. The full-viewport projections/lattice above remain unchanged.
-    cropped = measure_grid(image, rect, count, columns, gap_color, scale)
+    cropped = measure_grid(image, rect, count, columns, gap_color, scale,
+                           allow_inventory_halo=True)
     return InventoryViewport(GridSpec(rect, count, columns), viewport, pitch, phase,
                              _identity(viewport, columns, scale), cropped)
 
@@ -327,5 +341,139 @@ def prove_inventory_translation(before_image: Image.Image, after_image: Image.Im
     try:
         return calibrate_inventory_motion(before_image, after_image, before_viewport,
                                           after_viewport, direction=direction, pixel_step=pixel_step)
+    except LayoutError as error:
+        raise InventoryMotionUnknown(str(error)) from error
+
+
+def _bulk_bounds(view: InventoryViewport, maximum_rows: int, minimum_overlap_rows: int):
+    if (not isinstance(view, InventoryViewport)
+            or isinstance(maximum_rows, bool) or not isinstance(maximum_rows, int)
+            or not 1 <= maximum_rows <= MAXIMUM_BULK_ROWS
+            or isinstance(minimum_overlap_rows, bool) or not isinstance(minimum_overlap_rows, int)
+            or not MINIMUM_BULK_OVERLAP_ROWS <= minimum_overlap_rows <= 3
+            or view.grid.columns != 5 or view.grid.rows not in (7, 8)
+            or not math.isfinite(view.row_pitch) or view.row_pitch <= 0
+            or view.grid.rect.left != view.viewport.left
+            or view.grid.rect.right != view.viewport.right
+            or not view.viewport.top <= view.grid.rect.top < view.grid.rect.bottom <= view.viewport.bottom):
+        raise LayoutError("Bulk inventory motion lacks a complete guarded viewport")
+    return min(maximum_rows, view.grid.rows - minimum_overlap_rows)
+
+
+def inventory_bulk_ready(image: Image.Image, view: InventoryViewport, *, direction: str,
+                         maximum_rows: int = MAXIMUM_BULK_ROWS,
+                         minimum_overlap_rows: int = MINIMUM_BULK_OVERLAP_ROWS) -> bool:
+    """Read-only permission to try a bounded burst, never position evidence.
+
+    The retained two (or three) COMPLETE rows must have distinctive actual RGB
+    content within the current guarded viewport. Cloned icons/empty rows take
+    the existing fine path. Every pixel across every column participates; no
+    animation/pointer/unknown-tier mask can turn a weak match into permission.
+    The subsequent whole before/after proof remains mandatory, independently
+    of this preflight and of how many Windows pulses were accepted.
+    """
+    _bulk_bounds(view, maximum_rows, minimum_overlap_rows)
+    if direction not in ("up", "down"):
+        raise LayoutError("Bulk inventory direction is unavailable")
+    if (not isinstance(image, Image.Image) or not view.viewport.fits(*image.size)
+            or view.viewport.width * view.viewport.height > 1_000_000):
+        raise LayoutError("Bulk inventory preflight belongs to another native frame")
+    array = np.asarray(image.crop(view.viewport.as_box()).convert("RGB"), dtype=np.float32)
+    grid = view.grid
+    first = grid.rows - minimum_overlap_rows if direction == "down" else 0
+    start = grid.cell_rect(first * grid.columns).top - view.viewport.top
+    end = grid.cell_rect((first + minimum_overlap_rows - 1) * grid.columns).bottom - view.viewport.top
+    height = end - start
+    for normalized in (False, True):
+        source = _motion_raster(array) if normalized else array
+        patch = source[start:end]
+        alternatives = []
+        for top in range(0, source.shape[0] - height + 1):
+            if abs(top - start) <= 2:
+                continue
+            difference = source[top:top + height] - patch
+            alternatives.append(float(np.sqrt(np.mean(difference * difference))))
+        # A true self-match has zero error. Keep the same RMSE5/margin5
+        # separation as the motion proof, with no guessed row/tier identities.
+        if alternatives and min(alternatives) >= 10:
+            return True
+    return False
+
+
+def _complete_overlap(before: InventoryViewport, after: InventoryViewport, displacement: int) -> int:
+    """Count actual whole old rows that still lie in the new complete grid."""
+    old, new = before.grid, after.grid
+    boundaries = [new.cell_rect(row * new.columns).top for row in range(new.rows)]
+    boundaries.append(new.rect.bottom)
+    count = 0
+    for row in range(old.rows):
+        cell = old.cell_rect(row * old.columns)
+        top, bottom = cell.top - displacement, cell.bottom - displacement
+        if (top >= new.rect.top - 1.5 and bottom <= new.rect.bottom + 1.5
+                and min(abs(top - edge) for edge in boundaries) <= 1.5
+                and min(abs(bottom - edge) for edge in boundaries) <= 1.5):
+            count += 1
+    return count
+
+
+def prove_inventory_bulk_translation(before_image: Image.Image, after_image: Image.Image,
+                                     before: InventoryViewport, after: InventoryViewport,
+                                     direction: str, *, maximum_rows: int = MAXIMUM_BULK_ROWS,
+                                     minimum_overlap_rows: int = MINIMUM_BULK_OVERLAP_ROWS) -> float:
+    """Prove a burst's signed distance with non-aliased full RGB overlap.
+
+    BOTH signs, zero and larger whole-row alternatives are searched while at
+    least one row remains visible, so a modulo phase can never hide an alias.
+    The winning displacement additionally retains >=2 actual COMPLETE rows,
+    stays within five rows and agrees with the independently fitted raw grid
+    phase. RMSE5/margin5 and symmetric full-raster normalization are unchanged.
+    Zero is only a measured position: the controller still needs two fresh
+    fine-command clamps before reporting bottom/top. Ambiguous accepted input
+    never authorizes retry, another transfer, or a guessed attempted offset.
+    """
+    try:
+        old_limit = _bulk_bounds(before, maximum_rows, minimum_overlap_rows)
+        new_limit = _bulk_bounds(after, maximum_rows, minimum_overlap_rows)
+        if (direction not in ("up", "down") or before.identity != after.identity
+                or before.viewport != after.viewport
+                or abs(before.row_pitch - after.row_pitch) > max(.75, before.row_pitch * .0125)
+                or not isinstance(before_image, Image.Image) or not isinstance(after_image, Image.Image)
+                or before_image.size != after_image.size
+                or not before.viewport.fits(*before_image.size)
+                or before.viewport.width * before.viewport.height > 1_000_000):
+            raise LayoutError("Bulk inventory motion belongs to another native viewport")
+        viewport, pitch = before.viewport, before.row_pitch
+        a = np.asarray(before_image.crop(viewport.as_box()).convert("RGB"), dtype=np.float32)
+        b = np.asarray(after_image.crop(viewport.as_box()).convert("RGB"), dtype=np.float32)
+        search = math.floor(viewport.height - max(before.row_pitch, after.row_pitch))
+        limit = min(old_limit, new_limit) * min(before.row_pitch, after.row_pitch)
+        for normalized in (False, True):
+            first = _motion_raster(a) if normalized else a
+            second = _motion_raster(b) if normalized else b
+            matches = []
+            for displacement in range(-search, search + 1):
+                if displacement > 0:
+                    left, right = first[displacement:], second[:-displacement]
+                elif displacement < 0:
+                    left, right = first[:displacement], second[-displacement:]
+                else:
+                    left, right = first, second
+                difference = left - right
+                matches.append((float(np.sqrt(np.mean(difference * difference))), displacement))
+            matches.sort()
+            score, displacement = matches[0]
+            alternatives = [error for error, shift in matches if abs(shift - displacement) > 2]
+            if score > 5 or min(alternatives, default=math.inf) - score < 5:
+                continue
+            if ((direction == "down" and displacement < 0)
+                    or (direction == "up" and displacement > 0)
+                    or abs(displacement) > limit + 1.5):
+                raise LayoutError("Unique bulk inventory pixels contradict its bounded direction")
+            phase_error = abs((after.phase - before.phase + displacement + pitch / 2) % pitch - pitch / 2)
+            if (phase_error > 1.5
+                    or _complete_overlap(before, after, displacement) < minimum_overlap_rows):
+                raise LayoutError("Bulk inventory pixels lack matching complete overlapping rows")
+            return float(abs(displacement))
+        raise InventoryMotionUnobservable("Bulk inventory motion lacks unique full-RGB overlap")
     except LayoutError as error:
         raise InventoryMotionUnknown(str(error)) from error

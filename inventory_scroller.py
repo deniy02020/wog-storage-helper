@@ -13,7 +13,9 @@ import time
 from typing import Callable
 
 from core import GridScan
-from inventory_motion_policy import InventoryMotionUnobservable, MAXIMUM_WHEEL_ROW_FRACTION
+from inventory_motion_policy import (InventoryMotionUnobservable, MAXIMUM_WHEEL_ROW_FRACTION,
+                                     MAXIMUM_BULK_ROWS, MINIMUM_BULK_OVERLAP_ROWS,
+                                     MAXIMUM_BULK_PULSES)
 from inventory_walk import InventoryEndpointProof, InventoryWalkObservation
 
 
@@ -71,6 +73,9 @@ class InventoryScroller:
                  wheel: Callable[[int], ViewportFrame],
                  measure_motion: Callable[..., float],
                  calibrate_motion: Callable[..., float] | None = None,
+                 bulk_wheel: Callable[[int, int], ViewportFrame] | None = None,
+                 bulk_ready: Callable[..., bool] | None = None,
+                 bulk_motion: Callable[..., float] | None = None,
                  check_stop: Callable[[], None], pause: Callable[[float], None],
                  wheel_delta: int = 31, max_wheel_inputs: int = 128,
                  max_seconds: float = 120., settle_seconds: float = .15,
@@ -84,6 +89,10 @@ class InventoryScroller:
             raise ValueError("Inventory scrolling bounds must be explicit and finite")
         self.sample_callback, self.wheel_callback = sample, wheel
         self.measure_motion, self.calibrate_motion = measure_motion, calibrate_motion
+        callbacks = (bulk_wheel, bulk_ready, bulk_motion)
+        if any(callback is not None for callback in callbacks) and not all(callable(callback) for callback in callbacks):
+            raise ValueError("Bulk inventory scrolling needs guarded input, preflight and unique RGB proof")
+        self.bulk_wheel, self.bulk_ready, self.bulk_motion = callbacks
         self.check_stop, self.pause, self.clock = check_stop, pause, clock
         self.wheel_delta = wheel_delta
         self.max_wheel_inputs, self.max_seconds = max_wheel_inputs, max_seconds
@@ -262,6 +271,67 @@ class InventoryScroller:
                 direction = "down" if "down" not in self._steps else "up"
         return current
 
+    def _move_for_walk(self, before, direction):
+        """Prefer five-row walking only with distinctive retained RGB rows.
+
+        A burst uses the SAME signed fine pulse whose positive response was
+        calibrated on this native target, up to ten pulses / five rows. Count
+        merely bounds input: only independent settled RGB correspondence sets
+        the returned distance. Unknown post-input distance invalidates all
+        position evidence and propagates without retry or reverse input.
+        """
+        if self.bulk_wheel is None or direction not in self._steps:
+            return self._move(before, direction)
+        maximum_rows = min(MAXIMUM_BULK_ROWS, before.scan.grid.rows - MINIMUM_BULK_OVERLAP_ROWS)
+        step = self._steps[direction]
+        count = min(MAXIMUM_BULK_PULSES, math.floor(maximum_rows * before.row_pitch_pixels / step),
+                    self.max_wheel_inputs - self._wheel_inputs)
+        if maximum_rows < 1 or count < 2:
+            return self._move(before, direction)
+        self._check()
+        fresh = self._sample()
+        if not self._same_position(before, fresh):
+            self.invalidate()
+            raise InventoryScrollUnconfirmed("Inventory position changed before the bulk wheel action")
+        ready = self.bulk_ready(fresh, direction=direction, maximum_rows=maximum_rows,
+                                minimum_overlap_rows=MINIMUM_BULK_OVERLAP_ROWS)
+        if not isinstance(ready, bool):
+            raise InventoryScrollUnconfirmed("Bulk inventory preflight must provide an explicit boolean")
+        if not ready:
+            return self._move(fresh, direction)
+        self.check_stop()
+        delta = -self.wheel_delta if direction == "down" else self.wheel_delta
+        self._wheel_inputs += count
+        try:
+            acknowledged = self._validate(self.bulk_wheel(delta, count))
+            self.check_stop()
+            if acknowledged is fresh:
+                raise InventoryScrollUnconfirmed("Bulk inventory input did not provide a fresh acknowledged frame")
+            self.pause(self.settle_seconds)
+            self.check_stop()
+            settled = self._sample()
+            if settled is acknowledged:
+                raise InventoryScrollUnconfirmed("Bulk inventory settling did not provide a fresh frame")
+            distance = self.bulk_motion(fresh, settled, direction=direction,
+                maximum_rows=maximum_rows, minimum_overlap_rows=MINIMUM_BULK_OVERLAP_ROWS)
+            if (not _finite(distance)
+                    or distance > maximum_rows * min(fresh.row_pitch_pixels, settled.row_pitch_pixels) + 1.5):
+                raise InventoryScrollUnconfirmed("Bulk inventory input skipped its proved overlapping rows")
+            if distance == 0 and not self._same_position(fresh, settled):
+                raise InventoryScrollUnconfirmed("Bulk no-motion proof contradicts the inventory phase")
+        except InventoryMotionUnobservable as error:
+            self.invalidate()
+            raise InventoryScrollUnconfirmed("Bulk inventory input was accepted but its RGB distance is unproved") from error
+        except Exception:
+            self.invalidate()
+            raise
+        if distance == 0:
+            # A different-size accepted burst is never an endpoint receipt.
+            # Re-establish the unchanged position using the calibrated fine
+            # command; the ordinary caller requires two such zero responses.
+            return self._move(settled, direction)
+        return settled, float(distance)
+
     def _proof(self, direction):
         step = self._steps.get("up" if direction == "top" else "down")
         if step is None:
@@ -280,8 +350,15 @@ class InventoryScroller:
         if "down" not in self._steps or "up" not in self._steps:
             current = self._bootstrap(current)
         clamps = 0
+        first = True
         while clamps < 2:
-            current, distance = self._move(current, "up")
+            # Sorting/transfers normally leave the viewport at its existing
+            # Top. Test that cheap calibrated clamp before trying any burst;
+            # use bulk only after positive evidence that an upward walk is
+            # still needed. This grants no endpoint from a nominal phase.
+            current, distance = (self._move(current, "up") if first or clamps
+                                 else self._move_for_walk(current, "up"))
+            first = False
             if distance > 0:
                 clamps = 0
             else:
@@ -312,7 +389,7 @@ class InventoryScroller:
                 or self._offset is None or before.geometry_identity != self._geometry
                 or before.offset_pixels != self._offset or before.row_pitch_pixels != self._pitch):
             raise InventoryScrollUnconfirmed("Inventory walk supplied a stale pre-scroll observation")
-        current, distance = self._move(self._frame, "down")
+        current, distance = self._move_for_walk(self._frame, "down")
         if distance == 0:
             if "down" not in self._steps:
                 raise InventoryScrollUnconfirmed("Downward inventory response has not been calibrated")

@@ -112,7 +112,7 @@
       "log.started": "Запуск через {seconds} с. F8 — остановка.",
       "log.paused": "Пауза: {reason}",
       "log.pages": "Страница {page}: свободно {free}, неизвестных {unknown}.",
-      "error.interval": "Интервал: от 30 мин до 24 ч, шаг 30 мин.",
+      "error.interval": "Интервал: от 1 мин до 24 ч.",
       "error.generic": "Не удалось выполнить действие: {error}",
       "counter.confirmed": "Подтверждено за запуск",
       "filters.level": "Уровень",
@@ -207,7 +207,7 @@
       "log.first_started": "Игра активна. Первая сортировка сейчас; следующие через {time}. F8 — остановка.",
       "stats.short": "Перенесено: {count}",
       "error.resolution_changed": "Размер окна игры изменился. Откройте игровые панели, выполните автонастройку и проверьте один перенос.",
-      "error.layout_changed": "Размер или масштаб игры изменился. Текущая проверка отменена.",
+      "error.layout_changed": "Не удалось подтвердить положение игровых панелей. Текущая проверка отменена.",
       "state.auto_panels_waiting": "Ожидаю, пока игровые панели станут видны. Проверка повторится автоматически.",
       "state.focus_waiting": "Ожидаю доступа к игре.",
       "journal.session": "Хронология текущего сеанса",
@@ -237,7 +237,8 @@
       "cycle_incomplete": "Проверка инвентаря не завершена. Работа остановлена.",
       "inventory_resorting": "Сортирую оставшиеся предметы",
       "storage_full_stopped": "Все доступные страницы проверены дважды. Хранилище заполнено; сортировка и таймер остановлены.",
-      "detail.inventory_pending": "Видимые предметы обработаны. Полная проверка продолжится в следующем цикле."
+      "detail.inventory_pending": "Полная проверка инвентаря пока не подтверждена. Повторю в следующем цикле.",
+      "detail.preflight_waiting": "Сумка обновляется. Повторю распознавание перед переносом."
     },
     "en-US": {
       "app.title": "An orderly inventory",
@@ -346,7 +347,7 @@
       "log.started": "Starting in {seconds} s. F8 stops the helper.",
       "log.paused": "Paused: {reason}",
       "log.pages": "Page {page}: {free} free, {unknown} unknown.",
-      "error.interval": "Interval: 30 min to 24 h, in 30 min steps.",
+      "error.interval": "Interval: 1 min to 24 h.",
       "error.generic": "Could not perform the action: {error}",
       "counter.confirmed": "Confirmed this run",
       "filters.level": "Level",
@@ -441,7 +442,7 @@
       "log.first_started": "Game active. First sort now; later sorts every {time}. F8 stops operation.",
       "stats.short": "Moved: {count}",
       "error.resolution_changed": "The game window size changed. Open the game panels, run automatic setup and check one transfer.",
-      "error.layout_changed": "The game size or scale changed. The current check was cancelled.",
+      "error.layout_changed": "The game panels’ positions could not be confirmed. The current check was cancelled.",
       "state.auto_panels_waiting": "Waiting for the game panels to become visible. The check will retry automatically.",
       "state.focus_waiting": "Waiting for the game window.",
       "journal.session": "Current session timeline",
@@ -471,7 +472,8 @@
       "cycle_incomplete": "Inventory check is incomplete. Sorting stopped.",
       "inventory_resorting": "Sorting remaining items",
       "storage_full_stopped": "All available pages were checked twice. Storage is full; sorting and the timer are stopped.",
-      "detail.inventory_pending": "Visible items have been processed. The full check will continue in the next cycle."
+      "detail.inventory_pending": "A full inventory check has not yet been confirmed. I will try again in the next cycle.",
+      "detail.preflight_waiting": "The bag is updating. I will check it again before transferring."
     },
     "uk": {
       "app.title": "Порядок в інвентарі",
@@ -580,7 +582,7 @@
       "log.started": "Запуск через {seconds} с. F8 — зупинка.",
       "log.paused": "Пауза: {reason}",
       "log.pages": "Сторінка {page}: вільних {free}, невідомих {unknown}.",
-      "error.interval": "Інтервал: від 30 хв до 24 год, крок 30 хв.",
+      "error.interval": "Інтервал: від 1 хв до 24 год.",
       "error.generic": "Не вдалося виконати дію: {error}",
       "counter.confirmed": "Підтверджено за запуск",
       "filters.level": "Рівень",
@@ -675,7 +677,7 @@
       "log.first_started": "Гра активна. Перше сортування зараз; наступні через {time}. F8 — зупинка.",
       "stats.short": "Перенесено: {count}",
       "error.resolution_changed": "Розмір вікна гри змінився. Відкрийте ігрові панелі, виконайте автоналаштування та перевірте одне перенесення.",
-      "error.layout_changed": "Розмір або масштаб гри змінився. Поточну перевірку скасовано.",
+      "error.layout_changed": "Не вдалося підтвердити положення ігрових панелей. Поточну перевірку скасовано.",
       "state.auto_panels_waiting": "Очікую, поки ігрові панелі стануть видимими. Перевірка повториться автоматично.",
       "state.focus_waiting": "Очікую доступу до гри.",
       "journal.session": "Хронологія поточного сеансу",
@@ -705,7 +707,8 @@
       "cycle_incomplete": "Перевірку інвентарю не завершено. Роботу зупинено.",
       "inventory_resorting": "Сортую решту предметів",
       "storage_full_stopped": "Усі доступні сторінки перевірено двічі. Сховище заповнене; сортування й таймер зупинено.",
-      "detail.inventory_pending": "Видимі предмети оброблено. Повна перевірка продовжиться в наступному циклі."
+      "detail.inventory_pending": "Повну перевірку інвентарю ще не підтверджено. Повторю в наступному циклі.",
+      "detail.preflight_waiting": "Сумка оновлюється. Повторю розпізнавання перед перенесенням."
     },
     "de": {
       "app.title": "Ordnung im Inventar",
@@ -814,7 +817,7 @@
       "log.started": "Start in {seconds} Sek. F8 stoppt den Helfer.",
       "log.paused": "Pausiert: {reason}",
       "log.pages": "Seite {page}: {free} frei, {unknown} unbekannt.",
-      "error.interval": "Intervall: 30 Min. bis 24 Std., in Schritten von 30 Min.",
+      "error.interval": "Intervall: 1 Min. bis 24 Std.",
       "error.generic": "Aktion fehlgeschlagen: {error}",
       "counter.confirmed": "In diesem Lauf bestätigt",
       "filters.level": "Stufe",
@@ -909,7 +912,7 @@
       "log.first_started": "Spiel aktiv. Erste Sortierung jetzt; danach alle {time}. F8 stoppt.",
       "stats.short": "Übertragen: {count}",
       "error.resolution_changed": "Die Größe des Spielfensters hat sich geändert. Öffne die Spielfenster, führe die automatische Einrichtung aus und prüfe eine Übertragung.",
-      "error.layout_changed": "Die Größe oder Skalierung des Spiels wurde geändert. Die aktuelle Prüfung wurde abgebrochen.",
+      "error.layout_changed": "Die Position der Spielfenster konnte nicht bestätigt werden. Die aktuelle Prüfung wurde abgebrochen.",
       "state.auto_panels_waiting": "Warte, bis die Spielfenster sichtbar sind. Die Prüfung wird automatisch wiederholt.",
       "state.focus_waiting": "Warte auf das Spielfenster.",
       "journal.session": "Verlauf der aktuellen Sitzung",
@@ -939,7 +942,8 @@
       "cycle_incomplete": "Inventarprüfung unvollständig. Sortierung gestoppt.",
       "inventory_resorting": "Übrige Gegenstände sortieren",
       "storage_full_stopped": "Alle verfügbaren Seiten wurden zweimal geprüft. Das Lager ist voll; Sortierung und Timer sind gestoppt.",
-      "detail.inventory_pending": "Die sichtbaren Gegenstände wurden verarbeitet. Die vollständige Prüfung wird im nächsten Durchlauf fortgesetzt."
+      "detail.inventory_pending": "Die vollständige Inventarprüfung ist noch nicht bestätigt. Ich versuche es im nächsten Durchlauf erneut.",
+      "detail.preflight_waiting": "Die Tasche wird aktualisiert. Ich prüfe sie vor dem Übertragen erneut."
     },
     "fr": {
       "app.title": "Un inventaire bien rangé",
@@ -1048,7 +1052,7 @@
       "log.started": "Démarrage dans {seconds} s. F8 arrête l’assistant.",
       "log.paused": "Pause : {reason}",
       "log.pages": "Page {page} : {free} libres, {unknown} inconnus.",
-      "error.interval": "Intervalle : de 30 min à 24 h, par pas de 30 min.",
+      "error.interval": "Intervalle : de 1 min à 24 h.",
       "error.generic": "Impossible d’effectuer l’action : {error}",
       "counter.confirmed": "Confirmés pour cette exécution",
       "filters.level": "Niveau",
@@ -1143,7 +1147,7 @@
       "log.first_started": "Jeu actif. Premier tri maintenant ; les suivants toutes les {time}. F8 arrête.",
       "stats.short": "Transférés : {count}",
       "error.resolution_changed": "La taille de la fenêtre du jeu a changé. Ouvrez les panneaux, lancez la configuration automatique et vérifiez un transfert.",
-      "error.layout_changed": "La taille ou l’échelle du jeu a changé. La vérification en cours a été annulée.",
+      "error.layout_changed": "La position des panneaux du jeu n’a pas pu être confirmée. La vérification en cours a été annulée.",
       "state.auto_panels_waiting": "En attente des panneaux du jeu. La vérification reprendra automatiquement.",
       "state.focus_waiting": "En attente de la fenêtre du jeu.",
       "journal.session": "Historique de la session en cours",
@@ -1173,7 +1177,8 @@
       "cycle_incomplete": "Vérification de l’inventaire incomplète. Tri arrêté.",
       "inventory_resorting": "Tri des objets restants",
       "storage_full_stopped": "Toutes les pages disponibles ont été vérifiées deux fois. Le stockage est plein ; le tri et le minuteur sont arrêtés.",
-      "detail.inventory_pending": "Les objets visibles ont été traités. La vérification complète reprendra au prochain cycle."
+      "detail.inventory_pending": "La vérification complète de l’inventaire n’est pas encore confirmée. Je réessaierai au prochain cycle.",
+      "detail.preflight_waiting": "Le sac se met à jour. Je revérifierai son contenu avant le transfert."
     },
     "es": {
       "app.title": "Orden en el inventario",
@@ -1282,7 +1287,7 @@
       "log.started": "Inicio en {seconds} s. F8 detiene el asistente.",
       "log.paused": "Pausa: {reason}",
       "log.pages": "Página {page}: {free} libres, {unknown} desconocidos.",
-      "error.interval": "Intervalo: de 30 min a 24 h, en pasos de 30 min.",
+      "error.interval": "Intervalo: de 1 min a 24 h.",
       "error.generic": "No se pudo realizar la acción: {error}",
       "counter.confirmed": "Confirmados en esta ejecución",
       "filters.level": "Nivel",
@@ -1377,7 +1382,7 @@
       "log.first_started": "Juego activo. Primer orden ahora; después cada {time}. F8 detiene.",
       "stats.short": "Transferidos: {count}",
       "error.resolution_changed": "Ha cambiado el tamaño de la ventana del juego. Abre los paneles, ejecuta la configuración automática y comprueba una transferencia.",
-      "error.layout_changed": "El tamaño o la escala del juego cambió. Se canceló la comprobación actual.",
+      "error.layout_changed": "No se pudo confirmar la posición de los paneles del juego. Se canceló la comprobación actual.",
       "state.auto_panels_waiting": "Esperando a que se vean los paneles del juego. La comprobación se repetirá automáticamente.",
       "state.focus_waiting": "Esperando la ventana del juego.",
       "journal.session": "Historial de la sesión actual",
@@ -1407,7 +1412,8 @@
       "cycle_incomplete": "La revisión del inventario está incompleta. Proceso detenido.",
       "inventory_resorting": "Ordenando los objetos restantes",
       "storage_full_stopped": "Todas las páginas disponibles se comprobaron dos veces. El almacén está lleno; la clasificación y el temporizador se han detenido.",
-      "detail.inventory_pending": "Los objetos visibles se han procesado. La comprobación completa continuará en el próximo ciclo."
+      "detail.inventory_pending": "La comprobación completa del inventario aún no está confirmada. Lo intentaré de nuevo en el próximo ciclo.",
+      "detail.preflight_waiting": "La bolsa se está actualizando. Volveré a comprobarla antes de transferir."
     },
     "it": {
       "app.title": "Ordine nell’inventario",
@@ -1516,7 +1522,7 @@
       "log.started": "Avvio tra {seconds} s. F8 ferma l’assistente.",
       "log.paused": "Pausa: {reason}",
       "log.pages": "Pagina {page}: {free} liberi, {unknown} sconosciuti.",
-      "error.interval": "Intervallo: da 30 min a 24 h, a passi di 30 min.",
+      "error.interval": "Intervallo: da 1 min a 24 h.",
       "error.generic": "Impossibile eseguire l’azione: {error}",
       "counter.confirmed": "Confermati in questa esecuzione",
       "filters.level": "Livello",
@@ -1611,7 +1617,7 @@
       "log.first_started": "Gioco attivo. Primo ordinamento ora; poi ogni {time}. F8 ferma.",
       "stats.short": "Trasferiti: {count}",
       "error.resolution_changed": "La dimensione della finestra del gioco è cambiata. Apri i pannelli, esegui la configurazione automatica e controlla un trasferimento.",
-      "error.layout_changed": "La dimensione o la scala del gioco è cambiata. Il controllo in corso è stato annullato.",
+      "error.layout_changed": "Non è stato possibile confermare la posizione dei pannelli di gioco. Il controllo in corso è stato annullato.",
       "state.auto_panels_waiting": "In attesa che i pannelli di gioco siano visibili. Il controllo verrà ripetuto automaticamente.",
       "state.focus_waiting": "In attesa della finestra di gioco.",
       "journal.session": "Cronologia della sessione attuale",
@@ -1641,7 +1647,8 @@
       "cycle_incomplete": "Controllo dell’inventario incompleto. Operazione arrestata.",
       "inventory_resorting": "Ordinamento degli oggetti rimasti",
       "storage_full_stopped": "Tutte le pagine disponibili sono state controllate due volte. Il deposito è pieno; l’ordinamento e il timer sono arrestati.",
-      "detail.inventory_pending": "Gli oggetti visibili sono stati elaborati. Il controllo completo continuerà nel prossimo ciclo."
+      "detail.inventory_pending": "Il controllo completo dell’inventario non è ancora confermato. Riproverò nel prossimo ciclo.",
+      "detail.preflight_waiting": "La borsa si sta aggiornando. La ricontrollerò prima del trasferimento."
     },
     "pt-BR": {
       "app.title": "Inventário em ordem",
@@ -1750,7 +1757,7 @@
       "log.started": "Início em {seconds} s. F8 para o assistente.",
       "log.paused": "Pausa: {reason}",
       "log.pages": "Página {page}: {free} livres, {unknown} desconhecidos.",
-      "error.interval": "Intervalo: de 30 min a 24 h, em passos de 30 min.",
+      "error.interval": "Intervalo: de 1 min a 24 h.",
       "error.generic": "Não foi possível executar a ação: {error}",
       "counter.confirmed": "Confirmados nesta execução",
       "filters.level": "Nível",
@@ -1845,7 +1852,7 @@
       "log.first_started": "Jogo ativo. Primeira organização agora; depois a cada {time}. F8 interrompe.",
       "stats.short": "Transferidos: {count}",
       "error.resolution_changed": "O tamanho da janela do jogo mudou. Abra os painéis, execute a configuração automática e verifique uma transferência.",
-      "error.layout_changed": "O tamanho ou a escala do jogo mudou. A verificação atual foi cancelada.",
+      "error.layout_changed": "Não foi possível confirmar a posição dos painéis do jogo. A verificação atual foi cancelada.",
       "state.auto_panels_waiting": "Aguardando os painéis do jogo ficarem visíveis. A verificação será repetida automaticamente.",
       "state.focus_waiting": "Aguardando a janela do jogo.",
       "journal.session": "Histórico da sessão atual",
@@ -1875,7 +1882,8 @@
       "cycle_incomplete": "A verificação do inventário está incompleta. Operação interrompida.",
       "inventory_resorting": "Organizando os itens restantes",
       "storage_full_stopped": "Todas as páginas disponíveis foram verificadas duas vezes. O depósito está cheio; a organização e o temporizador foram interrompidos.",
-      "detail.inventory_pending": "Os itens visíveis foram processados. A verificação completa continuará no próximo ciclo."
+      "detail.inventory_pending": "A verificação completa do inventário ainda não foi confirmada. Tentarei novamente no próximo ciclo.",
+      "detail.preflight_waiting": "A bolsa está sendo atualizada. Vou verificá-la novamente antes da transferência."
     },
     "pl": {
       "app.title": "Porządek w ekwipunku",
@@ -1984,7 +1992,7 @@
       "log.started": "Start za {seconds} s. F8 zatrzymuje pomocnika.",
       "log.paused": "Pauza: {reason}",
       "log.pages": "Strona {page}: {free} wolnych, {unknown} nieznanych.",
-      "error.interval": "Odstęp: od 30 min do 24 godz., co 30 min.",
+      "error.interval": "Odstęp: od 1 min do 24 godz.",
       "error.generic": "Nie udało się wykonać działania: {error}",
       "counter.confirmed": "Potwierdzono w tym uruchomieniu",
       "filters.level": "Poziom",
@@ -2079,7 +2087,7 @@
       "log.first_started": "Gra aktywna. Pierwsze sortowanie teraz; następne co {time}. F8 zatrzymuje.",
       "stats.short": "Przeniesiono: {count}",
       "error.resolution_changed": "Rozmiar okna gry się zmienił. Otwórz panele gry, uruchom automatyczną konfigurację i sprawdź jedno przeniesienie.",
-      "error.layout_changed": "Rozmiar lub skala gry uległy zmianie. Bieżąca kontrola została anulowana.",
+      "error.layout_changed": "Nie udało się potwierdzić położenia paneli gry. Bieżąca kontrola została anulowana.",
       "state.auto_panels_waiting": "Czekam, aż panele gry będą widoczne. Sprawdzenie zostanie powtórzone automatycznie.",
       "state.focus_waiting": "Czekam na okno gry.",
       "journal.session": "Historia bieżącej sesji",
@@ -2109,7 +2117,8 @@
       "cycle_incomplete": "Sprawdzanie ekwipunku nie zostało ukończone. Działanie zatrzymano.",
       "inventory_resorting": "Sortowanie pozostałych przedmiotów",
       "storage_full_stopped": "Wszystkie dostępne strony sprawdzono dwukrotnie. Magazyn jest pełny; sortowanie i zegar zostały zatrzymane.",
-      "detail.inventory_pending": "Widoczne przedmioty zostały przetworzone. Pełne sprawdzanie będzie kontynuowane w następnym cyklu."
+      "detail.inventory_pending": "Pełne sprawdzenie ekwipunku nie zostało jeszcze potwierdzone. Spróbuję ponownie w następnym cyklu.",
+      "detail.preflight_waiting": "Torba jest aktualizowana. Sprawdzę ją ponownie przed przeniesieniem."
     },
     "id": {
       "app.title": "Kerapian inventaris",
@@ -2218,7 +2227,7 @@
       "log.started": "Dimulai dalam {seconds} dtk. F8 untuk berhenti.",
       "log.paused": "Dijeda: {reason}",
       "log.pages": "Halaman {page}: kosong {free}, tidak dikenali {unknown}.",
-      "error.interval": "Interval: 30 mnt hingga 24 jam, kelipatan 30 mnt.",
+      "error.interval": "Interval: 1 mnt hingga 24 jam.",
       "error.generic": "Tindakan tidak dapat dilakukan: {error}",
       "counter.confirmed": "Dikonfirmasi dalam sesi ini",
       "filters.level": "Level",
@@ -2313,7 +2322,7 @@
       "log.first_started": "Game aktif. Pengurutan pertama sekarang; berikutnya setiap {time}. F8 untuk berhenti.",
       "stats.short": "Dipindahkan: {count}",
       "error.resolution_changed": "Ukuran jendela game berubah. Buka panel game, jalankan pengaturan otomatis, dan periksa satu pemindahan.",
-      "error.layout_changed": "Ukuran atau skala game berubah. Pemeriksaan saat ini dibatalkan.",
+      "error.layout_changed": "Posisi panel game tidak dapat dikonfirmasi. Pemeriksaan saat ini dibatalkan.",
       "state.auto_panels_waiting": "Menunggu panel game terlihat. Pemeriksaan akan diulang otomatis.",
       "state.focus_waiting": "Menunggu jendela game.",
       "journal.session": "Riwayat sesi saat ini",
@@ -2343,7 +2352,8 @@
       "cycle_incomplete": "Pemeriksaan inventaris belum selesai. Proses dihentikan.",
       "inventory_resorting": "Menyortir item yang tersisa",
       "storage_full_stopped": "Semua halaman yang tersedia telah diperiksa dua kali. Penyimpanan penuh; penyortiran dan pengatur waktu dihentikan.",
-      "detail.inventory_pending": "Item yang terlihat sudah diproses. Pemeriksaan menyeluruh akan dilanjutkan pada siklus berikutnya."
+      "detail.inventory_pending": "Pemeriksaan seluruh inventaris belum terkonfirmasi. Saya akan mencoba lagi pada siklus berikutnya.",
+      "detail.preflight_waiting": "Tas sedang diperbarui. Saya akan memeriksanya lagi sebelum memindahkan item."
     },
     "vi": {
       "app.title": "Sắp xếp hành trang",
@@ -2452,7 +2462,7 @@
       "log.started": "Bắt đầu sau {seconds} giây. F8 để dừng.",
       "log.paused": "Tạm dừng: {reason}",
       "log.pages": "Trang {page}: trống {free}, chưa nhận dạng {unknown}.",
-      "error.interval": "Khoảng thời gian: 30 phút đến 24 giờ, bước 30 phút.",
+      "error.interval": "Khoảng thời gian: 1 phút đến 24 giờ.",
       "error.generic": "Không thể thực hiện: {error}",
       "counter.confirmed": "Đã xác nhận trong phiên",
       "filters.level": "Cấp",
@@ -2547,7 +2557,7 @@
       "log.first_started": "Trò chơi đang mở. Sắp xếp lần đầu ngay; sau đó mỗi {time}. F8 để dừng.",
       "stats.short": "Đã chuyển: {count}",
       "error.resolution_changed": "Kích thước cửa sổ trò chơi đã thay đổi. Mở các bảng trò chơi, chạy thiết lập tự động và kiểm tra một lần chuyển.",
-      "error.layout_changed": "Kích thước hoặc tỷ lệ trò chơi đã thay đổi. Lần kiểm tra hiện tại đã bị hủy.",
+      "error.layout_changed": "Không thể xác nhận vị trí các bảng trong trò chơi. Lần kiểm tra hiện tại đã bị hủy.",
       "state.auto_panels_waiting": "Đang chờ các bảng trong trò chơi hiển thị. Việc kiểm tra sẽ tự động được thử lại.",
       "state.focus_waiting": "Đang chờ cửa sổ trò chơi.",
       "journal.session": "Lịch sử phiên hiện tại",
@@ -2577,7 +2587,8 @@
       "cycle_incomplete": "Kiểm tra túi đồ chưa hoàn tất. Đã dừng thao tác.",
       "inventory_resorting": "Đang sắp xếp vật phẩm còn lại",
       "storage_full_stopped": "Tất cả các trang hiện có đã được kiểm tra hai lần. Kho đã đầy; sắp xếp và bộ hẹn giờ đã dừng.",
-      "detail.inventory_pending": "Các vật phẩm đang hiển thị đã được xử lý. Việc kiểm tra toàn bộ sẽ tiếp tục ở chu kỳ sau."
+      "detail.inventory_pending": "Chưa xác nhận được việc kiểm tra toàn bộ túi đồ. Tôi sẽ thử lại ở chu kỳ tiếp theo.",
+      "detail.preflight_waiting": "Túi đồ đang cập nhật. Tôi sẽ kiểm tra lại trước khi chuyển vật phẩm."
     },
     "tr": {
       "app.title": "Envanteri düzenle",
@@ -2686,7 +2697,7 @@
       "log.started": "{seconds} sn sonra başlar. Durdurmak için F8.",
       "log.paused": "Duraklatıldı: {reason}",
       "log.pages": "Sayfa {page}: boş {free}, bilinmeyen {unknown}.",
-      "error.interval": "Aralık: 30 dakika–24 saat, 30 dakikalık adımlar.",
+      "error.interval": "Aralık: 1 dakika–24 saat.",
       "error.generic": "İşlem gerçekleştirilemedi: {error}",
       "counter.confirmed": "Bu oturumda doğrulanan",
       "filters.level": "Seviye",
@@ -2781,7 +2792,7 @@
       "log.first_started": "Oyun aktif. İlk sıralama şimdi; ardından her {time}. Durdurmak için F8.",
       "stats.short": "Taşınan: {count}",
       "error.resolution_changed": "Oyun penceresinin boyutu değişti. Oyun panellerini açın, otomatik kurulumu çalıştırın ve bir taşıma işlemini kontrol edin.",
-      "error.layout_changed": "Oyunun boyutu veya ölçeği değişti. Geçerli kontrol iptal edildi.",
+      "error.layout_changed": "Oyun panellerinin konumu doğrulanamadı. Geçerli kontrol iptal edildi.",
       "state.auto_panels_waiting": "Oyun panellerinin görünmesi bekleniyor. Kontrol otomatik olarak yeniden denenecek.",
       "state.focus_waiting": "Oyun penceresi bekleniyor.",
       "journal.session": "Geçerli oturumun geçmişi",
@@ -2811,7 +2822,8 @@
       "cycle_incomplete": "Envanter kontrolü tamamlanmadı. İşlem durduruldu.",
       "inventory_resorting": "Kalan eşyalar sıralanıyor",
       "storage_full_stopped": "Kullanılabilir tüm sayfalar iki kez kontrol edildi. Depo dolu; sıralama ve zamanlayıcı durduruldu.",
-      "detail.inventory_pending": "Görünen eşyalar işlendi. Tam kontrol bir sonraki döngüde devam edecek."
+      "detail.inventory_pending": "Envanterin tamamının kontrolü henüz doğrulanmadı. Bir sonraki döngüde yeniden deneyeceğim.",
+      "detail.preflight_waiting": "Çanta güncelleniyor. Aktarmadan önce yeniden kontrol edeceğim."
     },
     "th": {
       "app.title": "จัดระเบียบกระเป๋า",
@@ -2920,7 +2932,7 @@
       "log.started": "เริ่มใน {seconds} วินาที กด F8 เพื่อหยุด",
       "log.paused": "พัก: {reason}",
       "log.pages": "หน้า {page}: ว่าง {free}, ไม่ทราบ {unknown}",
-      "error.interval": "ช่วงเวลา: 30 นาทีถึง 24 ชั่วโมง เพิ่มครั้งละ 30 นาที",
+      "error.interval": "ช่วงเวลา: 1 นาทีถึง 24 ชั่วโมง",
       "error.generic": "ดำเนินการไม่ได้: {error}",
       "counter.confirmed": "ยืนยันแล้วในรอบนี้",
       "filters.level": "เลเวล",
@@ -3015,7 +3027,7 @@
       "log.first_started": "เกมพร้อม จัดเรียงครั้งแรกตอนนี้ จากนั้นทุก {time} กด F8 เพื่อหยุด",
       "stats.short": "ย้ายแล้ว: {count}",
       "error.resolution_changed": "ขนาดหน้าต่างเกมเปลี่ยน เปิดแผงเกม ตั้งค่าอัตโนมัติ แล้วตรวจสอบการย้ายหนึ่งครั้ง",
-      "error.layout_changed": "ขนาดหรือสเกลของเกมเปลี่ยนไป การตรวจสอบปัจจุบันถูกยกเลิกแล้ว",
+      "error.layout_changed": "ไม่สามารถยืนยันตำแหน่งของแผงในเกมได้ การตรวจสอบปัจจุบันถูกยกเลิกแล้ว",
       "state.auto_panels_waiting": "กำลังรอให้แผงในเกมปรากฏ แล้วจะตรวจสอบอีกครั้งโดยอัตโนมัติ",
       "state.focus_waiting": "กำลังรอหน้าต่างเกม",
       "journal.session": "ประวัติของเซสชันปัจจุบัน",
@@ -3045,7 +3057,8 @@
       "cycle_incomplete": "ตรวจสอบช่องเก็บของไม่เสร็จ หยุดการทำงานแล้ว",
       "inventory_resorting": "กำลังจัดเรียงไอเท็มที่เหลือ",
       "storage_full_stopped": "ตรวจสอบหน้าที่ใช้งานได้ทั้งหมดสองครั้งแล้ว คลังเต็ม จึงหยุดการจัดเรียงและตัวจับเวลา",
-      "detail.inventory_pending": "จัดการไอเทมที่มองเห็นแล้ว การตรวจสอบทั้งหมดจะดำเนินต่อในรอบถัดไป"
+      "detail.inventory_pending": "ยังไม่ยืนยันการตรวจสอบช่องเก็บของทั้งหมด จะลองใหม่ในรอบถัดไป",
+      "detail.preflight_waiting": "กระเป๋ากำลังอัปเดต จะตรวจสอบอีกครั้งก่อนย้ายไอเทม"
     },
     "ja": {
       "app.title": "所持品を整理",
@@ -3154,7 +3167,7 @@
       "log.started": "{seconds}秒後に開始。F8で停止。",
       "log.paused": "一時停止：{reason}",
       "log.pages": "ページ {page}：空き {free}、不明 {unknown}。",
-      "error.interval": "間隔は30分～24時間、30分刻みです。",
+      "error.interval": "間隔は1分～24時間です。",
       "error.generic": "操作できませんでした：{error}",
       "counter.confirmed": "今回の実行で確認済み",
       "filters.level": "レベル",
@@ -3249,7 +3262,7 @@
       "log.first_started": "ゲームはアクティブです。最初の整理を今行い、以降は{time}ごとです。F8で停止。",
       "stats.short": "移動済み：{count}",
       "error.resolution_changed": "ゲームウィンドウのサイズが変わりました。ゲームのパネルを開き、自動設定を実行して1回の移動を確認してください。",
-      "error.layout_changed": "ゲームのサイズまたは倍率が変更されました。今回の確認は中止されました。",
+      "error.layout_changed": "ゲーム内パネルの位置を確認できませんでした。今回の確認は中止されました。",
       "state.auto_panels_waiting": "ゲームのパネルが表示されるのを待っています。確認は自動で再試行されます。",
       "state.focus_waiting": "ゲームのウィンドウを待っています。",
       "journal.session": "現在のセッションの履歴",
@@ -3279,7 +3292,8 @@
       "cycle_incomplete": "所持品の確認が完了していません。処理を停止しました。",
       "inventory_resorting": "残りのアイテムを整理中",
       "storage_full_stopped": "利用可能な全ページを2回確認しました。倉庫が満杯のため、整理とタイマーを停止しました。",
-      "detail.inventory_pending": "表示中のアイテムを処理しました。全体の確認は次のサイクルで続けます。"
+      "detail.inventory_pending": "インベントリ全体の確認はまだ完了を確認できていません。次のサイクルで再試行します。",
+      "detail.preflight_waiting": "バッグが更新中です。転送前に再確認します。"
     },
     "ko": {
       "app.title": "인벤토리 정리",
@@ -3388,7 +3402,7 @@
       "log.started": "{seconds}초 후 시작. F8로 중지.",
       "log.paused": "일시 정지: {reason}",
       "log.pages": "페이지 {page}: 빈칸 {free}, 미확인 {unknown}.",
-      "error.interval": "간격: 30분~24시간, 30분 단위.",
+      "error.interval": "간격: 1분~24시간.",
       "error.generic": "작업을 수행하지 못했습니다: {error}",
       "counter.confirmed": "이번 실행에서 확인됨",
       "filters.level": "레벨",
@@ -3483,7 +3497,7 @@
       "log.first_started": "게임이 활성화되었습니다. 지금 첫 정리를 실행하고 이후 {time}마다 실행합니다. F8로 중지.",
       "stats.short": "이동됨: {count}",
       "error.resolution_changed": "게임 창 크기가 변경되었습니다. 게임 패널을 열고 자동 설정을 실행한 뒤 한 번의 이동을 확인하세요.",
-      "error.layout_changed": "게임 크기 또는 배율이 변경되었습니다. 현재 확인이 취소되었습니다.",
+      "error.layout_changed": "게임 패널의 위치를 확인할 수 없습니다. 현재 확인이 취소되었습니다.",
       "state.auto_panels_waiting": "게임 패널이 표시될 때까지 기다리는 중입니다. 확인은 자동으로 다시 시도됩니다.",
       "state.focus_waiting": "게임 창을 기다리는 중입니다.",
       "journal.session": "현재 세션 기록",
@@ -3513,7 +3527,8 @@
       "cycle_incomplete": "인벤토리 확인이 완료되지 않았습니다. 작업을 중지했습니다.",
       "inventory_resorting": "남은 아이템 정리 중",
       "storage_full_stopped": "사용 가능한 모든 페이지를 두 번 확인했습니다. 창고가 가득 차 정리와 타이머를 중지했습니다.",
-      "detail.inventory_pending": "현재 보이는 아이템을 처리했습니다. 전체 확인은 다음 주기에 계속됩니다."
+      "detail.inventory_pending": "인벤토리 전체 검사가 아직 확인되지 않았습니다. 다음 주기에 다시 시도하겠습니다.",
+      "detail.preflight_waiting": "가방이 업데이트되고 있습니다. 이전하기 전에 다시 확인하겠습니다."
     },
     "zh-CN": {
       "app.title": "整理背包",
@@ -3622,7 +3637,7 @@
       "log.started": "{seconds} 秒后开始。按 F8 停止。",
       "log.paused": "暂停：{reason}",
       "log.pages": "第 {page} 页：空位 {free}，未知 {unknown}。",
-      "error.interval": "间隔：30分钟至24小时，以30分钟为单位。",
+      "error.interval": "间隔：1分钟至24小时。",
       "error.generic": "无法执行操作：{error}",
       "counter.confirmed": "本次运行已确认",
       "filters.level": "等级",
@@ -3717,7 +3732,7 @@
       "log.first_started": "游戏已激活。现在进行首次整理，以后每隔{time}整理。按F8停止。",
       "stats.short": "已转移：{count}",
       "error.resolution_changed": "游戏窗口大小已更改。请打开游戏面板，运行自动设置，并检查一次转移。",
-      "error.layout_changed": "游戏尺寸或缩放已更改。当前检查已取消。",
+      "error.layout_changed": "无法确认游戏面板的位置。当前检查已取消。",
       "state.auto_panels_waiting": "正在等待游戏面板显示。随后会自动重试检查。",
       "state.focus_waiting": "正在等待游戏窗口。",
       "journal.session": "当前会话记录",
@@ -3747,7 +3762,8 @@
       "cycle_incomplete": "背包检查尚未完成，已停止操作。",
       "inventory_resorting": "正在整理剩余物品",
       "storage_full_stopped": "已检查全部可用页面两次。仓库已满，整理和定时器均已停止。",
-      "detail.inventory_pending": "已处理可见物品。下一轮将继续完整检查。"
+      "detail.inventory_pending": "尚未确认完成整个背包的检查。下一轮将重试。",
+      "detail.preflight_waiting": "背包正在更新。转移前将重新识别。"
     },
     "zh-TW": {
       "app.title": "整理背包",
@@ -3856,7 +3872,7 @@
       "log.started": "{seconds} 秒後開始。按 F8 停止。",
       "log.paused": "暫停：{reason}",
       "log.pages": "第 {page} 頁：空位 {free}，未知 {unknown}。",
-      "error.interval": "間隔：30分鐘至24小時，以30分鐘為單位。",
+      "error.interval": "間隔：1分鐘至24小時。",
       "error.generic": "無法執行操作：{error}",
       "counter.confirmed": "本次執行已確認",
       "filters.level": "等級",
@@ -3951,7 +3967,7 @@
       "log.first_started": "遊戲已啟用。現在進行首次整理，以後每隔{time}整理。按F8停止。",
       "stats.short": "已轉移：{count}",
       "error.resolution_changed": "遊戲視窗大小已變更。請開啟遊戲面板，執行自動設定，並檢查一次轉移。",
-      "error.layout_changed": "遊戲尺寸或縮放已變更。目前的檢查已取消。",
+      "error.layout_changed": "無法確認遊戲面板的位置。目前的檢查已取消。",
       "state.auto_panels_waiting": "正在等待遊戲面板顯示。之後會自動重試檢查。",
       "state.focus_waiting": "正在等待遊戲視窗。",
       "journal.session": "目前工作階段紀錄",
@@ -3981,7 +3997,8 @@
       "cycle_incomplete": "背包檢查尚未完成，已停止操作。",
       "inventory_resorting": "正在整理剩餘物品",
       "storage_full_stopped": "已檢查全部可用頁面兩次。倉庫已滿，整理與計時器均已停止。",
-      "detail.inventory_pending": "已處理可見物品。下一輪將繼續完整檢查。"
+      "detail.inventory_pending": "尚未確認完成整個背包的檢查。下一輪將重試。",
+      "detail.preflight_waiting": "背包正在更新。轉移前將重新辨識。"
     }
   }
 }

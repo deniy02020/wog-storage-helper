@@ -38,12 +38,12 @@ jobs:
       - name: Public synthetic tests, without game input
         run: python -B -m unittest discover -v
       - name: Build isolated unsigned app, portable bundle and setup
-        run: python -B -m ci.windows_build --output-root .ci-work/beta7-preparation
+        run: python -B -m ci.windows_build --output-root .ci-work/beta8-preparation
       - name: Store unsigned build evidence (not a public release)
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: unsigned-beta7-preparation
-          path: .ci-work/beta7-preparation/artifacts/*
+          name: unsigned-beta8-preparation
+          path: .ci-work/beta8-preparation/artifacts/*
           if-no-files-found: error
           retention-days: 14
       - name: Upload only the owned app for a future signing request
@@ -52,7 +52,7 @@ jobs:
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: app-signing-input
-          path: .ci-work/beta7-preparation/artifacts/WoGStorageHelper.exe
+          path: .ci-work/beta8-preparation/artifacts/WoGStorageHelper.exe
           if-no-files-found: error
           retention-days: 14
       - name: Upload only the owned uninstaller for a future signing request
@@ -61,7 +61,7 @@ jobs:
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: uninstaller-signing-input
-          path: .ci-work/beta7-preparation/artifacts/WoGStorageHelperUninstall.exe
+          path: .ci-work/beta8-preparation/artifacts/WoGStorageHelperUninstall.exe
           if-no-files-found: error
           retention-days: 14
     outputs:

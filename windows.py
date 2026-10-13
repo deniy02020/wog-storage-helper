@@ -1041,6 +1041,60 @@ class WindowsDesktop:
             raise
 
     @_physical_api
+    def scroll_burst(self, handle, point, expected_size, delta, count):
+        """At most ten identical fine pulses, each with every native guard.
+
+        No capture or inferred offset is returned here. The caller must park,
+        settle and prove unique complete-row RGB overlap after the entire burst.
+        The first physical rectangle, captured UID and activity generation stay
+        bound across ALL pulses. A takeover, F8, overlay or denied receipt stops
+        immediately; accepted pulses are never repeated or cleaned up by input.
+        """
+        if (isinstance(delta, bool) or not isinstance(delta, int) or not 1 <= abs(delta) <= 53
+                or isinstance(count, bool) or not isinstance(count, int) or not 2 <= count <= 10):
+            raise ValueError("Пакет прокрутки должен содержать от 2 до 10 одинаковых малых импульсов.")
+        if self.stop_pressed():
+            raise InterruptedError("Остановлено: F8.")
+        self.check_background_cycle()
+        observer = getattr(self, "input_observer", None)
+        generation = None
+        if observer is not None:
+            observer.ensure_alive()
+            generation = observer.snapshot()[0]
+        self._check_acquisition_available()
+        identity = self._require_game_identity(handle)
+        box = self.client_box(handle)
+        accepted = False
+
+        def guard():
+            if self.stop_pressed():
+                raise InterruptedError("Остановлено: F8.")
+            self.check_background_cycle()
+            self._check_acquisition_available()
+            if self._require_game_identity(handle) != identity or self.client_box(handle) != box:
+                raise WindowGeometryChanged("Окно игры изменилось во время пакета прокрутки.")
+            if observer is not None:
+                observer.ensure_alive()
+                if observer.snapshot()[0] != generation:
+                    raise UserActivityInterrupted("Пауза: ввод пользователя прервал пакет прокрутки.")
+
+        try:
+            for index in range(count):
+                guard()
+                # The existing one-pulse API performs fresh focus, hit-test,
+                # physical-point, modifier, GUI-capture and SendInput checks
+                # immediately before and after EACH accepted wheel event.
+                self.scroll(handle, point, expected_size, delta)
+                accepted = True
+                guard()
+                if index + 1 < count:
+                    time.sleep(.025)  # Separate Unity render ticks; no readback/input replay.
+        except Exception as error:
+            if accepted:
+                error.input_issued = True
+            raise
+
+    @_physical_api
     def drag(self, handle, source, destination, expected_size):
         identity = self._require_game_identity(handle)
         x, y = self._check_point(handle, *source, expected_size)

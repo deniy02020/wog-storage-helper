@@ -137,7 +137,7 @@ class LocaleTests(unittest.TestCase):
 
 class DurationTests(unittest.TestCase):
     def test_interval_boundaries_and_hour_minute_combinations(self):
-        for seconds, expected in ((1800, "30 мин"), (3600, "1 ч"), (5400, "1 ч 30 мин"), (86400, "24 ч")):
+        for seconds, expected in ((60, "1 мин"), (1800, "30 мин"), (3600, "1 ч"), (5400, "1 ч 30 мин"), (86400, "24 ч")):
             with self.subTest(seconds=seconds):
                 self.assertEqual(i18n.format_duration(seconds, locale="ru"), expected)
 
@@ -159,17 +159,49 @@ class DurationTests(unittest.TestCase):
 
 
 class MessageTests(unittest.TestCase):
+    def test_one_minute_interval_validation_is_localized_in_every_locale(self):
+        from helper_config import validate_interval
+        with self.assertRaises(ValueError) as error:
+            validate_interval(59)
+        for locale in i18n.SUPPORTED_LOCALES:
+            with self.subTest(locale=locale):
+                self.assertEqual(i18n.translate_message(str(error.exception), locale=locale),
+                                 i18n.tr("error.interval", locale=locale))
+
+    def test_preflight_wait_is_localized_without_claiming_panel_occlusion(self):
+        canonical = "Сумка обновляется. Повторю распознавание перед переносом."
+        self.assertEqual(i18n.tr("detail.preflight_waiting", locale="ru"), canonical)
+        for locale in i18n.SUPPORTED_LOCALES:
+            with self.subTest(locale=locale):
+                translated = i18n.tr("detail.preflight_waiting", locale=locale)
+                self.assertEqual(i18n.translate_message(canonical, locale=locale), translated)
+                self.assertNotEqual(translated, i18n.tr("state.auto_panels_waiting", locale=locale))
+
     def test_pending_inventory_cycle_is_localized_without_claiming_completion(self):
-        canonical = "Видимые предметы обработаны. Полная проверка продолжится в следующем цикле."
+        canonical = "Полная проверка инвентаря пока не подтверждена. Повторю в следующем цикле."
+        legacy = "Видимые предметы обработаны. Полная проверка продолжится в следующем цикле."
         self.assertEqual(i18n.tr("detail.inventory_pending", locale="ru"), canonical)
         for locale in i18n.SUPPORTED_LOCALES:
             with self.subTest(locale=locale):
                 translated = i18n.translate_message(canonical, locale=locale)
                 self.assertEqual(translated, i18n.tr("detail.inventory_pending", locale=locale))
+                self.assertEqual(i18n.translate_message(legacy, locale=locale), translated)
                 self.assertNotEqual(translated, i18n.tr("detail.check_complete", locale=locale))
                 self.assertEqual(i18n._fields(translated), set())
                 if locale != "ru":
                     self.assertNotEqual(translated, canonical)
+
+    def test_unconfirmed_layout_is_localized_without_claiming_user_resized_the_game(self):
+        from panels import CALIBRATION_REQUIRED
+        canonical = "Не удалось подтвердить положение игровых панелей. Текущая проверка отменена."
+        legacy = "Размер или масштаб игры изменился. Текущая проверка отменена."
+        self.assertEqual(CALIBRATION_REQUIRED, canonical)
+        self.assertEqual(i18n.tr("error.layout_changed", locale="ru"), canonical)
+        for locale in i18n.SUPPORTED_LOCALES:
+            with self.subTest(locale=locale):
+                translated = i18n.tr("error.layout_changed", locale=locale)
+                self.assertEqual(i18n.translate_message(canonical, locale=locale), translated)
+                self.assertEqual(i18n.translate_message(legacy, locale=locale), translated)
 
     def test_window_resize_action_is_translated_in_every_supported_locale(self):
         canonical = "Размер окна игры изменился. Откройте игровые панели, выполните автонастройку и проверьте один перенос."

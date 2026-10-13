@@ -1,7 +1,11 @@
 # SignPath Foundation application draft
 
-This is a factual draft for review. It has not been submitted and does not
-record agreement to provider terms, account verification or signing approval.
+This document retains a factual application draft as a reference for a possible
+future submission. The original Foundation application was declined at this
+stage in the provider response reported by the maintainer on 13 October 2026
+because the project lacked sufficient public visibility and independent trust
+signals. This reference does not record a new submission, provider agreement,
+account verification or signing approval.
 
 - Project: **WoG Storage Helper**.
 - Public maintainer/author: **deniy**; repository owner: **deniy02020**.

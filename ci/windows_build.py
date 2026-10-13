@@ -1,7 +1,7 @@
 """Isolated CI builds. Unsigned output is evidence, never a public release.
 
-All generated files live in a fresh beta7-preparation workspace. A local Beta6
-bundle, profile or release archive is never read, modified or overwritten.
+All generated files live in a fresh beta8-preparation workspace. Existing Beta6
+and Beta7 bundles, profiles and release archives are never read or overwritten.
 """
 from __future__ import annotations
 import argparse
@@ -16,7 +16,14 @@ import sys
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "0.2.0-beta.7"
+# Running this file directly puts only ci/ on the initial module path. Resolve
+# the known adjacent product source before importing its shared build identity.
+if str(ROOT) not in sys.path:
+    sys.path.insert(0, str(ROOT))
+
+from release_identity import DEFAULT_RELEASE_VERSION
+
+VERSION = DEFAULT_RELEASE_VERSION
 
 
 def sha(path):
@@ -43,8 +50,9 @@ def relative(name):
 def workspace(path):
     path = Path(path).resolve()
     base = (ROOT / ".ci-work").resolve()
-    if not path.is_relative_to(base) or path == base or "beta7-preparation" not in path.parts:
-        raise ValueError("CI output must be a fresh .ci-work/beta7-preparation workspace")
+    if (not path.is_relative_to(base) or path == base
+            or path.relative_to(base).parts[0] != "beta8-preparation"):
+        raise ValueError("CI output must be a fresh .ci-work/beta8-preparation workspace")
     return path
 
 

@@ -25,16 +25,21 @@ ROOT = KIT.parents[1]
 SENTINEL = "private-source-withheld.png"
 MANIFEST = "SOURCE_CONTENT_MANIFEST.json"
 GENERATED = {MANIFEST, "SOURCE_SHA256SUMS.txt", "PUBLIC_TEST_RESULT.json"}
-MODULES = tuple(("adaptive_tiers app auto_layout autocalibration core dashboard game_identity "
+MODULES = tuple(("adaptive_tiers app app_startup auto_layout autocalibration core dashboard game_identity "
     "gearlabel helper_config i18n input_activity instance inventory_cycle inventory_motion_policy "
-    "inventory_samples inventory_scroller inventory_viewport inventory_walk package_release panels "
-    "paths runtime release_identity windows_signing storage_cycle storage_pages supplemental_tiers ui_brand ui_filters ui_journal "
+    "inventory_samples inventory_scroller inventory_viewport inventory_walk inventory_halo package_release panels "
+    "paths runtime release_identity session_logging windows_signing storage_cycle storage_pages supplemental_tiers ui_brand ui_filters ui_journal "
     "ui_theme ui_time_picker ui_vault_motion ui_widgets windows").split())
 INSTALLER_MODULES = tuple(("__init__ build core launcher license_resources uninstall_launcher "
     "verify_real_payload windows_integration wizard").split())
 TESTS = tuple(("test_core test_inventory_cycle test_inventory_scroller test_inventory_walk "
+    "test_inventory_bulk_scroll test_windows_scroll_burst test_windows_scroll test_windows "
+    "test_time_picker test_app_timer test_app_startup test_automatic test_runtime_retry_budget "
+    "test_runtime_lifecycle test_panels test_inventory_halo test_native_halo_tiers installer.test_build "
     "test_storage_cycle test_i18n test_ui_journal test_runtime_walk_session test_auto_waiting_i18n "
-    "test_runtime_sorted_batches test_release_identity test_windows_signing installer.test_signing_build ci.test_pipeline").split())
+    "test_runtime_sorted_batches test_runtime_sorted_top_raster test_runtime_inventory_bulk test_runtime test_session_logging test_runtime_preflight_recovery "
+    "test_runtime_incomplete_outcomes test_runtime_walk_fresh_drop test_runtime_confirmed_input_boundary test_release_identity "
+    "test_windows_signing installer.test_signing_build ci.test_pipeline").split())
 PUBLIC_TESTS = TESTS + ("test_public_resources",)
 FILES = {*(name + ".py" for name in MODULES), *(name.replace(".", "/") + ".py" for name in TESTS),
     *("installer/" + name + ".py" for name in INSTALLER_MODULES),
@@ -43,14 +48,14 @@ FILES = {*(name + ".py" for name in MODULES), *(name.replace(".", "/") + ".py" f
     "requirements.txt", "requirements-lock.txt", "requirements-build-lock.txt", "build.bat",
     "build_installer.bat", "install.bat", "run.bat", "run-exe.bat", "selftest.bat",
     "preset_assets/reference.json", "preset_assets/adaptive_tiers.json",
-    "preset_assets/adaptive_ui.json", "preset_assets/header_parking.json",
+    "preset_assets/adaptive_ui.json", "preset_assets/header_parking.json", "preset_assets/inventory_halos.json",
     "ci/__init__.py", "ci/windows_build.py", "ci/resume_signing.py", "ci/signpath.py", "ci/actions-pins.json",
     ".github/workflows/windows-build.yml", ".github/workflows/signing-resume.yml"}
 TEMPLATES = {"README.md", "ATTRIBUTION.md", ".gitignore", ".gitattributes", "docs/STEAM_RELEASE.md",
     "docs/STATE.md", "docs/CODE_SIGNING.md", "docs/SIGNPATH_APPLICATION_DRAFT.md", ".github/SECURITY.md",
     "preset_assets/CALIBRATION.md", "installer/README.md", "test_public_resources.py"}
 JSON_MODELS = {"preset_assets/reference.json", "preset_assets/adaptive_tiers.json",
-    "preset_assets/adaptive_ui.json", "preset_assets/header_parking.json"}
+    "preset_assets/adaptive_ui.json", "preset_assets/header_parking.json", "preset_assets/inventory_halos.json"}
 FORBIDDEN_PARTS = {".git", ".venv", "verification", "diagnostics", "profile", "data", "logs",
     "__pycache__", "build", "dist", "releases", "website", "website-starter"}
 PRIVATE_TEXT = re.compile(r"(?i)(?:[A-Z]:[/\\]Users[/\\]|[A-Z]:[/\\]Projects[/\\]|"
@@ -72,8 +77,8 @@ def policy():
     if document.get("schema") != 1 or document.get("author") != "deniy":
         raise ValueError("Unexpected reviewed source policy")
     records = {record["path"]: record for record in document["images"]}
-    if len(records) != 338:
-        raise ValueError("Reviewed image allowlist must contain 336 crops and 2 original icons")
+    if len(records) != 827:
+        raise ValueError("Reviewed image allowlist must contain 825 matching crops and 2 original icons")
     return document, records
 
 

@@ -2,14 +2,18 @@
 
 Maintainer: **deniy**. Source: <https://github.com/deniy02020/wog-storage-helper>.
 
-Beta.6 remains the previously released unsigned build. Beta.7 currently prepares
-signing; no certificate, completed signing request or Foundation acceptance is
-claimed. There is no automatic GitHub Release publication in these workflows.
+Existing Beta.6 and Beta.7 artifacts are preserved. This source prepares Beta.8
+without a digital signature. According to the provider response reported by the
+maintainer on 13 October 2026, the SignPath Foundation application was declined
+at this stage because the project lacked public visibility and independent
+signals of trust. Reapplication is possible after broader recognition. No
+certificate, completed signing request or Foundation acceptance is claimed.
+There is no automatic GitHub Release publication in these workflows.
 
 The default Windows build needs no signing secrets. It runs the public synthetic
 tests, builds the own application, a complete portable onedir archive and Setup,
 then stores explicitly unsigned CI evidence. All outputs use a new
-`.ci-work/beta7-preparation` directory. Existing releases are not overwritten.
+`.ci-work/beta8-preparation` directory. Existing releases are not overwritten.
 Python/dependency versions and GitHub Actions commit SHAs are pinned; repeatable
 commands do not imply byte-identical PE builds or signatures.
 
@@ -23,7 +27,7 @@ commands do not imply byte-identical PE builds or signatures.
 
 These describe current project responsibilities. Provider account roles,
 signing-request approver permissions and required approval arrangements remain
-pending provider review and configuration; no provisioned SignPath role is claimed.
+unprovisioned; no approved provider project or SignPath role is claimed.
 
 ## Privacy
 

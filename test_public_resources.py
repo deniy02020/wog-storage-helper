@@ -13,6 +13,7 @@ from auto_layout import load_ui_variants
 from core import Rect
 from installer.build import referenced_sample_names, verify_header_parking_resources
 from inventory_samples import load_inventory_empty_samples
+from inventory_halo import verify_inventory_halo_resources
 from package_release import DOCUMENTS
 from runtime import Runner
 from supplemental_tiers import load_supplemental_tiers
@@ -56,13 +57,25 @@ class PublicResourceTests(unittest.TestCase):
         self.assertEqual(set(matcher.models), set(range(7)))
         self.assertTrue(load_ui_variants(ASSETS))
         tiers = load_supplemental_tiers(Rect(1, 14, 4, 25), (65, 65))
-        self.assertEqual(set(tiers), {1, 3, 5, 6})
+        self.assertEqual(set(tiers), {1, 3, 4, 5, 6})
         self.assertTrue(all(samples and all(sample.size == (3, 11) for sample in samples)
                             for samples in tiers.values()))
         empties = load_inventory_empty_samples((65, 65))
         self.assertEqual(len(empties), 1)
         self.assertEqual(empties[0].size, (65, 65))
         self.assertEqual(load_inventory_empty_samples((64, 65)), [])
+
+    def test_inventory_halo_model_keeps_tiny_resource_proofs_after_provenance_redaction(self):
+        model = json.loads((ASSETS / "inventory_halos.json").read_bytes())
+        self.assertTrue(all(record["source_image"] == "private-source-withheld.png"
+                            for record in model["records"]))
+        names = verify_inventory_halo_resources(model, lambda name: (ASSETS / name).read_bytes())
+        self.assertEqual(names, {record["image"] for record in model["records"]})
+        self.assertEqual(len(names), 479)
+        self.assertTrue(all(min(record["dimensions"]) <= 4
+                            and max(record["dimensions"]) <= 100
+                            and record["dimensions"][0]*record["dimensions"][1] <= 400
+                            for record in model["records"]))
 
     def test_automatic_runner_constructs_without_any_desktop_operation(self):
         reference = json.loads((ASSETS / "reference.json").read_bytes())

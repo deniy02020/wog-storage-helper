@@ -2,8 +2,11 @@
 from io import BytesIO
 import copy
 import json
+import os
 from pathlib import Path
 import re
+import subprocess
+import sys
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -11,7 +14,8 @@ import zipfile
 
 from ci import signpath
 from ci.resume_signing import UNSIGNED_FILES, hash_records
-from ci.windows_build import relative, workspace
+from ci.windows_build import VERSION, relative, workspace
+from release_identity import DEFAULT_RELEASE_VERSION
 
 
 def environment():
@@ -34,6 +38,21 @@ def completed(receipt):
 
 
 class PipelineTests(unittest.TestCase):
+    def test_help_works_by_direct_script_from_external_cwd_and_by_module(self):
+        root = Path(__file__).resolve().parents[1]
+        env = dict(os.environ, PYTHONDONTWRITEBYTECODE="1")
+        env.pop("PYTHONPATH", None)
+        with tempfile.TemporaryDirectory(prefix=".test-ci-cli-", dir=root) as external:
+            cases = (([sys.executable, "-B", str(root / "ci/windows_build.py"), "--help"], external),
+                     ([sys.executable, "-B", "-m", "ci.windows_build", "--help"], root))
+            for command, directory in cases:
+                with self.subTest(command=command[2]):
+                    result = subprocess.run(command, cwd=directory, env=env,
+                        capture_output=True, text=True, encoding="utf-8", timeout=20)
+                    self.assertEqual(result.returncode, 0, result.stderr)
+                    self.assertIn("--output-root", result.stdout)
+                    self.assertEqual(list(Path(external).iterdir()), [])
+
     def test_missing_configuration_stops_without_request_or_secret_output(self):
         for key in environment():
             if key.startswith("SIGNPATH_") and "REQUEST" not in key:
@@ -46,6 +65,8 @@ class PipelineTests(unittest.TestCase):
         env = environment()
         document = signpath.receipt(env)
         self.assertEqual(document["state"], "submitted_not_signed")
+        self.assertEqual(document["version"], VERSION)
+        self.assertEqual(VERSION, DEFAULT_RELEASE_VERSION)
         self.assertNotIn(env["SIGNPATH_API_TOKEN"], json.dumps(document))
         self.assertEqual(set(document["requests"]), {"app", "uninstaller"})
 
@@ -99,10 +120,11 @@ class PipelineTests(unittest.TestCase):
                 hash_records(records, UNSIGNED_FILES, Path("synthetic-unopened"))
 
     def test_build_workspace_cannot_touch_old_dist_or_parent_project(self):
-        for name in ("dist", ".ci-work", "../other", ".ci-work/wrong-name"):
+        for name in ("dist", ".ci-work", "../other", ".ci-work/wrong-name", ".ci-work/beta7-preparation",
+                     ".ci-work/beta7-preparation/beta8-preparation"):
             with self.subTest(name=name), self.assertRaises(ValueError):
                 workspace(Path(name))
-        self.assertEqual(workspace(Path(".ci-work/beta7-preparation")).name, "beta7-preparation")
+        self.assertEqual(workspace(Path(".ci-work/beta8-preparation")).name, "beta8-preparation")
 
     def test_private_source_names_and_traversal_are_rejected(self):
         for name in ("profile/settings.json", ".git/config", "verification/frame.png", "../app.py", "data/x", "a\\x"):

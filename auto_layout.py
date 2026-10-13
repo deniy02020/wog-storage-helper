@@ -418,7 +418,7 @@ def _gap_color(samples: list[Image.Image]) -> tuple[int, int, int]:
 
 
 def measure_grid(image: Image.Image, rect: Rect, rows: int, columns: int,
-                 gap_color: tuple[int, int, int], scale: float) -> GridEvidence:
+                 gap_color: tuple[int, int, int], scale: float, *, allow_inventory_halo=False) -> GridEvidence:
     """Require every repeated separator in both axes, regular pitch and phase.
 
     Gap evidence is independent of the header. Uniform panels, wrong-pitch
@@ -430,6 +430,18 @@ def measure_grid(image: Image.Image, rect: Rect, rows: int, columns: int,
         raise LayoutError("Grid is cropped or cannot establish repeated pitch")
     array = np.asarray(image.crop(rect.as_box()).convert("RGB"), dtype=np.float32)
     mask = np.max(np.abs(array - gap_color), axis=2) <= 6
+    try:
+        return _measure_grid_mask(mask, rect, rows, columns, scale)
+    except LayoutError:
+        if not allow_inventory_halo:
+            raise
+        from inventory_halo import prove_inventory_halo_mask
+        proved = prove_inventory_halo_mask(image, rect, rows, columns, gap_color, scale, mask)
+        return _measure_grid_mask(proved, rect, rows, columns, scale)
+
+
+def _measure_grid_mask(mask, rect, rows, columns, scale):
+    """Unchanged full lattice and EVERY segment check for either pixel proof."""
     axes = []
     for projection, count, length in ((np.mean(mask, axis=0), columns, rect.width),
                                       (np.mean(mask, axis=1), rows, rect.height)):

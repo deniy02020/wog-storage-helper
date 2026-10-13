@@ -19,7 +19,7 @@ from PIL import Image
 from core import Rect, image_rmse
 
 
-CALIBRATION_REQUIRED = "Размер или масштаб игры изменился. Текущая проверка отменена."
+CALIBRATION_REQUIRED = "Не удалось подтвердить положение игровых панелей. Текущая проверка отменена."
 
 
 @dataclass(frozen=True)
