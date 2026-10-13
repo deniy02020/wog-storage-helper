@@ -71,8 +71,27 @@ class PublicResourceTests(unittest.TestCase):
                             for record in model["records"]))
         names = verify_inventory_halo_resources(model, lambda name: (ASSETS / name).read_bytes())
         self.assertEqual(names, {record["image"] for record in model["records"]})
-        self.assertEqual(len(names), 532)
+        self.assertEqual(model["schema"], 2)
+        self.assertEqual(model["tier"], 4)
+        self.assertEqual(model["supplemental_tiers"], [5, 6])
+        self.assertEqual(len(names), 613)
         self.assertEqual(len(model["models"]), 128)
+        self.assertEqual(len(model["supplemental_models"]), 9)
+        self.assertEqual(sum(cue["tier"] == 5 for cue in model["supplemental_models"]), 7)
+        self.assertEqual(sum(cue["tier"] == 6 for cue in model["supplemental_models"]), 2)
+        self.assertEqual({name for name in names if name.startswith("inventory_halo_T4_")},
+                         {f"inventory_halo_T4_{index:03d}.png" for index in range(532)})
+        self.assertEqual({name for name in names if name.startswith("inventory_halo_T6_")},
+                         {f"inventory_halo_T6_{index:03d}.png" for index in range(532, 550)})
+        self.assertEqual({name for name in names if name.startswith("inventory_halo_T5_")},
+                         {f"inventory_halo_T5_{index:03d}.png" for index in range(550, 613)})
+        for cue in model["supplemental_models"]:
+            self.assertEqual(cue["source_image"], "private-source-withheld.png")
+            self.assertEqual(cue["kind"], "full")
+            proof = cue["source_classification"]
+            self.assertEqual(proof["tier"], cue["tier"])
+            self.assertLessEqual(proof["rmse"], 14)
+            self.assertGreaterEqual(proof["margin"], 5)
         self.assertTrue(all(min(record["dimensions"]) <= 4
                             and max(record["dimensions"]) <= 100
                             and record["dimensions"][0]*record["dimensions"][1] <= 400

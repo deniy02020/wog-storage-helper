@@ -77,8 +77,8 @@ def policy():
     if document.get("schema") != 1 or document.get("author") != "deniy":
         raise ValueError("Unexpected reviewed source policy")
     records = {record["path"]: record for record in document["images"]}
-    if len(records) != 880:
-        raise ValueError("Reviewed image allowlist must contain 878 matching crops and 2 original icons")
+    if len(records) != 961:
+        raise ValueError("Reviewed image allowlist must contain 959 matching crops and 2 original icons")
     return document, records
 
 

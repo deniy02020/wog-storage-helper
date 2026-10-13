@@ -28,6 +28,11 @@ class HealthyIncompleteOutcomeTests(RuntimeTestFixture, unittest.TestCase):
         runner.canonical_profile["automatic_layout"] = True
         runner.canonical_inv = replace(runner.canonical_inv, rows=8)
         runner.panel_controller = SimpleNamespace(layout=object())
+        # This coordinator fixture mocks a guarded Sort, so it must explicitly
+        # configure its control rather than infer Sort from a silent no-op.
+        sort_control = {"rect": [24, 0, 36, 8], "image": "synthetic-sort-unused.png"}
+        runner.profile["sort_button"] = sort_control
+        runner.canonical_profile["sort_button"] = sort_control
         runner.prepare_panels = Mock()
         runner.sort_inventory = Mock()
         runner._walk_inventory = Mock(return_value=result, side_effect=error)
@@ -45,6 +50,27 @@ class HealthyIncompleteOutcomeTests(RuntimeTestFixture, unittest.TestCase):
     def assert_no_completion_log(self, runner):
         self.assertFalse(any("Проверка закончена" in call.args[0]
                              for call in runner.log.call_args_list))
+
+    def test_missing_sort_control_passes_unsorted_state_to_the_complete_walk(self):
+        walked = InventoryWalkResult("complete", 1, 2, 3)
+        runner, desktop = self.automatic_runner(walked)
+        runner.profile.pop("sort_button")
+        runner.canonical_profile.pop("sort_button")
+        self.assertIs(runner._run_inventory_cycle(), walked)
+        runner.prepare_panels.assert_called_once_with()
+        runner.sort_inventory.assert_not_called()
+        runner._walk_inventory.assert_called_once_with(sorted_after_sort=False)
+        self.assertEqual(desktop.inputs, [])
+
+    def test_initial_sort_binding_is_checked_after_fresh_panel_preparation(self):
+        walked = InventoryWalkResult("complete", 1, 2, 3)
+        runner, desktop = self.automatic_runner(walked)
+        control = runner.profile.pop("sort_button")
+        runner.prepare_panels.side_effect = lambda: runner.profile.__setitem__("sort_button", control)
+        self.assertIs(runner._run_inventory_cycle(), walked)
+        runner.sort_inventory.assert_called_once_with()
+        runner._walk_inventory.assert_called_once_with(sorted_after_sort=True)
+        self.assertEqual(desktop.inputs, [])
 
     def test_healthy_walk_incomplete_results_preserve_verified_progress_and_wait(self):
         for outcome in ("unknown", "bounded", "top_unconfirmed", "endpoint_unconfirmed"):

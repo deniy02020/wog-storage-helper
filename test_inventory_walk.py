@@ -1,16 +1,18 @@
 """Walk policy with a fake viewport; never native wheel/capture/input."""
 from dataclasses import replace
+from itertools import combinations
 import unittest
 
 from core import CellState, GridScan, GridSpec, Rect
 from input_activity import UserActivityInterrupted
 from inventory_walk import (InventoryEndpointProof, InventoryWalkObservation,
-                            certify_sorted_prefix, run_inventory_walk)
+                            certify_full_inventory_top, certify_sorted_prefix,
+                            run_inventory_walk)
 from windows import WindowGeometryChanged
 
 
-def scan(labels):
-    grid = GridSpec(Rect(100, 200, 140, 360), 8, 2)
+def scan(labels, *, grid=None):
+    grid = grid or GridSpec(Rect(100, 200, 140, 360), 8, 2)
     cells = []
     for index, tier in enumerate(labels):
         empty = True if tier == "empty" else None if tier == "ambiguous" else False
@@ -355,6 +357,451 @@ class SortedPrefixTests(unittest.TestCase):
             with self.subTest(selected=selected):
                 self.assertFalse(certify_sorted_prefix(normal, selected))
         self.assertFalse(certify_sorted_prefix(normal, (3,), require_boundary=1))
+
+
+class InventoryWalkSortedTopRecoveryTests(unittest.TestCase):
+    """An independently complete sorted Top can replace an older uncertain view."""
+
+    @staticmethod
+    def full_top(observation):
+        return certify_full_inventory_top(observation, Rect(100, 200, 140, 360), 8, 2, 1.)
+
+    @staticmethod
+    def recovering_harness(fresh_labels, *, selected=(3, 4, 5, 6), epoch=2):
+        harness = WalkHarness(["unknown"] + [2] * 15, selected=selected)
+        generation = [1]
+        def fresh_sort():
+            harness.content[:] = fresh_labels
+            generation[0] = epoch
+        harness.before_snapshot = fresh_sort
+        return harness, lambda: generation[0]
+
+    def test_verified_forty_move_batch_then_fresh_sorted_full_top_skips_lower_tail(self):
+        # Reproduce the installed cycle: all 40 visible moves were independently
+        # verified by the batch adapter, but its post-transfer read had unknown
+        # occupancy before the next guarded Sort compacted T2/T1 into full Top.
+        # Callbacks here are policy doubles; no native input is performed.
+        grid = GridSpec(Rect(890, 588, 1215, 1108), 8, 5)
+        geometry = "guarded native-shaped Top"
+        proof = InventoryEndpointProof("scrollbar", "top", geometry, 2)
+        def top(labels):
+            return InventoryWalkObservation(scan(labels, grid=grid), geometry, 0, 65, proof)
+        initial = top([4] + [3] * 39)
+        stale = top(["ambiguous"] + ["empty"] * 39)
+        compacted = top([2] * 26 + [1] * 14)
+        current, epoch, resets, batches = [initial], [1], [0], [0]
+        top_checks, boundary_checks = [], []
+        def reset():
+            resets[0] += 1
+            current[0] = initial if resets[0] == 1 else stale if resets[0] == 2 else compacted
+            return current[0]
+        def batch(*, sort, max_transfers):
+            self.assertIs(sort, False)
+            batches[0] += 1
+            if batches[0] == 1:
+                self.assertEqual(max_transfers, 512)
+                return 40
+            self.assertEqual(max_transfers, 472)
+            current[0], epoch[0] = compacted, 2
+            return 0
+        def full_top(view):
+            top_checks.append(view)
+            return certify_full_inventory_top(view, grid.rect, 8, 5, 1.)
+        def boundary(view):
+            boundary_checks.append(view)
+            self.assertEqual(epoch[0], 2)
+            return certify_sorted_prefix(view.scan, (3, 4, 5, 6))
+        def forbidden_scroll(view):
+            self.fail("Fresh full sorted T2/T1 Top must not scroll its lower/empty tail")
+        result = run_inventory_walk(reset_to_top=reset, inventory_snapshot=lambda: current[0],
+            transfer_batch=batch, sorted_boundary=boundary, sorted_epoch=lambda: epoch[0],
+            sorted_top=full_top, scroll_down=forbidden_scroll, selected_tiers=(3, 4, 5, 6),
+            check_stop=lambda: None, pause=lambda _: None)
+        self.assertEqual((result.outcome, result.transfers, result.scrolls, result.resets),
+                         ("complete", 40, 0, 2))
+        self.assertEqual(boundary_checks, [compacted])
+        self.assertEqual(top_checks, [compacted, compacted])
+
+    def test_current_complete_known_sorted_top_can_resolve_older_unknown_in_same_epoch(self):
+        harness, epoch = self.recovering_harness([2] * 10 + [1] * 6 + ["empty"] * 100,
+                                                 epoch=1)
+        harness.prove_bottom = False
+        result = harness.run(sorted_epoch=epoch, sorted_top=self.full_top,
+            sorted_boundary=lambda view: certify_sorted_prefix(view.scan, harness.selected))
+        self.assertEqual((result.outcome, result.scrolls, result.resets), ("complete", 0, 1))
+
+    def test_missing_full_top_or_positive_sort_epoch_keeps_historical_unknown(self):
+        for gate in ("missing_top", "partial_top", "missing_epoch", "zero_epoch"):
+            harness, epoch = self.recovering_harness([2] * 16, epoch=0 if gate == "zero_epoch" else 2)
+            def forbidden(view):
+                self.fail("Incomplete Top/Sort evidence cannot replace historical uncertainty")
+            kwargs = dict(sorted_boundary=forbidden)
+            if gate != "missing_epoch":
+                kwargs["sorted_epoch"] = epoch
+            if gate != "missing_top":
+                kwargs["sorted_top"] = (lambda view: False) if gate == "partial_top" else self.full_top
+            # A zero epoch cannot move backwards from the initial generation.
+            if gate == "zero_epoch":
+                kwargs["sorted_epoch"] = lambda: 0
+            with self.subTest(gate=gate):
+                self.assertEqual(harness.run(**kwargs).outcome, "unknown")
+                self.assertNotIn("scroll", harness.events)
+
+    def test_current_unknown_bad_order_hole_or_higher_only_never_replaces_unknown(self):
+        for labels in (["unknown"] + [2] * 15, [2, 4] + [2] * 14,
+                       [2, "empty", 2] + ["empty"] * 13, [4] * 16):
+            harness, epoch = self.recovering_harness(labels, selected=(3, 5, 6))
+            def forbidden(view):
+                self.fail("Current prefix still lacks a known compact lower boundary")
+            with self.subTest(labels=labels):
+                self.assertEqual(harness.run(sorted_epoch=epoch, sorted_top=forbidden,
+                                            sorted_boundary=forbidden).outcome, "unknown")
+
+    def test_tier_selection_gap_still_walks_past_t4_and_transfers_hidden_t3(self):
+        harness = WalkHarness(["unknown"] + [4] * 23 + [3] + [2] * 15 + ["empty"] * 30,
+                              selected=(3, 5, 6), compact=True)
+        epoch = [1]
+        def fresh_sort():
+            harness.content[0] = 4
+            epoch[0] = 2
+        harness.before_snapshot = fresh_sort
+        result = harness.run(sorted_epoch=lambda: epoch[0], sorted_top=self.full_top,
+            sorted_boundary=lambda view: certify_sorted_prefix(view.scan, harness.selected))
+        self.assertTrue(result.complete)
+        self.assertEqual(harness.transferred, [3])
+        self.assertGreater(result.scrolls, 0)
+
+    def test_mixed_selected_batches_walk_t4_gap_then_stop_at_t2_without_lower_tail(self):
+        harness = WalkHarness([6, 6, 5, 5] + [4] * 32 + [3, 3] + [2] * 16
+                              + [1] * 20 + ["empty"] * 100,
+                              selected=(3, 5, 6), compact=True)
+        epoch, certified_moves, boundaries, batch_calls = [1], [0], [], []
+        def sorted_reset():
+            if len(harness.transferred) > certified_moves[0]:
+                certified_moves[0] = len(harness.transferred)
+                epoch[0] += 1  # Guarded Sort of the remaining compacted fake bag.
+        harness.before_reset = sorted_reset
+        def boundary(view):
+            accepted = certify_sorted_prefix(view.scan, harness.selected)
+            boundaries.append((len(harness.transferred), view, accepted))
+            return accepted
+        result = harness.run(sorted_epoch=lambda: epoch[0], sorted_top=self.full_top,
+            sorted_boundary=boundary,
+            transfer_batch=InventoryWalkPerformanceTests.draining_batch(harness, batch_calls))
+        self.assertEqual((result.outcome, result.transfers), ("complete", 6))
+        self.assertEqual(harness.transferred, [6, 6, 5, 5, 3, 3])
+        self.assertGreater(result.scrolls, 0)
+        self.assertTrue(any(moved == 4 and not accepted and
+                            all(cell.tier == 4 for cell in view.scan.cells)
+                            for moved, view, accepted in boundaries))
+        moved, last_view, accepted = boundaries[-1]
+        self.assertEqual(moved, 6)
+        self.assertTrue(accepted)
+        self.assertGreater(last_view.offset_pixels, 0)
+        self.assertTrue(any(cell.tier == 2 for cell in last_view.scan.cells))
+        self.assertFalse(any(cell.tier == 1 or cell.empty for cell in last_view.scan.cells))
+        self.assertEqual(harness.events[-1], "reset")
+        self.assertEqual(harness.first, 0)
+
+    def test_all_fifteen_tier_subsets_drain_selected_items_without_scrolling_empty_tail(self):
+        content = sum(([tier] * 20 for tier in (6, 5, 4, 3)), [])
+        content += [2] * 16 + [1] * 16 + ["empty"] * 100
+        subsets = [tiers for count in range(1, 5) for tiers in combinations((3, 4, 5, 6), count)]
+        self.assertEqual(len(subsets), 15)
+        for selected in subsets:
+            with self.subTest(selected=selected):
+                harness = WalkHarness(content, selected=selected, compact=True)
+                harness.prove_bottom = False
+                epoch, compacted_moves, accepted, batches = [1], [0], [], []
+                def fresh_sort():
+                    if len(harness.transferred) > compacted_moves[0]:
+                        compacted_moves[0] = len(harness.transferred)
+                        epoch[0] += 1
+                harness.before_reset = fresh_sort
+                def boundary(view):
+                    certified = certify_sorted_prefix(view.scan, selected)
+                    if certified:
+                        accepted.append((len(harness.events), view))
+                    return certified
+                result = harness.run(sorted_epoch=lambda: epoch[0], sorted_top=self.full_top,
+                    sorted_boundary=boundary,
+                    transfer_batch=InventoryWalkPerformanceTests.draining_batch(harness, batches))
+                # Expected moves are the selected original items, in game order;
+                # the oracle does not use a completion/prefix implementation.
+                expected = [tier for tier in content if tier in selected]
+                self.assertEqual(harness.transferred, expected)
+                self.assertEqual((result.outcome, result.transfers), ("complete", 20 * len(selected)))
+                for tier in (1, 2, 3, 4, 5, 6):
+                    self.assertEqual(harness.content.count(tier),
+                                     0 if tier in selected else content.count(tier))
+                self.assertEqual(len(accepted), 1)
+                event_index, view = accepted[0]
+                self.assertTrue(any(cell.tier < min(selected) for cell in view.scan.cells))
+                self.assertTrue(all(cell.empty is False for cell in view.scan.cells))
+                self.assertEqual(harness.events[event_index:],
+                                 ["snapshot"] if view.top_proof is not None else ["reset"])
+                self.assertEqual(harness.first, 0)
+
+    def test_scrolled_known_boundary_cannot_replace_unknown_from_earlier_view(self):
+        harness = WalkHarness(["unknown"] + [6] * 19 + [2] * 20, selected=(3,))
+        def recognize_after_scroll():
+            harness.content[0] = 6
+        harness.before_scroll = recognize_after_scroll
+        def forbidden(view):
+            self.fail("A scrolled prefix cannot certify the complete beginning")
+        result = harness.run(sorted_epoch=lambda: 1, sorted_top=forbidden,
+                             sorted_boundary=forbidden)
+        self.assertEqual(result.outcome, "unknown")
+        self.assertGreater(result.scrolls, 0)
+
+    def test_complete_top_alone_cannot_replace_the_fresh_sort_boundary_callback(self):
+        harness, epoch = self.recovering_harness([2] * 16)
+        calls = []
+        def no_fresh_sort(view):
+            calls.append(view)
+            return False
+        result = harness.run(sorted_epoch=epoch, sorted_top=self.full_top,
+                             sorted_boundary=no_fresh_sort)
+        self.assertEqual(result.outcome, "unknown")
+        self.assertEqual(len(calls), 1)
+
+    def test_recovery_current_full_top_callback_retains_stop_type_and_time_guards(self):
+        for value in (1, None, "complete"):
+            harness, epoch = self.recovering_harness([2] * 16)
+            with self.subTest(value=value), self.assertRaisesRegex(ValueError, "boolean"):
+                harness.run(sorted_epoch=epoch, sorted_top=lambda view: value,
+                            sorted_boundary=lambda view: True)
+            self.assertEqual(harness.events.count("reset"), 1)
+            self.assertNotIn("scroll", harness.events)
+        for error in (InterruptedError("Stop"), UserActivityInterrupted("takeover"),
+                      WindowGeometryChanged("layout changed", input_issued=True)):
+            harness, epoch = self.recovering_harness([2] * 16)
+            def fail(view):
+                raise error
+            with self.subTest(error=type(error).__name__), self.assertRaises(type(error)) as caught:
+                harness.run(sorted_epoch=epoch, sorted_top=fail,
+                            sorted_boundary=lambda view: True)
+            self.assertIs(caught.exception, error)
+            self.assertEqual(harness.events.count("reset"), 1)
+            self.assertNotIn("scroll", harness.events)
+        harness, epoch = self.recovering_harness([2] * 16)
+        now = [0.]
+        def expire(view):
+            now[0] = 2.
+            return True
+        def forbidden(view):
+            self.fail("Timeout must prevent the Sort callback and final reset")
+        result = harness.run(sorted_epoch=epoch, sorted_top=expire, sorted_boundary=forbidden,
+                             max_seconds=1., clock=lambda: now[0])
+        self.assertEqual((result.outcome, result.resets, result.scrolls), ("bounded", 1, 0))
+
+    def test_recovery_still_requires_independent_final_known_positive_top(self):
+        for changed in ("unknown", "top_unconfirmed"):
+            harness, epoch = self.recovering_harness([2] * 16)
+            snapshots = [0]
+            initial_snapshot = harness.before_snapshot
+            def change_final():
+                snapshots[0] += 1
+                if snapshots[0] == 1:
+                    initial_snapshot()
+                else:
+                    if changed == "unknown":
+                        harness.content[0] = "unknown"
+                    else:
+                        harness.prove_top = False
+            harness.before_snapshot = change_final
+            with self.subTest(changed=changed):
+                result = harness.run(sorted_epoch=epoch, sorted_top=self.full_top,
+                    sorted_boundary=lambda view: certify_sorted_prefix(view.scan, harness.selected))
+                self.assertEqual((result.outcome, result.scrolls, result.resets), (changed, 0, 1))
+
+
+class FinalSortedTopReadbackTests(unittest.TestCase):
+    """Final readback may capture again, but never repeat reset/wheel/Sort input."""
+
+    @staticmethod
+    def setup_reads(labels):
+        harness = WalkHarness([2] * 16, selected=(3,))
+        epoch, calls = [1], []
+        known = harness.observation()
+        frames = [replace(known, scan=scan(values)) for values in labels]
+        def snapshot():
+            harness.events.append("snapshot")
+            calls.append(len(calls) + 1)
+            if len(calls) == 1:
+                return known  # Fresh zero-transfer certificate observation.
+            index = len(calls) - 2
+            return frames[index] if index < len(frames) else harness.observation()
+        harness.snapshot = snapshot
+        return harness, epoch, calls
+
+    @staticmethod
+    def run_walk(harness, epoch, **kwargs):
+        return harness.run(sorted_epoch=lambda: epoch[0],
+            sorted_top=InventoryWalkSortedTopRecoveryTests.full_top,
+            sorted_boundary=lambda view: certify_sorted_prefix(view.scan, harness.selected), **kwargs)
+
+    def test_transient_unknown_then_fresh_known_top_completes_without_extra_reset_or_down(self):
+        harness, epoch, calls = self.setup_reads([["unknown"] + [2] * 15, [2] * 16])
+        result = self.run_walk(harness, epoch)
+        self.assertEqual((result.outcome, result.transfers, result.scrolls, result.resets),
+                         ("complete", 0, 0, 1))
+        self.assertEqual(calls, [1, 2, 3])
+        self.assertEqual(harness.waits, [.12])
+        self.assertEqual(harness.events,
+                         ["reset", ("transfer", False), "snapshot", "snapshot", "snapshot"])
+
+    def test_persistent_unknown_uses_only_three_fresh_final_observations_never_old_known(self):
+        unknown = ["ambiguous"] + [2] * 15
+        harness, epoch, calls = self.setup_reads([unknown, unknown, unknown])
+        result = self.run_walk(harness, epoch)
+        self.assertEqual((result.outcome, result.scrolls, result.resets), ("unknown", 0, 1))
+        self.assertEqual(calls, [1, 2, 3, 4])  # One certificate +three final captures.
+        self.assertEqual(harness.waits, [.12, .12])
+        self.assertEqual(harness.events.count("reset"), 1)
+
+    def test_retry_revalidates_geometry_pitch_position_absolute_and_complete_top(self):
+        for change in ("geometry", "pitch", "position", "missing_top", "partial_top"):
+            harness, epoch, calls = self.setup_reads([["unknown"] + [2] * 15, [2] * 16])
+            ordinary = harness.snapshot
+            def changed_read():
+                view = ordinary()
+                if len(calls) != 3:
+                    return view
+                if change == "geometry":
+                    return replace(view, geometry_identity="another guarded window")
+                if change == "pitch":
+                    return replace(view, row_pitch_pixels=21.)
+                if change == "position":
+                    return replace(view, offset_pixels=20.)
+                if change == "missing_top":
+                    return replace(view, top_proof=None)
+                partial = GridSpec(Rect(100, 220, 140, 360), 7, 2)
+                return replace(view, scan=scan([2] * 14, grid=partial))
+            harness.snapshot = changed_read
+            with self.subTest(change=change):
+                if change in ("geometry", "pitch", "position"):
+                    with self.assertRaises((RuntimeError, ValueError)):
+                        self.run_walk(harness, epoch)
+                else:
+                    self.assertEqual(self.run_walk(harness, epoch).outcome, "top_unconfirmed")
+                self.assertEqual(calls, [1, 2, 3])
+                self.assertEqual(harness.events.count("reset"), 1)
+                self.assertNotIn("scroll", harness.events)
+
+    def test_retry_cannot_accept_a_changed_or_backward_sort_generation(self):
+        for changed in (0, 2):
+            harness, epoch, calls = self.setup_reads([["unknown"] + [2] * 15, [2] * 16])
+            ordinary = harness.snapshot
+            def changed_epoch():
+                view = ordinary()
+                if len(calls) == 3:
+                    epoch[0] = changed
+                return view
+            harness.snapshot = changed_epoch
+            with self.subTest(epoch=changed), self.assertRaises((RuntimeError, ValueError)):
+                self.run_walk(harness, epoch)
+            self.assertEqual(calls, [1, 2, 3])
+            self.assertNotIn("scroll", harness.events)
+
+    def test_retry_time_limit_is_checked_after_pause_and_after_capture(self):
+        for expire_at in ("pause", "capture"):
+            harness, epoch, calls = self.setup_reads([["unknown"] + [2] * 15, [2] * 16])
+            now = [0.]
+            ordinary = harness.snapshot
+            def capture():
+                view = ordinary()
+                if expire_at == "capture" and len(calls) == 3:
+                    now[0] = 2.
+                return view
+            harness.snapshot = capture
+            def pause(seconds):
+                harness.waits.append(seconds)
+                if expire_at == "pause":
+                    now[0] = 2.
+            # Supply the same harmless fake pause through the public policy API.
+            with self.subTest(expire_at=expire_at):
+                result = run_inventory_walk(reset_to_top=harness.reset,
+                    inventory_snapshot=harness.snapshot, transfer=harness.transfer,
+                    scroll_down=harness.scroll, selected_tiers=harness.selected,
+                    sorted_epoch=lambda: epoch[0], sorted_top=InventoryWalkSortedTopRecoveryTests.full_top,
+                    sorted_boundary=lambda view: certify_sorted_prefix(view.scan, harness.selected),
+                    check_stop=lambda: None, pause=pause, clock=lambda: now[0], max_seconds=1.)
+                self.assertEqual((result.outcome, result.scrolls, result.resets), ("bounded", 0, 1))
+                self.assertEqual(len(calls), 2 if expire_at == "pause" else 3)
+
+    def test_retry_propagates_f8_takeover_and_native_preflight_errors_without_input(self):
+        from runtime import SafePreflightChange
+        for error in (InterruptedError("F8"), UserActivityInterrupted("takeover"),
+                      WindowGeometryChanged("layout changed", input_issued=True),
+                      SafePreflightChange("a new selected drop invalidated exhaustion")):
+            harness, epoch, calls = self.setup_reads([["unknown"] + [2] * 15, [2] * 16])
+            ordinary = harness.snapshot
+            def fail():
+                if len(calls) == 2:
+                    raise error
+                return ordinary()
+            harness.snapshot = fail
+            with self.subTest(error=type(error).__name__), self.assertRaises(type(error)) as caught:
+                self.run_walk(harness, epoch)
+            self.assertIs(caught.exception, error)
+            self.assertEqual(calls, [1, 2])
+            self.assertEqual(harness.events.count("reset"), 1)
+            self.assertNotIn("scroll", harness.events)
+
+    def test_new_selected_retry_observation_restarts_verified_transfer_walk(self):
+        harness, epoch, calls = self.setup_reads([["unknown"] + [2] * 15])
+        ordinary = harness.snapshot
+        def drop():
+            if len(calls) == 2:
+                harness.content[0] = 3
+            return ordinary()
+        harness.snapshot = drop
+        result = self.run_walk(harness, epoch)
+        self.assertTrue(result.complete)
+        self.assertEqual(harness.transferred, [3])
+        self.assertEqual(result.transfers, 1)
+        self.assertEqual(result.scrolls, 0)
+
+    def test_scrolled_gap_certificate_keeps_one_final_reset_then_pure_unknown_recheck(self):
+        harness = WalkHarness([4] * 24 + [2] * 16 + [1] * 16 + ["empty"] * 40, selected=(3,))
+        harness.prove_bottom = False
+        resets, certified_events = [0], []
+        def unknown_after_reset():
+            resets[0] += 1
+            if resets[0] == 2:
+                harness.content[0] = "unknown"
+        harness.before_reset = unknown_after_reset
+        def restore_known():
+            if resets[0] == 2:
+                harness.content[0] = 4
+        harness.before_snapshot = restore_known
+        def boundary(view):
+            accepted = certify_sorted_prefix(view.scan, (3,))
+            if accepted:
+                self.assertGreater(view.offset_pixels, 0)
+                certified_events.append(len(harness.events))
+            return accepted
+        result = harness.run(sorted_epoch=lambda: 1,
+            sorted_top=InventoryWalkSortedTopRecoveryTests.full_top, sorted_boundary=boundary)
+        self.assertTrue(result.complete)
+        self.assertEqual(result.resets, 2)
+        self.assertGreater(result.scrolls, 0)
+        self.assertEqual(harness.events[certified_events[0]:], ["reset", "snapshot"])
+        self.assertEqual(harness.waits[-1], .12)
+
+    def test_retry_full_top_result_requires_strict_boolean(self):
+        for bad in (None, 1, "yes"):
+            harness, epoch, calls = self.setup_reads([["unknown"] + [2] * 15, [2] * 16])
+            proofs = [0]
+            def full_top(view):
+                proofs[0] += 1
+                return bad if proofs[0] == 3 else InventoryWalkSortedTopRecoveryTests.full_top(view)
+            with self.subTest(value=bad), self.assertRaisesRegex(ValueError, "verified boolean"):
+                harness.run(sorted_epoch=lambda: epoch[0], sorted_top=full_top,
+                    sorted_boundary=lambda view: certify_sorted_prefix(view.scan, harness.selected))
+            self.assertEqual(calls, [1, 2, 3])
+            self.assertNotIn("scroll", harness.events)
 
 
 class InventoryWalkPerformanceTests(unittest.TestCase):

@@ -47,6 +47,9 @@ def instance(selected=(3, 4, 5, 6)):
         "layout_scales": {"inventory": 1.0, "storage": 1.0},
         "inventory_viewport": {"rect": list(FULL.rect.as_box()), "phase": 0.},
         "inventory": {"rect": list(FULL.rect.as_box()), "rows": 8, "columns": 5},
+        # A configured synthetic control permits the mocked guarded Sort
+        # callback to stand for a real normally-returning interface action.
+        "sort_button": {"rect": [545, 585, 575, 615], "image": "synthetic-sort.png"},
     }
     runner.canonical_inv = FULL
     runner.filters = {str(tier): {"enabled": tier in selected} for tier in range(1, 7)}
@@ -69,8 +72,11 @@ def fake_scroller(view=None):
 
 
 class RuntimeSortedCallbackTests(unittest.TestCase):
-    def callbacks(self, *, sorted_after_sort=False, selected=(3, 4, 5, 6), view=None):
+    def callbacks(self, *, sorted_after_sort=False, selected=(3, 4, 5, 6), view=None,
+                  sort_available=True):
         self.runner = instance(selected)
+        if not sort_available:
+            self.runner.profile.pop("sort_button")
         self.scroller = fake_scroller(view)
         result = InventoryWalkResult("complete", 0, 0, 0)
         with patch("inventory_scroller.InventoryScroller", return_value=self.scroller), \
@@ -239,6 +245,36 @@ class RuntimeSortedCallbackTests(unittest.TestCase):
         callbacks = self.callbacks(sorted_after_sort=1)
         self.assertFalse(callbacks["sorted_boundary"](observation()))
 
+    def test_missing_sort_control_never_establishes_an_initial_sort_epoch(self):
+        callbacks = self.callbacks(sorted_after_sort=True, sort_available=False)
+        self.assertEqual(callbacks["sorted_epoch"](), 0)
+        self.assertFalse(callbacks["sorted_boundary"](observation([2] * 40)))
+        self.runner.sort_inventory.assert_not_called()
+
+    def test_missing_sort_after_verified_batch_does_not_mint_epoch_or_rescan(self):
+        callbacks = self.callbacks(sorted_after_sort=True)
+        self.runner.profile.pop("sort_button")
+        self.runner.once.side_effect = [True, False, False]
+        self.assertEqual(callbacks["transfer_batch"](sort=False, max_transfers=5), 1)
+        self.assertEqual(callbacks["transfer_batch"](sort=False, max_transfers=4), 0)
+        self.assertEqual(callbacks["sorted_epoch"](), 1)
+        self.assertFalse(callbacks["sorted_boundary"](observation([2] * 40)))
+        self.assertEqual(self.runner.once.call_count, 3)
+        self.runner.sort_inventory.assert_not_called()
+        self.scroller.reset_to_top.assert_not_called()
+        self.scroller.invalidate.assert_called_once_with()
+
+    def test_missing_sort_legacy_transfer_does_not_mint_epoch_or_retry_input(self):
+        callbacks = self.callbacks(sort_available=False)
+        self.runner.once.side_effect = [True, False]
+        self.assertTrue(callbacks["transfer"](sort=False))
+        self.assertFalse(callbacks["transfer"](sort=False))
+        self.assertEqual(callbacks["sorted_epoch"](), 0)
+        self.assertFalse(callbacks["sorted_boundary"](observation([2] * 40)))
+        self.assertEqual(self.runner.once.call_count, 2)
+        self.runner.sort_inventory.assert_not_called()
+        self.scroller.reset_to_top.assert_not_called()
+
     def test_any_verified_item_invalidates_sorted_certificate(self):
         callbacks = self.callbacks(sorted_after_sort=True)
         self.assertTrue(callbacks["sorted_boundary"](observation([2] * 40)))
@@ -310,6 +346,40 @@ class RuntimeSortedCallbackTests(unittest.TestCase):
 
 
 class RuntimeSortedWalkIntegrationTests(unittest.TestCase):
+    def test_missing_sort_low_top_still_walks_to_hidden_selected_item_and_positive_bottom(self):
+        runner = instance((3,))
+        runner.profile.pop("sort_button")
+        low_top = observation([2] * 40)
+        hidden = observation([3] + [2] * 34, grid=PARTIAL, offset=32., top=False, bottom=True)
+        bottom = observation([2] * 35, grid=PARTIAL, offset=32., top=False, bottom=True)
+        current, transferred, transfer_positions = [low_top], [False], []
+        scroller = fake_scroller()
+        def reset():
+            current[0] = low_top
+            return current[0]
+        def scroll(before):
+            current[0] = bottom if transferred[0] else hidden
+            return current[0]
+        def once(*, sort):
+            self.assertIs(sort, False)
+            if current[0] is hidden:
+                transfer_positions.append(current[0].offset_pixels)
+                transferred[0] = True
+                current[0] = bottom
+                return True
+            return False
+        scroller.reset_to_top.side_effect = reset
+        scroller.snapshot.side_effect = lambda: current[0]
+        scroller.scroll_down.side_effect = scroll
+        runner.once.side_effect = once
+        with patch("inventory_scroller.InventoryScroller", return_value=scroller):
+            result = runner._walk_inventory(sorted_after_sort=True)
+        self.assertEqual((result.outcome, result.transfers, result.scrolls, result.resets),
+                         ("complete", 1, 2, 3))
+        self.assertEqual(transfer_positions, [32.])
+        runner.sort_inventory.assert_not_called()
+        self.assertEqual(current[0], low_top)
+
     def test_actual_policy_resets_once_after_batch_and_compacts_once_before_shortcut(self):
         runner = instance()
         labels = [6, 5]
@@ -332,8 +402,8 @@ class RuntimeSortedWalkIntegrationTests(unittest.TestCase):
         self.assertEqual(events, ["verified item", "verified item", "fresh no candidate",
                                   "fresh no candidate", "fresh no candidate"])
         # Initial Top, one post-batch Top, one guarded compaction Top, final Top.
-        self.assertEqual(scroller.reset_to_top.call_count, 4)
-        self.assertEqual(result.resets, 3)  # Compaction owns its additional reset.
+        self.assertEqual(scroller.reset_to_top.call_count, 3)
+        self.assertEqual(result.resets, 2)  # Compaction owns its additional reset; final read is pure.
         self.assertEqual(scroller.invalidate.call_count, 2)
         runner.sort_inventory.assert_called_once_with()
         scroller.scroll_down.assert_not_called()
@@ -358,8 +428,8 @@ class RuntimeSortedWalkIntegrationTests(unittest.TestCase):
         with patch("inventory_scroller.InventoryScroller", return_value=scroller):
             result = runner._walk_inventory(sorted_after_sort=True)
         self.assertTrue(result.complete)
-        self.assertEqual((result.transfers, result.scrolls, result.resets), (1, 0, 3))
-        self.assertEqual(scroller.reset_to_top.call_count, 4)
+        self.assertEqual((result.transfers, result.scrolls, result.resets), (1, 0, 2))
+        self.assertEqual(scroller.reset_to_top.call_count, 3)
         runner.sort_inventory.assert_called_once_with()
         scroller.scroll_down.assert_not_called()
 
@@ -400,13 +470,13 @@ class RuntimeSortedWalkIntegrationTests(unittest.TestCase):
                 contradiction = observation(labels)
                 bottom = observation([2] * 35, grid=PARTIAL, offset=32., top=False, bottom=True)
                 scroller = fake_scroller()
-                scroller.reset_to_top.side_effect = [known_lower, contradiction, contradiction]
-                scroller.snapshot.side_effect = [known_lower, contradiction, bottom]
+                scroller.reset_to_top.side_effect = [known_lower, contradiction]
+                scroller.snapshot.side_effect = [known_lower, contradiction, contradiction, bottom]
                 scroller.scroll_down.side_effect = [bottom]
                 with patch("inventory_scroller.InventoryScroller", return_value=scroller):
                     result = runner._walk_inventory(sorted_after_sort=True)
                 self.assertTrue(result.complete)
-                self.assertEqual((result.transfers, result.scrolls, result.resets), (0, 1, 3))
+                self.assertEqual((result.transfers, result.scrolls, result.resets), (0, 1, 2))
                 scroller.scroll_down.assert_called_once()
 
 
@@ -482,8 +552,9 @@ class RuntimeSortedWalkOtherIntegrationTests(unittest.TestCase):
         with patch("inventory_scroller.InventoryScroller", return_value=scroller):
             result = runner._walk_inventory(sorted_after_sort=True)
         self.assertTrue(result.complete)
-        self.assertEqual((result.transfers, result.scrolls, result.resets), (0, 0, 2))
-        self.assertEqual(scroller.reset_to_top.call_count, 2)
+        self.assertEqual((result.transfers, result.scrolls, result.resets), (0, 0, 1))
+        self.assertEqual(scroller.reset_to_top.call_count, 1)
+        self.assertEqual(scroller.snapshot.call_count, 2)  # Certificate, independent final pixels.
         runner.once.assert_called_once_with(sort=False)
         runner.sort_inventory.assert_not_called()
         scroller.scroll_down.assert_not_called()

@@ -233,19 +233,27 @@ def run_inventory_walk(
 
     An optional sorted_boundary callback supplies independent fresh Sort-epoch
     evidence. It runs only after a zero-move callback and a fresh validated scan
-    in a pass without unknowns. A positive known descending sentinel/empty
-    certificate permits skipping an empty tail, followed by ONE fresh proved
-    Top reset/no-selected/no-unknown validation. Scrolled prefixes still need
+    in a pass without unknowns, or at an independently complete known Top with
+    a positive Sort epoch. That stronger current Top certificate can supersede
+    an older uncertain view; uncertainty still blocks ordinary bottom proof.
+    A positive known descending sentinel/empty
+    certificate permits skipping an empty tail, followed by a fresh proved
+    Top/no-selected/no-unknown validation. A complete certified Top uses a pure
+    snapshot; a scrolled certificate retains ONE original reset. Only transient
+    unknown final cells may receive up to three fresh observations in total,
+    with bounded pauses and the same Sort epoch/geometry/full-Top proof. Scrolled prefixes still need
     every ordinary overlap check since the proved Top; labels alone never sort.
     An optional sorted_epoch reader names only guarded fresh Sort generations.
     It must return a monotonic nonnegative integer. Advancing it clears a known
-    ordering contradiction only on a fresh proved Top; unknown observations
-    remain conservative until independently verified progress starts a new pass.
+    ordering contradiction only on a fresh proved Top. Advancing an epoch alone
+    never clears unknown observations or substitutes for a complete known Top.
     A native sorted_top callback additionally proves that the final Top scan
     includes the complete beginning, rather than only lower complete rows below
     a clipped first row. Failure leaves completion unconfirmed, without input.
 
-    Before completion the caller resets top again and checks its fresh view.
+    Before completion the caller checks a fresh independently proved Top view.
+    Ordinary bottom completion still resets Top; a sorted complete Top can be
+    captured again without repeating input.
     New selected items there restart the walk. Limits are operational bounds,
     not invented game inventory or storage limits.
     """
@@ -334,6 +342,57 @@ def run_inventory_walk(
                 and not certify_sorted_prefix(view.scan, selected, require_boundary=False)):
             pass_sorted_possible = False
 
+    def sorted_final_top(certified_view, already_full_top):
+        """Recheck fresh pixels; never repeat input for an uncertain final scan."""
+        expected_epoch = epoch
+        pure_proof = (sorted_top is not None and sorted_epoch is not None
+                      and expected_epoch > 0)
+        check_stop()
+        if timed_out():
+            return None
+        if pure_proof and _endpoint(certified_view, "top"):
+            full_top = already_full_top
+            if full_top is None:
+                full_top = sorted_top(certified_view)
+                if not isinstance(full_top, bool):
+                    raise ValueError("Sorted Top result must be a verified boolean")
+                check_stop()
+                if timed_out():
+                    return None
+            final_top = (check_view(inventory_snapshot()) if full_top else reset())
+        else:
+            final_top = reset()
+        for attempt in range(3):
+            if final_top is None or final_top is False:
+                return final_top
+            check_stop()
+            if timed_out():
+                return None
+            if sorted_epoch is not None and epoch != expected_epoch:
+                raise RuntimeError("Inventory Sort generation changed during final readback")
+            if final_top.row_pitch_pixels != certified_view.row_pitch_pixels:
+                raise RuntimeError("Inventory row pitch changed during final readback")
+            if not _endpoint(final_top, "top"):
+                return False
+            if sorted_top is not None:
+                full_top = sorted_top(final_top)
+                if not isinstance(full_top, bool):
+                    raise ValueError("Sorted Top result must be a verified boolean")
+                check_stop()
+                if timed_out():
+                    return None
+                if not full_top:
+                    return False
+            if eligible(final_top) or not final_top.scan.unknown_count or not pure_proof:
+                return final_top
+            if attempt == 2:
+                return final_top
+            pause(.12)
+            check_stop()
+            if timed_out():
+                return None
+            final_top = check_view(inventory_snapshot())
+
     view = reset()
     if view is None:
         return result("bounded")
@@ -386,8 +445,28 @@ def run_inventory_walk(
         pass_unknown = pass_unknown or bool(fresh.scan.unknown_count)
         view = fresh
         observe_sorted_prefix(view)
-        if (sorted_boundary is not None and not pass_unknown and pass_sorted_possible
-                and (sorted_epoch is None or epoch > 0)):
+        sorted_possible = (sorted_boundary is not None and pass_sorted_possible
+                           and (sorted_epoch is None or epoch > 0))
+        sorted_known = not pass_unknown
+        full_top_at_certificate = None
+        if (sorted_possible and pass_unknown and sorted_top is not None
+                and sorted_epoch is not None and epoch > 0
+                and _endpoint(view, "top")
+                and certify_sorted_prefix(view.scan, selected)):
+            # The post-transfer Top may contain temporary uncertain occupancy.
+            # A fresh complete known sorted beginning proves the entire lower
+            # tail independently of that stale view. Do not clear pass_unknown:
+            # a partial/scrolled view or a rejected Sort certificate still needs
+            # the original conservative whole-walk proof.
+            check_stop()
+            sorted_known = sorted_top(view)
+            if not isinstance(sorted_known, bool):
+                raise ValueError("Sorted Top result must be a verified boolean")
+            check_stop()
+            if timed_out():
+                return result("bounded")
+            full_top_at_certificate = sorted_known
+        if sorted_possible and sorted_known:
             check_stop()
             certified = sorted_boundary(view)
             if not isinstance(certified, bool):
@@ -398,22 +477,11 @@ def run_inventory_walk(
             if certified:
                 if not certify_sorted_prefix(view.scan, selected):
                     raise ValueError("Sorted boundary contradicts the recorded known prefix")
-                final_top = reset()
+                final_top = sorted_final_top(view, full_top_at_certificate)
                 if final_top is None:
                     return result("bounded")
                 if final_top is False:
                     return result("top_unconfirmed")
-                if timed_out():
-                    return result("bounded")
-                if sorted_top is not None:
-                    full_top = sorted_top(final_top)
-                    if not isinstance(full_top, bool):
-                        raise ValueError("Sorted Top result must be a verified boolean")
-                    check_stop()
-                    if timed_out():
-                        return result("bounded")
-                    if not full_top:
-                        return result("top_unconfirmed")
                 if eligible(final_top):
                     view = final_top
                     pass_unknown = bool(final_top.scan.unknown_count)

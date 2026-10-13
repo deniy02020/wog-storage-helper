@@ -296,6 +296,8 @@ class BuildInputTests(unittest.TestCase):
         changed = json.loads(json.dumps(self.halo))
         for entry in changed["records"]:
             entry["source_image"] = "private-source-withheld.png"
+        for model in changed.get("supplemental_models", []):
+            model["source_image"] = "private-source-withheld.png"
         result = verify_release_payload(self.payload(extra={
             "_internal/preset_assets/inventory_halos.json": json.dumps(changed).encode()}))
         self.assertEqual(result["inventoryhalo_sample_count"], len(self.halo_names))

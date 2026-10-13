@@ -718,7 +718,8 @@ class Runner:
                 wheel_delta=31, max_wheel_inputs=512, max_seconds=900)
             self._inventory_scroll_session = (context, scroller)
         unsorted_transfers = 0
-        sorted_since_transfer = sorted_after_sort is True
+        sorted_since_transfer = (sorted_after_sort is True
+                                 and bool(self.profile.get("sort_button")))
         sort_epoch = 1 if sorted_since_transfer else 0
         full_sorted_top = False
         sorted_audit_state = None
@@ -728,6 +729,8 @@ class Runner:
 
         def compact_at_top():
             nonlocal unsorted_transfers, sorted_since_transfer, full_sorted_top, sort_epoch
+            if not self.profile.get("sort_button"):
+                return False
             self.sort_inventory()
             unsorted_transfers = 0
             scroller.invalidate()
@@ -737,6 +740,7 @@ class Runner:
             sorted_since_transfer = True
             full_sorted_top = False
             sort_epoch += 1
+            return True
 
         def transfer(**kwargs):
             nonlocal unsorted_transfers, sorted_since_transfer, full_sorted_top
@@ -745,8 +749,8 @@ class Runner:
                 # Compact hidden items into the drained top viewport before
                 # continuing the complete walk. A false result still owns a
                 # fresh scan of the same proved top position.
-                compact_at_top()
-                moved = self.once(sort=False)
+                if compact_at_top():
+                    moved = self.once(sort=False)
             if moved:
                 unsorted_transfers += 1
                 sorted_since_transfer = False
@@ -776,9 +780,9 @@ class Runner:
                     continue
                 if (count == 0 and unsorted_transfers and not compacted
                         and scroller.snapshot().offset_pixels == 0):
-                    compact_at_top()
                     compacted = True
-                    continue
+                    if compact_at_top():
+                        continue
                 break
             if count:
                 scroller.invalidate()
@@ -974,13 +978,18 @@ class Runner:
                 and self.canonical_inv.rows == 8
                 and getattr(self.panel_controller, "layout", None) is not None
                 and callable(getattr(self.desktop, "scroll", None))):
+            sorted_after_sort = False
             def prepare():
+                nonlocal sorted_after_sort
+                sorted_after_sort = False
                 self.prepare_panels()
-                self.sort_inventory()
+                if self.profile.get("sort_button"):
+                    self.sort_inventory()
+                    sorted_after_sort = True
             self._guarded_operation(prepare)
             # A game's Sort may preserve its scroll position. Establish the
             # top before the first transfer and prove the whole inventory.
-            walked = self._walk_inventory(sorted_after_sort=True)
+            walked = self._walk_inventory(sorted_after_sort=sorted_after_sort)
             if not walked.complete:
                 self.log("Диагностика обхода инвентаря: " + walked.outcome)
                 return self._inventory_pending(walked)

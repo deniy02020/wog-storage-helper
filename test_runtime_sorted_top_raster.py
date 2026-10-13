@@ -104,19 +104,20 @@ class RuntimeSortedRasterWalkTests(unittest.TestCase):
         self.assertEqual((result.outcome, result.transfers, result.scrolls), ("complete", 1, 0))
         runner.sort_inventory.assert_called_once_with()
         scroller.scroll_down.assert_not_called()
-        self.assertEqual(scroller.reset_to_top.call_count, 4)
+        self.assertEqual(scroller.reset_to_top.call_count, 3)
 
     def test_final_top_partial_first_row_leaves_completion_unconfirmed_without_scroll(self):
         runner = instance()
         full = observation([2] * 40, grid=RASTER)
         scroller = fake_scroller(full)
-        scroller.reset_to_top.side_effect = [full, observation([2] * 35, grid=PARTIAL)]
+        scroller.snapshot.side_effect = [full, observation([2] * 35, grid=PARTIAL)]
         with patch("inventory_scroller.InventoryScroller", return_value=scroller):
             result = runner._walk_inventory(sorted_after_sort=True)
         self.assertEqual((result.outcome, result.transfers, result.scrolls),
                          ("top_unconfirmed", 0, 0))
         runner.sort_inventory.assert_not_called()
         scroller.scroll_down.assert_not_called()
+        scroller.reset_to_top.assert_called_once_with()
 
     def test_unknown_raster_prefix_still_requires_full_walk_and_never_claims_complete(self):
         runner = instance()

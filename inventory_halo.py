@@ -1,4 +1,4 @@
-"""Authenticated narrow T4 frame rails prove its glow in grid gutters only.
+"""Authenticated narrow T4/T5/T6 rails prove glow in grid gutters only.
 
 This is an alternate pixel proof, not a color exemption. Every accepted glow
 requires the same model's opaque frame rails AND gutter lanes on the current
@@ -68,15 +68,24 @@ class InventoryHaloModels:
         self._initialize(data, lambda name: (directory / name).read_bytes())
 
     def _initialize(self, data, read_resource):
-        if (not isinstance(data, dict) or data.get("schema") != 1 or data.get("tier") != 4
+        if (not isinstance(data, dict) or type(data.get("schema")) is not int or data.get("schema") not in (1,2) or data.get("tier") != 4
                 or data.get("body_size") != [60, 60]
                 or data.get("max_patch_rmse") != MAX_PATCH_RMSE
                 or data.get("full_offsets") != FULL_OFFSETS
                 or data.get("cap_offsets") != CAP_OFFSETS
                 or data.get("bottom_cap_offsets") != BOTTOM_CAP_OFFSETS):
             raise ValueError("Inventory halo proof geometry or thresholds differ")
+        generalized = data["schema"] == 2
+        supplemental = data.get("supplemental_models", [])
+        if generalized:
+            if (data.get("supplemental_tiers") != [5,6]
+                    or any(type(tier) is not int for tier in data["supplemental_tiers"])
+                    or not isinstance(supplemental,list) or not 1<=len(supplemental)<=128):
+                raise ValueError("Generalized halo tiers or supplemental models differ")
+        elif "supplemental_tiers" in data or "supplemental_models" in data:
+            raise ValueError("Legacy halo schema cannot declare supplemental tiers")
         records, models = data.get("records"), data.get("models")
-        if (not isinstance(records, list) or not 1 <= len(records) <= 600
+        if (not isinstance(records, list) or not 1 <= len(records) <= (1200 if generalized else 600)
                 or not isinstance(models, list) or not 1 <= len(models) <= 128):
             raise ValueError("Inventory halo sample count is unbounded")
         self.samples = {}
@@ -84,7 +93,7 @@ class InventoryHaloModels:
             if not isinstance(record, dict):
                 raise ValueError("Inventory halo sample must be an object")
             name = record.get("image")
-            if (not isinstance(name, str) or not re.fullmatch(r"inventory_halo_T4_\d{3}\.png", name)
+            if (not isinstance(name, str) or not re.fullmatch(r"inventory_halo_T[456]_\d{3}\.png" if generalized else r"inventory_halo_T4_\d{3}\.png", name)
                     or name in self.samples):
                 raise ValueError("Inventory halo sample filename is invalid")
             content = read_resource(name)
@@ -104,9 +113,29 @@ class InventoryHaloModels:
                 raise ValueError("Inventory halo lane dimensions or pixels differ")
             self.samples[name] = sample
         self.models = {"full": [], "cap": [], "bottom_cap": []}
-        for model in models:
+        tiers_seen=set()
+        by_name={record["image"]:record for record in records}
+        for model in [*models,*supplemental]:
             if not isinstance(model, dict):
                 raise ValueError("Inventory halo model must be an object")
+            extra = "tier" in model
+            tier=model.get("tier",4)
+            if (not extra and model not in models) or (extra and (model in models or type(tier) is not int or tier not in (5,6))):
+                raise ValueError("Halo model tier does not fit its declared catalog")
+            if extra:
+                tiers_seen.add(tier)
+                proof=model.get("source_classification")
+                body=model.get("source_body_rect")
+                if (model.get("kind")!="full" or not isinstance(proof,dict) or proof.get("tier")!=tier
+                        or type(proof.get("tier")) is not int
+                        or any(type(proof.get(key)) not in (int,float) or not math.isfinite(proof[key]) for key in ("rmse","margin"))
+                        or not 0<=proof["rmse"]<=14 or proof["margin"]<5
+                        or not isinstance(body,list) or len(body)!=4 or any(type(v) is not int for v in body)
+                        or body[2]-body[0]!=60 or body[3]-body[1]!=60
+                        or not isinstance(model.get("source_image"),str)
+                        or not isinstance(model.get("source_sha256"),str)
+                        or not re.fullmatch(r"[a-f0-9]{64}",model["source_sha256"])):
+                    raise ValueError("Supplemental halo lacks genuine complete-frame tier proof")
             kind, patches = model.get("kind"), model.get("patches")
             offsets = {"full": FULL_OFFSETS, "cap": CAP_OFFSETS,
                        "bottom_cap": BOTTOM_CAP_OFFSETS}.get(kind)
@@ -116,14 +145,25 @@ class InventoryHaloModels:
                 raise ValueError("Inventory halo model has unproved lanes")
             selected = {}
             for label, name in patches.items():
+                if not isinstance(name,str) or not name.startswith(f"inventory_halo_T{tier}_"):
+                    raise ValueError("Halo patch tier differs from its same-cue model")
                 sample = self.samples.get(name)
                 rect = Rect(*offsets[label])
                 if sample is None or sample.size != (rect.width, rect.height):
                     raise ValueError("Inventory halo lane does not fit its model")
+                if extra:
+                    record=by_name[name]
+                    expected=rect.translated(body[0],body[1])
+                    if (record.get("source_image")!=model["source_image"]
+                            or record.get("source_sha256")!=model["source_sha256"]
+                            or tuple(record.get("source_rect",()))!=expected.as_box()):
+                        raise ValueError("Supplemental halo patches mix source cues or body geometry")
                 selected[label] = sample
             self.models[kind].append(selected)
         if not all(self.models.values()):
             raise ValueError("Both full and clipped-cap halo proofs are required")
+        if generalized and tiers_seen!={5,6}:
+            raise ValueError("Both declared supplemental halo tiers are required")
         self._rendered = {}
         self._normalized = {}
 
@@ -242,7 +282,10 @@ def prove_inventory_halo_mask(image, rect, rows, columns, gap_color, scale, mask
         raise LayoutError("Inventory halo column lattice contradicts header geometry")
     support = np.stack([mask[:, rect.width*c//columns:rect.width*(c+1)//columns].mean(axis=1)
                         for c in range(columns)])
-    ys = _runs((support >= .78).sum(axis=0) >= 3)
+    from inventory_viewport import _lattice, _merged_runs
+    # The existing bounded1px raster-fragment merge suggests a band only;
+    # no pixel in that gap becomes separator evidence until exact cue proof.
+    ys = _merged_runs(((support >= .78).sum(axis=0) >= 3).astype(float),scale)
     valid_count = rows-2 <= len(ys) <= rows+1 if allow_shifted else rows-1 <= len(ys) <= rows
     if not valid_count or any(b-a > math.ceil(10*scale) for a, b in ys):
         raise LayoutError("Inventory halo lacks every independently observed row")
@@ -250,7 +293,6 @@ def prove_inventory_halo_mask(image, rect, rows, columns, gap_color, scale, mask
     if len(complete) < 3:
         raise LayoutError("Inventory halo cannot establish complete row pitch")
     expected = rect.height / rows
-    from inventory_viewport import _lattice
     pitch, offset = _lattice(ys, rect.height, expected, scale, candidate_gaps=True)
     if (not allow_shifted and abs((ys[-1][0]+ys[-1][1]-1)/2-(rect.height-3*scale)) > 6*scale):
         raise LayoutError("Inventory halo lattice contradicts header geometry")
@@ -258,8 +300,19 @@ def prove_inventory_halo_mask(image, rect, rows, columns, gap_color, scale, mask
     if min(first, pitch-first) <= max(.75, 1.25*scale):
         first = 0.
     candidates = set()
-    for a, b in ys:
-        y = (a+b-1)//2
+    # Every final grid check uses the original whole-projection midpoint.
+    # Its raster midpoint can differ1px from independently supported bands.
+    # Inspect both actual observations before choosing authenticated cues.
+    candidate_bands=set(ys)|set(_runs(mask.mean(axis=1)>=.78))
+    candidate_ys={(a+b-1)//2 for a,b in candidate_bands}
+    # A partial authentic repair may shift the final band midpoint1px, or
+    # restore the one skipped integer band already supported by raw lattice.
+    # The fitted positions propose nearby frame cues ONLY. They do not add
+    # mask pixels, count rows or excuse a single unsupported final segment.
+    for index in range(-1,rows+2):
+        center=round(offset+index*pitch)
+        candidate_ys.update(y for y in (center-1,center,center+1) if 0<=y<rect.height)
+    for y in sorted(candidate_ys):
         row = round((y+3*scale-first)/pitch)-1 if allow_shifted else min(rows-1, int(y / expected))
         for col in range(columns):
             if mask[y, rect.width*col//columns:rect.width*(col+1)//columns].mean() < .72:
@@ -314,5 +367,5 @@ def prove_inventory_halo_mask(image, rect, rows, columns, gap_color, scale, mask
                 proved[lane.top-rect.top:lane.bottom-rect.top,
                        lane.left-rect.left:lane.right-rect.left] = True
     if not matched:
-        raise LayoutError("Missing or occluded gutters have no authenticated T4 frame/halo proof")
+        raise LayoutError("Missing or occluded gutters have no authenticated tier frame/halo proof")
     return proved

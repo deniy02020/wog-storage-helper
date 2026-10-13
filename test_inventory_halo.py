@@ -11,7 +11,7 @@ from PIL import Image
 
 from auto_layout import LayoutError, measure_grid
 from core import Rect
-from inventory_halo import (CAP_OFFSETS, FULL_OFFSETS, InventoryHaloModels,
+from inventory_halo import (CAP_OFFSETS, FULL_OFFSETS, InventoryHaloModels,prove_inventory_halo_mask,
                             verify_inventory_halo_resources)
 from inventory_viewport import recognize_inventory_viewport, _lattice
 
@@ -50,6 +50,7 @@ class InventoryHaloProofTests(unittest.TestCase):
     def setUpClass(cls):
         cls.models = InventoryHaloModels(ASSETS)
         cls.document = json.loads((ASSETS / "inventory_halos.json").read_text(encoding="utf-8"))
+        cls.primary_full_count = sum(m["kind"]=="full" for m in cls.document["models"])
 
     def scene(self, *, with_frame=True, offset=0, model_index=0):
         (image,), rect = generated_frames(offsets=(offset,))
@@ -79,7 +80,7 @@ class InventoryHaloProofTests(unittest.TestCase):
     def test_additional_bundled_raster_keeps_original_lattice_and_requires_opaque_rails(self):
         # Any newly approved border-only raster uses the SAME proof contract;
         # this test has no native capture path or private provenance filename.
-        image, rect, origin = self.scene(model_index=-1)
+        image, rect, origin = self.scene(model_index=self.primary_full_count-1)
         with self.assertRaises(LayoutError):
             measure_grid(image, rect, 8, 5, GAP, 1.)
         evidence = self.prove(image, rect)
@@ -306,6 +307,79 @@ class InventoryHaloProofTests(unittest.TestCase):
         for runs,length,pitch in cases:
             with self.subTest(runs=runs),self.assertRaises(LayoutError):
                 _lattice(runs,length,pitch,1.,candidate_gaps=True)
+
+    def test_generalized_tiers_keep_full_same_cue_raw_opposite_rail_veto(self):
+        for index in range(self.primary_full_count,len(self.models.models["full"])):
+            with self.subTest(index=index):
+                image,rect,origin=self.scene(model_index=index)
+                cue=self.one_full_cue([self.models.models["full"][index]])
+                pixels=np.asarray(image,dtype=np.float32)
+                self.assertIsNotNone(cue.match(pixels,rect,"full",origin,1.))
+                # Unknown/neutral rails cannot become an approved colored
+                # frame merely because exact genuine gutter pixels surround it.
+                pixels=pixels.copy()
+                for label in ("frame_left","frame_right"):
+                    a,b,c,d=FULL_OFFSETS[label]
+                    pixels[origin[1]+b:origin[1]+d,origin[0]+a:origin[0]+c]=GAP
+                with patch("inventory_halo._halo_raster",side_effect=AssertionError("Raw bilateral veto first")):
+                    self.assertIsNone(cue.match(pixels,rect,"full",origin,1.))
+
+    def test_generalized_manifest_types_tier_names_classifier_and_same_source_geometry_are_strict(self):
+        mutations=[]
+        for value in ([True,6],[5,"6"],[5,5],[4,5,6],None):
+            item=copy.deepcopy(self.document);item["supplemental_tiers"]=value;mutations.append(item)
+        for key,value in (("tier",True),("tier",4),("tier",7),("source_body_rect",[0,0,61,60]),
+                          ("source_classification",{"tier":6,"rmse":15.,"margin":10.}),
+                          ("source_classification",{"tier":6,"rmse":0.,"margin":4.}),
+                          ("source_image","wrong-source.png")):
+            item=copy.deepcopy(self.document);item["supplemental_models"][0][key]=value;mutations.append(item)
+        item=copy.deepcopy(self.document)
+        item["supplemental_models"][0]["patches"]["frame_left"]=item["models"][0]["patches"]["frame_left"]
+        mutations.append(item)
+        item=copy.deepcopy(self.document);item["schema"]=True;mutations.append(item)
+        item=copy.deepcopy(self.document);item["schema"]=2.;mutations.append(item)
+        for item in mutations:
+            with self.assertRaises(ValueError):
+                verify_inventory_halo_resources(item,lambda name:(ASSETS/name).read_bytes())
+
+    def test_legacy_t4_catalog_remains_compatible_without_generalized_fields(self):
+        legacy=copy.deepcopy(self.document)
+        legacy["schema"]=1
+        legacy.pop("supplemental_models");legacy.pop("supplemental_tiers")
+        legacy["records"]=[r for r in legacy["records"] if r["image"].startswith("inventory_halo_T4_")]
+        names=verify_inventory_halo_resources(legacy,lambda name:(ASSETS/name).read_bytes())
+        self.assertEqual(len(names),532)
+
+    def test_one_pixel_split_midpoint_only_proposes_cues_and_unknown_strip_still_rejects(self):
+        (image,),rect=generated_frames(offsets=(0,))
+        image.paste("black",(rect.left,rect.top+62,rect.left+3*65,rect.top+63))
+        mask=np.max(abs(np.asarray(image.crop(rect.as_box()),dtype=float)-GAP),axis=2)<=6
+        from unittest.mock import Mock
+        unavailable=Mock();unavailable.match.return_value=None
+        with patch("inventory_halo.default_models",return_value=unavailable):
+            with self.assertRaisesRegex(LayoutError,"authenticated"):
+                prove_inventory_halo_mask(image,rect,8,5,GAP,1.,mask)
+        # The raw split has a bounded candidate lattice, not an invented row:
+        # no exact nine-patch frame cue exists for this unrelated black strip.
+        self.assertGreater(unavailable.match.call_count,0)
+
+    def test_two_unsupported_missing_bands_cannot_even_request_a_halo_model(self):
+        (image,),rect=generated_frames(offsets=(0,))
+        for row in (1,3):
+            image.paste("black",(rect.left,rect.top+row*65+60,rect.right,rect.top+(row+1)*65))
+        with patch("inventory_halo.default_models",side_effect=AssertionError("Insufficient raw row evidence")):
+            with self.assertRaises(LayoutError):
+                self.prove(image,rect)
+
+    def test_gold_and_purple_opposite_rails_do_not_form_one_cue(self):
+        image,rect,origin=self.scene(model_index=-1)
+        purple=self.models.models["full"][-1]
+        gold=self.models.models["full"][self.primary_full_count]
+        a,b,_,_=FULL_OFFSETS["frame_left"]
+        image.paste(gold["frame_left"],(origin[0]+a,origin[1]+b))
+        with patch("inventory_halo._halo_raster",side_effect=AssertionError("Mixed tier raw veto")):
+            self.assertIsNone(self.one_full_cue([purple,gold]).match(
+                np.asarray(image,dtype=np.float32),rect,"full",origin,1.))
 
 
 if __name__ == "__main__":
