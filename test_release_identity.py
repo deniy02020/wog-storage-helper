@@ -9,8 +9,8 @@ from release_identity import DEFAULT_RELEASE_VERSION, EXECUTABLES, expected_stri
 class ReleaseIdentityTests(unittest.TestCase):
     def test_local_default_is_new_beta_without_changing_explicit_old_versions(self):
         with patch.dict(os.environ, {}, clear=True):
-            self.assertEqual(release_version(), "0.2.0-beta.8")
-        self.assertEqual(DEFAULT_RELEASE_VERSION, "0.2.0-beta.8")
+            self.assertEqual(release_version(), "0.2.0-beta.9")
+        self.assertEqual(DEFAULT_RELEASE_VERSION, "0.2.0-beta.9")
         self.assertEqual(release_version("0.2.0-beta.6"), "0.2.0-beta.6")
         self.assertEqual(release_version("0.2.0-beta.7"), "0.2.0-beta.7")
 

@@ -17,7 +17,8 @@ from core import (Rect, GridSpec, TemplateSet, ClassifierConfig, image_rmse,
                   choose_transfer, verify_transfer)
 from helper_config import migrate_profile, validate_interval
 from input_activity import UserActivityInterrupted
-from windows import FocusUnavailable, WindowGeometryChanged
+from windows import (FocusUnavailable, WindowGeometryChanged, CursorPositionChanged,
+                     ForegroundWindowChanged)
 from inventory_cycle import run_inventory_cycle
 from storage_cycle import find_storage_capacity
 from inventory_motion_policy import MAXIMUM_WHEEL_ROW_FRACTION, MAXIMUM_BULK_PULSES
@@ -56,7 +57,12 @@ class Runner:
         self.desktop, self.handle = desktop, handle
         self.profile = migrate_profile(profile)
         profile = self.profile
-        self.directory = Path(directory)
+        from paths import canonical_profile_directory
+        probe_name = next(iter(profile.get("inventory_empty", [])), None)
+        if probe_name is None:
+            probe_name = next((name for names in profile.get("tiers", {}).values()
+                               for name in names), None)
+        self.directory = canonical_profile_directory(directory, probe_name)
         self.stop = stop_event or threading.Event()
         self.log = log or (lambda message: None)
         self.state_callback = state_callback or (lambda payload: None)
@@ -129,7 +135,7 @@ class Runner:
             raise ValueError("\n".join(errors))
         if profile.get("panel_controls") is not None:
             from panels import PanelController
-            self.panel_controller = PanelController(desktop, handle, profile, directory,
+            self.panel_controller = PanelController(desktop, handle, profile, self.directory,
                                                     self.check_stop, self.wait)
 
     def state(self, name, message, next_check_at=None):
@@ -409,7 +415,12 @@ class Runner:
         return self._guarded_operation(self._once, sort)
 
     def _guarded_operation(self, callback, *args):
-        self._transfer_input_issued = False
+        self._transfer_input_issued = (getattr(self, "_transfer_input_issued", False)
+                                       or self._panel_open_input_pending())
+        if self._transfer_input_issued:
+            # A fresh Start creates a new runner. Re-entering this runner must
+            # never discard an earlier accepted/ambiguous receipt or replay it.
+            raise RuntimeError("Предыдущий ввод не подтверждён. Повторного ввода не будет.")
         try:
             return callback(*args)
         except (LayoutChangedDuringOperation, self._layout_error_type(), WindowGeometryChanged) as error:
@@ -422,10 +433,23 @@ class Runner:
                     self.log("Диагностика геометрии: " + str(error))
                 if isinstance(error, WindowGeometryChanged) and error.input_issued:
                     self._transfer_input_issued = True
+                if self._panel_open_input_pending():
+                    self._transfer_input_issued = True
                 if not self._transfer_input_issued:
+                    if isinstance(error, (CursorPositionChanged, ForegroundWindowChanged)):
+                        raise  # Access deferral is distinct from layout fitting.
                     raise SafeLayoutChange(CALIBRATION_REQUIRED) from error
                 raise LayoutChangedDuringOperation(CALIBRATION_REQUIRED) from error
             raise
+        finally:
+            # Panel controls own their per-step readback. An unknown native
+            # error, Stop or failed recognition cannot erase an unproved click.
+            if self._panel_open_input_pending():
+                self._transfer_input_issued = True
+
+    def _panel_open_input_pending(self):
+        controller = getattr(self, "panel_controller", None)
+        return getattr(controller, "opening_input_pending", False) is True
 
     @staticmethod
     def _layout_error_type():
@@ -439,8 +463,9 @@ class Runner:
         self._transfer_input_issued = True
         try:
             return callback(*args, **kwargs)
-        except WindowGeometryChanged as error:
-            self._transfer_input_issued = previous_input or error.input_issued
+        except (WindowGeometryChanged, UserActivityInterrupted) as error:
+            self._transfer_input_issued = (previous_input or self._panel_open_input_pending()
+                                           or error.input_issued)
             raise
 
     def _once(self, sort):
@@ -1105,9 +1130,24 @@ class Runner:
         interval = validate_interval(interval)
         paused = False
         safe_failure_streak = 0
+        access_hold = False
+        access_needs_return = False
         while True:
             self.check_stop()
             token = None
+            if access_hold:
+                active_now = self.desktop.active(self.handle)
+                if not active_now:
+                    access_needs_return = False
+                elif access_needs_return:
+                    idle_provider = getattr(self.desktop, "idle_seconds", None)
+                    if idle_provider is None or idle_provider() < 600:
+                        # Leave the player's active game alone until its next
+                        # foreground return or the existing idle eligibility.
+                        self.wait(.3)
+                        continue
+                if active_now:
+                    access_hold = False
             if not self.desktop.active(self.handle):
                 # A live background game never triggers the window resolver.
                 is_alive = getattr(type(self.desktop), "is_alive", None)
@@ -1156,13 +1196,25 @@ class Runner:
                         if not paused:
                             self.log(FOCUS_WAITING)
                         paused = True
+                        if isinstance(error, (CursorPositionChanged, ForegroundWindowChanged)):
+                            safe_failure_streak += 1
+                            access_hold = True
+                            access_needs_return = (isinstance(error, CursorPositionChanged)
+                                                   and self.desktop.active(self.handle))
+                            exhausted = safe_failure_streak >= SAFE_QUICK_RETRY_ATTEMPTS
+                            self.state("waiting" if exhausted else "paused", FOCUS_WAITING,
+                                       time.monotonic() + interval if exhausted else None)
+                            self.wait(interval if exhausted else .3)
+                            continue
                         self.state("paused", FOCUS_WAITING,
                                    time.monotonic() + FOCUS_RETRY_SECONDS)
                         self.wait(FOCUS_RETRY_SECONDS)
                         continue
                     except UserActivityInterrupted as error:
                         # begin_background_cycle cleans its own partial activation;
-                        # user input cancels this cycle, not the explicit timer.
+                        # an accepted unproved activation cannot be replayed.
+                        if getattr(error, "input_issued", False) is True:
+                            raise
                         self.log(str(error))
                         self.state("waiting", "Фоновая проверка прервана вводом пользователя. Следующая проверка по таймеру.",
                                    time.monotonic() + interval)
@@ -1186,8 +1238,11 @@ class Runner:
             layout_pending = False
             inventory_pending = False
             preflight_pending = False
+            activity_pending = False
+            access_pending = False
             try:
                 self.check_stop()
+                access_hold = False  # Foreground/idle activation passed the normal gate.
                 if token is not None:
                     is_alive = getattr(type(self.desktop), "is_alive", None)
                     if not self.desktop.active(self.handle) or (is_alive is not None and not is_alive(self.desktop, self.handle)):
@@ -1205,6 +1260,19 @@ class Runner:
                 if paused:
                     self.log("Окно игры активно: продолжаю.")
                     paused = False
+            except (CursorPositionChanged, ForegroundWindowChanged) as error:
+                cycle_error = error
+                if (error.input_issued or getattr(self, "_transfer_input_issued", False)
+                        or self._panel_open_input_pending()):
+                    raise
+                safe_failure_streak += 1
+                access_pending = True
+                access_hold = True
+                access_needs_return = (isinstance(error, CursorPositionChanged)
+                                       and self.desktop.active(self.handle))
+                if not paused:
+                    self.log(FOCUS_WAITING)
+                paused = True
             except SafeLayoutChange as error:
                 cycle_error = error
                 layout_pending = True
@@ -1219,6 +1287,11 @@ class Runner:
                 self.log(PREFLIGHT_WAITING)
             except UserActivityInterrupted as error:
                 cycle_error = error
+                if (getattr(error, "input_issued", False) is True
+                        or getattr(self, "_transfer_input_issued", False)
+                        or self._panel_open_input_pending()):
+                    raise
+                activity_pending = True
                 self.log(str(error))
                 self.state("paused", "Фоновая проверка прервана вводом пользователя. Следующая проверка по таймеру.")
             except BaseException as error:
@@ -1237,12 +1310,24 @@ class Runner:
                         if cycle_error is None:
                             raise
                         self.log("Не удалось восстановить прежнее окно: " + str(error))
+            if access_pending:
+                # Already-idle cursor mismatches share the bounded failure
+                # budget; a persistent mismatch never creates another short
+                # countdown loop. Exhaustion survives the interval cooldown.
+                exhausted = safe_failure_streak >= SAFE_QUICK_RETRY_ATTEMPTS
+                delay = interval if exhausted else .3
+                self.state("waiting" if exhausted else "paused", FOCUS_WAITING,
+                           time.monotonic() + interval if exhausted else None)
+                self.wait(delay)
+                continue
             quick_retry = ((layout_pending or preflight_pending)
                            and safe_failure_streak < SAFE_QUICK_RETRY_ATTEMPTS)
             delay = LAYOUT_RETRY_SECONDS if quick_retry else interval
             self.state("waiting", LAYOUT_WAITING if layout_pending else
                        PREFLIGHT_WAITING if preflight_pending else
                        INVENTORY_PENDING if inventory_pending else
+                       "Фоновая проверка прервана вводом пользователя. Следующая проверка по таймеру."
+                       if activity_pending else
                        "Проверка закончена. Ожидаю следующий цикл.",
                        time.monotonic() + delay)
             self.wait(delay)

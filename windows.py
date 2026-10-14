@@ -45,6 +45,18 @@ class HitTestMismatch(WindowGeometryChanged):
     """The intended screen point does not currently belong to the game."""
 
 
+class CursorPositionChanged(WindowGeometryChanged):
+    """The cursor no longer matches the freshly guarded physical point.
+
+    The reason may be unrelated input or native cursor positioning. This is
+    not evidence that the player moved the game or used the mouse.
+    """
+
+
+class ForegroundWindowChanged(WindowGeometryChanged):
+    """The same live game is no longer the foreground input target."""
+
+
 class FocusUnavailable(RuntimeError):
     """Windows declined a bounded activation attempt before any game input."""
     input_issued = False
@@ -708,21 +720,35 @@ class WindowsDesktop:
             raise WindowGeometryChanged()
         return after
 
+    def _check_capture_client(self, handle, identity, box, focus_message):
+        # Bind identity and physical client on both sides of the native focus
+        # read. Simultaneous PID/rectangle/visibility changes stay a geometry
+        # invalidation and must never be downgraded to a foreground wait.
+        for index in range(2):
+            if (not self.u.IsWindowVisible(handle) or self.u.IsIconic(handle)
+                    or self.client_box(handle) != box
+                    or self._require_game_identity(handle, captured=False) != identity):
+                raise WindowGeometryChanged("Окно изменилось во время снимка. Снимок отменён.")
+            if index == 0:
+                active = self.active(handle)
+        if not active:
+            raise ForegroundWindowChanged(focus_message)
+
     @_physical_api
     def capture(self, handle):
         from PIL import ImageGrab
         self.check_background_cycle()
-        if not self.active(handle):
-            raise WindowGeometryChanged("Выбери окно игры и оставь его на переднем плане.")
         identity = self._require_game_identity(handle, captured=False)
         box = self.client_box(handle)
+        self._check_capture_client(handle, identity, box,
+                                   "Выбери окно игры и оставь его на переднем плане.")
         # all_screens preserves physical coordinates on monitors left of the primary.
         frame = ImageGrab.grab(bbox=box, all_screens=True).convert("RGB")
         self.check_background_cycle()
-        if (not self.active(handle) or self.client_box(handle) != box
-                or self._require_game_identity(handle, captured=False) != identity
-                or frame.size != (box[2] - box[0], box[3] - box[1])):
+        if frame.size != (box[2] - box[0], box[3] - box[1]):
             raise WindowGeometryChanged("Окно изменилось во время снимка. Снимок отменён.")
+        self._check_capture_client(handle, identity, box,
+                                   "Окно изменилось во время снимка. Снимок отменён.")
         if not hasattr(self, "_capture_identities"):
             self._capture_identities = {}
         self._capture_identities[handle] = identity
@@ -750,7 +776,13 @@ class WindowsDesktop:
         if self.stop_pressed():
             raise InterruptedError("Остановлено: F8.")
         if not self.active(handle):
-            raise WindowGeometryChanged("Перенос остановлен: изменилось активное окно.")
+            # Only a live, visible game with the captured process identity may
+            # enter a deferred foreground wait. Closed/replaced/minimized
+            # clients still invalidate the geometry instead.
+            self._require_game_identity(handle)
+            if not self.u.IsWindowVisible(handle) or self.u.IsIconic(handle):
+                raise WindowGeometryChanged("Окно игры закрыто, скрыто или свёрнуто.")
+            raise ForegroundWindowChanged("Перенос остановлен: изменилось активное окно.")
         self._require_game_identity(handle)
         box = self.client_box(handle)
         if (box[2] - box[0], box[3] - box[1]) != tuple(expected_size):
@@ -893,7 +925,7 @@ class WindowsDesktop:
         if not self.u.GetCursorPos(ctypes.byref(actual)):
             raise ctypes.WinError(ctypes.get_last_error())
         if (actual.x, actual.y) != tuple(expected_point):
-            raise RuntimeError("Курсор или положение окна изменились. Ввод отменён.")
+            raise CursorPositionChanged("Курсор или положение окна изменились. Ввод отменён.")
 
     def _move_checked(self, handle, point, expected_size, *, tagged=False):
         physical = self._point_geometry(handle, *point, expected_size)
@@ -959,7 +991,7 @@ class WindowsDesktop:
             fresh = self._point_geometry(handle, *point, expected_size)
             if ((fresh.x, fresh.y) != positioned or self._require_game_identity(handle) != identity):
                 raise WindowGeometryChanged()
-        except WindowGeometryChanged as error:
+        except (WindowGeometryChanged, UserActivityInterrupted, InterruptedError) as error:
             error.input_issued = True
             raise
         finally:
@@ -1121,7 +1153,7 @@ class WindowsDesktop:
                     or self._require_game_identity(handle) != identity):
                 raise WindowGeometryChanged()
             self._check_cursor(intended)
-        except WindowGeometryChanged as error:
+        except (WindowGeometryChanged, UserActivityInterrupted, InterruptedError) as error:
             error.input_issued = True
             raise
         finally:

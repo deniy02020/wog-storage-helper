@@ -9,7 +9,7 @@ Prepare the pinned build environment and application bundle first:
 .\.venv\Scripts\python.exe -m pip install -r requirements-build-lock.txt
 .\build.bat
 .\.venv\Scripts\python.exe -B package_release.py --create
-.\build_installer.bat --payload releases\<created-archive>.zip --version 0.2.0-beta.8
+.\build_installer.bat --payload releases\<created-archive>.zip --version 0.2.0-beta.9
 ```
 
 The builder creates a branded GUI setup and a separate uninstaller. The normal

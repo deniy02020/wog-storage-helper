@@ -213,6 +213,16 @@ class PanelControllerTests(PanelFixture, unittest.TestCase):
         self.assertEqual([action[2] for action in desktop.inputs if action[0] == "click"],
                          [(87, 75), (77, 95)])
 
+    def test_menu_appearing_on_fresh_frame_skips_toggle_and_opens_character(self):
+        closed = self.image(inventory=False, storage=False)
+        menu = self.image(inventory=False, storage=False, menu=True)
+        inv = self.image(storage=False)
+        controller, desktop = self.controller([closed, menu, menu, inv, inv, self.image()])
+        controller.prepare()
+        self.assertEqual([action[2] for action in desktop.inputs if action[0] == "click"],
+                         [(87, 75), (77, 95)])
+        self.assertFalse(controller.opening_input_pending)
+
     def test_missing_inventory_control_cannot_click(self):
         self.profile["panel_controls"].pop("inventory_open")
         controller, desktop = self.controller([self.image(inventory=False, storage=False)])
@@ -224,6 +234,11 @@ class PanelControllerTests(PanelFixture, unittest.TestCase):
         closed = self.image(storage=False)
         controller, desktop = self.controller([closed] * 4)
         with self.assertRaisesRegex(RuntimeError, "не подтвердилось"):
+            controller.prepare()
+        self.assertEqual(sum(action[0] == "click" for action in desktop.inputs), 1)
+        self.assertTrue(controller.opening_input_pending)
+        # Reusing a controller cannot erase the unverified accepted click.
+        with self.assertRaisesRegex(RuntimeError, "Повторного клика не будет"):
             controller.prepare()
         self.assertEqual(sum(action[0] == "click" for action in desktop.inputs), 1)
 

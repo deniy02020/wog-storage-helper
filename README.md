@@ -3,10 +3,16 @@
 Helper automatically transfers your selected equipment and gems to storage on a timer.
 
 [Download from the website](https://wog-storage-helper.classytetra128.chatgpt.site) ·
-[Downloads and source on GitHub](https://github.com/deniy02020/wog-storage-helper/releases) ·
-[Steam guide in Russian and English](https://steamcommunity.com/sharedfiles/filedetails/?id=3818783491)
+[Download Windows installer from GitHub](https://github.com/deniy02020/wog-storage-helper/releases/download/v0.2.0-beta.9/WoGStorageHelperSetup-0.2.0-beta.9.exe) ·
+[Steam guide](https://steamcommunity.com/sharedfiles/filedetails/?id=3818783491)
 
-This folder contains **Beta.8 source**.
+This folder contains **Beta.9 source**. To install Helper, download the **Windows installer** from the website or the link above. The source archive is for reviewing or building the code.
+
+## What's changed in Beta.9
+
+If the game loses focus or the cursor changes before a click, Helper waits and checks again instead of treating that cancellation as a completed sorting attempt. The screen shows when it is opening panels or waiting for the game. An unconfirmed click still stops further input.
+
+The update also fixes profile loading when Windows presents two paths for the same folder. Existing settings are preserved.
 
 ## Getting started
 

@@ -39,7 +39,9 @@ TESTS = tuple(("test_core test_inventory_cycle test_inventory_scroller test_inve
     "test_storage_cycle test_i18n test_ui_journal test_runtime_walk_session test_auto_waiting_i18n "
     "test_runtime_sorted_batches test_runtime_sorted_top_raster test_runtime_inventory_bulk test_runtime test_session_logging test_runtime_preflight_recovery "
     "test_runtime_incomplete_outcomes test_runtime_walk_fresh_drop test_runtime_confirmed_input_boundary test_release_identity "
-    "test_windows_signing installer.test_signing_build ci.test_pipeline").split())
+    "test_windows_signing installer.test_signing_build ci.test_pipeline "
+    "test_windows_preflight_interruptions test_runtime_panel_input_boundary "
+    "test_profile_directory_alias test_dashboard_behavior").split())
 PUBLIC_TESTS = TESTS + ("test_public_resources",)
 FILES = {*(name + ".py" for name in MODULES), *(name.replace(".", "/") + ".py" for name in TESTS),
     *("installer/" + name + ".py" for name in INSTALLER_MODULES),
@@ -323,7 +325,7 @@ raise SystemExit(report['exit_code'])
         raise ValueError("Exported tests produced no result; inspect private local test log")
     result = json.loads(match.group(1))
     result.update({"scope": "Only the allowlisted synthetic public test subset, run from exported source.",
-                   "full_private_corpus": "The historical 913-test local development corpus includes withheld private fixtures and is not reproduced by this snapshot.",
+                   "full_private_corpus": "The full local development corpus includes withheld private fixtures and is not reproduced by this snapshot.",
                    "manifest_sha256": before["manifest_sha256"]})
     if process.returncode != result["exit_code"] or result["exit_code"] != 0:
         raise ValueError("Exported public tests failed; no publishable test result created")

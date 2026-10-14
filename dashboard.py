@@ -27,6 +27,7 @@ from ui_time_picker import TimeWheel, CountdownDial
 from ui_filters import FilterDialog, TIER_COLORS
 from ui_journal import EventJournal
 from helper_config import validate_interval, default_transfer_filters, IDLE_SECONDS
+from runtime import FOCUS_WAITING, LAYOUT_WAITING, PREFLIGHT_WAITING, INVENTORY_PENDING
 from i18n import (tr, set_locale, get_locale, LOCALE_NAMES, format_duration,
                   translate_message, LEGACY_TEXT_KEYS)
 
@@ -472,13 +473,22 @@ class ProductApp(App):
             self.vault_motion.configure(state="disabled" if busy else "normal")
         names = {"idle": "ready", "ready": "ready", "starting": "preparing",
                  "running": "running", "scanning": "scanning", "checking": "scanning",
-                 "opening": "opening", "transferring": "transferring", "waiting": "waiting",
+                 "pending": "opening", "opening": "opening", "transferring": "transferring", "waiting": "waiting",
                  "paused": "paused", "stopping": "stopping", "stopped": "stopped",
                  "finished": "completed", "error": "error"}
         title = tr("state." + names.get(self._runtime_state, "scanning"))
         detail = translate_message(self._runtime_message)
+        deferred = (self._runtime_state == "waiting" and
+                    (self._runtime_message in (FOCUS_WAITING, LAYOUT_WAITING,
+                                              PREFLIGHT_WAITING, INVENTORY_PENDING)
+                     or self._runtime_message.startswith("Фоновая проверка прервана")
+                     or self._runtime_message.startswith("Пауза:")))
+        if deferred:
+            title = tr("state.paused")
         if storage_full:
             title, detail = tr("storage_full_title"), tr("storage_full_body")
+        elif self._runtime_state == "error":
+            detail = tr("detail.see_journal")
         # Unknown technical diagnostics remain verbatim in the journal only.
         if get_locale() != "ru" and self._runtime_message and detail == self._runtime_message:
             detail = tr("detail.see_journal")
@@ -494,7 +504,7 @@ class ProductApp(App):
         if busy and self._next_check_at is not None:
             remaining = max(0, math.ceil(self._next_check_at - time.monotonic()))
             countdown = tr("interval.next", time=format_duration(remaining, countdown=True))
-            if self._runtime_state == "waiting":
+            if self._runtime_state == "waiting" and not deferred:
                 detail = countdown
         else:
             countdown = tr("interval.stopped") if not busy else tr("detail.working")
@@ -506,7 +516,8 @@ class ProductApp(App):
         self.run_title.set(title)
         self.run_detail.set(" ".join(str(detail).split()))
         if hasattr(self, "detail_label"):
-            show_detail = storage_full
+            show_detail = (storage_full or deferred or
+                           self._runtime_state in ("paused", "pending", "opening", "error"))
             if show_detail and not self.detail_label.winfo_manager():
                 self.detail_label.pack(anchor="center", pady=(5, 0))
             elif not show_detail and self.detail_label.winfo_manager():

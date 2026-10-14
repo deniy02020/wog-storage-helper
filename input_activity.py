@@ -11,6 +11,13 @@ HELPER_INPUT_TAG = 0x574F4748
 
 class UserActivityInterrupted(RuntimeError):
     """A user or another program supplied input during an automatic cycle."""
+    def __init__(self, message="Пауза: ввод пользователя прервал проверку.", *, input_issued=False):
+        if not isinstance(input_issued, bool):
+            raise TypeError("input_issued must be a boolean")
+        super().__init__(message)
+        # Native accepted-button/wheel boundaries promote this to True. A
+        # takeover before that boundary proves no game input was issued.
+        self.input_issued = input_issued
 
 
 class ActivityState:

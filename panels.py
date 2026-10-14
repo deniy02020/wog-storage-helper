@@ -69,6 +69,9 @@ class PanelController:
         self.profile = copy.deepcopy(profile)
         self.directory = Path(directory).resolve()
         self.check_stop, self.wait = check_stop, wait
+        # An accepted opener is not safe to repeat until fresh pixels prove
+        # its result. Runner reads this boundary independently of grid fitting.
+        self._opening_input_pending = False
         controls = profile.get("panel_controls")
         if not isinstance(controls, dict):
             raise ValueError("Настройки открытия панелей должны быть объектом.")
@@ -293,7 +296,13 @@ class PanelController:
             raise LayoutError(message)
         raise RuntimeError(message)
 
-    def _open(self, key, image, step):
+    @property
+    def opening_input_pending(self):
+        return self._opening_input_pending
+
+    def _open(self, key, image, step, *, next_step=None):
+        if self.opening_input_pending:
+            raise RuntimeError("Открытие игровой панели не подтвердилось. Повторного клика не будет.")
         if step is None:
             raise RuntimeError("Панель закрыта или перекрыта; нет подтверждённого образца её открытия.")
         sample, max_error = step
@@ -308,16 +317,47 @@ class PanelController:
         headers = self.locate(fresh)
         if headers[0 if key == "inventory_open" else 1] is not None:
             return fresh
+        if (key == "inventory_open" and next_step is not None
+                and self.locate_control(fresh, next_step[0], next_step[1]) is not None):
+            # A menu can finish appearing between the initial and fresh frame.
+            # Its proved next control avoids toggling that menu closed again.
+            self.check_stop()
+            return fresh
         if key == "storage_open" and headers[0] is None:
             self._not_ready("Инвентарь перекрыт или закрыт. Клик хранилища отменён.")
         if self.locate_control(fresh, sample, max_error) != rect:
             self._not_ready("Кнопка открытия панели изменилась. Клик отменён.")
         self.check_stop()
-        self.desktop.click(self.handle, rect.center, fresh.size)
+        self._opening_input_pending = True
+        try:
+            self.desktop.click(self.handle, rect.center, fresh.size)
+        except Exception as error:
+            from windows import WindowGeometryChanged, FocusUnavailable
+            from input_activity import UserActivityInterrupted
+            # Only these typed native guards guarantee no accepted down.
+            # A generic exception can follow input and must retain the boundary.
+            if (isinstance(error, (WindowGeometryChanged, FocusUnavailable, UserActivityInterrupted))
+                    and error.input_issued is False):
+                self._opening_input_pending = False
+            raise
         self.wait(0.6)
-        return self.capture()
+        opened = self.capture()
+        headers = self.locate(opened)
+        confirmed = headers[0 if key == "inventory_open" else 1] is not None
+        if not confirmed and key == "inventory_open" and next_step is not None:
+            confirmed = self.locate_control(opened, next_step[0], next_step[1]) is not None
+        self.check_stop()
+        if not confirmed:
+            self._not_ready("Открытие инвентаря не подтвердилось. Повторного клика не будет."
+                            if key == "inventory_open" else
+                            "Открытие хранилища не подтвердилось. Повторного клика не будет.")
+        self._opening_input_pending = False
+        return opened
 
     def prepare(self, image=None):
+        self.check_stop()
+        if self.opening_input_pending:
+            raise RuntimeError("Открытие игровой панели не подтвердилось. Повторного клика не будет.")
         image = self.capture() if image is None else image
         self.check_size(image)
         found = self.locate(image)
@@ -345,8 +385,9 @@ class PanelController:
             # proven Character button avoids toggling that menu closed again.
             start = (1 if len(steps) == 2 and
                      self.locate_control(image, steps[1][0], steps[1][1]) is not None else 0)
-            for step in steps[start:]:
-                image = self._open("inventory_open", image, step)
+            for index in range(start, len(steps)):
+                next_step = steps[index + 1] if index + 1 < len(steps) else None
+                image = self._open("inventory_open", image, steps[index], next_step=next_step)
                 found = self.locate(image)
                 if found[0] is not None:
                     break

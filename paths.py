@@ -54,6 +54,42 @@ def get_profile_dir(argv: Sequence[str] | None = None, *,
     return BASE / "profile"
 
 
+def canonical_profile_directory(directory: str | Path, probe_name: str) -> Path:
+    """Bind profile readers to one proved physical directory alias.
+
+    Windows package virtualization can resolve a directory and its child PNG
+    through different textual aliases of the same physical directory. A strict
+    local filename and samefile parent proof permit that alias only; ordinary
+    reader containment checks remain unchanged afterward.
+    """
+    if (not isinstance(probe_name, str) or not probe_name
+            or any(ord(char) < 32 or char in '<>:"|?*' for char in probe_name)
+            or "/" in probe_name or "\\" in probe_name):
+        raise ValueError("Имя образца должно быть простым именем PNG.")
+    name = Path(probe_name)
+    if (name.name != probe_name or name.is_absolute() or name.drive or name.root
+            or name.suffix.lower() != ".png"
+            or (hasattr(os.path, "isreserved") and os.path.isreserved(probe_name))):
+        raise ValueError("Имя образца должно быть простым именем PNG.")
+    selected = Path(directory)
+    try:
+        canonical = selected.resolve(strict=True)
+        if not canonical.is_dir():
+            raise ValueError("Профиль должен находиться в локальной папке.")
+        probe = (selected / probe_name).resolve(strict=True)
+        if not probe.is_file():
+            raise ValueError("Образец профиля должен быть локальным PNG-файлом.")
+        if probe.is_relative_to(canonical):
+            return canonical
+        # This is physical identity proof, not an exception for an AppData or
+        # package-cache prefix. External symlink targets remain outside scope.
+        if probe.name.casefold() == probe_name.casefold() and probe.parent.samefile(selected):
+            return probe.parent
+    except (OSError, RuntimeError) as error:
+        raise ValueError("Не удалось подтвердить локальную папку образцов профиля.") from error
+    raise ValueError("Образец должен быть внутри папки профиля.")
+
+
 def _asset_path(directory: Path, name: str) -> Path:
     if not isinstance(name, str) or not name or Path(name).name != name:
         raise ValueError("Имя образца должно быть простым именем PNG.")

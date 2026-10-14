@@ -2,7 +2,7 @@
 
 Maintainer: **deniy**. Source: <https://github.com/deniy02020/wog-storage-helper>.
 
-Existing Beta.6 and Beta.7 artifacts are preserved. This source prepares Beta.8
+Earlier release artifacts are preserved. This source prepares Beta.9
 without a digital signature. According to the provider response reported by the
 maintainer on 13 October 2026, the SignPath Foundation application was declined
 at this stage because the project lacked public visibility and independent
