@@ -1,6 +1,6 @@
-# Beta.9 public source status
+# Version 1.0 public source status
 
-This is the sanitized source for WoG Storage Helper Beta.9. It contains no user
+This is the sanitized source for WoG Storage Helper 1.0. It contains no user
 profile, logs, private diagnostic paths or full game screenshots. Recognition
 fragments retain their original pixels, crop geometry and source hashes.
 
@@ -9,6 +9,10 @@ Own code and original assets: MIT, Copyright (c) 2026 deniy. Target platform:
 equipment and gems. Intervals range from 1 minute to 24 hours.
 
 ## Changes
+
+- Release identity is 1.0.0, displayed as 1.0 in Settings. Normal GitHub releases
+  use the stable installer filename WoGStorageHelperSetup.exe. Earlier releases
+  remain separate; the latest-release URL selects the newest regular release.
 
 - Cursor or focus changes detected before input are distinguished from changes
   after accepted input. Only a cancellation with no outstanding input can wait
@@ -30,7 +34,7 @@ record the delivered files. The public tests use supplied images, fake native
 APIs and fake widgets; they issue no game input. Private native fixtures remain
 outside this export.
 
-Native acceptance of the installed Beta.9 build is a separate check and is not
+Native acceptance of the installed 1.0 build is a separate check and is not
 claimed by this source export. Extended unattended operation and every monitor
 or DPI arrangement are not established by synthetic tests.
 

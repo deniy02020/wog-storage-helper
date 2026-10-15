@@ -13,7 +13,11 @@ New input interrupts its actions.
 If storage is full, sorting and the timer stop. Free up space in the game,
 then click **Space cleared** to continue.
 
-## Beta.9
+## Version 1.0
+
+The app version is shown in Settings. Releases now use regular version numbers
+and the installer is named WoGStorageHelperSetup.exe. The latest GitHub release
+continues to provide the current installer as newer versions are published.
 
 This update distinguishes a cursor or focus cancellation before a click from
 an unconfirmed result after a click. The former can wait and reacquire the game;
@@ -27,7 +31,7 @@ Normal operation is local. Settings, logs and game captures stay on the computer
 The program uses ordinary Windows mouse input and screenshots. It does not
 read game memory, inject code or intercept network traffic.
 
-The current beta is unsigned, so Windows may show a SmartScreen warning.
+The application is unsigned, so Windows may show a SmartScreen warning.
 If you are unsure, cancel the installation. The SignPath Foundation application
 was declined; no signing approval or certificate is claimed.
 

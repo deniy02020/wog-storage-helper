@@ -16,6 +16,7 @@ from PIL import Image
 from installer.license_resources import licensing_hashes
 from installer.build import verify_header_parking_resources
 from inventory_halo import verify_inventory_halo_resources
+from release_identity import release_version
 
 
 ROOT = Path(__file__).resolve().parent
@@ -96,7 +97,8 @@ def create_release() -> dict:
     if not executable.is_file():
         raise FileNotFoundError("Build dist/WoGStorageHelper/WoGStorageHelper.exe first.")
     now = datetime.now(timezone.utc)
-    basename = f"WoGStorageHelper-{now:%Y-%m-%d}-beta-automatic-{now:%H%M%SZ}"
+    version = release_version()
+    basename = f"WoGStorageHelper-{version}-{now:%Y-%m-%dT%H%M%SZ}"
     releases.mkdir(exist_ok=True)
     target = releases / f"{basename}.zip"
     partial = releases / f"{basename}.partial.zip"
@@ -238,7 +240,8 @@ def create_release() -> dict:
     asset_hashes = {relative: digest for relative, digest in source_hashes.items()
                     if relative.startswith(("_internal/assets/", "_internal/preset_assets/"))}
     metadata = {
-        "artifact": target.name, "created_at_utc": now.isoformat(), "channel": "local-beta-automatic",
+        "artifact": target.name, "created_at_utc": now.isoformat(), "version": version,
+        "channel": "local-prerelease" if "-beta." in version else "local-release",
         "sha256": sha256(target), "size_bytes": target.stat().st_size,
         "bundle_directory": "WoGStorageHelper", "launch_path": "WoGStorageHelper/WoGStorageHelper.exe",
         "bundle_file_count": original_count, "archive_file_count": len(files),
@@ -261,7 +264,7 @@ def create_release() -> dict:
         "zip_integrity": "All entries CRC-checked and SHA256-checked against stable source bytes.",
         "leak_check": "No live profiles/user data/logs/full-size game images/tests/virtual environment; own icon, small calibration assets and stock Tcl/Tk/OpenCV resources included.",
         "prior_zip_count_preserved": len(prior_archives), "prior_archive_sha256": prior_archives,
-        "scope": "Local tier-only autoscale beta ZIP from the full rebuilt onedir with release documents and authentic licence resources. No publication or upload.",
+        "scope": "Local tier-only autoscale ZIP from the full rebuilt onedir with release documents and authentic licence resources. No publication or upload.",
     }
     with metadata_path.open("x", encoding="utf-8", newline="\n") as output:
         json.dump(metadata, output, ensure_ascii=False, indent=2)

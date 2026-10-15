@@ -27,6 +27,7 @@ from ui_time_picker import TimeWheel, CountdownDial
 from ui_filters import FilterDialog, TIER_COLORS
 from ui_journal import EventJournal
 from helper_config import validate_interval, default_transfer_filters, IDLE_SECONDS
+from release_identity import display_version
 from runtime import FOCUS_WAITING, LAYOUT_WAITING, PREFLIGHT_WAITING, INVENTORY_PENDING
 from i18n import (tr, set_locale, get_locale, LOCALE_NAMES, format_duration,
                   translate_message, LEGACY_TEXT_KEYS)
@@ -170,8 +171,8 @@ class ProductApp(App):
         dialog = tk.Toplevel(self)
         dialog.title(tr("settings.title"))
         dialog.configure(background=BG,padx=24,pady=24)
-        dialog.geometry("470x240")
-        dialog.minsize(470,240)
+        dialog.geometry("470x270")
+        dialog.minsize(470,270)
         apply_icon(dialog)
         tokens = [dialog.after(150,lambda:dark_titlebar(dialog))]
         def on_destroy(event):
@@ -200,6 +201,8 @@ class ProductApp(App):
             self.show_journal()
         AnimatedButton(dialog,text=tr("journal.title"),height=44,radius=22,
             variant="secondary",command=journal,animations_enabled=self._animations_enabled).pack(fill="x")
+        tk.Label(dialog,text=tr("about.version",version=display_version()),
+            background=BG,foreground=MUTED,font=("Segoe UI",9)).pack(anchor="w",pady=(18,0))
         dialog.transient(self)
         dialog.grab_set()
         dialog.bind("<Escape>",lambda _:dialog.destroy())

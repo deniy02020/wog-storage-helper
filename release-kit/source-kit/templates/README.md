@@ -2,13 +2,14 @@
 
 Helper automatically transfers your selected equipment and gems to storage on a timer.
 
-[Download from the website](https://wog-storage-helper.classytetra128.chatgpt.site) ·
-[Download Windows installer from GitHub](https://github.com/deniy02020/wog-storage-helper/releases/download/v0.2.0-beta.9/WoGStorageHelperSetup-0.2.0-beta.9.exe) ·
+[Download for Windows — GitHub Releases](https://github.com/deniy02020/wog-storage-helper/releases/latest) ·
 [Steam guide](https://steamcommunity.com/sharedfiles/filedetails/?id=3818783491)
 
-This folder contains **Beta.9 source**. To install Helper, download the **Windows installer** from the website or the link above. The source archive is for reviewing or building the code.
+This folder contains **version 1.0 source**. To install Helper, open **GitHub Releases** above and choose **WoGStorageHelperSetup.exe**. The source archive is for reviewing or building the code.
 
-## What's changed in Beta.9
+## Version 1.0
+
+The app now uses regular numbered releases. Its version is shown in Settings. Each release provides the same installer filename, so the latest-release download link continues to work when a new version is published.
 
 If the game loses focus or the cursor changes before a click, Helper waits and checks again instead of treating that cancellation as a completed sorting attempt. The screen shows when it is opening panels or waiting for the game. An unconfirmed click still stops further input.
 
@@ -26,7 +27,7 @@ When you use another app, Helper waits for the game. After 10 minutes without in
 
 If storage is full, sorting and the timer stop. Free up space in the game, then click **Space cleared**.
 
-The current beta is unsigned, so Windows may show a SmartScreen warning. If you're unsure, cancel the installation.
+The application is unsigned, so Windows may show a SmartScreen warning. If you're unsure, cancel the installation.
 
 ## For developers
 

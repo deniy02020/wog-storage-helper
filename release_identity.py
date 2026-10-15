@@ -1,10 +1,10 @@
-"""Build-time product identity shared by the three owned Windows executables."""
+"""Product identity shared by the app and the three owned Windows executables."""
 from __future__ import annotations
 
 import os
 import re
 
-DEFAULT_RELEASE_VERSION = "0.2.0-beta.9"
+DEFAULT_RELEASE_VERSION = "1.0.0"
 PRODUCT_NAME = "WoG Storage Helper"
 AUTHOR = "deniy"
 EXECUTABLES = {
@@ -26,6 +26,18 @@ def release_version(value: str | None = None) -> str:
 def numeric_version(version: str) -> tuple[int, int, int, int]:
     core, separator, beta = version.partition("-beta.")
     return (*map(int, core.split(".")), int(beta) if separator else 0)
+
+
+def display_version(version: str | None = None) -> str:
+    """Show release series as 1.0; keep nonzero patches and old beta identities.
+
+    The running app uses its source identity, never a launch-time environment
+    override intended for build tools.
+    """
+    version = release_version(DEFAULT_RELEASE_VERSION if version is None else version)
+    if "-beta." not in version and version.endswith(".0"):
+        return version.rsplit(".", 1)[0]
+    return version
 
 
 def expected_strings(role: str, version: str | None = None) -> dict[str, str]:
