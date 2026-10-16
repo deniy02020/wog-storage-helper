@@ -262,24 +262,30 @@ def prove_inventory_halo_mask(image, rect, rows, columns, gap_color, scale, mask
     from auto_layout import LayoutError, _runs
     if rows not in (7, 8) or columns != 5:
         raise LayoutError("Inventory halo proof requires its bounded inventory lattice")
-    xs = _runs(mask.mean(axis=0) >= .78)
-    if len(xs) != columns:
-        # A 100px halo occupies more of a seven-row crop than an eight-row
-        # viewport. Keep .78 unchanged: independent untouched row segments
-        # establish ALL column positions, before any halo contributes pixels.
+    def column_lattice(runs):
+        runs = [run for run in runs if run[1] > max(2, round(4*scale))]
+        if len(runs) != columns or any(b-a > math.ceil(10*scale) for a, b in runs):
+            raise LayoutError("Inventory halo lacks independent column lattice evidence")
+        centers = np.array([(a+b-1)/2 for a,b in runs])
+        pitch, offset = np.polyfit(np.arange(columns), centers, 1)
+        expected = rect.width/columns
+        if (abs(pitch-expected) > max(1.5*scale, expected*.025)
+                or np.max(abs(centers-(offset+pitch*np.arange(columns)))) > 1.8*scale
+                or abs(centers[-1]-(rect.width-3*scale)) > 6*scale):
+            raise LayoutError("Inventory halo column lattice contradicts header geometry")
+        return runs
+
+    try:
+        xs = column_lattice(_runs(mask.mean(axis=0) >= .78))
+    except LayoutError:
+        # Several authenticated halos can trim, rather than remove, a long
+        # projection run. A run count alone cannot establish its midpoint.
+        # Keep .78 and every pitch/phase bound: at least three untouched row
+        # segments independently establish ALL column positions before any
+        # matched halo contributes pixels. Final full-grid proof is unchanged.
         x_support = np.stack([mask[rect.height*r//rows:rect.height*(r+1)//rows].mean(axis=0)
                               for r in range(rows)])
-        xs = _runs((x_support >= .78).sum(axis=0) >= 3)
-    xs = [run for run in xs if run[1] > max(2, round(4*scale))]
-    if len(xs) != columns or any(b-a > math.ceil(10*scale) for a, b in xs):
-        raise LayoutError("Inventory halo lacks independent column lattice evidence")
-    x_centers = np.array([(a+b-1)/2 for a,b in xs])
-    x_pitch, x_offset = np.polyfit(np.arange(columns), x_centers, 1)
-    expected_x = rect.width/columns
-    if (abs(x_pitch-expected_x) > max(1.5*scale, expected_x*.025)
-            or np.max(abs(x_centers-(x_offset+x_pitch*np.arange(columns)))) > 1.8*scale
-            or abs(x_centers[-1]-(rect.width-3*scale)) > 6*scale):
-        raise LayoutError("Inventory halo column lattice contradicts header geometry")
+        xs = column_lattice(_runs((x_support >= .78).sum(axis=0) >= 3))
     support = np.stack([mask[:, rect.width*c//columns:rect.width*(c+1)//columns].mean(axis=1)
                         for c in range(columns)])
     from inventory_viewport import _lattice, _merged_runs

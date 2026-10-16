@@ -19,9 +19,13 @@ from ui_widgets import AnimatedButton, AnimatedReveal, RoundedCard, _rounded_poi
 
 
 _TRANSFER = re.compile(r"Перенесён T([1-6]): сумка (\d+) → хранилище (\d+)\.")
+_UNCONFIRMED_TRANSFER = re.compile(r"^Перенос не подтверждён; повторных кликов не будет\.(?:\s|$)")
 _ERROR = re.compile(r"не удалось|не разрешила|не совпал|не совпала|не найден|ошибк|отмен[её]н|работа остановлена|хранилище заполнено", re.I)
 _WAIT = re.compile(r"^(?:Пауза:|Ожидаю|Вернитесь|Фоновая проверка прервана)|прерван[ао]? вводом", re.I)
-_WAIT_MESSAGES = frozenset({"Видимые предметы обработаны. Полная проверка продолжится в следующем цикле."})
+_WAIT_MESSAGES = frozenset({
+    "Видимые предметы обработаны. Полная проверка продолжится в следующем цикле.",
+    "Полная проверка инвентаря пока не подтверждена. Повторю в следующем цикле.",
+})
 _TECHNICAL = re.compile(r"Traceback|\b(?:RMS|RMSE|HWND|PID|SHA256|capture|input_issued)\b|[A-Za-z]:[\\/]|\{.*\}", re.I)
 
 
@@ -38,12 +42,14 @@ class JournalEntry:
         raw = str(message)
         transfer = _TRANSFER.fullmatch(raw.strip())
         kind = ("transfer" if transfer else "waiting" if raw.strip() in _WAIT_MESSAGES or _WAIT.search(raw.strip()) else
-                "attention" if _ERROR.search(raw) else "activity")
+                "attention" if _UNCONFIRMED_TRANSFER.match(raw.strip()) or _ERROR.search(raw) else "activity")
         return cls(index, str(stamp).strip(), raw, kind, transfer[1] if transfer else None)
 
     def summary(self, *, locale=None):
         if self.kind == "transfer":
             return tr("journal.transfer_summary", locale=locale, tier=self.tier)
+        if _UNCONFIRMED_TRANSFER.match(self.raw.strip()):
+            return tr("journal.transfer_unconfirmed", locale=locale)
         translated = translate_message(self.raw, locale=locale)
         # Unmapped diagnostics can contain paths, native IDs and pixel scores.
         # Keep them intact in Details rather than putting them in event cards.

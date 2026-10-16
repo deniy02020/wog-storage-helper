@@ -8,6 +8,7 @@ import logging
 import hashlib
 import threading
 import time
+from dataclasses import replace
 from pathlib import Path
 
 from PIL import Image
@@ -468,6 +469,86 @@ class Runner:
                                            or error.input_issued)
             raise
 
+    def _verify_transfer_readback(self, image, inv, after_inv, store, after_store, candidate):
+        """Read the destination tier only when an unrelated drop hides counts.
+
+        Storage occupancy keeps its independent empty-cell classifier. This
+        optional second proof additionally authenticates the destination badge
+        using the existing inventory tier samples and unchanged score limits;
+        it never turns an unknown badge into a successful transfer.
+        """
+        verification = verify_transfer(inv, after_inv, store, after_store, candidate)
+        if (verification.ok or self.canonical_profile.get("automatic_layout") is not True
+                or verification.reason != "inventory tier count did not decrease by exactly one"):
+            return verification, after_store
+        source = after_inv.cells[candidate.source_index]
+        destination = after_store.cells[candidate.destination_index]
+        if (source.empty is not True or source.tier is not None
+                or destination.empty is not False or destination.tier is not None):
+            return verification, after_store
+        reference = self.canonical_inv.cell_rect(candidate.source_index)
+        size = reference.width, reference.height
+        actual_crop = image.crop(destination.rect.as_box())
+        crop = actual_crop
+        if crop.size != size:
+            crop = crop.resize(size, Image.Resampling.BILINEAR)
+        empty_samples = [sample if sample.size == size else
+                         sample.resize(size, Image.Resampling.BILINEAR)
+                         for sample in self.store_templates.empty_samples]
+        evidence = classify_cell(crop, destination.index, destination.rect,
+            TemplateSet(self.inv_templates.tier_samples, empty_samples), self.inv_config)
+        if evidence.empty is not False:
+            return verification, after_store
+        if evidence.tier is None:
+            # Storage uses a slightly larger item raster than the inventory.
+            # Its physical border matcher handles that pane's OWN canonical
+            # size and measured scale. Conflicting recognized tiers are never
+            # replaced by whichever matcher happens to agree with a candidate.
+            if getattr(self, "adaptive_tier_matcher", None) is None:
+                from adaptive_tiers import AdaptiveTierMatcher
+                from paths import resource_path
+                self.adaptive_tier_matcher = AdaptiveTierMatcher(resource_path("preset_assets"))
+            store_reference = self.canonical_store.cell_rect(destination.index)
+            match = self.adaptive_tier_matcher.match(actual_crop, self.layout_scales["storage"],
+                canonical_size=(store_reference.width, store_reference.height))
+            if (isinstance(match.tier, int) and not isinstance(match.tier, bool)
+                    and match.tier in self.inv_templates.tier_samples
+                    and isinstance(match.rmse, (int, float)) and not isinstance(match.rmse, bool)
+                    and math.isfinite(match.rmse) and 0 <= match.rmse <= self.inv_config.max_tier_rmse
+                    and isinstance(match.margin, (int, float)) and not isinstance(match.margin, bool)
+                    and math.isfinite(match.margin) and match.margin >= self.inv_config.min_margin):
+                evidence = replace(evidence, tier=match.tier, rmse=match.rmse,
+                                   margin=match.margin, reason=match.reason)
+        if evidence.tier != candidate.tier:
+            return verification, after_store
+        cells = list(after_store.cells)
+        cells[destination.index] = replace(destination, tier=evidence.tier,
+            rmse=evidence.rmse, margin=evidence.margin, reason=evidence.reason)
+        enriched = replace(after_store, cells=tuple(cells))
+        return verify_transfer(inv, after_inv, store, enriched, candidate), enriched
+
+    @staticmethod
+    def _log_unverified_transfer(inv, after_inv, store, after_store, candidate, verification):
+        """One bounded local audit after readback expires; never retry input."""
+        def score(value):
+            return value if isinstance(value, (int, float)) and math.isfinite(value) else None
+        def pane(scan):
+            return {"rect": scan.grid.rect.as_box(), "rows": scan.grid.rows,
+                    "columns": scan.grid.columns, "tier_counts": scan.tier_counts,
+                    "empty_count": scan.empty_count, "unknown_count": scan.unknown_count,
+                    "cells": [{"index": cell.index, "tier": cell.tier, "empty": cell.empty,
+                               "rmse": score(cell.rmse), "margin": score(cell.margin),
+                               "reason": cell.reason} for cell in scan.cells]}
+        audit = {"reason": verification.reason,
+                 "candidate": {"tier": candidate.tier, "source_index": candidate.source_index,
+                               "destination_index": candidate.destination_index,
+                               "source_rect": candidate.source_rect.as_box(),
+                               "destination_rect": candidate.destination_rect.as_box()},
+                 "before": {"inventory": pane(inv), "storage": pane(store)},
+                 "after": {"inventory": pane(after_inv), "storage": pane(after_store)}}
+        logging.info("transfer_readback_unverified %s", json.dumps(audit, ensure_ascii=False,
+                                                                  separators=(",", ":"), allow_nan=False))
+
     def _once(self, sort):
         self._candidate_free_scan = None
         if sort:
@@ -505,7 +586,8 @@ class Runner:
         self.wait(0.9)
         after = self._park_and_capture(legacy_wait=.3)
         after_inv, after_store = self.scans(after)
-        verification = verify_transfer(inv, after_inv, store, after_store, candidate)
+        verification, verified_store = self._verify_transfer_readback(
+            after, inv, after_inv, store, after_store, candidate)
         if not verification.ok and self.canonical_profile.get("automatic_layout") is True:
             # A click is never repeated. Only its guarded readback can settle.
             deadline = time.monotonic() + LAYOUT_READBACK_SECONDS
@@ -513,8 +595,10 @@ class Runner:
                 self.wait(min(.1, deadline - time.monotonic()))
                 after = self._capture_valid_layout(deadline=deadline)
                 after_inv, after_store = self.scans(after)
-                verification = verify_transfer(inv, after_inv, store, after_store, candidate)
+                verification, verified_store = self._verify_transfer_readback(
+                    after, inv, after_inv, store, after_store, candidate)
         if not verification.ok:
+            self._log_unverified_transfer(inv, after_inv, store, verified_store, candidate, verification)
             raise RuntimeError("Перенос не подтверждён; повторных кликов не будет. " + verification.reason)
         self._transfer_input_issued = False
         self._last_inventory_scan = after_inv

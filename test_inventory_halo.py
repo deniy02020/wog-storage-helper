@@ -68,6 +68,66 @@ class InventoryHaloProofTests(unittest.TestCase):
     def prove(self, image, rect, **kwargs):
         return measure_grid(image, rect, 8, 5, GAP, 1., allow_inventory_halo=True, **kwargs)
 
+    def two_halo_scene(self, *, column=4, scale=1., offset=0):
+        # Explicitly synthetic composition of two already authenticated cues.
+        # Their separate glow lanes can trim a long vertical projection without
+        # removing its run, while untouched row segments still prove its center.
+        (image,), rect = generated_frames(scale=scale, offsets=(offset,))
+        origins = [(rect.left+round(column*65*scale), rect.top+round((row*65-offset)*scale))
+                   for row in (2, 5)]
+        for origin in origins:
+            for label, sample in self.models.models["full"][0].items():
+                left, top, right, bottom = (round(value*scale) for value in FULL_OFFSETS[label])
+                patch_image = sample.resize((right-left, bottom-top), Image.Resampling.BILINEAR)
+                image.paste(patch_image, (origin[0]+left, origin[1]+top))
+        return image, rect
+
+    def test_two_authenticated_halos_keep_all_same_column_separator_proofs(self):
+        for column in (2, 4):
+            with self.subTest(column=column):
+                image, rect = self.two_halo_scene(column=column)
+                with self.assertRaises(LayoutError):
+                    measure_grid(image, rect, 8, 5, GAP, 1.)
+                evidence = self.prove(image, rect)
+                self.assertAlmostEqual(evidence.pitch_x, 65.)
+                self.assertAlmostEqual(evidence.pitch_y, 65.)
+                self.assertEqual(len(evidence.vertical_stripes), 5)
+                self.assertEqual(len(evidence.horizontal_stripes), 8)
+                self.assertEqual(recognize_inventory_viewport(image, rect, 8, 5, GAP, 1.).evidence,
+                                 evidence)
+
+    def test_two_halo_candidate_keeps_scaled_and_shifted_complete_row_guards(self):
+        for scale, offset in ((.5, 0), (.75, 0), (1.25, 0), (1., 13), (1., 31)):
+            with self.subTest(scale=scale, offset=offset):
+                image, rect = self.two_halo_scene(scale=scale, offset=offset)
+                viewport = recognize_inventory_viewport(image, rect, 8, 5, GAP, scale)
+                self.assertEqual(viewport.grid.rows, 7 if offset else 8)
+                self.assertEqual(measure_grid(image, viewport.grid.rect, viewport.grid.rows, 5,
+                                             GAP, scale, allow_inventory_halo=True), viewport.evidence)
+
+    def test_two_halo_candidate_never_excuses_missing_separator_or_unrelated_opaque_pixels(self):
+        for corruption in ("rail", "horizontal", "vertical", "opaque"):
+            with self.subTest(corruption=corruption), self.assertRaises(LayoutError):
+                image, rect = self.two_halo_scene()
+                if corruption == "rail":
+                    image.paste("black", (rect.left+4*65, rect.top+2*65+12,
+                                           rect.left+4*65+3, rect.top+2*65+48))
+                elif corruption == "horizontal":
+                    image.paste("black", (rect.left, rect.top+60, rect.left+65, rect.top+65))
+                elif corruption == "vertical":
+                    image.paste("black", (rect.left+60, rect.top+15, rect.left+65, rect.top+44))
+                else:
+                    image.paste((209, 127, 130), (rect.left+4*65-20, rect.top+2*65-4,
+                                                 rect.left+4*65+64, rect.top+2*65+80))
+                self.prove(image, rect)
+
+    def test_two_halo_candidate_cannot_repair_wrong_pitch_grid(self):
+        image, rect = self.two_halo_scene()
+        for changed in (Rect(rect.left, rect.top, rect.right-13, rect.bottom),
+                        Rect(rect.left, rect.top, rect.right, rect.bottom-25)):
+            with self.subTest(rect=changed), self.assertRaises(LayoutError):
+                self.prove(image, changed)
+
     def test_raw_guard_still_rejects_halo_and_owned_frame_plus_gutters_proves_same_grid(self):
         image, rect, _ = self.scene()
         with self.assertRaises(LayoutError):

@@ -1,4 +1,5 @@
 """Behavioral checks with deliberately adversarial recognition and transfer cases."""
+from dataclasses import replace
 import unittest
 
 from PIL import Image, ImageDraw
@@ -173,6 +174,109 @@ class PlanningAndVerificationTests(unittest.TestCase):
         storage = scan([tile()], True)
         candidate = choose_transfer(before, storage)
         self.assertFalse(verify_transfer(before, after, storage, scan([tile(3)], True), candidate).ok)
+
+    def test_source_vacancy_confirms_transfer_despite_same_tier_drop_elsewhere(self):
+        before = scan([tile(3), tile(), tile(1)])
+        after = scan([tile(), tile(3), tile(1)])
+        storage = scan([tile(4), tile(), tile(5)])
+        after_storage = scan([tile(4), tile(3), tile(5)])
+        candidate = choose_transfer(before, storage)
+        self.assertEqual(before.tier_counts[3], after.tier_counts[3])
+        self.assertTrue(verify_transfer(before, after, storage, after_storage, candidate).ok)
+
+    def test_source_vacancy_confirms_transfer_despite_unrelated_tier_recognition_loss(self):
+        before = scan([tile(3), tile(3), tile(1)])
+        unrecognized = tile(3)
+        ImageDraw.Draw(unrecognized).rectangle(BADGE.as_box(), fill=(0, 0, 0))
+        after = scan([tile(), unrecognized, tile(1)])
+        storage = scan([tile(), tile(5)])
+        after_storage = scan([tile(3), tile(5)])
+        candidate = choose_transfer(before, storage)
+        self.assertIsNone(after.cells[1].tier)
+        self.assertIs(after.cells[1].empty, False)
+        self.assertEqual(before.tier_counts[3] - after.tier_counts.get(3, 0), 2)
+        self.assertTrue(verify_transfer(before, after, storage, after_storage, candidate).ok)
+
+    def test_alternative_proof_needs_confidently_empty_original_source(self):
+        before = scan([tile(3), tile(), tile(1)])
+        storage = scan([tile(), tile(5)])
+        after_storage = scan([tile(3), tile(5)])
+        candidate = choose_transfer(before, storage)
+        for replacement in (tile(3), tile(4), Image.new("RGB", SIZE, (18, 21, 24))):
+            with self.subTest(replacement=replacement.getpixel((0, 0))):
+                after = scan([replacement, tile(3), tile(1)])
+                self.assertFalse(verify_transfer(before, after, storage, after_storage, candidate).ok)
+        # A contradictory manually supplied empty/tier label is not vacancy proof.
+        after = scan([tile(), tile(3), tile(1)])
+        contradictory = replace(after.cells[0], tier=3)
+        after = replace(after, cells=(contradictory, *after.cells[1:]))
+        self.assertFalse(verify_transfer(before, after, storage, after_storage, candidate).ok)
+
+    def test_alternative_proof_needs_exact_tier_at_original_destination(self):
+        before = scan([tile(3), tile()])
+        after = scan([tile(), tile(3)])
+        storage = scan([tile(), tile()])
+        candidate = choose_transfer(before, storage)
+        cases = (scan([tile(3), tile()], True),  # Filled, but tier is unknown.
+                 scan([tile(4), tile()]),
+                 scan([Image.new("RGB", SIZE, (18, 21, 24)), tile()]),
+                 scan([tile(), tile(3)]),
+                 storage)
+        for after_storage in cases:
+            with self.subTest(labels=[cell.label for cell in after_storage.cells]):
+                self.assertFalse(verify_transfer(before, after, storage, after_storage, candidate).ok)
+
+    def test_alternative_proof_rejects_other_storage_changes_even_with_same_empty_total(self):
+        before = scan([tile(3), tile()])
+        after = scan([tile(), tile(3)])
+        storage = scan([tile(), tile(4), tile(5), tile()])
+        candidate = choose_transfer(before, storage)
+        # Occupied-tier changes, swaps and a second fill are not one transfer.
+        cases = (scan([tile(3), tile(6), tile(5), tile()]),
+                 scan([tile(3), tile(5), tile(4), tile()]),
+                 scan([tile(3), tile(4), tile(5), tile(3)]),
+                 scan([tile(3), tile(), tile(5), tile(4)]))
+        for after_storage in cases:
+            with self.subTest(labels=[cell.label for cell in after_storage.cells]):
+                self.assertFalse(verify_transfer(before, after, storage, after_storage, candidate).ok)
+
+    def test_alternative_proof_rejects_uncertain_other_storage_occupancy(self):
+        before = scan([tile(3), tile()])
+        after = scan([tile(), tile(3)])
+        storage = scan([tile(), tile(5)])
+        after_storage = scan([tile(3), tile(5)])
+        candidate = choose_transfer(before, storage)
+        uncertain = replace(after_storage.cells[1], tier=None, empty=None)
+        after_storage = replace(after_storage, cells=(after_storage.cells[0], uncertain))
+        self.assertFalse(verify_transfer(before, after, storage, after_storage, candidate).ok)
+
+    def test_transfer_proofs_reject_missing_or_misaligned_grid_cells(self):
+        before = scan([tile(3), tile()])
+        after = scan([tile(), tile(3)])
+        storage = scan([tile(), tile(5)])
+        after_storage = scan([tile(3), tile(5)])
+        candidate = choose_transfer(before, storage)
+        scans = [before, after, storage, after_storage]
+        for index in range(4):
+            for broken_cells in (scans[index].cells[:-1],
+                                 tuple(reversed(scans[index].cells))):
+                changed = list(scans)
+                changed[index] = replace(scans[index], cells=broken_cells)
+                with self.subTest(scan=index, cells=len(broken_cells)):
+                    self.assertFalse(verify_transfer(*changed, candidate).ok)
+        moved_grid = replace(after.grid, rect=after.grid.rect.translated(1, 0))
+        self.assertFalse(verify_transfer(before, replace(after, grid=moved_grid),
+                                         storage, after_storage, candidate).ok)
+
+    def test_transfer_proofs_reject_candidate_from_another_geometry(self):
+        before = scan([tile(3), tile()])
+        after = scan([tile(), tile(3)])
+        storage = scan([tile(), tile(5)])
+        after_storage = scan([tile(3), tile(5)])
+        candidate = choose_transfer(before, storage)
+        for changed in (replace(candidate, source_rect=candidate.source_rect.translated(1, 0)),
+                        replace(candidate, destination_rect=candidate.destination_rect.translated(1, 0))):
+            self.assertFalse(verify_transfer(before, after, storage, after_storage, changed).ok)
 
     def test_missing_storage_change_is_not_success(self):
         before = scan([tile(3)])

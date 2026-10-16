@@ -13,19 +13,16 @@ New input interrupts its actions.
 If storage is full, sorting and the timer stop. Free up space in the game,
 then click **Space cleared** to continue.
 
-## Version 1.0
+## Version 1.1
 
-The app version is shown in Settings. Releases now use regular version numbers
-and the installer is named WoGStorageHelperSetup.exe. The latest GitHub release
-continues to provide the current installer as newer versions are published.
+The app version is shown in Settings. The installer is named
+WoGStorageHelperSetup.exe on GitHub Releases.
 
-This update distinguishes a cursor or focus cancellation before a click from
-an unconfirmed result after a click. The former can wait and reacquire the game;
-the latter stops further input. Panel-opening clicks must also be confirmed
-before another attempt. The running view shows opening or waiting accurately.
+This update improves transfer confirmation when fresh loot arrives during
+sorting and inventory recognition when item borders merge with the grid.
 
-Profile loading now supports two Windows paths to the same folder when the
-filesystem confirms their identity. Existing settings are retained.
+If a transfer cannot be confirmed, Helper stops further input. The event is
+shown in the journal's Attention filter; Details retains the original reason.
 
 Normal operation is local. Settings, logs and game captures stay on the computer.
 The program uses ordinary Windows mouse input and screenshots. It does not

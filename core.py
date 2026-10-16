@@ -289,13 +289,22 @@ def verify_transfer(
 ) -> VerificationResult:
     """Require independent evidence in both panels; do not retry on failure.
 
-    Source pixels alone are insufficient: compaction can leave an identical item
-    under the cursor. Concurrent drops can obscure the count decrease; in that
-    case the result is deliberately unverified and the caller must pause.
+    Counts retain the compaction proof when an identical item replaces the
+    source. A concurrent drop or unrelated recognition change can obscure that
+    count; then require the original source to be confidently empty and the
+    exact tier to fill only the original destination. An occupied replacement
+    source cannot use this alternative proof.
     """
     if (before_inventory.grid != after_inventory.grid
             or before_storage.grid != after_storage.grid):
         return VerificationResult(False, "grid geometry changed")
+    for scan in (before_inventory, after_inventory, before_storage, after_storage):
+        if (scan.grid.rows < 1 or scan.grid.columns < 1
+                or len(scan.cells) != scan.grid.count):
+            return VerificationResult(False, "grid cell count is invalid")
+        if any(cell.index != index or cell.rect != scan.grid.cell_rect(index)
+               for index, cell in enumerate(scan.cells)):
+            return VerificationResult(False, "grid cell geometry changed")
     if not (0 <= candidate.source_index < len(before_inventory.cells)
             and 0 <= candidate.destination_index < len(before_storage.cells)):
         return VerificationResult(False, "candidate is outside the recorded grids")
@@ -303,11 +312,23 @@ def verify_transfer(
     before_dest = before_storage.cells[candidate.destination_index]
     after_dest = after_storage.cells[candidate.destination_index]
     if (source.tier != candidate.tier or source.empty is not False
-            or before_dest.empty is not True):
+            or before_dest.empty is not True
+            or source.rect != candidate.source_rect
+            or before_dest.rect != candidate.destination_rect):
         return VerificationResult(False, "candidate no longer matches its before state")
     decrease = (before_inventory.tier_counts.get(candidate.tier, 0)
                 - after_inventory.tier_counts.get(candidate.tier, 0))
     if decrease != 1:
+        after_source = after_inventory.cells[candidate.source_index]
+        other_storage_unchanged = all(
+            (first.label, first.empty) == (second.label, second.empty)
+            for index, (first, second) in enumerate(zip(before_storage.cells, after_storage.cells))
+            if index != candidate.destination_index)
+        if (after_source.empty is True and after_source.tier is None
+                and after_dest.empty is False and after_dest.tier == candidate.tier
+                and other_storage_unchanged):
+            return VerificationResult(True,
+                "source vacancy and unchanged storage independently confirm transfer")
         return VerificationResult(False, "inventory tier count did not decrease by exactly one")
     if after_dest.empty is not False:
         return VerificationResult(False, "destination is not confidently filled")

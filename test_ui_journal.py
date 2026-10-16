@@ -26,6 +26,7 @@ class JournalRecordsTests(unittest.TestCase):
     def test_original_diagnostics_remain_intact_and_are_searchable_but_not_in_summary(self):
         raw = "Traceback\nCapture RMSE=23.478 PID=4055 HWND=9013\nC:\\private\\player\\settings.json"
         entry = JournalEntry.from_record(0, "09:42:16", raw)
+        self.assertEqual(entry.kind, "activity")
         self.assertEqual(entry.raw, raw)
         self.assertTrue(entry.matches(query="PLAYER"))
         for locale in SUPPORTED_LOCALES:
@@ -40,19 +41,59 @@ class JournalRecordsTests(unittest.TestCase):
         self.assertNotEqual(entry.summary(locale="ru"), tr("journal.diagnostic", locale="ru"))
 
     def test_pending_inventory_cycle_is_a_localized_waiting_event(self):
-        canonical = "Видимые предметы обработаны. Полная проверка продолжится в следующем цикле."
-        entry = JournalEntry.from_record(4, "09:42:16", canonical)
-        self.assertEqual(entry.kind, "waiting")
+        for canonical in ("Видимые предметы обработаны. Полная проверка продолжится в следующем цикле.",
+                          "Полная проверка инвентаря пока не подтверждена. Повторю в следующем цикле."):
+            entry = JournalEntry.from_record(4, "09:42:16", canonical)
+            self.assertEqual(entry.kind, "waiting")
+            self.assertIsNone(entry.tier)
+            self.assertEqual(entry.raw, canonical)
+            for locale in SUPPORTED_LOCALES:
+                with self.subTest(canonical=canonical, locale=locale):
+                    self.assertEqual(entry.summary(locale=locale), tr("detail.inventory_pending", locale=locale))
+                    self.assertEqual(entry.label(locale=locale), tr("journal.kind.waiting", locale=locale))
+                    self.assertEqual(filtered_entries([entry], "attention", locale=locale), [entry])
+                    self.assertEqual(filtered_entries([entry], "transfer", locale=locale), [])
+            fabricated = JournalEntry.from_record(5, "09:42:17", canonical + " native diagnostic")
+            self.assertNotEqual(fabricated.kind, "waiting")
+
+    def test_unconfirmed_transfer_is_visible_as_attention_with_localized_summary(self):
+        raw = ("Перенос не подтверждён; повторных кликов не будет. "
+               "inventory tier count did not decrease by exactly one")
+        entry = JournalEntry.from_record(14, "14:14:33", raw)
+        self.assertEqual(entry.kind, "attention")
         self.assertIsNone(entry.tier)
-        self.assertEqual(entry.raw, canonical)
+        self.assertEqual(entry.raw, raw)
         for locale in SUPPORTED_LOCALES:
             with self.subTest(locale=locale):
-                self.assertEqual(entry.summary(locale=locale), tr("detail.inventory_pending", locale=locale))
-                self.assertEqual(entry.label(locale=locale), tr("journal.kind.waiting", locale=locale))
+                summary = entry.summary(locale=locale)
+                self.assertEqual(summary, tr("journal.transfer_unconfirmed", locale=locale))
+                self.assertNotEqual(summary, tr("journal.diagnostic", locale=locale))
+                self.assertNotIn("inventory tier count", copy_entries([entry], locale=locale))
+                self.assertEqual(entry.label(locale=locale), tr("journal.kind.attention", locale=locale))
                 self.assertEqual(filtered_entries([entry], "attention", locale=locale), [entry])
                 self.assertEqual(filtered_entries([entry], "transfer", locale=locale), [])
-        fabricated = JournalEntry.from_record(5, "09:42:17", canonical + " native diagnostic")
-        self.assertNotEqual(fabricated.kind, "waiting")
+                self.assertTrue(entry.matches("attention", "exactly one", locale=locale))
+
+    def test_unconfirmed_transfer_prefix_does_not_turn_normal_waits_into_errors(self):
+        records = [
+            ("06:51:33", "Ожидаю, пока игровые панели станут видны. Проверка повторится автоматически."),
+            ("14:14:33", "Перенос не подтверждён; повторных кликов не будет. "
+                         "inventory tier count did not decrease by exactly one"),
+            ("15:46:44", "Вернитесь в игру; после 10 минут без ввода Helper сможет открыть её сам."),
+        ]
+        entries = [JournalEntry.from_record(index, stamp, raw)
+                   for index, (stamp, raw) in enumerate(records)]
+        self.assertEqual([entry.kind for entry in entries], ["waiting", "attention", "waiting"])
+        for locale in SUPPORTED_LOCALES:
+            with self.subTest(locale=locale):
+                self.assertEqual(filtered_entries(entries, "attention", locale=locale), entries)
+                self.assertEqual(entries[0].summary(locale=locale), tr("state.auto_panels_waiting", locale=locale))
+                self.assertEqual(entries[2].summary(locale=locale), tr("mode.wait_hint", locale=locale))
+        prefix = "Перенос не подтверждён; повторных кликов не будет."
+        for raw in (prefix, prefix + "\nnew native diagnostic"):
+            self.assertEqual(JournalEntry.from_record(0, "14:14:33", raw).kind, "attention")
+        for raw in (prefix + "fragment", "Служебная запись: " + prefix):
+            self.assertEqual(JournalEntry.from_record(0, "14:14:33", raw).kind, "activity")
 
     def test_transfers_are_localized_without_technical_cell_numbers(self):
         entry = JournalEntry.from_record(0, "09:42:16", "Перенесён T5: сумка 431 → хранилище 212.")
@@ -98,6 +139,15 @@ class JournalRecordsTests(unittest.TestCase):
 
 
 class JournalInteractionTests(unittest.TestCase):
+    def test_unconfirmed_transfer_details_preserve_original_diagnostic(self):
+        raw = ("Перенос не подтверждён; повторных кликов не будет. "
+               "inventory tier count did not decrease by exactly one")
+        state = SimpleNamespace(_selected=JournalEntry.from_record(14, "14:14:33", raw),
+                                _details_open=True, details_button=Mock(), _notice=Mock(), details_text=Mock())
+        EventJournal._update_selection(state)
+        state.details_text.insert.assert_called_once_with("end", "14:14:33  " + raw)
+        state.details_text.configure.assert_called_with(state="disabled")
+
     def test_reading_old_events_does_not_resume_tail_following_on_append(self):
         state = SimpleNamespace(_closed=False, _entries=[], _visible=[], _category="all",
                                 _query=Mock(get=Mock(return_value="")), _follow_tail=False,
