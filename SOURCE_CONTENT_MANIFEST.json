@@ -1,8 +1,8 @@
 {
   "schema": 1,
-  "version": "1.1.0",
+  "version": "1.2.0",
   "author": "deniy",
-  "created_utc": "2026-10-16T12:44:37.473100+00:00",
+  "created_utc": "2026-10-16T14:56:56.355359+00:00",
   "status": "reviewable local source snapshot",
   "repository_url": "https://github.com/deniy02020/wog-storage-helper",
   "public_tests": [
@@ -11000,8 +11000,8 @@
     },
     {
       "path": "README.md",
-      "bytes": 2921,
-      "sha256": "db606a2f7cb431444c4ae0146ede2641131a16aff2d9e4f52ec10a5d916d6a40",
+      "bytes": 2814,
+      "sha256": "1aee8349dcb424291b98352a3e0590f405bbf9821bb499d19febc7c090ec1fe9",
       "origin": "sanitized public source-kit template"
     },
     {
@@ -11055,9 +11055,9 @@
     },
     {
       "path": "auto_layout.py",
-      "bytes": 38183,
-      "sha256": "11a881b2c42dbe1c52ef6faa48d79174aeda8d62580a024492ee4a473bb03421",
-      "original_source_sha256": "11a881b2c42dbe1c52ef6faa48d79174aeda8d62580a024492ee4a473bb03421",
+      "bytes": 38600,
+      "sha256": "293ae07e111c92dcd3089d129519bd65532b0d0f5608958d262351cd6ebeea66",
+      "original_source_sha256": "293ae07e111c92dcd3089d129519bd65532b0d0f5608958d262351cd6ebeea66",
       "sanitized_fields": []
     },
     {
@@ -11132,15 +11132,15 @@
     },
     {
       "path": "dashboard.py",
-      "bytes": 31553,
-      "sha256": "9f1199736e7e536992a3c0b0a4f1c335c1632479fe1dcb6de9d3b2bd17af5b31",
-      "original_source_sha256": "9f1199736e7e536992a3c0b0a4f1c335c1632479fe1dcb6de9d3b2bd17af5b31",
+      "bytes": 31581,
+      "sha256": "550648acbdd70c3ee316fec24fa94534adfdebe665a1989af3bdee95afed7f08",
+      "original_source_sha256": "550648acbdd70c3ee316fec24fa94534adfdebe665a1989af3bdee95afed7f08",
       "sanitized_fields": []
     },
     {
       "path": "docs/CODE_SIGNING.md",
       "bytes": 5972,
-      "sha256": "a286777f7ffbdd45871bc12d697df66e97cb7600a3047927b2e7497976ce1bbd",
+      "sha256": "f7954d934c121ced0028e7a9e1a2b5a761d8e6c29337c57612da385a72145349",
       "origin": "sanitized public source-kit template"
     },
     {
@@ -11151,14 +11151,14 @@
     },
     {
       "path": "docs/STATE.md",
-      "bytes": 2355,
-      "sha256": "fc6df17fed5eaebb482ceeffec58ecb91966a5a1628ef5156038f7b79797c96d",
+      "bytes": 3167,
+      "sha256": "270da4334d837f240ea1f3eca14ba31f9cec9ffaf7f7887a63c7147a30cf2c2f",
       "origin": "sanitized public source-kit template"
     },
     {
       "path": "docs/STEAM_RELEASE.md",
-      "bytes": 1947,
-      "sha256": "f892f51ea16db72aa67b8988cd101058e6c53be8cf47555aec3583b9cb1575b2",
+      "bytes": 2184,
+      "sha256": "61c725131a83d06d43064bac1b08c22d346f34b683f846ffbfbf80e9b44413b7",
       "origin": "sanitized public source-kit template"
     },
     {
@@ -11184,9 +11184,9 @@
     },
     {
       "path": "i18n.py",
-      "bytes": 22712,
-      "sha256": "2d6c21154a1b032b8a4fe0012e21712fd18caf3db417202d2d6d6abf55756d5f",
-      "original_source_sha256": "2d6c21154a1b032b8a4fe0012e21712fd18caf3db417202d2d6d6abf55756d5f",
+      "bytes": 22886,
+      "sha256": "403b12715a3aa2f0a1fef7ffdd75ed749e3deadaab8ef4b39c7a304f355a0278",
+      "original_source_sha256": "403b12715a3aa2f0a1fef7ffdd75ed749e3deadaab8ef4b39c7a304f355a0278",
       "sanitized_fields": []
     },
     {
@@ -11206,7 +11206,7 @@
     {
       "path": "installer/README.md",
       "bytes": 1009,
-      "sha256": "f56678918cfa327354d0c68aae6990a2652ae7741999ccd2619f894a76d201c8",
+      "sha256": "c0af7a75154666057add739d99cf90bd3b03b932ab5aa9c78d045ba2befb016a",
       "origin": "sanitized public source-kit template"
     },
     {
@@ -11337,9 +11337,9 @@
     },
     {
       "path": "inventory_halo.py",
-      "bytes": 20918,
-      "sha256": "380e13b59bebb99fd2414dca84eb515d1058120564ead8fefdca6d7752946567",
-      "original_source_sha256": "380e13b59bebb99fd2414dca84eb515d1058120564ead8fefdca6d7752946567",
+      "bytes": 22589,
+      "sha256": "58e76ddecbd4614b84835ed6c484ae08c843759193388faa560078b7d5680cfc",
+      "original_source_sha256": "58e76ddecbd4614b84835ed6c484ae08c843759193388faa560078b7d5680cfc",
       "sanitized_fields": []
     },
     {
@@ -11589,9 +11589,9 @@
     },
     {
       "path": "locales.json",
-      "bytes": 262223,
-      "sha256": "2a5ee727c80b5d9d4d5bb5503f85ca8420609cf87c1fbfa73e326e818031d1d1",
-      "original_source_sha256": "2a5ee727c80b5d9d4d5bb5503f85ca8420609cf87c1fbfa73e326e818031d1d1",
+      "bytes": 264513,
+      "sha256": "9a26837bd73f93bcead0351d13f0423620c6e25a34e7c23dd67cebbe6c0e7ae7",
+      "original_source_sha256": "9a26837bd73f93bcead0351d13f0423620c6e25a34e7c23dd67cebbe6c0e7ae7",
       "sanitized_fields": []
     },
     {
@@ -19230,7 +19230,7 @@
     {
       "path": "release-kit/source-kit/source-policy.json",
       "bytes": 302857,
-      "sha256": "329783a055ba4f32aca7eee29d4379037a78ff6825160a75256073734f361acd",
+      "sha256": "7fe49d039e3784c2916838daa229a2c5a16c253217651ed97ba8f1c77306a6fa",
       "origin": "sanitized public source-kit template"
     },
     {
@@ -19259,14 +19259,14 @@
     },
     {
       "path": "release-kit/source-kit/templates/README.md",
-      "bytes": 2921,
-      "sha256": "db606a2f7cb431444c4ae0146ede2641131a16aff2d9e4f52ec10a5d916d6a40",
+      "bytes": 2814,
+      "sha256": "1aee8349dcb424291b98352a3e0590f405bbf9821bb499d19febc7c090ec1fe9",
       "origin": "sanitized public source-kit template"
     },
     {
       "path": "release-kit/source-kit/templates/docs/CODE_SIGNING.md",
       "bytes": 5972,
-      "sha256": "a286777f7ffbdd45871bc12d697df66e97cb7600a3047927b2e7497976ce1bbd",
+      "sha256": "f7954d934c121ced0028e7a9e1a2b5a761d8e6c29337c57612da385a72145349",
       "origin": "sanitized public source-kit template"
     },
     {
@@ -19277,20 +19277,20 @@
     },
     {
       "path": "release-kit/source-kit/templates/docs/STATE.md",
-      "bytes": 2355,
-      "sha256": "fc6df17fed5eaebb482ceeffec58ecb91966a5a1628ef5156038f7b79797c96d",
+      "bytes": 3167,
+      "sha256": "270da4334d837f240ea1f3eca14ba31f9cec9ffaf7f7887a63c7147a30cf2c2f",
       "origin": "sanitized public source-kit template"
     },
     {
       "path": "release-kit/source-kit/templates/docs/STEAM_RELEASE.md",
-      "bytes": 1947,
-      "sha256": "f892f51ea16db72aa67b8988cd101058e6c53be8cf47555aec3583b9cb1575b2",
+      "bytes": 2184,
+      "sha256": "61c725131a83d06d43064bac1b08c22d346f34b683f846ffbfbf80e9b44413b7",
       "origin": "sanitized public source-kit template"
     },
     {
       "path": "release-kit/source-kit/templates/installer/README.md",
       "bytes": 1009,
-      "sha256": "f56678918cfa327354d0c68aae6990a2652ae7741999ccd2619f894a76d201c8",
+      "sha256": "c0af7a75154666057add739d99cf90bd3b03b932ab5aa9c78d045ba2befb016a",
       "origin": "sanitized public source-kit template"
     },
     {
@@ -19308,8 +19308,8 @@
     {
       "path": "release_identity.py",
       "bytes": 3091,
-      "sha256": "70581fefb3b00ac1ba5486585b0f1e2f108c317cd5007ea37253e8bdcd28f7dd",
-      "original_source_sha256": "70581fefb3b00ac1ba5486585b0f1e2f108c317cd5007ea37253e8bdcd28f7dd",
+      "sha256": "adb240661dc188b34b7fb9b1741b28573d4e1e737c902ca4f6b277f958fcd26d",
+      "original_source_sha256": "adb240661dc188b34b7fb9b1741b28573d4e1e737c902ca4f6b277f958fcd26d",
       "sanitized_fields": []
     },
     {
@@ -19349,9 +19349,9 @@
     },
     {
       "path": "runtime.py",
-      "bytes": 84132,
-      "sha256": "d4bde56bafc385473819f009e56e59e8c122cc845961fd5f20553ede31fd84b8",
-      "original_source_sha256": "d4bde56bafc385473819f009e56e59e8c122cc845961fd5f20553ede31fd84b8",
+      "bytes": 85004,
+      "sha256": "d50f327e8dba846628fc3e150db37be1e77c299ae63bad58019e415a001c1295",
+      "original_source_sha256": "d50f327e8dba846628fc3e150db37be1e77c299ae63bad58019e415a001c1295",
       "sanitized_fields": []
     },
     {
@@ -19407,9 +19407,9 @@
     },
     {
       "path": "test_auto_waiting_i18n.py",
-      "bytes": 2024,
-      "sha256": "da6e6341358aff28ddb2bd85ef58c7f098d55f4f41ccd9dca3429e2de0f4fbf9",
-      "original_source_sha256": "da6e6341358aff28ddb2bd85ef58c7f098d55f4f41ccd9dca3429e2de0f4fbf9",
+      "bytes": 2890,
+      "sha256": "176cdfa7910b76ac115c8e7c785e57654b47e725830996477f5612d5c12313af",
+      "original_source_sha256": "176cdfa7910b76ac115c8e7c785e57654b47e725830996477f5612d5c12313af",
       "sanitized_fields": []
     },
     {
@@ -19429,15 +19429,15 @@
     {
       "path": "test_dashboard.py",
       "bytes": 6176,
-      "sha256": "a1c0843715145b18707598be1b8a5c8709d60652d5d073913f3cbb53a452ad2d",
-      "original_source_sha256": "a1c0843715145b18707598be1b8a5c8709d60652d5d073913f3cbb53a452ad2d",
+      "sha256": "bf2fcf706658b065159e616382be4f6e6255bd6e691e8684b380dcde9cf8ab14",
+      "original_source_sha256": "bf2fcf706658b065159e616382be4f6e6255bd6e691e8684b380dcde9cf8ab14",
       "sanitized_fields": []
     },
     {
       "path": "test_dashboard_behavior.py",
-      "bytes": 19109,
-      "sha256": "5b487302b9e53b65a2a1b29b170f47b38ba47a61600ee2bcb8430aab71b5d610",
-      "original_source_sha256": "5b487302b9e53b65a2a1b29b170f47b38ba47a61600ee2bcb8430aab71b5d610",
+      "bytes": 20293,
+      "sha256": "5ace72a0f4b7ad5d1ac4b083dba498cd67e264cd5403b2f5e9977ffa50979961",
+      "original_source_sha256": "5ace72a0f4b7ad5d1ac4b083dba498cd67e264cd5403b2f5e9977ffa50979961",
       "sanitized_fields": []
     },
     {
@@ -19463,9 +19463,9 @@
     },
     {
       "path": "test_inventory_halo.py",
-      "bytes": 25246,
-      "sha256": "4f66a1e81874b42da72dd81fafd3823e90d31db06e4034bf8e750d82f3a9a122",
-      "original_source_sha256": "4f66a1e81874b42da72dd81fafd3823e90d31db06e4034bf8e750d82f3a9a122",
+      "bytes": 30677,
+      "sha256": "daac791ad5d435c47b30e103296aa603f2033f8db28904f36d2dde6b58c8f83a",
+      "original_source_sha256": "daac791ad5d435c47b30e103296aa603f2033f8db28904f36d2dde6b58c8f83a",
       "sanitized_fields": []
     },
     {
@@ -19511,9 +19511,9 @@
     },
     {
       "path": "test_release_identity.py",
-      "bytes": 4143,
-      "sha256": "fc9d4c740bfa373458dc5feb2462e108fb426015dab5360d279320d078e3636e",
-      "original_source_sha256": "fc9d4c740bfa373458dc5feb2462e108fb426015dab5360d279320d078e3636e",
+      "bytes": 4161,
+      "sha256": "b9785aec9de741ec1f168c718d16f2c3712c1f5b354013753fc9355af3be17c8",
+      "original_source_sha256": "b9785aec9de741ec1f168c718d16f2c3712c1f5b354013753fc9355af3be17c8",
       "sanitized_fields": []
     },
     {
@@ -19553,9 +19553,9 @@
     },
     {
       "path": "test_runtime_panel_input_boundary.py",
-      "bytes": 20381,
-      "sha256": "5fee03aa9d4c220ace1585f6e630927ad5971919fce06206ef1bf71403dce623",
-      "original_source_sha256": "5fee03aa9d4c220ace1585f6e630927ad5971919fce06206ef1bf71403dce623",
+      "bytes": 20726,
+      "sha256": "91400bc81f817ed49acbeded1ea3f5a40e282d51d45c91ebf5cf10977a51b435",
+      "original_source_sha256": "91400bc81f817ed49acbeded1ea3f5a40e282d51d45c91ebf5cf10977a51b435",
       "sanitized_fields": []
     },
     {
@@ -19567,9 +19567,9 @@
     },
     {
       "path": "test_runtime_retry_budget.py",
-      "bytes": 9103,
-      "sha256": "8f4ddf5d8ca57f8eeb770c20875feb708014a43463007dac3d965d710253eb79",
-      "original_source_sha256": "8f4ddf5d8ca57f8eeb770c20875feb708014a43463007dac3d965d710253eb79",
+      "bytes": 12534,
+      "sha256": "65e65096c3ab99e1b47a0eb6a2167b25b9a413d935794b985200f89cd24ba0aa",
+      "original_source_sha256": "65e65096c3ab99e1b47a0eb6a2167b25b9a413d935794b985200f89cd24ba0aa",
       "sanitized_fields": []
     },
     {
@@ -19630,9 +19630,9 @@
     },
     {
       "path": "test_ui_journal.py",
-      "bytes": 16300,
-      "sha256": "fcf9ee6b548e31a830b991e4c8ec9c31463091b48fd6ca05a74581ed71a9fa83",
-      "original_source_sha256": "fcf9ee6b548e31a830b991e4c8ec9c31463091b48fd6ca05a74581ed71a9fa83",
+      "bytes": 17347,
+      "sha256": "d0f70c12b2fbf17a15ded98c8cdf249a8939ba41e6d90fceb4d3749b51fa5ce2",
+      "original_source_sha256": "d0f70c12b2fbf17a15ded98c8cdf249a8939ba41e6d90fceb4d3749b51fa5ce2",
       "sanitized_fields": []
     },
     {
@@ -19686,9 +19686,9 @@
     },
     {
       "path": "ui_journal.py",
-      "bytes": 20980,
-      "sha256": "9a000c79292a1c89b6dd7bc8a684f7f95fd21b9fe9d864c187857783aacd69be",
-      "original_source_sha256": "9a000c79292a1c89b6dd7bc8a684f7f95fd21b9fe9d864c187857783aacd69be",
+      "bytes": 21127,
+      "sha256": "b147d33113402b0436cfc664fab9251f2e65af76e8d69ca5209308f0d8d6c69a",
+      "original_source_sha256": "b147d33113402b0436cfc664fab9251f2e65af76e8d69ca5209308f0d8d6c69a",
       "sanitized_fields": []
     },
     {

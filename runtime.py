@@ -32,6 +32,10 @@ def make_grid(data):
 class LayoutChangedDuringOperation(RuntimeError):
     """The current physical layout cannot be used for this operation."""
 
+    def __init__(self, message, *, grid_evidence=False):
+        super().__init__(message)
+        self.grid_evidence = grid_evidence is True
+
 
 class SafeLayoutChange(LayoutChangedDuringOperation):
     """A cycle may reacquire visible geometry before transfer input is issued."""
@@ -44,6 +48,7 @@ class SafePreflightChange(RuntimeError):
 LAYOUT_RETRY_SECONDS = 2.0
 LAYOUT_READBACK_SECONDS = 4.0
 LAYOUT_WAITING = "Ожидаю, пока игровые панели станут видны. Проверка повторится автоматически."
+GRID_WAITING = "Не удалось распознать ячейки предметов. Проверка повторится автоматически."
 FOCUS_RETRY_SECONDS = 2.0
 FOCUS_WAITING = "Ожидаю доступа к игре."
 INVENTORY_PENDING = "Полная проверка инвентаря пока не подтверждена. Повторю в следующем цикле."
@@ -167,8 +172,10 @@ class Runner:
             if self.canonical_profile.get("automatic_layout") is not True:
                 raise
             from panels import CALIBRATION_REQUIRED
+            from auto_layout import GridEvidenceError
             self.log("Диагностика геометрии: " + str(error))
-            raise LayoutChangedDuringOperation(CALIBRATION_REQUIRED) from error
+            raise LayoutChangedDuringOperation(CALIBRATION_REQUIRED,
+                grid_evidence=isinstance(error, GridEvidenceError)) from error
 
     def _adopt_layout(self, image, profile):
         """Adopt only physical geometry, preserving the canonical calibration."""
@@ -427,6 +434,9 @@ class Runner:
         except (LayoutChangedDuringOperation, self._layout_error_type(), WindowGeometryChanged) as error:
             if self.canonical_profile.get("automatic_layout") is True:
                 from panels import CALIBRATION_REQUIRED
+                from auto_layout import GridEvidenceError
+                grid_evidence = (isinstance(error, GridEvidenceError) or
+                    isinstance(error, LayoutChangedDuringOperation) and error.grid_evidence)
                 # Technical vision details belong to the journal. The visible
                 # cancellation message is the same localised text for single
                 # and scheduled actions, including an unverified issued input.
@@ -439,8 +449,8 @@ class Runner:
                 if not self._transfer_input_issued:
                     if isinstance(error, (CursorPositionChanged, ForegroundWindowChanged)):
                         raise  # Access deferral is distinct from layout fitting.
-                    raise SafeLayoutChange(CALIBRATION_REQUIRED) from error
-                raise LayoutChangedDuringOperation(CALIBRATION_REQUIRED) from error
+                    raise SafeLayoutChange(CALIBRATION_REQUIRED, grid_evidence=grid_evidence) from error
+                raise LayoutChangedDuringOperation(CALIBRATION_REQUIRED, grid_evidence=grid_evidence) from error
             raise
         finally:
             # Panel controls own their per-step readback. An unknown native
@@ -1064,7 +1074,7 @@ class Runner:
             # cycle only when no issued input is still awaiting verification.
             if (self.canonical_profile.get("automatic_layout") is True
                     and not getattr(self, "_transfer_input_issued", False)):
-                raise SafeLayoutChange(str(error)) from error
+                raise SafeLayoutChange(str(error), grid_evidence=error.grid_evidence) from error
             raise
         except InventoryCalibrationPending as error:
             self.log("Диагностика калибровки инвентаря: " + error.reason)
@@ -1320,6 +1330,7 @@ class Runner:
                     continue
             cycle_error = None
             layout_pending = False
+            layout_waiting = LAYOUT_WAITING
             inventory_pending = False
             preflight_pending = False
             activity_pending = False
@@ -1360,9 +1371,10 @@ class Runner:
             except SafeLayoutChange as error:
                 cycle_error = error
                 layout_pending = True
+                layout_waiting = GRID_WAITING if error.grid_evidence else LAYOUT_WAITING
                 safe_failure_streak += 1
                 if not paused:
-                    self.log(LAYOUT_WAITING)
+                    self.log(layout_waiting)
                 paused = True
             except SafePreflightChange as error:
                 cycle_error = error
@@ -1407,7 +1419,7 @@ class Runner:
             quick_retry = ((layout_pending or preflight_pending)
                            and safe_failure_streak < SAFE_QUICK_RETRY_ATTEMPTS)
             delay = LAYOUT_RETRY_SECONDS if quick_retry else interval
-            self.state("waiting", LAYOUT_WAITING if layout_pending else
+            self.state("waiting", layout_waiting if layout_pending else
                        PREFLIGHT_WAITING if preflight_pending else
                        INVENTORY_PENDING if inventory_pending else
                        "Фоновая проверка прервана вводом пользователя. Следующая проверка по таймеру."

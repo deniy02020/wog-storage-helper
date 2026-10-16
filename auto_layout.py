@@ -30,6 +30,10 @@ class LayoutError(RuntimeError):
     """Insufficient or contradictory visible evidence; no layout is adopted."""
 
 
+class GridEvidenceError(LayoutError):
+    """Both panel headers were proved, but their item grid was not."""
+
+
 @dataclass(frozen=True)
 class ScaleMatch:
     rect: Rect
@@ -539,15 +543,20 @@ class AutoLayout:
             result["layout_anchor_renderers"][pane] = match.renderer
             grid = result[pane]
             grid["rect"] = list(affine_rect(Rect(*self.profile[pane]["rect"]), anchor, match).as_box())
-            if pane == "inventory" and self.profile[pane]["rows"] == 8:
-                from inventory_viewport import recognize_inventory_viewport
-                viewport = recognize_inventory_viewport(image, Rect(*grid["rect"]),
-                    grid["rows"], grid["columns"], self.gaps[pane], match.scale)
-                grid["rect"] = list(viewport.grid.rect.as_box())
-                grid["rows"] = viewport.grid.rows
-                result["inventory_viewport"] = viewport.metadata()
-            else:
-                measure_grid(image, Rect(*grid["rect"]), grid["rows"], grid["columns"], self.gaps[pane], match.scale)
+            try:
+                if pane == "inventory" and self.profile[pane]["rows"] == 8:
+                    from inventory_viewport import recognize_inventory_viewport
+                    viewport = recognize_inventory_viewport(image, Rect(*grid["rect"]),
+                        grid["rows"], grid["columns"], self.gaps[pane], match.scale)
+                    grid["rect"] = list(viewport.grid.rect.as_box())
+                    grid["rows"] = viewport.grid.rows
+                    result["inventory_viewport"] = viewport.metadata()
+                else:
+                    measure_grid(image, Rect(*grid["rect"]), grid["rows"], grid["columns"], self.gaps[pane], match.scale)
+            except LayoutError as error:
+                # Preserve the independently proved header stage without
+                # changing any grid tolerance or accepting a failed layout.
+                raise GridEvidenceError(str(error)) from error
             keys = ("sort_button", "transfer_button") if pane == "inventory" else ()
             for key in keys:
                 if result.get(key):

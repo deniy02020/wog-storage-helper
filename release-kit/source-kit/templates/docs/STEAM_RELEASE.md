@@ -13,13 +13,17 @@ New input interrupts its actions.
 If storage is full, sorting and the timer stop. Free up space in the game,
 then click **Space cleared** to continue.
 
-## Version 1.1
+## Version 1.2
 
 The app version is shown in Settings. The installer is named
 WoGStorageHelperSetup.exe on GitHub Releases.
 
-This update improves transfer confirmation when fresh loot arrives during
-sorting and inventory recognition when item borders merge with the grid.
+This update improves inventory recognition when a partly visible row of items
+meets the grid separators. The complete item rows still require confirmation.
+
+When item slots cannot be recognised, the explanation remains visible beside
+the countdown. It is translated in all 17 languages and labelled as waiting
+in the event log, rather than asking for panels that are already visible.
 
 If a transfer cannot be confirmed, Helper stops further input. The event is
 shown in the journal's Attention filter; Details retains the original reason.

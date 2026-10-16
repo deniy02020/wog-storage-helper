@@ -442,5 +442,105 @@ class InventoryHaloProofTests(unittest.TestCase):
                 np.asarray(image,dtype=np.float32),rect,"full",origin,1.))
 
 
+class InventoryCapLaneTests(unittest.TestCase):
+    """A raw visible cap authenticates only its individually proved gutters."""
+    @classmethod
+    def setUpClass(cls):
+        cls.model = InventoryHaloModels(ASSETS).models["cap"][0]
+
+    def cue(self, models=None):
+        cue = InventoryHaloModels.__new__(InventoryHaloModels)
+        cue.models = {"cap": models or [self.model]}
+        cue._rendered = {}; cue._normalized = {}
+        return cue
+
+    def scene(self, *, origin=(100, 235)):
+        image = Image.new("RGB", (300, 320), (17, 21, 29))
+        viewport = Rect(40, 40, 240, 240)
+        for label, sample in self.model.items():
+            left, top, _, _ = CAP_OFFSETS[label]
+            image.paste(sample, (origin[0]+left, origin[1]+top))
+        # Only preceding-row context of LEFT halo differs. It cannot veto the
+        # independently proved top/right lanes or be repaired by those lanes.
+        image.paste("black", (origin[0]-4, origin[1]-12, origin[0], origin[1]-4))
+        return image, viewport, origin
+
+    def match(self, image, viewport, origin, models=None):
+        with patch("inventory_halo._halo_raster", side_effect=AssertionError("Caps remain RAW")):
+            return self.cue(models).match(np.asarray(image, dtype=np.float32), viewport, "cap", origin, 1.)
+
+    def test_raw_top_and_right_only_do_not_repair_failed_left_context(self):
+        image, viewport, origin = self.scene()
+        lanes = self.match(image, viewport, origin)
+        self.assertEqual(lanes, [Rect(*CAP_OFFSETS[label]).translated(*origin)
+                                 for label in ("halo_top", "halo_right")])
+        failed_left = Rect(origin[0]-4, origin[1]-12, origin[0], origin[1]-4)
+        self.assertTrue(all(lane.right <= failed_left.left or lane.left >= failed_left.right
+                            or lane.bottom <= failed_left.top or lane.top >= failed_left.bottom
+                            for lane in lanes))
+
+    def test_corrupted_top_rail_or_top_halo_cannot_authenticate_optional_sides(self):
+        for label in ("frame_top", "halo_top"):
+            image, viewport, origin = self.scene()
+            image.paste("black", Rect(*CAP_OFFSETS[label]).translated(*origin).as_box())
+            with self.subTest(label=label):
+                self.assertIsNone(self.match(image, viewport, origin))
+
+    def test_new_cap_route_rejects_top_rail_clipped_or_below_viewport(self):
+        for top in (238, 239, 240, 241):
+            image, viewport, origin = self.scene(origin=(100, top))
+            with self.subTest(top=top):
+                self.assertIsNone(self.match(image, viewport, origin))
+
+    def test_new_cap_route_rejects_vertically_clipped_top_halo(self):
+        image, viewport, origin = self.scene(origin=(100, 42))
+        # Keep the complete legacy cap route ineligible in the visible part;
+        # its historical clipped-lane behavior is intentionally unchanged.
+        image.paste("black", (96, 42, 100, 45))
+        self.assertIsNone(self.match(image, viewport, origin))
+
+    def test_top_rail_and_halo_from_different_cues_cannot_be_mixed(self):
+        image, viewport, origin = self.scene()
+        other = copy.deepcopy(self.model)
+        for label in ("frame_top", "halo_top"):
+            other[label] = Image.eval(other[label], lambda value: 255-value)
+        left, top, _, _ = CAP_OFFSETS["halo_top"]
+        image.paste(other["halo_top"], (origin[0]+left, origin[1]+top))
+        self.assertIsNone(self.match(image, viewport, origin, [self.model, other]))
+
+    def test_side_matching_another_cue_is_not_repaired(self):
+        image, viewport, origin = self.scene()
+        other = copy.deepcopy(self.model)
+        other["frame_top"] = Image.eval(other["frame_top"], lambda value: 255-value)
+        # Change only the side's preceding-row portion, away from top halo.
+        side = other["halo_right"].copy()
+        side.paste(Image.eval(side.crop((0, 0, 4, 8)), lambda value: 255-value), (0, 0))
+        other["halo_right"] = side
+        left, top, _, _ = CAP_OFFSETS["halo_right"]
+        image.paste(side, (origin[0]+left, origin[1]+top))
+        lanes = self.match(image, viewport, origin, [self.model, other])
+        self.assertEqual(lanes, [Rect(*CAP_OFFSETS["halo_top"]).translated(*origin)])
+
+    def test_one_shared_cue_with_more_supported_lanes_wins_deterministically(self):
+        image, viewport, origin = self.scene()
+        other = copy.deepcopy(self.model)
+        side = other["halo_right"].copy()
+        side.paste(Image.eval(side.crop((0, 0, 4, 8)), lambda value: 255-value), (0, 0))
+        other["halo_right"] = side
+        left, top, _, _ = CAP_OFFSETS["halo_right"]
+        image.paste(side, (origin[0]+left, origin[1]+top))
+        lanes = self.match(image, viewport, origin, [self.model, other])
+        self.assertEqual(lanes, [Rect(*CAP_OFFSETS[label]).translated(*origin)
+                                 for label in ("halo_top", "halo_right")])
+
+    def test_horizontal_edge_clips_only_the_exact_proved_halo(self):
+        image, viewport, origin = self.scene(origin=(40, 235))
+        lanes = self.match(image, viewport, origin)
+        self.assertEqual(lanes[0], Rect(40, 231, 104, 235))
+        self.assertTrue(all(lane.left >= viewport.left and lane.right <= viewport.right
+                            and lane.top >= viewport.top and lane.bottom <= viewport.bottom
+                            for lane in lanes))
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -28,7 +28,7 @@ from ui_filters import FilterDialog, TIER_COLORS
 from ui_journal import EventJournal
 from helper_config import validate_interval, default_transfer_filters, IDLE_SECONDS
 from release_identity import display_version
-from runtime import FOCUS_WAITING, LAYOUT_WAITING, PREFLIGHT_WAITING, INVENTORY_PENDING
+from runtime import FOCUS_WAITING, LAYOUT_WAITING, GRID_WAITING, PREFLIGHT_WAITING, INVENTORY_PENDING
 from i18n import (tr, set_locale, get_locale, LOCALE_NAMES, format_duration,
                   translate_message, LEGACY_TEXT_KEYS)
 
@@ -482,7 +482,7 @@ class ProductApp(App):
         title = tr("state." + names.get(self._runtime_state, "scanning"))
         detail = translate_message(self._runtime_message)
         deferred = (self._runtime_state == "waiting" and
-                    (self._runtime_message in (FOCUS_WAITING, LAYOUT_WAITING,
+                    (self._runtime_message in (FOCUS_WAITING, LAYOUT_WAITING, GRID_WAITING,
                                               PREFLIGHT_WAITING, INVENTORY_PENDING)
                      or self._runtime_message.startswith("Фоновая проверка прервана")
                      or self._runtime_message.startswith("Пауза:")))

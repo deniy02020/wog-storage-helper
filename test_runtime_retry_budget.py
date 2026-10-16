@@ -7,7 +7,8 @@ import unittest
 from unittest.mock import Mock, patch
 
 from inventory_walk import InventoryWalkResult
-from runtime import (LAYOUT_RETRY_SECONDS, LAYOUT_WAITING, PREFLIGHT_WAITING,
+from auto_layout import LayoutError, GridEvidenceError
+from runtime import (LAYOUT_RETRY_SECONDS, LAYOUT_WAITING, GRID_WAITING, PREFLIGHT_WAITING,
                      LayoutChangedDuringOperation, SafeLayoutChange, SafePreflightChange)
 from test_runtime import RuntimeTestFixture
 from test_runtime_lifecycle import BackgroundDesktop, EndMonitor, LifecycleDesktop
@@ -71,6 +72,60 @@ class RuntimeRetryBudgetTests(RuntimeTestFixture, unittest.TestCase):
         self.assertEqual([state["message"] for state in self.states(runner)],
                          [LAYOUT_WAITING, PREFLIGHT_WAITING, LAYOUT_WAITING, PREFLIGHT_WAITING])
         self.assert_no_completion(runner)
+        self.assertEqual(desktop.inputs, [])
+
+    def test_grid_stage_survives_all_wrappers_without_matching_diagnostic_text(self):
+        for error_type, grid_evidence in ((GridEvidenceError, True), (LayoutError, False)):
+            with self.subTest(error_type=error_type.__name__):
+                runner, desktop = self.runner([])
+                runner.canonical_profile["automatic_layout"] = True
+                # Identical diagnostics deliberately cannot identify the stage.
+                error = error_type("Both headers visible; grid not proved")
+                callback = Mock(side_effect=error)
+                runner._run_inventory_cycle_impl = lambda: runner._guarded_operation(
+                    lambda: runner._layout_guard(callback))
+                with self.assertRaises(SafeLayoutChange) as caught:
+                    runner._run_inventory_cycle()
+                self.assertEqual(caught.exception.grid_evidence, grid_evidence)
+                self.assertEqual(caught.exception.__cause__.grid_evidence, grid_evidence)
+                self.assertEqual(caught.exception.__cause__.__cause__.grid_evidence, grid_evidence)
+                self.assertIs(caught.exception.__cause__.__cause__.__cause__, error)
+                self.assertFalse(runner._transfer_input_issued)
+                self.assertEqual(desktop.inputs, [])
+
+    def test_current_grid_reason_shares_budget_and_does_not_leak_into_later_states(self):
+        runner, desktop = self.monitor_runner([
+            SafeLayoutChange("grid", grid_evidence=True), SafeLayoutChange("header"),
+            SafeLayoutChange("grid again", grid_evidence=True),
+            InventoryWalkResult("complete", 0, 0, 0),
+            SafeLayoutChange("header again"), SafePreflightChange("new loot")])
+        waits, tick = self.schedule(runner, limit=6)
+        with patch("runtime.time.monotonic", side_effect=lambda: tick[0]), self.assertRaises(EndMonitor):
+            runner.monitor(1800)
+        self.assertEqual(waits, [2., 2., 1800, 1800, 2., 2.])
+        self.assertEqual([state["message"] for state in self.states(runner)],
+            [GRID_WAITING, LAYOUT_WAITING, GRID_WAITING,
+             "Проверка закончена. Ожидаю следующий цикл.", LAYOUT_WAITING, PREFLIGHT_WAITING])
+        self.assertEqual(desktop.inputs, [])
+
+    def test_grid_stage_after_accepted_input_is_terminal_through_every_wrapper(self):
+        runner, desktop = self.runner([])
+        runner.canonical_profile["automatic_layout"] = True
+        runner.state_callback = Mock()
+        runner.wait = Mock(side_effect=AssertionError("unconfirmed input must not retry"))
+        error = GridEvidenceError("Both headers visible; item grid unavailable after input")
+        def accepted_input():
+            runner._transfer_input_issued = True
+            raise error
+        runner._run_inventory_cycle_impl = lambda: runner._guarded_operation(
+            lambda: runner._layout_guard(accepted_input))
+        with self.assertRaises(LayoutChangedDuringOperation) as caught:
+            runner.monitor(1800)
+        self.assertNotIsInstance(caught.exception, SafeLayoutChange)
+        self.assertTrue(caught.exception.grid_evidence)
+        self.assertTrue(runner._transfer_input_issued)
+        runner.wait.assert_not_called()
+        runner.state_callback.assert_not_called()
         self.assertEqual(desktop.inputs, [])
 
     def test_healthy_result_resets_budget_for_a_later_failure_streak(self):

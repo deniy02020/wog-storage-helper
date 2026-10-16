@@ -4,7 +4,7 @@ from __future__ import annotations
 import os
 import re
 
-DEFAULT_RELEASE_VERSION = "1.1.0"
+DEFAULT_RELEASE_VERSION = "1.2.0"
 PRODUCT_NAME = "WoG Storage Helper"
 AUTHOR = "deniy"
 EXECUTABLES = {
@@ -29,7 +29,7 @@ def numeric_version(version: str) -> tuple[int, int, int, int]:
 
 
 def display_version(version: str | None = None) -> str:
-    """Show release series as 1.1; keep nonzero patches and old beta identities.
+    """Show release series as 1.2; keep nonzero patches and old beta identities.
 
     The running app uses its source identity, never a launch-time environment
     override intended for build tools.

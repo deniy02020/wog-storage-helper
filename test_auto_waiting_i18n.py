@@ -3,10 +3,23 @@ import unittest
 from unittest.mock import patch
 
 import i18n
-from runtime import LAYOUT_WAITING, FOCUS_WAITING
+from runtime import LAYOUT_WAITING, GRID_WAITING, FOCUS_WAITING
 
 
 class AutomaticWaitingTranslationTests(unittest.TestCase):
+    def test_grid_wait_uses_its_own_display_key_in_every_supported_locale(self):
+        with patch.object(i18n, "tr", return_value="translated grid wait") as translate:
+            self.assertEqual(i18n.translate_message(GRID_WAITING, locale="de"), "translated grid wait")
+        translate.assert_called_once_with("state.auto_grid_waiting", locale="de")
+        for locale in i18n.SUPPORTED_LOCALES:
+            with self.subTest(locale=locale):
+                text = i18n.translate_message(GRID_WAITING, locale=locale)
+                self.assertEqual(text, i18n.tr("state.auto_grid_waiting", locale=locale))
+                self.assertTrue(text.strip())
+                self.assertNotEqual(text, i18n.translate_message(LAYOUT_WAITING, locale=locale))
+                if locale != "ru":
+                    self.assertNotEqual(text, GRID_WAITING)
+
     def test_focus_wait_maps_to_its_short_display_key(self):
         with patch.object(i18n, "tr", return_value="translated focus wait") as translate:
             self.assertEqual(i18n.translate_message(FOCUS_WAITING, locale="fr"), "translated focus wait")

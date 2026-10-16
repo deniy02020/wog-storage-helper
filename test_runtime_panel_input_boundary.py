@@ -8,10 +8,10 @@ from types import SimpleNamespace
 import unittest
 from unittest.mock import Mock
 
-from auto_layout import LayoutError
+from auto_layout import LayoutError, GridEvidenceError
 from input_activity import UserActivityInterrupted
 from panels import locate_unique
-from runtime import Runner, LayoutChangedDuringOperation, SafeLayoutChange
+from runtime import Runner, LayoutChangedDuringOperation, SafeLayoutChange, GRID_WAITING
 from test_panels import PanelFixture, PanelDesktop
 from test_runtime_lifecycle import EndMonitor
 from windows import WindowGeometryChanged, CursorPositionChanged, ForegroundWindowChanged
@@ -93,7 +93,7 @@ class PanelInputBoundaryTests(PanelFixture, unittest.TestCase):
     def test_confirmed_open_then_independent_grid_occlusion_reacquires_without_reopening(self):
         closed, opened = self.image(storage=False), self.image()
         runner, desktop, controller = self.runner([closed] * 3 + [opened] * 3)
-        controller.layout.resolve.side_effect = [LayoutError("Independent grid occlusion"),
+        controller.layout.resolve.side_effect = [GridEvidenceError("Independent grid occlusion"),
                                                  copy.deepcopy(self.profile)]
         waits = []
         def wait(seconds):
@@ -109,6 +109,9 @@ class PanelInputBoundaryTests(PanelFixture, unittest.TestCase):
         self.assertEqual(len(self.clicks(desktop)), 1)
         self.assertFalse(controller.opening_input_pending)
         self.assertFalse(runner._transfer_input_issued)
+        waits_displayed = [call.args[0]["message"] for call in runner.state_callback.call_args_list
+                           if call.args[0]["state"] == "waiting"]
+        self.assertEqual(waits_displayed, [GRID_WAITING, "Проверка закончена. Ожидаю следующий цикл."])
 
     def test_typed_native_rejection_before_input_can_enter_safe_retry(self):
         closed = self.image(storage=False)

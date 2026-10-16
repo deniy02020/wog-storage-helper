@@ -204,6 +204,26 @@ class DashboardBehaviorTests(unittest.TestCase):
         ProductApp.set_runtime_state(self.state, "paused", "Пауза")
         self.assertIsNone(self.state._next_check_at)
 
+    def test_grid_wait_explanation_stays_visible_beside_countdown_in_every_locale(self):
+        from i18n import SUPPORTED_LOCALES
+        from runtime import GRID_WAITING
+        self.addCleanup(set_locale, "ru")
+        self.state.worker.is_alive.return_value = True
+        ProductApp.set_runtime_state(self.state, "waiting", GRID_WAITING, 130.)
+        for locale in SUPPORTED_LOCALES:
+            with self.subTest(locale=locale), \
+                    patch.object(dashboard.time, "monotonic", return_value=100.):
+                set_locale(locale)
+                self.state.detail_label.packed = False
+                ProductApp._update_dashboard(self.state)
+                self.state.run_title.set.assert_called_with(tr("state.paused"))
+                self.state.run_detail.set.assert_called_with(tr("state.auto_grid_waiting"))
+                self.state.countdown_text.set.assert_called_with(
+                    tr("interval.next", time=format_duration(30, countdown=True)))
+                self.assertTrue(self.state.detail_label.packed)
+                self.assertEqual(self.state._next_check_at, 130.)
+        self.state.save.assert_not_called()
+
     def test_visual_refresh_never_activates_game_or_writes_profile(self):
         self.state.desktop.activate_for_start = Mock()
         self.state.desktop.click = Mock()

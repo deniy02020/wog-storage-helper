@@ -56,6 +56,21 @@ class JournalRecordsTests(unittest.TestCase):
             fabricated = JournalEntry.from_record(5, "09:42:17", canonical + " native diagnostic")
             self.assertNotEqual(fabricated.kind, "waiting")
 
+    def test_grid_recognition_wait_has_a_localized_waiting_label_without_hiding_fatal_transfers(self):
+        from runtime import GRID_WAITING
+        entry = JournalEntry.from_record(8, "16:28:00", GRID_WAITING)
+        self.assertEqual(entry.kind, "waiting")
+        self.assertEqual(entry.raw, GRID_WAITING)
+        for locale in SUPPORTED_LOCALES:
+            with self.subTest(locale=locale):
+                self.assertEqual(entry.summary(locale=locale), tr("state.auto_grid_waiting", locale=locale))
+                self.assertEqual(entry.label(locale=locale), tr("journal.kind.waiting", locale=locale))
+        # An exact known wait is the exception, not a generic error waiver.
+        self.assertEqual(JournalEntry.from_record(9, "16:28:01", GRID_WAITING + " extra diagnostic").kind,
+                         "attention")
+        self.assertEqual(JournalEntry.from_record(10, "16:28:02",
+            "Перенос не подтверждён; повторных кликов не будет. destination unknown").kind, "attention")
+
     def test_unconfirmed_transfer_is_visible_as_attention_with_localized_summary(self):
         raw = ("Перенос не подтверждён; повторных кликов не будет. "
                "inventory tier count did not decrease by exactly one")

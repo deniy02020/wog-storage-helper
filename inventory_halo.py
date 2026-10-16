@@ -192,6 +192,7 @@ class InventoryHaloModels:
         halo_rects = []
         observed = []
         raw_rails = {}
+        raw_errors = {}
         for label, (relative, samples) in rendered.items():
             target = relative.translated(*origin)
             if label.startswith("halo_"):
@@ -207,12 +208,38 @@ class InventoryHaloModels:
                 return None
             actual = image_array[target.top:target.bottom, target.left:target.right]
             errors = np.sqrt(np.mean((samples - actual) ** 2, axis=(1, 2, 3)))
+            raw_errors[label] = errors
             surviving &= errors <= MAX_PATCH_RMSE
             observed.append((label, samples, actual, target))
             if label in ("frame_left", "frame_right"):
                 raw_rails[label] = errors <= MAX_PATCH_RMSE
         if halo_rects and surviving.any():
             return halo_rects  # Complete original raw proof remains sufficient.
+        if kind == "cap" and halo_rects:
+            # A clipped lower item can illuminate one separator while another
+            # side contains different preceding-row pixels. Authenticate the
+            # WHOLE visible top rail and top halo on one existing cue, then
+            # contribute only halo lanes independently matched on THAT cue.
+            # A failed side remains raw evidence, never an invented repair.
+            targets = {label: target for label, _, _, target in observed}
+            rail, top = targets.get("frame_top"), targets.get("halo_top")
+            expected_top = rendered["halo_top"][0].translated(*origin)
+            if (rail is None or top is None or rail.left < viewport.left
+                    or rail.right > viewport.right or rail.top < viewport.top
+                    or rail.bottom > viewport.bottom
+                    or top.top != expected_top.top or top.bottom != expected_top.bottom):
+                return None
+            base = ((raw_errors["frame_top"] <= MAX_PATCH_RMSE)
+                    & (raw_errors["halo_top"] <= MAX_PATCH_RMSE))
+            if not base.any():
+                return None
+            halo_labels = [label for label in targets if label.startswith("halo_")]
+            support = sum((raw_errors[label] <= MAX_PATCH_RMSE).astype(int)
+                          for label in halo_labels)
+            support[~base] = -1
+            chosen = int(np.argmax(support))  # Stable catalogue-order tie break.
+            return [targets[label] for label in halo_labels
+                    if raw_errors[label][chosen] <= MAX_PATCH_RMSE]
         if kind != "full" or not halo_rects or len(raw_rails) != 2:
             return None
         surviving = raw_rails["frame_left"] & raw_rails["frame_right"]
