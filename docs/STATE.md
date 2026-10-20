@@ -13,7 +13,12 @@ Custom calibration samples retain their original matching behavior.
 PUBLIC_TEST_RESULT.json records the isolated offline test run from this exact
 export. Synthetic compositions are not native all-language or all-DPI tests.
 Private native screenshots and diagnostic logs are intentionally not distributed.
-The developer verified English panel/grid recognition on a real game capture.
+Native checks have verified the icon path and both grids in multiple game
+languages at the game's 50% window setting. English also has a genuine 100%
+capture check. These observations do not establish every monitor/DPI combination.
+Small-raster motion uses a second bounded symmetric kernel while retaining the
+original alias, direction, phase and score limits. Small grid borders require
+one common visible separator line across every cell segment.
 Installed executable acceptance is a separate release gate. Do not infer it
 from this source snapshot or its offline tests.
 

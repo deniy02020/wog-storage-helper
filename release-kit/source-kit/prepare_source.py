@@ -42,7 +42,7 @@ TESTS = tuple(("test_core test_inventory_cycle test_inventory_scroller test_inve
     "test_windows_signing installer.test_signing_build ci.test_pipeline "
     "test_windows_preflight_interruptions test_runtime_panel_input_boundary "
     "test_profile_directory_alias test_dashboard_behavior test_dashboard installer.test_release_packaging "
-    "test_runtime_transfer_confirmation test_neutral_panels").split())
+    "test_runtime_transfer_confirmation test_neutral_panels test_small_inventory_motion").split())
 PUBLIC_TESTS = TESTS + ("test_public_resources",)
 FILES = {*(name + ".py" for name in MODULES), *(name.replace(".", "/") + ".py" for name in TESTS),
     *("installer/" + name + ".py" for name in INSTALLER_MODULES),

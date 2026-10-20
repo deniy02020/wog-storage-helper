@@ -477,17 +477,19 @@ def _measure_grid_mask(mask, rect, rows, columns, scale):
     # Validate each stripe segment, so a popup hiding one row or column cannot
     # be averaged away by the rest of a long border.
     for a, b in xs:
-        x = (a + b - 1) // 2
-        for row in range(rows):
-            y1, y2 = rect.height * row // rows, rect.height * (row + 1) // rows
-            if np.mean(mask[y1:y2, x]) < 0.72:
-                raise LayoutError("A cell-border segment is occluded")
+        # At small native rasters an item halo may cover one edge pixel of a
+        # separator while its neighbouring pixel remains independently visible.
+        # Require ONE common observed line through EVERY segment, never pick a
+        # different pixel per cell or manufacture separator evidence.
+        lines = range(a, b) if scale <= .5 else ((a + b - 1) // 2,)
+        if not any(all(np.mean(mask[rect.height*r//rows:rect.height*(r+1)//rows, x]) >= .72
+                       for r in range(rows)) for x in lines):
+            raise LayoutError("A cell-border segment is occluded")
     for a, b in ys:
-        y = (a + b - 1) // 2
-        for column in range(columns):
-            x1, x2 = rect.width * column // columns, rect.width * (column + 1) // columns
-            if np.mean(mask[y, x1:x2]) < 0.72:
-                raise LayoutError("A cell-border segment is occluded")
+        lines = range(a, b) if scale <= .5 else ((a + b - 1) // 2,)
+        if not any(all(np.mean(mask[y, rect.width*c//columns:rect.width*(c+1)//columns]) >= .72
+                       for c in range(columns)) for y in lines):
+            raise LayoutError("A cell-border segment is occluded")
     return GridEvidence(axes[0][1], axes[1][1], tuple(xs), tuple(ys))
 
 

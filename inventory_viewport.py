@@ -174,7 +174,18 @@ def recognize_inventory_viewport(image: Image.Image, viewport: Rect, rows: int,
             or np.max(np.abs(centers - (offset_x + pitch_x * np.arange(columns)))) > 1.8 * scale
             or abs(centers[-1] - (viewport.width - 3 * scale)) > 6 * scale):
         raise LayoutError("Inventory viewport columns contradict the header transform")
-    ys = _merged_runs(np.mean(mask, axis=1), scale)
+    horizontal = np.mean(mask, axis=1)
+    edge_runs = _runs(horizontal >= .78)
+    # A clipped last row can expose the neutral floor below its separator.
+    # That broad strip cannot measure row pitch. Exclude it from the candidate
+    # lattice only; the final complete-row crop below still proves EVERY cell
+    # with measure_grid. Interior broad strips remain a hard rejection.
+    if (edge_runs and edge_runs[-1][1] == viewport.height
+            and edge_runs[-1][1]-edge_runs[-1][0] > math.ceil(10*scale)
+            and edge_runs[-1][1]-edge_runs[-1][0] < viewport.height/rows):
+        horizontal = horizontal.copy()
+        horizontal[edge_runs[-1][0]:] = 0
+    ys = _merged_runs(horizontal, scale)
     if not rows - 1 <= len(ys) <= rows + 1:
         raise LayoutError("Inventory viewport rows are incomplete or occluded")
     pitch, phase = _lattice(ys, viewport.height, viewport.height / rows, scale)
@@ -245,17 +256,18 @@ def measure_inventory_motion(before: InventoryViewport, after: InventoryViewport
     return float(advance)
 
 
-def _motion_raster(array: np.ndarray) -> np.ndarray:
+def _motion_raster(array: np.ndarray, sigma: float = 1.5) -> np.ndarray:
     """Normalize fractional native rendering for motion evidence only.
 
     A native Unity scroll can rerasterize every sprite at a fractional pixel
     phase: the same stationary content then differs from an integer-shifted
-    snapshot. Apply the same normalized Gaussian (sigma1.5 PHYSICAL pixels,
-    radius5) to every RGB pixel of both full viewports. No pointer, gutter,
+    snapshot. Apply the same normalized Gaussian (sigma1.5/radius5, or the
+    bounded small-raster sigma2/radius6) to every RGB pixel of both viewports. No pointer, gutter,
     item, border or partial row is masked or omitted. Edge replication retains
     the original viewport size. Header/grid/control/fresh-item proof stays raw.
     """
-    sigma = 1.5
+    if sigma not in (1.5, 2.0):
+        raise ValueError('Motion normalization requires an approved bounded kernel')
     radius = math.ceil(3 * sigma)
     positions = np.arange(-radius, radius + 1, dtype=np.float32)
     kernel = np.exp(-positions * positions / (2 * sigma * sigma))
@@ -310,9 +322,16 @@ def calibrate_inventory_motion(before_image: Image.Image, after_image: Image.Ima
     # the only distinguishing high-frequency texture from otherwise unique
     # rows, so an inadequate normalized score cannot invalidate raw evidence.
     # Every route independently needs the same whole-range alias proof.
-    for normalized in (False, True):
-        if normalized:
-            a, b = _motion_raster(a), _motion_raster(b)
+    # Small native sprites can rerasterize enough at a half-row scroll to
+    # exceed RMSE5 after sigma1.5. A second fixed, symmetric kernel retains
+    # EVERY overlap pixel and independently repeats the same global alias,
+    # direction, phase, score and margin checks; raw grid/input proofs do not
+    # change. It never turns unavailable low-texture motion into an endpoint.
+    original_a, original_b = a, b
+    kernels = (None, 1.5, 2.0) if before.row_pitch <= 40 else (None, 1.5)
+    for sigma in kernels:
+        a, b = ((_motion_raster(original_a, sigma), _motion_raster(original_b, sigma))
+                if sigma is not None else (original_a, original_b))
         matches = []
         for displacement in range(-maximum, maximum + 1):
             if displacement > 0:
@@ -476,9 +495,10 @@ def prove_inventory_bulk_translation(before_image: Image.Image, after_image: Ima
         b = np.asarray(after_image.crop(viewport.as_box()).convert("RGB"), dtype=np.float32)
         search = math.floor(viewport.height - max(before.row_pitch, after.row_pitch))
         limit = min(old_limit, new_limit) * min(before.row_pitch, after.row_pitch)
-        for normalized in (False, True):
-            first = _motion_raster(a) if normalized else a
-            second = _motion_raster(b) if normalized else b
+        kernels = (None, 1.5, 2.0) if before.row_pitch <= 40 else (None, 1.5)
+        for sigma in kernels:
+            first = _motion_raster(a, sigma) if sigma is not None else a
+            second = _motion_raster(b, sigma) if sigma is not None else b
             matches = []
             for displacement in range(-search, search + 1):
                 if displacement > 0:

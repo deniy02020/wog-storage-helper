@@ -11,6 +11,8 @@ This folder contains **version 1.3 source**. To install Helper, open **GitHub Re
 
 Panel recognition now uses language-neutral icons when translated headings differ. The storage opener also recognises its house icon without relying on the button caption. The same independent item-grid and transfer checks remain required.
 
+Small game windows also receive improved scroll-motion detection and separator checks when item glow touches a grid border.
+
 ## Getting started
 
 1. Install Helper and open the game.
