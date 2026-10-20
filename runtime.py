@@ -378,7 +378,7 @@ class Runner:
             if occupancy.empty is not False:
                 cells.append(occupancy)
                 continue
-            match = self.adaptive_tier_matcher.match(actual_crop, scale, canonical_size=size)
+            match = self.adaptive_tier_matcher.match(actual_crop, scale, canonical_size=size, occupied=True)
             tier, error, margin = match.tier, match.rmse, match.margin
             confident = (isinstance(tier, int) and not isinstance(tier, bool)
                          and tier in templates.tier_samples

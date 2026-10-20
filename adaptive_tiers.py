@@ -111,7 +111,9 @@ class AdaptiveTierMatcher:
         self._cache[key] = patches
         return patches
 
-    def match(self, cell_image, scale, canonical_size=(65, 65)) -> TierMatch:
+    def match(self, cell_image, scale, canonical_size=(65, 65), *, occupied=False) -> TierMatch:
+        if type(occupied) is not bool:
+            return TierMatch(None, None, None, "occupancy proof must be boolean")
         if (isinstance(scale, bool) or not isinstance(scale, (float, int))
                 or not math.isfinite(scale) or not self.MIN_SCALE <= scale <= self.MAX_SCALE):
             return TierMatch(None, None, None, "unsupported or nonfinite scale")
@@ -152,6 +154,16 @@ class AdaptiveTierMatcher:
         ordered = sorted((score, tier) for tier, score in scores.items())
         score, tier = ordered[0]
         margin = ordered[1][0] - score
+        if (occupied and tier == 1 and ordered[1][1] == 0
+                and score <= self.MAX_RMSE and scores[0] > score
+                and min(scores[t] for t in range(2, 7))-score >= self.MIN_MARGIN):
+            # The caller has independently proved a filled FULL cell. A grey
+            # T1 frame can resemble the background at small rasters. Only T1
+            # may use this separate occupancy proof; all other positive tiers
+            # must still lose by the original margin. No transferable tier is
+            # admitted by this route, and uncertain/empty cells never call it.
+            return TierMatch(1, score, min(scores[t] for t in range(2,7))-score,
+                             "occupied grey T1 frame; all higher tiers excluded")
         if not math.isfinite(score) or not math.isfinite(margin):
             return TierMatch(None, None, None, "no valid physical border support")
         if score > self.MAX_RMSE or margin < self.MIN_MARGIN:

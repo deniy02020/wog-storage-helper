@@ -36,6 +36,21 @@ def frames(offset=13, clones=False):
 
 
 class SmallInventoryMotionTests(unittest.TestCase):
+    def test_independent_occupied_cell_only_resolves_grey_t1_background_ambiguity(self):
+        from adaptive_tiers import AdaptiveTierMatcher
+        from unittest.mock import patch
+        matcher=AdaptiveTierMatcher(Path(__file__).parent/'preset_assets')
+        image=Image.new('RGB',(27,27),(0,0,0))
+        scores={0:3.,1:1.,2:20.,3:30.,4:40.,5:50.,6:60.}
+        def patches(*args):return {tier:np.full((1,15),score,dtype=np.float32) for tier,score in scores.items()}
+        with patch.object(matcher,'_patches',side_effect=patches):
+            self.assertIsNone(matcher.match(image,.4175).tier)
+            self.assertEqual(matcher.match(image,.4175,occupied=True).tier,1)
+            scores[3]=4.
+            self.assertIsNone(matcher.match(image,.4175,occupied=True).tier)
+            scores.update({1:30.,3:1.})
+            self.assertIsNone(matcher.match(image,.4175,occupied=True).tier)
+        self.assertIsNone(matcher.match(image,.4175,occupied='yes').tier)
     def test_small_separator_needs_one_common_visible_line_across_all_cells(self):
         images,views=frames()
         rect=views[0].viewport
