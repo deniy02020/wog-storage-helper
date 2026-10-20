@@ -26,7 +26,7 @@ SENTINEL = "private-source-withheld.png"
 MANIFEST = "SOURCE_CONTENT_MANIFEST.json"
 GENERATED = {MANIFEST, "SOURCE_SHA256SUMS.txt", "PUBLIC_TEST_RESULT.json"}
 MODULES = tuple(("adaptive_tiers app app_startup auto_layout autocalibration core dashboard game_identity "
-    "gearlabel helper_config i18n input_activity instance inventory_cycle inventory_motion_policy "
+    "gearlabel helper_config i18n input_activity instance neutral_panels inventory_cycle inventory_motion_policy "
     "inventory_samples inventory_scroller inventory_viewport inventory_walk inventory_halo package_release panels "
     "paths runtime release_identity session_logging windows_signing storage_cycle storage_pages supplemental_tiers ui_brand ui_filters ui_journal "
     "ui_theme ui_time_picker ui_vault_motion ui_widgets windows").split())
@@ -42,7 +42,7 @@ TESTS = tuple(("test_core test_inventory_cycle test_inventory_scroller test_inve
     "test_windows_signing installer.test_signing_build ci.test_pipeline "
     "test_windows_preflight_interruptions test_runtime_panel_input_boundary "
     "test_profile_directory_alias test_dashboard_behavior test_dashboard installer.test_release_packaging "
-    "test_runtime_transfer_confirmation").split())
+    "test_runtime_transfer_confirmation test_neutral_panels").split())
 PUBLIC_TESTS = TESTS + ("test_public_resources",)
 FILES = {*(name + ".py" for name in MODULES), *(name.replace(".", "/") + ".py" for name in TESTS),
     *("installer/" + name + ".py" for name in INSTALLER_MODULES),
@@ -51,14 +51,14 @@ FILES = {*(name + ".py" for name in MODULES), *(name.replace(".", "/") + ".py" f
     "requirements.txt", "requirements-lock.txt", "requirements-build-lock.txt", "build.bat",
     "build_installer.bat", "install.bat", "run.bat", "run-exe.bat", "selftest.bat",
     "preset_assets/reference.json", "preset_assets/adaptive_tiers.json",
-    "preset_assets/adaptive_ui.json", "preset_assets/header_parking.json", "preset_assets/inventory_halos.json",
+    "preset_assets/adaptive_ui.json", "preset_assets/header_parking.json", "preset_assets/neutral_panels.json", "preset_assets/inventory_halos.json",
     "ci/__init__.py", "ci/windows_build.py", "ci/resume_signing.py", "ci/signpath.py", "ci/actions-pins.json",
     ".github/workflows/windows-build.yml", ".github/workflows/signing-resume.yml"}
 TEMPLATES = {"README.md", "ATTRIBUTION.md", ".gitignore", ".gitattributes", "docs/STEAM_RELEASE.md",
     "docs/STATE.md", "docs/CODE_SIGNING.md", "docs/SIGNPATH_APPLICATION_DRAFT.md", ".github/SECURITY.md",
     "preset_assets/CALIBRATION.md", "installer/README.md", "test_public_resources.py"}
 JSON_MODELS = {"preset_assets/reference.json", "preset_assets/adaptive_tiers.json",
-    "preset_assets/adaptive_ui.json", "preset_assets/header_parking.json", "preset_assets/inventory_halos.json"}
+    "preset_assets/adaptive_ui.json", "preset_assets/header_parking.json", "preset_assets/neutral_panels.json", "preset_assets/inventory_halos.json"}
 FORBIDDEN_PARTS = {".git", ".venv", "verification", "diagnostics", "profile", "data", "logs",
     "__pycache__", "build", "dist", "releases", "website", "website-starter"}
 PRIVATE_TEXT = re.compile(r"(?i)(?:[A-Z]:[/\\]Users[/\\]|[A-Z]:[/\\]Projects[/\\]|"
@@ -80,8 +80,8 @@ def policy():
     if document.get("schema") != 1 or document.get("author") != "deniy":
         raise ValueError("Unexpected reviewed source policy")
     records = {record["path"]: record for record in document["images"]}
-    if len(records) != 961:
-        raise ValueError("Reviewed image allowlist must contain 959 matching crops and 2 original icons")
+    if len(records) != 973:
+        raise ValueError("Reviewed image allowlist must contain 971 matching crops and 2 original icons")
     return document, records
 
 
@@ -316,9 +316,9 @@ report={'tests':result.testsRun,'failures':len(result.failures),'errors':len(res
 print('PUBLIC_RESULT='+json.dumps(report),flush=True)
 raise SystemExit(report['exit_code'])
 """ % list(MODULES)
-    env = dict(os.environ, PYTHONPATH=str(tree), PYTHONDONTWRITEBYTECODE="1")
+    env = dict(os.environ, PYTHONPATH=str(tree), PYTHONDONTWRITEBYTECODE="1", PYTHONUTF8="1")
     process = subprocess.run([sys.executable, "-B", "-c", driver, str(private_temp), *PUBLIC_TESTS],
-                             cwd=tree, env=env, capture_output=True, text=True, encoding="utf-8", timeout=300)
+                             cwd=tree, env=env, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=300)
     raw_log = process.stdout + process.stderr
     (private_temp / "public-test-private-log.txt").write_text(raw_log, encoding="utf-8")
     match = re.search(r"^PUBLIC_RESULT=(.+)$", process.stdout, re.MULTILINE)

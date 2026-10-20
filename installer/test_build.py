@@ -52,6 +52,11 @@ class BuildInputTests(unittest.TestCase):
         self.parking_names = {entry["image"] for entry in self.parking["records"]}
         for name in self.parking_names:
             self.files["_internal/preset_assets/"+name] = (assets / name).read_bytes()
+        self.neutral = json.loads((assets / 'neutral_panels.json').read_bytes())
+        self.files['_internal/preset_assets/neutral_panels.json'] = (assets / 'neutral_panels.json').read_bytes()
+        self.neutral_names = {p['image'] for r in self.neutral['records'] for p in r['patches']}
+        for name in self.neutral_names:
+            self.files['_internal/preset_assets/'+name] = (assets/name).read_bytes()
         self.halo = json.loads((assets / "inventory_halos.json").read_text(encoding="utf-8"))
         self.files["_internal/preset_assets/inventory_halos.json"] = (assets / "inventory_halos.json").read_bytes()
         self.halo_names = {entry["image"] for entry in self.halo["records"]}
@@ -68,7 +73,7 @@ class BuildInputTests(unittest.TestCase):
     def test_full_payload_facts_use_actual_exe_and_reference_asset(self):
         result = verify_release_payload(self.payload())
         self.assertEqual(result["exe_sha256"], hashlib.sha256(self.files[EXECUTABLE]).hexdigest())
-        self.assertEqual(result["referenced_samples"], 1 + len(self.adaptive_names | self.ui_names | self.parking_names | self.halo_names))
+        self.assertEqual(result["referenced_samples"], 1 + len(self.adaptive_names | self.ui_names | self.parking_names | self.halo_names | self.neutral_names))
         self.assertEqual(result["adaptive_context_samples"], len(self.adaptive_names))
         self.assertEqual(result["adaptive_ui_samples"], len(self.ui_names))
         self.assertEqual(result["headerparking_sample_count"],6)
@@ -105,7 +110,7 @@ class BuildInputTests(unittest.TestCase):
         files = {"_internal/preset_assets/reference.json": json.dumps(reference).encode(),
                  "_internal/preset_assets/native_tier5_phase.png": b"tiny actual frame sample"}
         result = verify_release_payload(self.payload(extra=files))
-        self.assertEqual(result["referenced_samples"], 2 + len(self.adaptive_names | self.ui_names | self.parking_names | self.halo_names))
+        self.assertEqual(result["referenced_samples"], 2 + len(self.adaptive_names | self.ui_names | self.parking_names | self.halo_names | self.neutral_names))
         with self.assertRaisesRegex(InstallError, "referenced calibration asset"):
             verify_release_payload(self.payload(extra=files, missing=["_internal/preset_assets/native_tier5_phase.png"]))
 

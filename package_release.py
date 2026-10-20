@@ -179,6 +179,13 @@ def create_release() -> dict:
     parking_samples = verify_header_parking_resources(parking,
         lambda name:files[f"_internal/preset_assets/{name}"].read_bytes())
     samples.update(parking_samples)
+    from neutral_panels import verify_model
+    neutral_path = files.get("_internal/preset_assets/neutral_panels.json")
+    if neutral_path is None or sha256(neutral_path) != sha256(ROOT / "preset_assets/neutral_panels.json"):
+        raise ValueError("Built neutral panel model missing or stale; rebuild first.")
+    neutral = verify_model(json.loads(neutral_path.read_bytes()),
+        lambda name: files[f"_internal/preset_assets/{name}"].read_bytes())
+    samples.update(patch['image'] for record in neutral for patch in record['patches'])
     halo_relative = "_internal/preset_assets/inventory_halos.json"
     halo_path = files.get(halo_relative)
     if halo_path is None or sha256(halo_path) != sha256(ROOT / "preset_assets/inventory_halos.json"):

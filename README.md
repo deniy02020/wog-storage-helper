@@ -5,13 +5,11 @@ Helper automatically transfers your selected equipment and gems to storage on a 
 [Download for Windows — GitHub Releases](https://github.com/deniy02020/wog-storage-helper/releases/latest) ·
 [Steam guide](https://steamcommunity.com/sharedfiles/filedetails/?id=3818783491)
 
-This folder contains **version 1.2 source**. To install Helper, open **GitHub Releases** above and choose **WoGStorageHelperSetup.exe**. The source archive is for reviewing or building the code.
+This folder contains **version 1.3 source**. To install Helper, open **GitHub Releases** above and choose **WoGStorageHelperSetup.exe**. The source archive is for reviewing or building the code.
 
-## Version 1.2
+## Version 1.3
 
-This update improves inventory recognition when a partly visible item row meets the grid separators. Existing checks still have to confirm the complete item rows before sorting continues.
-
-If item slots cannot be recognised, Helper now explains that beside the countdown. It no longer asks for already visible panels. The waiting reason is translated in all 17 languages and labelled as waiting in the event log.
+Panel recognition now uses language-neutral icons when translated headings differ. The storage opener also recognises its house icon without relying on the button caption. The same independent item-grid and transfer checks remain required.
 
 ## Getting started
 

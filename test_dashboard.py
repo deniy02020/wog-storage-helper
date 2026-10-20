@@ -114,7 +114,7 @@ class DashboardSettingsTests(unittest.TestCase):
                     labels.reset_mock()
                     ProductApp.show_settings(state)
                     displayed = [call.kwargs.get("text") for call in labels.call_args_list]
-                    self.assertIn(tr("about.version", version="1.2"), displayed)
+                    self.assertIn(tr("about.version", version="1.3"), displayed)
 
 
 if __name__ == "__main__":

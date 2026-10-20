@@ -251,6 +251,7 @@ def verify_release_payload(payload: Path):
                 "_internal/preset_assets/reference.json", "_internal/preset_assets/adaptive_tiers.json",
                 "_internal/preset_assets/adaptive_ui.json",
                 "_internal/preset_assets/header_parking.json",
+                "_internal/preset_assets/neutral_panels.json",
                 "_internal/preset_assets/inventory_halos.json",
                 "README.md", "ATTRIBUTION.md",
                 "THIRD_PARTY_NOTICES.txt", "_internal/THIRD_PARTY_NOTICES.txt",
@@ -286,6 +287,13 @@ def verify_release_payload(payload: Path):
             raise InstallError("Invalid header parking model JSON.") from error
         parking_samples = verify_header_parking_resources(parking,
             lambda name:archive.read(f"{PRODUCT_DIRECTORY}/_internal/preset_assets/{name}"))
+        from neutral_panels import verify_model
+        neutral_bytes = archive.read(f"{PRODUCT_DIRECTORY}/_internal/preset_assets/neutral_panels.json")
+        if len(neutral_bytes) > 32000:
+            raise InstallError("Neutral panel model exceeds its bounded size")
+        neutral = verify_model(json.loads(neutral_bytes),
+            lambda name:archive.read(f"{PRODUCT_DIRECTORY}/_internal/preset_assets/{name}"))
+        neutral_samples = {p['image'] for r in neutral for p in r['patches']}
         halo_bytes = archive.read(f"{PRODUCT_DIRECTORY}/_internal/preset_assets/inventory_halos.json")
         try:
             if len(halo_bytes) > 1024 * 1024:
@@ -307,7 +315,9 @@ def verify_release_payload(payload: Path):
         if hashlib.sha256(archive.read(PRODUCT_DIRECTORY + "/THIRD_PARTY_NOTICES.txt")).hexdigest() != authentic["THIRD_PARTY_NOTICES.txt"]:
             raise InstallError("Release third-party notices checksum mismatch.")
     return {"file_count": len(entries), "uncompressed_bytes": size, "exe_sha256": executable_hash,
-            "referenced_samples": len(samples | adaptive_samples | ui_samples | parking_samples | halo_samples),
+            "referenced_samples": len(samples | adaptive_samples | ui_samples | parking_samples | halo_samples | neutral_samples),
+            "neutralpanel_model_sha256": hashlib.sha256(neutral_bytes).hexdigest(),
+            "neutralpanel_sample_count": len(neutral_samples),
             "adaptive_context_samples": len(adaptive_samples), "adaptive_ui_samples": len(ui_samples),
             "headerparking_model_sha256":hashlib.sha256(parking_bytes).hexdigest(),
             "headerparking_sample_count":len(parking_samples),

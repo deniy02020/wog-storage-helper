@@ -28,6 +28,13 @@ class NoDesktopOperations:
 
 
 class PublicResourceTests(unittest.TestCase):
+    def test_neutral_panel_model_and_exact_crop_hashes_are_delivered(self):
+        from neutral_panels import load_models
+        records = load_models()
+        self.assertEqual(len(records), 6)
+        self.assertEqual(len({p['image'] for r in records for p in r['patches']}), 12)
+        self.assertTrue(all(r['source_image'] == 'private-source-withheld.png' for r in records))
+
     def test_source_snapshot_contains_build_documents_and_own_licence(self):
         root = ASSETS.parent
         self.assertIn("LICENSE", DOCUMENTS)

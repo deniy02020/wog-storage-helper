@@ -215,7 +215,19 @@ class PanelController:
                 or spec.get("anchor_proof") != model["canonical_pixels_sha256"]
                 or spec.get("rect") != list(expected.as_box()) or not expected.fits(*profile["size"])):
             self._not_ready("Безопасное место парковки изменилось.")
-        return expected.center
+        return self._portrait_hover_point(Rect(*profile['anchors'][0]['rect']),
+                                          profile['layout_scales']['inventory'], profile['size'])
+
+    @staticmethod
+    def _portrait_hover_point(anchor, scale, size):
+        # A harmless hover in Character's portrait, well left of all item
+        # cells. Unlike the narrow header bar at small scales, this keeps
+        # Unity's fixed-size software-pointer glow away from grid separators.
+        # This point is NEVER an activation or mouse-button target.
+        point = (anchor.left + round(80*scale), anchor.top + round(170*scale))
+        if not (0 <= point[0] < size[0] and 0 <= point[1] < size[1]):
+            raise RuntimeError('Portrait hover point leaves the current client')
+        return point
 
     def _image(self, name):
         path = (self.directory / name).resolve()
@@ -284,6 +296,10 @@ class PanelController:
     def locate_control(self, image, sample, max_error):
         if self.layout is not None:
             from auto_layout import match_multiscale
+            from neutral_panels import locate_storage_opener
+            neutral = locate_storage_opener(image, sample, max_error)
+            if neutral is not NotImplemented:
+                return neutral
             match = match_multiscale(image, sample, max_rmse=max_error)
             return match.rect if match is not None else None
         return locate_unique(image, sample, max_rmse=max_error)
@@ -373,7 +389,17 @@ class PanelController:
                     self._not_ready("Безопасное место парковки закрыто или перекрыто.")
                 static = parking.rect
             self.check_stop()
-            self.desktop.move(self.handle, static.center, image.size)
+            # Unity's software pointer may ignore SetCursorPos-only movement.
+            # The native park path sends a tagged movement and rechecks user
+            # activity/focus/geometry, so stale hover cannot cover the opener
+            # result. Minimal offline desktops retain their move-only boundary.
+            point = static.center
+            if self.layout is not None and self._parking_models():
+                inventory = self.layout.locate_headers(image)[0]
+                if inventory is not None:
+                    point = self._portrait_hover_point(inventory.rect, inventory.scale, image.size)
+            mover = getattr(self.desktop, "park", self.desktop.move)
+            mover(self.handle, point, image.size)
             self.wait(0.2)
             image = self.capture()
             found = self.locate(image)

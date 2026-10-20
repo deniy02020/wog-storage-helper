@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "author": "deniy",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "images": [
     {
       "path": "preset_assets/adaptive_tier_background_001.png",
@@ -10892,6 +10892,126 @@
       ],
       "mode": "RGB",
       "rgb_sha256": "542b7f2b91bc5a8649c65b9394a2c3cfeb1171241e7a5e91ec1fc8ffdfe45857"
+    },
+    {
+      "path": "preset_assets/neutral_inventory_10000_0.png",
+      "sha256": "fad54dd9bceeb1e886dd321e46489200a9893abdbb22f7991c63dee826d9737d",
+      "bytes": 4953,
+      "format": "PNG",
+      "size": [
+        118,
+        39
+      ]
+    },
+    {
+      "path": "preset_assets/neutral_inventory_10000_1.png",
+      "sha256": "ace4183ca1fb5fbd224c04ac205dd3cc9a447467e211c76c7a6404bab509fc48",
+      "bytes": 3085,
+      "format": "PNG",
+      "size": [
+        33,
+        41
+      ]
+    },
+    {
+      "path": "preset_assets/neutral_inventory_4175_0.png",
+      "sha256": "ec774e74843c6cf5b88f4eda9ff7d0c779ecd1fa8bfacc263c8bb97e72abd536",
+      "bytes": 1403,
+      "format": "PNG",
+      "size": [
+        50,
+        17
+      ]
+    },
+    {
+      "path": "preset_assets/neutral_inventory_4175_1.png",
+      "sha256": "d5cbb9ab7357240e349c16822ac8a229a2898d425381acead7c73f77e7753ddf",
+      "bytes": 753,
+      "format": "PNG",
+      "size": [
+        14,
+        17
+      ]
+    },
+    {
+      "path": "preset_assets/neutral_inventory_7075_0.png",
+      "sha256": "8830b9856beca315a4847c4c139ad87443190a93b00929838b8a9c3cb0d92fff",
+      "bytes": 2993,
+      "format": "PNG",
+      "size": [
+        83,
+        27
+      ]
+    },
+    {
+      "path": "preset_assets/neutral_inventory_7075_1.png",
+      "sha256": "9f3b4f0a7c6722a44f0989de24ca36ec983d96684b85b87469da684982f5a766",
+      "bytes": 1695,
+      "format": "PNG",
+      "size": [
+        23,
+        29
+      ]
+    },
+    {
+      "path": "preset_assets/neutral_storage_10000_0.png",
+      "sha256": "4b0296ed00c14c441a9354b6106804580ad0f367ab1956c515f9d081f5661f7a",
+      "bytes": 1964,
+      "format": "PNG",
+      "size": [
+        160,
+        30
+      ]
+    },
+    {
+      "path": "preset_assets/neutral_storage_10000_1.png",
+      "sha256": "8a383b1d24fe2113e307bc47a84227750f11076ecb419e583e5ced86977bd168",
+      "bytes": 1708,
+      "format": "PNG",
+      "size": [
+        26,
+        28
+      ]
+    },
+    {
+      "path": "preset_assets/neutral_storage_4175_0.png",
+      "sha256": "cf21696ab93049fcd6919f58760b8ab9f17aa6c26db44679b0070f34ffee72b7",
+      "bytes": 585,
+      "format": "PNG",
+      "size": [
+        66,
+        13
+      ]
+    },
+    {
+      "path": "preset_assets/neutral_storage_4175_1.png",
+      "sha256": "4664b1103a5519932c1f779101698b5e234d2159388525e964caf5b71f052619",
+      "bytes": 455,
+      "format": "PNG",
+      "size": [
+        11,
+        12
+      ]
+    },
+    {
+      "path": "preset_assets/neutral_storage_7075_0.png",
+      "sha256": "f82505f21a4158ce6c372058721e7a2c10489d112cc4761ea29145e67df2e550",
+      "bytes": 1240,
+      "format": "PNG",
+      "size": [
+        113,
+        21
+      ]
+    },
+    {
+      "path": "preset_assets/neutral_storage_7075_1.png",
+      "sha256": "2d4a833670cb6a6076b28fb68f21010ff6064681445bfde2b439d0aca1c14178",
+      "bytes": 977,
+      "format": "PNG",
+      "size": [
+        19,
+        19
+      ]
     }
   ],
   "image_policy": "Only these exact reviewed image names, formats, dimensions and SHA256; no glob expansion for future files."

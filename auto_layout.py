@@ -520,7 +520,14 @@ class AutoLayout:
             return image.convert("RGB")
 
     def locate_headers(self, image):
-        return [match_multiscale(image, sample, scales=self.scales) for sample in self.headers]
+        from neutral_panels import locate, supports
+        found = []
+        for pane, sample in zip(("inventory", "storage"), self.headers):
+            match = match_multiscale(image, sample, scales=self.scales)
+            if match is None and supports(sample, pane):
+                match = locate(image, sample, pane, self.scales)
+            found.append(match)
+        return found
 
     def resolve(self, image):
         found = self.locate_headers(image)
@@ -640,11 +647,14 @@ class AutoLayout:
             # Old in-memory/adapted profiles used fractional-box validation.
             # New resolutions always record their accepted renderer explicitly.
             renderer = adapted_profile.get("layout_anchor_renderers", {}).get(pane, "phasebox")
-            if renderer not in ("resize", "phasebox"):
+            if renderer not in ("resize", "phasebox", "neutral"):
                 raise LayoutError("Invalid adopted header renderer")
             render_scale = scale
             identifier = adapted_profile.get("layout_anchor_variants", {}).get(pane)
-            if identifier is not None:
+            if renderer == "neutral":
+                from neutral_panels import validate
+                validate(image, reference_sample, pane, rect, scale, phase, identifier)
+            elif identifier is not None:
                 spec = self.variants.get(identifier)
                 fingerprint = hashlib.sha256(reference_sample.convert("RGB").tobytes()).hexdigest()
                 if (spec is None or spec["kind"] != "headers" or spec["pane"] != pane
@@ -652,13 +662,14 @@ class AutoLayout:
                     raise LayoutError("Adopted header variant is not an approved canonical match")
                 reference_sample = spec["sample"]
                 render_scale = scale / spec["canonical_scale"]
-            try:
-                sample = _header_sample(reference_sample, render_scale,
-                                        (rect.width, rect.height), phase, renderer)
-            except ValueError as error:
-                raise LayoutError("Adopted header dimensions contradict its scale") from error
-            if image_rmse(image.crop(rect.as_box()), sample) > 10:
-                raise LayoutError("Adopted header changed or is occluded")
+            if renderer != "neutral":
+                try:
+                    sample = _header_sample(reference_sample, render_scale,
+                                            (rect.width, rect.height), phase, renderer)
+                except ValueError as error:
+                    raise LayoutError("Adopted header dimensions contradict its scale") from error
+                if image_rmse(image.crop(rect.as_box()), sample) > 10:
+                    raise LayoutError("Adopted header changed or is occluded")
             grid = adapted_profile[pane]
             if pane == "inventory" and self.profile[pane]["rows"] == 8:
                 metadata = adapted_profile.get("inventory_viewport")

@@ -13,7 +13,7 @@ New input interrupts its actions.
 If storage is full, sorting and the timer stop. Free up space in the game,
 then click **Space cleared** to continue.
 
-## Version 1.2
+## Version 1.3
 
 The app version is shown in Settings. The installer is named
 WoGStorageHelperSetup.exe on GitHub Releases.
