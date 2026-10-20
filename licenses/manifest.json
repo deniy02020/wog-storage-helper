@@ -2,7 +2,7 @@
   "schema": 1,
   "generated_utc": "2026-10-11T23:29:37.404518+00:00",
   "status": "requested_components_collected",
-  "scope": "Installed Python/Tcl/Tk, NumPy/Pillow/OpenCV wheel notices, PyInstaller licence and exception",
+  "scope": "Installed Python/Tcl/Tk, NumPy/Pillow/OpenCV wheel notices, PyInstaller licence and exception; pinned offline Tesseract/Leptonica image-library DLLs and 17 tessdata_fast models",
   "components": [
     {
       "id": "numpy",
@@ -95,6 +95,40 @@
       "role": "runtime",
       "notice_files": [
         "licenses/tk/tcl/tk8.6/license.terms"
+      ]
+    },
+    {
+      "id": "ocr-native",
+      "name": "Tesseract 5.5.3, Leptonica 1.87.0 and original image-library DLLs",
+      "version": "tesserocr-v2.11.0-tesseract-5.5.3 Windows dependency build",
+      "declared_license": "See original upstream notice files; unmodified runtime libraries/models.",
+      "role": "runtime",
+      "notice_files": [
+        "licenses/ocr-native/tesseract-LICENSE",
+        "licenses/ocr-native/leptonica-license.txt",
+        "licenses/ocr-native/zstd-LICENSE",
+        "licenses/ocr-native/libpng-LICENSE",
+        "licenses/ocr-native/zlib-LICENSE",
+        "licenses/ocr-native/libtiff-LICENSE.md",
+        "licenses/ocr-native/openjpeg-LICENSE",
+        "licenses/ocr-native/libwebp-COPYING",
+        "licenses/ocr-native/xz-COPYING",
+        "licenses/ocr-native/xz-COPYING.0BSD",
+        "licenses/ocr-native/xz-COPYING.GPLv2",
+        "licenses/ocr-native/xz-COPYING.GPLv3",
+        "licenses/ocr-native/xz-COPYING.LGPLv2.1",
+        "licenses/ocr-native/giflib-COPYING",
+        "licenses/ocr-native/ijg-jpeg-README"
+      ]
+    },
+    {
+      "id": "ocr-models",
+      "name": "Tesseract tessdata_fast language models",
+      "version": "87416418657359cb625c412a48b6e1d6d41c29bd",
+      "declared_license": "See original upstream notice files; unmodified runtime libraries/models.",
+      "role": "runtime",
+      "notice_files": [
+        "licenses/ocr-models/tessdata-LICENSE"
       ]
     }
   ],
@@ -368,10 +402,122 @@
       "bytes": 2307,
       "text_encoding": "utf-8-sig",
       "source_kind": "installed"
+    },
+    {
+      "component": "ocr-native",
+      "path": "licenses/ocr-native/tesseract-LICENSE",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "source": "https://raw.githubusercontent.com/tesseract-ocr/tesseract/db0ec62/LICENSE"
+    },
+    {
+      "component": "ocr-native",
+      "path": "licenses/ocr-native/leptonica-license.txt",
+      "bytes": 1521,
+      "sha256": "87829abb5bbb00b55a107365da89e9a33f86c4250169e5a1e5588505be7d5806",
+      "source": "https://raw.githubusercontent.com/DanBloomberg/leptonica/13275a2/leptonica-license.txt"
+    },
+    {
+      "component": "ocr-native",
+      "path": "licenses/ocr-native/zstd-LICENSE",
+      "bytes": 1549,
+      "sha256": "7055266497633c9025b777c78eb7235af13922117480ed5c674677adc381c9d8",
+      "source": "https://raw.githubusercontent.com/facebook/zstd/v1.5.7/LICENSE"
+    },
+    {
+      "component": "ocr-native",
+      "path": "licenses/ocr-native/libpng-LICENSE",
+      "bytes": 5345,
+      "sha256": "bdb0a645ea18c60507d0368379b1ac5474b92255fcc2d115e07486a7672ba526",
+      "source": "https://raw.githubusercontent.com/pnggroup/libpng/v1.6.58/LICENSE"
+    },
+    {
+      "component": "ocr-native",
+      "path": "licenses/ocr-native/zlib-LICENSE",
+      "bytes": 1002,
+      "sha256": "e32ff4e00d9d94930537635291da39e7e612703334bf6fde8c7f1686fe8a45a2",
+      "source": "https://raw.githubusercontent.com/madler/zlib/v1.3.2/LICENSE"
+    },
+    {
+      "component": "ocr-native",
+      "path": "licenses/ocr-native/libtiff-LICENSE.md",
+      "bytes": 2416,
+      "sha256": "0e27c2382d7b8147972bbb746e04059a1152c8d0fda9d03ef1399d1a433c4ade",
+      "source": "https://gitlab.com/libtiff/libtiff/-/raw/v4.7.1/LICENSE.md"
+    },
+    {
+      "component": "ocr-native",
+      "path": "licenses/ocr-native/openjpeg-LICENSE",
+      "bytes": 2112,
+      "sha256": "a6af136f3e15038a666b61f376612a07d9a4e48cb7c01adbf3e33b3f14ab49b6",
+      "source": "https://raw.githubusercontent.com/uclouvain/openjpeg/v2.5.4/LICENSE"
+    },
+    {
+      "component": "ocr-native",
+      "path": "licenses/ocr-native/libwebp-COPYING",
+      "bytes": 1496,
+      "sha256": "5aec868f669e384a22372a4e8a1a6cd7d44c64cd451f960ca69cc170d1e13acf",
+      "source": "https://raw.githubusercontent.com/webmproject/libwebp/v1.6.0/COPYING"
+    },
+    {
+      "component": "ocr-native",
+      "path": "licenses/ocr-native/xz-COPYING",
+      "bytes": 3119,
+      "sha256": "616a3ad264ce29b8f1cb97e53037b139d406899ca8d1f799651e17bfa09830b8",
+      "source": "https://raw.githubusercontent.com/tukaani-project/xz/v5.8.3/COPYING"
+    },
+    {
+      "component": "ocr-native",
+      "path": "licenses/ocr-native/xz-COPYING.0BSD",
+      "bytes": 607,
+      "sha256": "0b01625d853911cd0e2e088dcfb743261034a091bb379246cb25a14cc4c74bf1",
+      "source": "https://raw.githubusercontent.com/tukaani-project/xz/v5.8.3/COPYING.0BSD"
+    },
+    {
+      "component": "ocr-native",
+      "path": "licenses/ocr-native/xz-COPYING.GPLv2",
+      "bytes": 17984,
+      "sha256": "edaef632cbb643e4e7a221717a6c441a4c1a7c918e6e4d56debc3d8739b233f6",
+      "source": "https://raw.githubusercontent.com/tukaani-project/xz/v5.8.3/COPYING.GPLv2"
+    },
+    {
+      "component": "ocr-native",
+      "path": "licenses/ocr-native/xz-COPYING.GPLv3",
+      "bytes": 35149,
+      "sha256": "3972dc9744f6499f0f9b2dbf76696f2ae7ad8af9b23dde66d6af86c9dfb36986",
+      "source": "https://raw.githubusercontent.com/tukaani-project/xz/v5.8.3/COPYING.GPLv3"
+    },
+    {
+      "component": "ocr-native",
+      "path": "licenses/ocr-native/xz-COPYING.LGPLv2.1",
+      "bytes": 26419,
+      "sha256": "20e50fe7aae3e56378ebf0417d9de904f55a0e61e4df315333e632a4d3555d95",
+      "source": "https://raw.githubusercontent.com/tukaani-project/xz/v5.8.3/COPYING.LGPLv2.1"
+    },
+    {
+      "component": "ocr-native",
+      "path": "licenses/ocr-native/giflib-COPYING",
+      "bytes": 1039,
+      "sha256": "ed5d90cb4a041bddad679470a071302ab05ae5d0ec2cf8f9c97ad7b2708751e6",
+      "source": "https://downloads.sourceforge.net/project/giflib/giflib-6.x/giflib-6.1.3.tar.gz"
+    },
+    {
+      "component": "ocr-native",
+      "path": "licenses/ocr-native/ijg-jpeg-README",
+      "bytes": 18711,
+      "sha256": "913af09f785683accdf660b85dcf27fdd567d4ad649daa95cb8771b040db79d1",
+      "source": "https://www.ijg.org/files/jpegsrc.v10.tar.gz"
+    },
+    {
+      "component": "ocr-models",
+      "path": "licenses/ocr-models/tessdata-LICENSE",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "source": "https://raw.githubusercontent.com/tesseract-ocr/tessdata_fast/87416418657359cb625c412a48b6e1d6d41c29bd/LICENSE"
     }
   ],
   "missing": [],
-  "notice_sha256": "8e8238c78288a41d97a53898e90f1df659464d57ca1caaeb82c2c894116d6596",
+  "notice_sha256": "526e4449a86054382e4281a8c96773a61a2e901a36195380ffc12c9be395d9f4",
   "excluded": [
     "XML data/model files",
     "Absolute installation paths",

@@ -14,7 +14,8 @@ from installer.core import InstallError
 
 MANIFEST = "licenses/manifest.json"
 NOTICES = "THIRD_PARTY_NOTICES.txt"
-COMPONENTS = {"python", "tcl", "tk", "pyinstaller", "numpy", "pillow", "opencv-python-headless"}
+COMPONENTS = {"python", "tcl", "tk", "pyinstaller", "numpy", "pillow", "opencv-python-headless",
+              "ocr-native", "ocr-models"}
 
 
 def _digest(value):

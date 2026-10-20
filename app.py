@@ -616,6 +616,7 @@ class App(tk.Tk):
         def work():
             try:
                 if continuous:
+                    runner.enable_connection_monitor()
                     runner.wait(1.0)  # Allow the explicitly restored game to render.
                     runner.monitor(interval)
                 else:
@@ -633,6 +634,9 @@ class App(tk.Tk):
                 logging.exception("Helper cycle stopped: %s", exc)
                 self.events.put(("log", str(exc)))
             finally:
+                close_connection = getattr(runner, 'close_connection_monitor', None)
+                if close_connection is not None:
+                    close_connection()
                 self.events.put(("finished", None))
 
         self.worker = threading.Thread(target=work, daemon=True)

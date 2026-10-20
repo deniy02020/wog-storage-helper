@@ -132,18 +132,32 @@ class ReleasePackagingTests(unittest.TestCase):
     def test_product_spec_collects_model_and_six_assets_without_building_or_private_frames(self):
         captures = []
         def analysis(_scripts,**kwargs):
-            captures.append(kwargs["datas"])
+            captures.append(kwargs)
             return type("AnalysisFixture",(),{"pure":None,"scripts":[],"binaries":[],"datas":[]})()
         namespace = {"SPECPATH":str(PROJECT),"Analysis":analysis,"PYZ":lambda *_:None,
                      "EXE":lambda *_args,**_kwargs:None,"COLLECT":lambda *_args,**_kwargs:None}
-        exec(compile((PROJECT / "WoGStorageHelper.spec").read_text(),"product-spec","exec"),namespace)
+        native_manifest = json.loads((PROJECT/'ocr_native_manifest.json').read_bytes())
+        planned_native = {'ocr_native/'+record['path']:record['sha256'] for record in native_manifest['files']}
+        # This test plans Analysis without downloading/running a native build.
+        # The real spec retains verify_native's mandatory byte checks.
+        with patch('ocr_resources.verify_native',return_value=planned_native) as native_check:
+            exec(compile((PROJECT / "WoGStorageHelper.spec").read_text(),"product-spec","exec"),namespace)
+        native_check.assert_called_once_with(PROJECT.resolve())
         delivered = {str(Path(destination) / Path(source).name).replace("\\","/"):Path(source)
-                     for source,destination in captures[0]}
+                     for source,destination in captures[0]['datas']}
         self.assertIn("preset_assets/header_parking.json",delivered)
         document = json.loads(delivered["preset_assets/header_parking.json"].read_text())
         for record in document["records"]:
             self.assertEqual(hashlib.sha256(delivered["preset_assets/"+record["image"]].read_bytes()).hexdigest(),record["sample_sha256"])
             self.assertNotIn("preset_assets/"+record["source_image"],delivered)
+        models = json.loads(delivered['ocr_models/manifest.json'].read_bytes())
+        self.assertEqual(len(models['models']),17)
+        for record in models['models']:
+            self.assertEqual(hashlib.sha256(delivered['ocr_models/'+record['path']].read_bytes()).hexdigest(),record['sha256'])
+        native_names = {str(Path(destination)/Path(source).name).replace('\\','/')
+                        for source,destination in captures[0]['binaries']}
+        self.assertEqual(native_names,set(planned_native))
+        self.assertEqual(len(native_names),11)
 
 
 if __name__ == "__main__":

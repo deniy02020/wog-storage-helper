@@ -29,6 +29,7 @@ MODULES = tuple(("adaptive_tiers app app_startup auto_layout autocalibration cor
     "gearlabel helper_config i18n input_activity instance neutral_panels inventory_cycle inventory_motion_policy "
     "inventory_samples inventory_scroller inventory_viewport inventory_walk inventory_halo package_release panels "
     "paths runtime release_identity session_logging windows_signing storage_cycle storage_pages supplemental_tiers ui_brand ui_filters ui_journal "
+    "reconnection connection_vision connection_runtime ocr_resources ocr_native_api "
     "ui_theme ui_time_picker ui_vault_motion ui_widgets windows").split())
 INSTALLER_MODULES = tuple(("__init__ build core launcher license_resources uninstall_launcher "
     "verify_real_payload windows_integration wizard").split())
@@ -42,7 +43,7 @@ TESTS = tuple(("test_core test_inventory_cycle test_inventory_scroller test_inve
     "test_windows_signing installer.test_signing_build ci.test_pipeline "
     "test_windows_preflight_interruptions test_runtime_panel_input_boundary "
     "test_profile_directory_alias test_dashboard_behavior test_dashboard installer.test_release_packaging "
-    "test_runtime_transfer_confirmation test_neutral_panels test_small_inventory_motion").split())
+    "test_runtime_transfer_confirmation test_neutral_panels test_small_inventory_motion test_reconnection").split())
 PUBLIC_TESTS = TESTS + ("test_public_resources",)
 FILES = {*(name + ".py" for name in MODULES), *(name.replace(".", "/") + ".py" for name in TESTS),
     *("installer/" + name + ".py" for name in INSTALLER_MODULES),
@@ -54,6 +55,9 @@ FILES = {*(name + ".py" for name in MODULES), *(name.replace(".", "/") + ".py" f
     "preset_assets/adaptive_ui.json", "preset_assets/header_parking.json", "preset_assets/neutral_panels.json", "preset_assets/inventory_halos.json",
     "ci/__init__.py", "ci/windows_build.py", "ci/resume_signing.py", "ci/signpath.py", "ci/actions-pins.json",
     ".github/workflows/windows-build.yml", ".github/workflows/signing-resume.yml"}
+FILES |= {'disconnect_messages.json', 'ocr_native_manifest.json', 'ocr_models/manifest.json'}
+FILES |= {'ocr_models/'+lang+'.traineddata' for lang in
+          'eng rus fra spa ita ukr pol deu por ind tha jpn kor vie chi_sim tur chi_tra'.split()}
 TEMPLATES = {"README.md", "ATTRIBUTION.md", ".gitignore", ".gitattributes", "docs/STEAM_RELEASE.md",
     "docs/STATE.md", "docs/CODE_SIGNING.md", "docs/SIGNPATH_APPLICATION_DRAFT.md", ".github/SECURITY.md",
     "preset_assets/CALIBRATION.md", "installer/README.md", "test_public_resources.py"}
@@ -191,6 +195,15 @@ def licensing_paths():
     return license_resources.licensing_files(ROOT)
 
 
+def ocr_model_hashes():
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
+    import ocr_resources
+    if Path(ocr_resources.__file__).resolve() != ROOT/'ocr_resources.py':
+        raise ValueError('OCR resource validator was imported outside the checkout')
+    return ocr_resources.verify_models(ROOT)
+
+
 def stage(label):
     if not re.fullmatch(r"[a-z0-9][a-z0-9-]{1,63}", label):
         raise ValueError("Use a short lowercase source-stage label")
@@ -200,6 +213,7 @@ def stage(label):
     # Import only the known local manifest validator. It verifies bytes and
     # never launches the installer, reads profiles or accesses the game.
     licenses = licensing_paths()
+    approved_models = ocr_model_hashes()
     selected = FILES | set(licenses) | set(images)
     records = []
     for name in sorted(selected):
@@ -210,6 +224,9 @@ def stage(label):
         original, content, transformations = exported_bytes(name, source)
         if name in images:
             inspect_image(content, name, images[name])
+        elif name in approved_models:
+            if digest(content) != approved_models[name]:
+                raise ValueError('Unreviewed OCR model bytes: '+name)
         else:
             inspect_text(content, name)
         target = destination / name
@@ -269,6 +286,7 @@ def verify_tree(tree):
     if actual != expected or any(path.is_symlink() for path in tree.rglob("*")):
         raise ValueError("Unexpected, missing or linked exported file")
     _, approved_images = policy()
+    approved_models = ocr_model_hashes()
     if {record["path"]: record for record in manifest["images"]} != approved_images:
         raise ValueError("Exported image list differs from reviewed policy")
     for name in sorted(expected):
@@ -280,6 +298,9 @@ def verify_tree(tree):
                 raise ValueError("Exported checksum mismatch: " + name)
         if name in approved_images:
             inspect_image(content, name, approved_images[name])
+        elif name in approved_models:
+            if digest(content) != approved_models[name]:
+                raise ValueError('Unreviewed OCR model bytes: '+name)
         else:
             inspect_text(content, name)
     sums = "".join(record["sha256"] + "  " + record["path"] + "\n" for record in manifest["files"])

@@ -1,13 +1,13 @@
 {
-  "tests": 832,
+  "tests": 855,
   "failures": 0,
   "errors": 0,
   "skips": 5,
   "exit_code": 0,
-  "elapsed_seconds": 59.39,
+  "elapsed_seconds": 58.128,
   "imported_outside_export": [],
   "native_input": false,
   "scope": "Only the allowlisted synthetic public test subset, run from exported source.",
   "full_private_corpus": "The full local development corpus includes withheld private fixtures and is not reproduced by this snapshot.",
-  "manifest_sha256": "0746e2c1e2767adba99bb9645d9727492b9fff07d410c8083efef064e0e9c081"
+  "manifest_sha256": "d19c88ebf266178eede65339e09f30863a9bebef419bf4456c3706e22d1883ba"
 }

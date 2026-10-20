@@ -1,0 +1,142 @@
+{
+  "schema": 1,
+  "source": "Read-only Locale_table, Net_Error_Fail_Reconnect and Net_Error_Check_Connection, game installation observed 2026-10-20. These strings identify only that specific disconnection dialog.",
+  "messages": {
+    "ko": {
+      "ocr": "kor",
+      "title": "재접속에 실패했습니다.",
+      "body": "서버와의 연결이 끊어졌습니다. 네트워크 상태를 확인한 후 다시 시도해 주세요.",
+      "reward_title": "오프라인 보상",
+      "reward_last_login": "마지막 로그인",
+      "reward_duration": "자동 전투 시간"
+    },
+    "en-US": {
+      "ocr": "eng",
+      "title": "Failed to reconnect.",
+      "body": "Disconnected from the server. Please check your network connection and try again.",
+      "reward_title": "Offline Rewards",
+      "reward_last_login": "Last Login",
+      "reward_duration": "Auto Battle Time"
+    },
+    "ru": {
+      "ocr": "rus",
+      "title": "Не удалось переподключиться.",
+      "body": "Соединение с сервером потеряно. Проверьте подключение к сети и повторите попытку.",
+      "reward_title": "Офлайн-награды",
+      "reward_last_login": "Последний вход",
+      "reward_duration": "Время автобоя"
+    },
+    "fr": {
+      "ocr": "fra",
+      "title": "Échec de la reconnexion.",
+      "body": "La connexion au serveur a été interrompue. Vérifiez votre connexion réseau et réessayez.",
+      "reward_title": "Récompenses hors ligne",
+      "reward_last_login": "Dernière connexion",
+      "reward_duration": "Durée de combat auto"
+    },
+    "es": {
+      "ocr": "spa",
+      "title": "No se pudo volver a conectar.",
+      "body": "Se ha perdido la conexión con el servidor. Comprueba tu conexión de red e inténtalo de nuevo.",
+      "reward_title": "Recompensas sin conexión",
+      "reward_last_login": "Último inicio de sesión",
+      "reward_duration": "Tiempo de combate automático"
+    },
+    "it": {
+      "ocr": "ita",
+      "title": "Riconnessione non riuscita.",
+      "body": "La connessione al server è stata interrotta. Controlla la connessione di rete e riprova.",
+      "reward_title": "Ricompense offline",
+      "reward_last_login": "Ultimo accesso",
+      "reward_duration": "Tempo di combattimento automatico"
+    },
+    "pl": {
+      "ocr": "pol",
+      "title": "Nie udało się ponownie połączyć.",
+      "body": "Utracono połączenie z serwerem. Sprawdź połączenie sieciowe i spróbuj ponownie.",
+      "reward_title": "Nagrody offline",
+      "reward_last_login": "Ostatnie logowanie",
+      "reward_duration": "Czas automatycznej walki"
+    },
+    "de": {
+      "ocr": "deu",
+      "title": "Erneute Verbindung fehlgeschlagen.",
+      "body": "Die Verbindung zum Server wurde unterbrochen. Überprüfe deine Netzwerkverbindung und versuche es erneut.",
+      "reward_title": "Offline-Belohnungen",
+      "reward_last_login": "Letzte Anmeldung",
+      "reward_duration": "Auto-Kampfzeit"
+    },
+    "pt-BR": {
+      "ocr": "por",
+      "title": "Falha ao reconectar.",
+      "body": "A conexão com o servidor foi perdida. Verifique sua conexão de rede e tente novamente.",
+      "reward_title": "Recompensas offline",
+      "reward_last_login": "Último login",
+      "reward_duration": "Tempo de batalha automática"
+    },
+    "id": {
+      "ocr": "ind",
+      "title": "Gagal menghubungkan kembali.",
+      "body": "Koneksi ke server terputus. Periksa koneksi jaringan Anda, lalu coba lagi.",
+      "reward_title": "Hadiah Offline",
+      "reward_last_login": "Login Terakhir",
+      "reward_duration": "Waktu Auto Battle"
+    },
+    "th": {
+      "ocr": "tha",
+      "title": "เชื่อมต่อใหม่ไม่สำเร็จ",
+      "body": "การเชื่อมต่อกับเซิร์ฟเวอร์ถูกตัด โปรดตรวจสอบการเชื่อมต่อเครือข่ายแล้วลองอีกครั้ง",
+      "reward_title": "รางวัลออฟไลน์",
+      "reward_last_login": "เข้าสู่ระบบล่าสุด",
+      "reward_duration": "เวลาเล่นอัตโนมัติ"
+    },
+    "ja": {
+      "ocr": "jpn",
+      "title": "再接続に失敗しました。",
+      "body": "サーバーとの接続が切断されました。ネットワークの状態を確認してから、もう一度お試しください。",
+      "reward_title": "オフライン報酬",
+      "reward_last_login": "最終ログイン",
+      "reward_duration": "自動戦闘時間"
+    },
+    "vi": {
+      "ocr": "vie",
+      "title": "Kết nối lại thất bại.",
+      "body": "Đã mất kết nối với máy chủ. Vui lòng kiểm tra kết nối mạng rồi thử lại.",
+      "reward_title": "Phần thưởng ngoại tuyến",
+      "reward_last_login": "Đăng nhập lần cuối",
+      "reward_duration": "Thời gian tự động chiến đấu"
+    },
+    "zh-CN": {
+      "ocr": "chi_sim",
+      "title": "重新连接失败。",
+      "body": "与服务器的连接已断开。请检查网络连接后重试。",
+      "reward_title": "离线奖励",
+      "reward_last_login": "上次登录",
+      "reward_duration": "自动战斗时间"
+    },
+    "tr": {
+      "ocr": "tur",
+      "title": "Yeniden bağlanılamadı.",
+      "body": "Sunucuyla bağlantı kesildi. Lütfen ağ bağlantınızı kontrol edip tekrar deneyin.",
+      "reward_title": "Çevrimdışı Ödüller",
+      "reward_last_login": "Son Giriş",
+      "reward_duration": "Otomatik Savaş Süresi"
+    },
+    "uk": {
+      "ocr": "ukr",
+      "title": "Не вдалося повторно підключитися.",
+      "body": "З’єднання із сервером втрачено. Перевірте підключення до мережі та спробуйте ще раз.",
+      "reward_title": "Офлайн-нагороди",
+      "reward_last_login": "Останній вхід",
+      "reward_duration": "Час автобою"
+    },
+    "zh-TW": {
+      "ocr": "chi_tra",
+      "title": "重新連線失敗。",
+      "body": "與伺服器的連線已中斷。請檢查網路連線後再試一次。",
+      "reward_title": "離線獎勵",
+      "reward_last_login": "最後登入",
+      "reward_duration": "自動戰鬥時間"
+    }
+  }
+}

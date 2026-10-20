@@ -477,7 +477,7 @@ class ProductApp(App):
         names = {"idle": "ready", "ready": "ready", "starting": "preparing",
                  "running": "running", "scanning": "scanning", "checking": "scanning",
                  "pending": "opening", "opening": "opening", "transferring": "transferring", "waiting": "waiting",
-                 "paused": "paused", "stopping": "stopping", "stopped": "stopped",
+                 "paused": "paused", "reconnecting": "reconnecting", "stopping": "stopping", "stopped": "stopped",
                  "finished": "completed", "error": "error"}
         title = tr("state." + names.get(self._runtime_state, "scanning"))
         detail = translate_message(self._runtime_message)
@@ -520,7 +520,7 @@ class ProductApp(App):
         self.run_detail.set(" ".join(str(detail).split()))
         if hasattr(self, "detail_label"):
             show_detail = (storage_full or deferred or
-                           self._runtime_state in ("paused", "pending", "opening", "error"))
+                           self._runtime_state in ("paused", "pending", "opening", "error", "reconnecting"))
             if show_detail and not self.detail_label.winfo_manager():
                 self.detail_label.pack(anchor="center", pady=(5, 0))
             elif not show_detail and self.detail_label.winfo_manager():
@@ -531,7 +531,7 @@ class ProductApp(App):
                 self.stats_label.pack_forget()
         if hasattr(self, "status_orbit"):
             color = (ROSE if self._runtime_state == "error" else
-                     AMBER if self._runtime_state in ("paused", "stopping", "storage_full") else
+                     AMBER if self._runtime_state in ("paused", "stopping", "storage_full", "reconnecting") else
                      ACCENT if busy else GREEN if ready else MUTED)
             moving_items = busy and self._runtime_state in (
                 "starting", "running", "working", "scanning", "checking", "opening", "transferring")

@@ -240,7 +240,14 @@
       "inventory_resorting": "Сортирую оставшиеся предметы",
       "storage_full_stopped": "Все доступные страницы проверены дважды. Хранилище заполнено; сортировка и таймер остановлены.",
       "detail.inventory_pending": "Полная проверка инвентаря пока не подтверждена. Повторю в следующем цикле.",
-      "detail.preflight_waiting": "Сумка обновляется. Повторю распознавание перед переносом."
+      "detail.preflight_waiting": "Сумка обновляется. Повторю распознавание перед переносом.",
+      "state.reconnecting": "Восстановление связи",
+      "detail.connection_lost": "Соединение потеряно. Следующая попытка через 5 минут.",
+      "detail.connection_retry": "Пробую восстановить соединение.",
+      "detail.connection_restored": "Соединение восстановлено. Проверяю инвентарь заново.",
+      "detail.connection_pending": "Ожидаю возвращения в игру.",
+      "detail.transfer_disconnected": "Соединение прервало перенос. Его результат не подтверждён; инвентарь будет проверен заново.",
+      "detail.offline_reward": "Закрываю окно офлайн-наград."
     },
     "en-US": {
       "app.title": "An orderly inventory",
@@ -477,7 +484,14 @@
       "inventory_resorting": "Sorting remaining items",
       "storage_full_stopped": "All available pages were checked twice. Storage is full; sorting and the timer are stopped.",
       "detail.inventory_pending": "A full inventory check has not yet been confirmed. I will try again in the next cycle.",
-      "detail.preflight_waiting": "The bag is updating. I will check it again before transferring."
+      "detail.preflight_waiting": "The bag is updating. I will check it again before transferring.",
+      "state.reconnecting": "Reconnecting",
+      "detail.connection_lost": "Connection lost. Retrying in 5 minutes.",
+      "detail.connection_retry": "Trying to reconnect.",
+      "detail.connection_restored": "Connection restored. Checking the inventory again.",
+      "detail.connection_pending": "Waiting to return to the game.",
+      "detail.transfer_disconnected": "The connection interrupted a transfer. Its result is unconfirmed; the inventory will be checked again.",
+      "detail.offline_reward": "Closing the offline rewards window."
     },
     "uk": {
       "app.title": "Порядок в інвентарі",
@@ -714,7 +728,14 @@
       "inventory_resorting": "Сортую решту предметів",
       "storage_full_stopped": "Усі доступні сторінки перевірено двічі. Сховище заповнене; сортування й таймер зупинено.",
       "detail.inventory_pending": "Повну перевірку інвентарю ще не підтверджено. Повторю в наступному циклі.",
-      "detail.preflight_waiting": "Сумка оновлюється. Повторю розпізнавання перед перенесенням."
+      "detail.preflight_waiting": "Сумка оновлюється. Повторю розпізнавання перед перенесенням.",
+      "state.reconnecting": "Відновлення зв’язку",
+      "detail.connection_lost": "З’єднання втрачено. Наступна спроба через 5 хвилин.",
+      "detail.connection_retry": "Намагаюся відновити з’єднання.",
+      "detail.connection_restored": "З’єднання відновлено. Перевіряю інвентар заново.",
+      "detail.connection_pending": "Очікую повернення до гри.",
+      "detail.transfer_disconnected": "З’єднання перервало перенесення. Його результат не підтверджено; інвентар буде перевірено заново.",
+      "detail.offline_reward": "Закриваю вікно офлайн-нагород."
     },
     "de": {
       "app.title": "Ordnung im Inventar",
@@ -951,7 +972,14 @@
       "inventory_resorting": "Übrige Gegenstände sortieren",
       "storage_full_stopped": "Alle verfügbaren Seiten wurden zweimal geprüft. Das Lager ist voll; Sortierung und Timer sind gestoppt.",
       "detail.inventory_pending": "Die vollständige Inventarprüfung ist noch nicht bestätigt. Ich versuche es im nächsten Durchlauf erneut.",
-      "detail.preflight_waiting": "Die Tasche wird aktualisiert. Ich prüfe sie vor dem Übertragen erneut."
+      "detail.preflight_waiting": "Die Tasche wird aktualisiert. Ich prüfe sie vor dem Übertragen erneut.",
+      "state.reconnecting": "Verbindung wird hergestellt",
+      "detail.connection_lost": "Verbindung verloren. Nächster Versuch in 5 Minuten.",
+      "detail.connection_retry": "Verbindung wird erneut hergestellt.",
+      "detail.connection_restored": "Verbindung wiederhergestellt. Inventar wird erneut geprüft.",
+      "detail.connection_pending": "Warte auf die Rückkehr ins Spiel.",
+      "detail.transfer_disconnected": "Die Verbindung hat einen Transfer unterbrochen. Das Ergebnis ist unbestätigt; das Inventar wird erneut geprüft.",
+      "detail.offline_reward": "Fenster für Offline-Belohnungen wird geschlossen."
     },
     "fr": {
       "app.title": "Un inventaire bien rangé",
@@ -1188,7 +1216,14 @@
       "inventory_resorting": "Tri des objets restants",
       "storage_full_stopped": "Toutes les pages disponibles ont été vérifiées deux fois. Le stockage est plein ; le tri et le minuteur sont arrêtés.",
       "detail.inventory_pending": "La vérification complète de l’inventaire n’est pas encore confirmée. Je réessaierai au prochain cycle.",
-      "detail.preflight_waiting": "Le sac se met à jour. Je revérifierai son contenu avant le transfert."
+      "detail.preflight_waiting": "Le sac se met à jour. Je revérifierai son contenu avant le transfert.",
+      "state.reconnecting": "Reconnexion",
+      "detail.connection_lost": "Connexion perdue. Nouvel essai dans 5 minutes.",
+      "detail.connection_retry": "Tentative de reconnexion.",
+      "detail.connection_restored": "Connexion rétablie. Nouvelle vérification de l’inventaire.",
+      "detail.connection_pending": "En attente du retour dans le jeu.",
+      "detail.transfer_disconnected": "La connexion a interrompu un transfert. Son résultat n’est pas confirmé ; l’inventaire sera vérifié à nouveau.",
+      "detail.offline_reward": "Fermeture de la fenêtre des récompenses hors ligne."
     },
     "es": {
       "app.title": "Orden en el inventario",
@@ -1425,7 +1460,14 @@
       "inventory_resorting": "Ordenando los objetos restantes",
       "storage_full_stopped": "Todas las páginas disponibles se comprobaron dos veces. El almacén está lleno; la clasificación y el temporizador se han detenido.",
       "detail.inventory_pending": "La comprobación completa del inventario aún no está confirmada. Lo intentaré de nuevo en el próximo ciclo.",
-      "detail.preflight_waiting": "La bolsa se está actualizando. Volveré a comprobarla antes de transferir."
+      "detail.preflight_waiting": "La bolsa se está actualizando. Volveré a comprobarla antes de transferir.",
+      "state.reconnecting": "Reconectando",
+      "detail.connection_lost": "Conexión perdida. Se reintentará en 5 minutos.",
+      "detail.connection_retry": "Intentando reconectar.",
+      "detail.connection_restored": "Conexión restablecida. Revisando el inventario de nuevo.",
+      "detail.connection_pending": "Esperando el regreso al juego.",
+      "detail.transfer_disconnected": "La conexión interrumpió una transferencia. El resultado no está confirmado; se revisará el inventario de nuevo.",
+      "detail.offline_reward": "Cerrando la ventana de recompensas sin conexión."
     },
     "it": {
       "app.title": "Ordine nell’inventario",
@@ -1662,7 +1704,14 @@
       "inventory_resorting": "Ordinamento degli oggetti rimasti",
       "storage_full_stopped": "Tutte le pagine disponibili sono state controllate due volte. Il deposito è pieno; l’ordinamento e il timer sono arrestati.",
       "detail.inventory_pending": "Il controllo completo dell’inventario non è ancora confermato. Riproverò nel prossimo ciclo.",
-      "detail.preflight_waiting": "La borsa si sta aggiornando. La ricontrollerò prima del trasferimento."
+      "detail.preflight_waiting": "La borsa si sta aggiornando. La ricontrollerò prima del trasferimento.",
+      "state.reconnecting": "Riconnessione",
+      "detail.connection_lost": "Connessione persa. Nuovo tentativo tra 5 minuti.",
+      "detail.connection_retry": "Tentativo di riconnessione.",
+      "detail.connection_restored": "Connessione ripristinata. Ricontrollo dell’inventario.",
+      "detail.connection_pending": "In attesa di tornare nel gioco.",
+      "detail.transfer_disconnected": "La connessione ha interrotto un trasferimento. Il risultato non è confermato; l’inventario verrà ricontrollato.",
+      "detail.offline_reward": "Chiusura della finestra delle ricompense offline."
     },
     "pt-BR": {
       "app.title": "Inventário em ordem",
@@ -1899,7 +1948,14 @@
       "inventory_resorting": "Organizando os itens restantes",
       "storage_full_stopped": "Todas as páginas disponíveis foram verificadas duas vezes. O depósito está cheio; a organização e o temporizador foram interrompidos.",
       "detail.inventory_pending": "A verificação completa do inventário ainda não foi confirmada. Tentarei novamente no próximo ciclo.",
-      "detail.preflight_waiting": "A bolsa está sendo atualizada. Vou verificá-la novamente antes da transferência."
+      "detail.preflight_waiting": "A bolsa está sendo atualizada. Vou verificá-la novamente antes da transferência.",
+      "state.reconnecting": "Reconectando",
+      "detail.connection_lost": "Conexão perdida. Nova tentativa em 5 minutos.",
+      "detail.connection_retry": "Tentando reconectar.",
+      "detail.connection_restored": "Conexão restabelecida. Verificando o inventário novamente.",
+      "detail.connection_pending": "Aguardando o retorno ao jogo.",
+      "detail.transfer_disconnected": "A conexão interrompeu uma transferência. O resultado não foi confirmado; o inventário será verificado novamente.",
+      "detail.offline_reward": "Fechando a janela de recompensas offline."
     },
     "pl": {
       "app.title": "Porządek w ekwipunku",
@@ -2136,7 +2192,14 @@
       "inventory_resorting": "Sortowanie pozostałych przedmiotów",
       "storage_full_stopped": "Wszystkie dostępne strony sprawdzono dwukrotnie. Magazyn jest pełny; sortowanie i zegar zostały zatrzymane.",
       "detail.inventory_pending": "Pełne sprawdzenie ekwipunku nie zostało jeszcze potwierdzone. Spróbuję ponownie w następnym cyklu.",
-      "detail.preflight_waiting": "Torba jest aktualizowana. Sprawdzę ją ponownie przed przeniesieniem."
+      "detail.preflight_waiting": "Torba jest aktualizowana. Sprawdzę ją ponownie przed przeniesieniem.",
+      "state.reconnecting": "Ponowne łączenie",
+      "detail.connection_lost": "Utracono połączenie. Kolejna próba za 5 minut.",
+      "detail.connection_retry": "Próba ponownego połączenia.",
+      "detail.connection_restored": "Połączenie przywrócone. Ponowne sprawdzanie ekwipunku.",
+      "detail.connection_pending": "Oczekiwanie na powrót do gry.",
+      "detail.transfer_disconnected": "Połączenie przerwało przenoszenie. Wynik nie jest potwierdzony; ekwipunek zostanie sprawdzony ponownie.",
+      "detail.offline_reward": "Zamykanie okna nagród offline."
     },
     "id": {
       "app.title": "Kerapian inventaris",
@@ -2373,7 +2436,14 @@
       "inventory_resorting": "Menyortir item yang tersisa",
       "storage_full_stopped": "Semua halaman yang tersedia telah diperiksa dua kali. Penyimpanan penuh; penyortiran dan pengatur waktu dihentikan.",
       "detail.inventory_pending": "Pemeriksaan seluruh inventaris belum terkonfirmasi. Saya akan mencoba lagi pada siklus berikutnya.",
-      "detail.preflight_waiting": "Tas sedang diperbarui. Saya akan memeriksanya lagi sebelum memindahkan item."
+      "detail.preflight_waiting": "Tas sedang diperbarui. Saya akan memeriksanya lagi sebelum memindahkan item.",
+      "state.reconnecting": "Menghubungkan kembali",
+      "detail.connection_lost": "Koneksi terputus. Mencoba lagi dalam 5 menit.",
+      "detail.connection_retry": "Mencoba menghubungkan kembali.",
+      "detail.connection_restored": "Koneksi pulih. Memeriksa inventaris lagi.",
+      "detail.connection_pending": "Menunggu kembali ke permainan.",
+      "detail.transfer_disconnected": "Koneksi memutus pemindahan. Hasilnya belum dikonfirmasi; inventaris akan diperiksa lagi.",
+      "detail.offline_reward": "Menutup jendela hadiah offline."
     },
     "vi": {
       "app.title": "Sắp xếp hành trang",
@@ -2610,7 +2680,14 @@
       "inventory_resorting": "Đang sắp xếp vật phẩm còn lại",
       "storage_full_stopped": "Tất cả các trang hiện có đã được kiểm tra hai lần. Kho đã đầy; sắp xếp và bộ hẹn giờ đã dừng.",
       "detail.inventory_pending": "Chưa xác nhận được việc kiểm tra toàn bộ túi đồ. Tôi sẽ thử lại ở chu kỳ tiếp theo.",
-      "detail.preflight_waiting": "Túi đồ đang cập nhật. Tôi sẽ kiểm tra lại trước khi chuyển vật phẩm."
+      "detail.preflight_waiting": "Túi đồ đang cập nhật. Tôi sẽ kiểm tra lại trước khi chuyển vật phẩm.",
+      "state.reconnecting": "Đang kết nối lại",
+      "detail.connection_lost": "Mất kết nối. Sẽ thử lại sau 5 phút.",
+      "detail.connection_retry": "Đang thử kết nối lại.",
+      "detail.connection_restored": "Đã kết nối lại. Đang kiểm tra túi đồ lần nữa.",
+      "detail.connection_pending": "Đang chờ trở lại trò chơi.",
+      "detail.transfer_disconnected": "Kết nối đã làm gián đoạn việc chuyển đồ. Chưa xác nhận được kết quả; túi đồ sẽ được kiểm tra lại.",
+      "detail.offline_reward": "Đang đóng cửa sổ phần thưởng ngoại tuyến."
     },
     "tr": {
       "app.title": "Envanteri düzenle",
@@ -2847,7 +2924,14 @@
       "inventory_resorting": "Kalan eşyalar sıralanıyor",
       "storage_full_stopped": "Kullanılabilir tüm sayfalar iki kez kontrol edildi. Depo dolu; sıralama ve zamanlayıcı durduruldu.",
       "detail.inventory_pending": "Envanterin tamamının kontrolü henüz doğrulanmadı. Bir sonraki döngüde yeniden deneyeceğim.",
-      "detail.preflight_waiting": "Çanta güncelleniyor. Aktarmadan önce yeniden kontrol edeceğim."
+      "detail.preflight_waiting": "Çanta güncelleniyor. Aktarmadan önce yeniden kontrol edeceğim.",
+      "state.reconnecting": "Yeniden bağlanılıyor",
+      "detail.connection_lost": "Bağlantı kesildi. 5 dakika sonra yeniden denenecek.",
+      "detail.connection_retry": "Yeniden bağlanma deneniyor.",
+      "detail.connection_restored": "Bağlantı yeniden kuruldu. Envanter tekrar kontrol ediliyor.",
+      "detail.connection_pending": "Oyuna dönüş bekleniyor.",
+      "detail.transfer_disconnected": "Bağlantı aktarımı yarıda kesti. Sonuç doğrulanamadı; envanter yeniden kontrol edilecek.",
+      "detail.offline_reward": "Çevrimdışı ödül penceresi kapatılıyor."
     },
     "th": {
       "app.title": "จัดระเบียบกระเป๋า",
@@ -3084,7 +3168,14 @@
       "inventory_resorting": "กำลังจัดเรียงไอเท็มที่เหลือ",
       "storage_full_stopped": "ตรวจสอบหน้าที่ใช้งานได้ทั้งหมดสองครั้งแล้ว คลังเต็ม จึงหยุดการจัดเรียงและตัวจับเวลา",
       "detail.inventory_pending": "ยังไม่ยืนยันการตรวจสอบช่องเก็บของทั้งหมด จะลองใหม่ในรอบถัดไป",
-      "detail.preflight_waiting": "กระเป๋ากำลังอัปเดต จะตรวจสอบอีกครั้งก่อนย้ายไอเทม"
+      "detail.preflight_waiting": "กระเป๋ากำลังอัปเดต จะตรวจสอบอีกครั้งก่อนย้ายไอเทม",
+      "state.reconnecting": "กำลังเชื่อมต่อใหม่",
+      "detail.connection_lost": "การเชื่อมต่อขาดหาย จะลองอีกครั้งใน 5 นาที",
+      "detail.connection_retry": "กำลังลองเชื่อมต่อใหม่",
+      "detail.connection_restored": "เชื่อมต่อแล้ว กำลังตรวจสอบกระเป๋าอีกครั้ง",
+      "detail.connection_pending": "กำลังรอกลับเข้าสู่เกม",
+      "detail.transfer_disconnected": "การเชื่อมต่อขัดจังหวะการย้าย ยังไม่ยืนยันผล จะตรวจสอบกระเป๋าอีกครั้ง",
+      "detail.offline_reward": "กำลังปิดหน้าต่างรางวัลออฟไลน์"
     },
     "ja": {
       "app.title": "所持品を整理",
@@ -3321,7 +3412,14 @@
       "inventory_resorting": "残りのアイテムを整理中",
       "storage_full_stopped": "利用可能な全ページを2回確認しました。倉庫が満杯のため、整理とタイマーを停止しました。",
       "detail.inventory_pending": "インベントリ全体の確認はまだ完了を確認できていません。次のサイクルで再試行します。",
-      "detail.preflight_waiting": "バッグが更新中です。転送前に再確認します。"
+      "detail.preflight_waiting": "バッグが更新中です。転送前に再確認します。",
+      "state.reconnecting": "再接続中",
+      "detail.connection_lost": "接続が切れました。5分後に再試行します。",
+      "detail.connection_retry": "再接続を試みています。",
+      "detail.connection_restored": "接続が復旧しました。インベントリを再確認します。",
+      "detail.connection_pending": "ゲームへの復帰を待っています。",
+      "detail.transfer_disconnected": "接続切断で移動が中断されました。結果は未確認です。インベントリを再確認します。",
+      "detail.offline_reward": "オフライン報酬のウィンドウを閉じています。"
     },
     "ko": {
       "app.title": "인벤토리 정리",
@@ -3558,7 +3656,14 @@
       "inventory_resorting": "남은 아이템 정리 중",
       "storage_full_stopped": "사용 가능한 모든 페이지를 두 번 확인했습니다. 창고가 가득 차 정리와 타이머를 중지했습니다.",
       "detail.inventory_pending": "인벤토리 전체 검사가 아직 확인되지 않았습니다. 다음 주기에 다시 시도하겠습니다.",
-      "detail.preflight_waiting": "가방이 업데이트되고 있습니다. 이전하기 전에 다시 확인하겠습니다."
+      "detail.preflight_waiting": "가방이 업데이트되고 있습니다. 이전하기 전에 다시 확인하겠습니다.",
+      "state.reconnecting": "재접속 중",
+      "detail.connection_lost": "연결이 끊어졌습니다. 5분 후 다시 시도합니다.",
+      "detail.connection_retry": "재접속을 시도합니다.",
+      "detail.connection_restored": "연결이 복구되었습니다. 인벤토리를 다시 확인합니다.",
+      "detail.connection_pending": "게임으로 돌아가기를 기다립니다.",
+      "detail.transfer_disconnected": "연결이 끊겨 아이템 이동이 중단되었습니다. 결과가 확인되지 않아 인벤토리를 다시 확인합니다.",
+      "detail.offline_reward": "오프라인 보상 창을 닫습니다."
     },
     "zh-CN": {
       "app.title": "整理背包",
@@ -3795,7 +3900,14 @@
       "inventory_resorting": "正在整理剩余物品",
       "storage_full_stopped": "已检查全部可用页面两次。仓库已满，整理和定时器均已停止。",
       "detail.inventory_pending": "尚未确认完成整个背包的检查。下一轮将重试。",
-      "detail.preflight_waiting": "背包正在更新。转移前将重新识别。"
+      "detail.preflight_waiting": "背包正在更新。转移前将重新识别。",
+      "state.reconnecting": "正在重新连接",
+      "detail.connection_lost": "连接已断开。5分钟后重试。",
+      "detail.connection_retry": "正在尝试重新连接。",
+      "detail.connection_restored": "连接已恢复。正在重新检查背包。",
+      "detail.connection_pending": "正在等待返回游戏。",
+      "detail.transfer_disconnected": "连接中断导致转移停止，结果尚未确认。将重新检查背包。",
+      "detail.offline_reward": "正在关闭离线奖励窗口。"
     },
     "zh-TW": {
       "app.title": "整理背包",
@@ -4032,7 +4144,14 @@
       "inventory_resorting": "正在整理剩餘物品",
       "storage_full_stopped": "已檢查全部可用頁面兩次。倉庫已滿，整理與計時器均已停止。",
       "detail.inventory_pending": "尚未確認完成整個背包的檢查。下一輪將重試。",
-      "detail.preflight_waiting": "背包正在更新。轉移前將重新辨識。"
+      "detail.preflight_waiting": "背包正在更新。轉移前將重新辨識。",
+      "state.reconnecting": "正在重新連線",
+      "detail.connection_lost": "連線已中斷。5分鐘後重試。",
+      "detail.connection_retry": "正在嘗試重新連線。",
+      "detail.connection_restored": "連線已恢復。正在重新檢查背包。",
+      "detail.connection_pending": "正在等待返回遊戲。",
+      "detail.transfer_disconnected": "連線中斷導致轉移停止，結果尚未確認。將重新檢查背包。",
+      "detail.offline_reward": "正在關閉離線獎勵視窗。"
     }
   }
 }

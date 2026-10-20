@@ -23,6 +23,7 @@ releases/
 installer/build/
 installer/dist/
 installer/resources/
+ocr_native/
 release-kit/source-kit/*-test-tmp/
 release-kit/source-kit/stage-*/
 release-kit/source-kit/source-zip-*/

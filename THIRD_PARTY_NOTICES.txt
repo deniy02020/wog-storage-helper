@@ -8636,3 +8636,13 @@ authors grant the U.S. Government and others acting in its behalf
 permission to use and distribute the software in accordance with the
 terms specified in this license.
 
+
+
+Offline reconnection recognition (added 2026-10-20)
+Tesseract 5.5.3 and Leptonica 1.87.0 plus their unmodified image-library DLLs.
+Original upstream notices: licenses/ocr-native/. Model notice: licenses/ocr-models/.
+The DLLs come from the checksum-pinned tesserocr Windows dependency wheel;
+the tesserocr Python extension and cysignals are NOT included.
+Language models are the unmodified official tessdata_fast files at commit
+87416418657359cb625c412a48b6e1d6d41c29bd.
+Source URLs and byte-exact notice hashes are recorded in licenses/manifest.json.

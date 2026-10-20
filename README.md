@@ -5,13 +5,13 @@ Helper automatically transfers your selected equipment and gems to storage on a 
 [Download for Windows — GitHub Releases](https://github.com/deniy02020/wog-storage-helper/releases/latest) ·
 [Steam guide](https://steamcommunity.com/sharedfiles/filedetails/?id=3818783491)
 
-This folder contains **version 1.3 source**. To install Helper, open **GitHub Releases** above and choose **WoGStorageHelperSetup.exe**. The source archive is for reviewing or building the code.
+This folder contains **version 1.4 source**. To install Helper, open **GitHub Releases** above and choose **WoGStorageHelperSetup.exe**. The source archive is for reviewing or building the code.
 
-## Version 1.3
+## Version 1.4
 
-Panel recognition now uses language-neutral icons when translated headings differ. The storage opener also recognises its house icon without relying on the button caption. The same independent item-grid and transfer checks remain required.
+Helper detects the game's lost-connection message while running and retries every five minutes. After rejoining, it closes Offline Rewards, checks the inventory again and resumes the sorting timer.
 
-Small game windows also receive improved scroll-motion detection and separator checks when item glow touches a grid border.
+Recognition runs locally. The installer includes the language models needed for all 17 game languages.
 
 ## Getting started
 
@@ -34,6 +34,7 @@ Windows and Python 3.13 with Tkinter are required. Dependencies are pinned in th
 ```powershell
 py -3.13 -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements-lock.txt
+.\.venv\Scripts\python.exe ocr_resources.py --fetch-native
 .\.venv\Scripts\python.exe -B dashboard.py
 ```
 

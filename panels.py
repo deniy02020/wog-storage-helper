@@ -72,6 +72,7 @@ class PanelController:
         # An accepted opener is not safe to repeat until fresh pixels prove
         # its result. Runner reads this boundary independently of grid fitting.
         self._opening_input_pending = False
+        self.frame_guard = None
         controls = profile.get("panel_controls")
         if not isinstance(controls, dict):
             raise ValueError("Настройки открытия панелей должны быть объектом.")
@@ -239,6 +240,8 @@ class PanelController:
     def capture(self):
         self.check_stop()
         image = self.desktop.capture(self.handle)
+        if self.frame_guard is not None:
+            self.frame_guard(image)
         self.check_size(image)
         return image
 
@@ -252,6 +255,8 @@ class PanelController:
     def check_layout(self, image, profile=None):
         """Check adopted physical geometry without adopting a fresh transform."""
         self.check_stop()
+        if self.frame_guard is not None:
+            self.frame_guard(image)
         if self.layout is not None:
             self.layout.validate_current(image, profile or self.profile)
         else:
@@ -375,6 +380,8 @@ class PanelController:
         if self.opening_input_pending:
             raise RuntimeError("Открытие игровой панели не подтвердилось. Повторного клика не будет.")
         image = self.capture() if image is None else image
+        if self.frame_guard is not None:
+            self.frame_guard(image)
         self.check_size(image)
         found = self.locate(image)
         parking, parking_id = None, None

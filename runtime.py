@@ -74,6 +74,7 @@ class Runner:
         self.state_callback = state_callback or (lambda payload: None)
         self.handle_resolver = handle_resolver
         self.panel_controller = None
+        self.connection_monitor = None
         self.include_gems = True
         self.filters = profile["transfer_filters"]
         self.size = tuple(profile["size"])
@@ -149,6 +150,33 @@ class Runner:
         if callback is not None:
             callback({"state": name, "message": message,
                       "next_check_at": next_check_at})
+
+    def enable_connection_monitor(self):
+        from connection_runtime import ConnectionMonitor
+        self.connection_monitor = ConnectionMonitor(self)
+        if getattr(self, 'panel_controller', None) is not None:
+            self.panel_controller.frame_guard = self.connection_monitor.guard_frame
+
+    def close_connection_monitor(self):
+        monitor = getattr(self, 'connection_monitor', None)
+        if monitor is not None:
+            monitor.close()
+
+    def reset_after_reconnection(self):
+        """New connection epoch; no prior item coordinate or receipt is reused."""
+        if self.panel_controller is not None:
+            from panels import PanelController
+            self.panel_controller = PanelController(self.desktop, self.handle,
+                self.canonical_profile, self.directory, self.check_stop, self.wait)
+            self.panel_controller.frame_guard = self.connection_monitor.guard_frame
+        self._transfer_input_issued = False
+        self._last_inventory_scan = None
+
+    def wait_between_cycles(self, seconds):
+        monitor = getattr(self, 'connection_monitor', None)
+        if monitor is None:
+            return self.wait(seconds)
+        return monitor.wait_between_cycles(seconds)
 
     def prepare_panels(self):
         """Re-anchor a cycle in memory; never rewrite calibration or trust flags."""
@@ -259,6 +287,9 @@ class Runner:
     def capture(self):
         self.check_stop()
         image = self.desktop.capture(self.handle)
+        monitor = getattr(self, 'connection_monitor', None)
+        if monitor is not None:
+            monitor.guard_frame(image)
         if image.size != self.size:
             from panels import CALIBRATION_REQUIRED
             if self.canonical_profile.get("automatic_layout") is True:
@@ -1221,6 +1252,7 @@ class Runner:
                     self.log("Исходная страница не восстановлена: " + str(error))
 
     def monitor(self, interval):
+        from reconnection import ConnectionLost, HEALTH_POLL_SECONDS
         interval = validate_interval(interval)
         paused = False
         safe_failure_streak = 0
@@ -1312,7 +1344,7 @@ class Runner:
                         self.log(str(error))
                         self.state("waiting", "Фоновая проверка прервана вводом пользователя. Следующая проверка по таймеру.",
                                    time.monotonic() + interval)
-                        self.wait(interval)
+                        self.wait_between_cycles(interval)
                         continue
                     if token is None:
                         if not paused:
@@ -1335,6 +1367,8 @@ class Runner:
             preflight_pending = False
             activity_pending = False
             access_pending = False
+            connection_pending = False
+            connection_health_only = False
             try:
                 self.check_stop()
                 access_hold = False  # Foreground/idle activation passed the normal gate.
@@ -1349,12 +1383,21 @@ class Runner:
                     if not self.desktop.active(self.handle) or (is_alive is not None and not is_alive(self.desktop, self.handle)):
                         raise RuntimeError("Окно игры потеряло фокус во время отрисовки. Фоновая проверка отменена.")
                 # Rescan after each verified move; compaction never reuses old positions.
-                result = self._run_inventory_cycle()
-                inventory_pending = getattr(result, "outcome", None) == "pending"
-                safe_failure_streak = 0
-                if paused:
+                connection = getattr(self, 'connection_monitor', None)
+                if connection is not None and not connection.step():
+                    connection_pending = True
+                elif connection is not None and connection.sort_wait_remaining() > 0:
+                    connection_health_only = True
+                else:
+                    result = self._run_inventory_cycle()
+                    inventory_pending = getattr(result, "outcome", None) == "pending"
+                    safe_failure_streak = 0
+                if paused and not connection_pending and not connection_health_only:
                     self.log("Окно игры активно: продолжаю.")
                     paused = False
+            except ConnectionLost as error:
+                cycle_error = error
+                connection_pending = True
             except (CursorPositionChanged, ForegroundWindowChanged) as error:
                 cycle_error = error
                 if (error.input_issued or getattr(self, "_transfer_input_issued", False)
@@ -1406,6 +1449,15 @@ class Runner:
                         if cycle_error is None:
                             raise
                         self.log("Не удалось восстановить прежнее окно: " + str(error))
+            if connection_pending:
+                # This has its own five-minute click cooldown. It is unrelated
+                # to the bounded two-second layout/preflight recovery budget.
+                self.wait(HEALTH_POLL_SECONDS)
+                continue
+            if connection_health_only:
+                remaining = connection.sort_wait_remaining()
+                self.wait_between_cycles(remaining)
+                continue
             if access_pending:
                 # Already-idle cursor mismatches share the bounded failure
                 # budget; a persistent mismatch never creates another short
@@ -1426,4 +1478,4 @@ class Runner:
                        if activity_pending else
                        "Проверка закончена. Ожидаю следующий цикл.",
                        time.monotonic() + delay)
-            self.wait(delay)
+            self.wait_between_cycles(delay)

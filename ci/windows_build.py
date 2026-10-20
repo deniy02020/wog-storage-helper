@@ -110,6 +110,7 @@ def unsigned(output):
     manifest = copy_source(source)
     artifacts = output / "artifacts"
     artifacts.mkdir()
+    run(["ocr_resources.py", "--fetch-native"], source)
     run(["-m", "PyInstaller", "--noconfirm", "--clean", "WoGStorageHelper.spec"], source)
     app = source / "dist/WoGStorageHelper/WoGStorageHelper.exe"
     wrappers = output / "wrappers"

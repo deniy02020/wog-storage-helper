@@ -29,6 +29,7 @@ class AppTimerTests(unittest.TestCase):
     def setUp(self):
         SynchronousThread.created = 0
         self.runner = SimpleNamespace(state=Mock(), wait=Mock(), monitor=Mock(),
+                                      enable_connection_monitor=Mock(), close_connection_monitor=Mock(),
                                       once=Mock(return_value=True), prepare_panels=Mock(),
                                       inspect_storage_pages=Mock(return_value=[]))
         self.timeline = Mock()

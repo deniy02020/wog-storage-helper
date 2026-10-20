@@ -1,0 +1,63 @@
+{
+  "schema": 1,
+  "wheel_sha256": "41958c5b8a030189e5733dc16317705a0fd7910f247fbca09d4c9a5bd152969b",
+  "source": "https://github.com/simonflueckiger/tesserocr-windows_build/releases/tag/tesserocr-v2.11.0-tesseract-5.5.3",
+  "scope": "Unmodified Tesseract and image-library DLLs only. No tesserocr Python wrapper, cysignals, or compiled Python extension is bundled.",
+  "files": [
+    {
+      "path": "leptonica-1.87.0.dll",
+      "bytes": 3224576,
+      "sha256": "d51863d4ff9c528af568e231b6fab0a59b7ce55167c4b13d8f9bae2d743c89a2"
+    },
+    {
+      "path": "org.sw.demo.facebook.zstd.zstd-1.5.7.dll",
+      "bytes": 559616,
+      "sha256": "61c8ecaed0d8386a6f84a711ac63e069a8a3096daf0ec9df5457809b098b0be1"
+    },
+    {
+      "path": "org.sw.demo.gif-6.1.3.dll",
+      "bytes": 48640,
+      "sha256": "529ae0751b83f99fa353d4a71613f0498fa053fb2b7391727de8810781480cb7"
+    },
+    {
+      "path": "org.sw.demo.glennrp.png-1.6.58.dll",
+      "bytes": 197632,
+      "sha256": "c884af3aca5164f5457a452718a05f6829adb08b548db0195ad29cd10fbf2c74"
+    },
+    {
+      "path": "org.sw.demo.jpeg-10.0.0.dll",
+      "bytes": 305664,
+      "sha256": "2811963786652f3720ee6977678214e66a79d350929ca37ffeafe87835bab08b"
+    },
+    {
+      "path": "org.sw.demo.madler.zlib-1.3.2.dll",
+      "bytes": 90112,
+      "sha256": "0ff27d83f44654de45c568505e842ba994256cd9ae1ea0febbb961c33c80a55a"
+    },
+    {
+      "path": "org.sw.demo.tiff-4.7.1.dll",
+      "bytes": 506880,
+      "sha256": "c0a29f23c90a9a0c15b3ba189f298ac9c880dcf68f3c2d81c4b801ecead30d08"
+    },
+    {
+      "path": "org.sw.demo.uclouvain.openjpeg.openjp2-2.5.4.dll",
+      "bytes": 357376,
+      "sha256": "1eb5645d662f54669c6adaffb0004a864eee1cf3f09e097612b18a6421b0f0f2"
+    },
+    {
+      "path": "org.sw.demo.webmproject.webp-1.6.0.dll",
+      "bytes": 564736,
+      "sha256": "cfecc98f20c227ac74999368baed864205b963b1482c0d14eeec3fca8f31155a"
+    },
+    {
+      "path": "org.sw.demo.xz_utils.lzma-5.8.3.dll",
+      "bytes": 183296,
+      "sha256": "58f63fbc92b82662a45fc21e393e7d0548cc792b6db63e499126bd650b31fe0b"
+    },
+    {
+      "path": "tesseract55.dll",
+      "bytes": 2903552,
+      "sha256": "cd8ac2e94618b012539415b4ffac02433d183dbf23e89a65a6cde7d8c0773904"
+    }
+  ]
+}
