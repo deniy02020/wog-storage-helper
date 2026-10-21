@@ -43,7 +43,7 @@ TESTS = tuple(("test_core test_inventory_cycle test_inventory_scroller test_inve
     "test_windows_signing installer.test_signing_build ci.test_pipeline "
     "test_windows_preflight_interruptions test_runtime_panel_input_boundary "
     "test_profile_directory_alias test_dashboard_behavior test_dashboard installer.test_release_packaging "
-    "test_runtime_transfer_confirmation test_neutral_panels test_small_inventory_motion test_reconnection").split())
+    "test_runtime_transfer_confirmation test_neutral_panels test_small_inventory_motion test_reconnection test_connection_visual").split())
 PUBLIC_TESTS = TESTS + ("test_public_resources",)
 FILES = {*(name + ".py" for name in MODULES), *(name.replace(".", "/") + ".py" for name in TESTS),
     *("installer/" + name + ".py" for name in INSTALLER_MODULES),
@@ -55,7 +55,7 @@ FILES = {*(name + ".py" for name in MODULES), *(name.replace(".", "/") + ".py" f
     "preset_assets/adaptive_ui.json", "preset_assets/header_parking.json", "preset_assets/neutral_panels.json", "preset_assets/inventory_halos.json",
     "ci/__init__.py", "ci/windows_build.py", "ci/resume_signing.py", "ci/signpath.py", "ci/actions-pins.json",
     ".github/workflows/windows-build.yml", ".github/workflows/signing-resume.yml"}
-FILES |= {'disconnect_messages.json', 'ocr_native_manifest.json', 'ocr_models/manifest.json'}
+FILES |= {'disconnect_messages.json', 'disconnect_visual.json', 'ocr_native_manifest.json', 'ocr_models/manifest.json'}
 FILES |= {'ocr_models/'+lang+'.traineddata' for lang in
           'eng rus fra spa ita ukr pol deu por ind tha jpn kor vie chi_sim tur chi_tra'.split()}
 TEMPLATES = {"README.md", "ATTRIBUTION.md", ".gitignore", ".gitattributes", "docs/STEAM_RELEASE.md",
@@ -84,8 +84,8 @@ def policy():
     if document.get("schema") != 1 or document.get("author") != "deniy":
         raise ValueError("Unexpected reviewed source policy")
     records = {record["path"]: record for record in document["images"]}
-    if len(records) != 973:
-        raise ValueError("Reviewed image allowlist must contain 971 matching crops and 2 original icons")
+    if len(records) != 1027:
+        raise ValueError("Reviewed image allowlist must contain 1025 matching crops and 2 original icons")
     return document, records
 
 

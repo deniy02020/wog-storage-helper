@@ -47,6 +47,9 @@ class SafePreflightChange(RuntimeError):
 
 LAYOUT_RETRY_SECONDS = 2.0
 LAYOUT_READBACK_SECONDS = 4.0
+# Offline experience can show a level-up banner over inventory after Sort.
+# Poll only; never send another sort or item input while its grid is hidden.
+INVENTORY_READBACK_SECONDS = 12.0
 LAYOUT_WAITING = "Ожидаю, пока игровые панели станут видны. Проверка повторится автоматически."
 GRID_WAITING = "Не удалось распознать ячейки предметов. Проверка повторится автоматически."
 FOCUS_RETRY_SECONDS = 2.0
@@ -731,7 +734,7 @@ class Runner:
                  if parking is not None else self.anchors[0][0].center)
         self._park_pointer(point)
         self.wait(.2)
-        deadline = time.monotonic() + LAYOUT_READBACK_SECONDS
+        deadline = time.monotonic() + INVENTORY_READBACK_SECONDS
         stable_profile = None
         stable_since = None
         stable_phase = None

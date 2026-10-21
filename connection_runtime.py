@@ -3,7 +3,7 @@ from __future__ import annotations
 
 import time
 
-from connection_vision import DisconnectRecognizer, modal_candidates
+from connection_vision import DisconnectRecognizer, modal_candidates, reward_candidates, session_candidates
 from reconnection import (ConnectionLost, ReconnectPolicy, HEALTH_POLL_SECONDS,
     CONNECTION_LOST, CONNECTION_RETRY, CONNECTION_RESTORED, CONNECTION_PENDING,
     TRANSFER_INTERRUPTED, OFFLINE_REWARD)
@@ -20,6 +20,7 @@ class ConnectionMonitor:
         self.settle_seconds = settle_seconds
         self.online_seen_at = None
         self.reward_input_issued = False
+        self.session_input_issued = False
 
     def sort_wait_remaining(self):
         return max(0.0, (self.cycle_deadline or self.clock()) - self.clock())
@@ -46,6 +47,11 @@ class ConnectionMonitor:
         if self.recognizer.detect_reward(image, self.runner.check_stop) is not None:
             self._return_pending()
             raise ConnectionLost(CONNECTION_PENDING)
+        if (reward_candidates(image) or modal_candidates(image) or session_candidates(image)):
+            # An unreadable reward overlay must hold the inventory workflow;
+            # it does not grant permission to press its button.
+            self._return_pending()
+            raise ConnectionLost(CONNECTION_PENDING)
 
     def idle_probe(self):
         """Foreground only; an hourly sort must not delay disconnect detection."""
@@ -56,14 +62,19 @@ class ConnectionMonitor:
         if self.recognizer.detect(image, runner.check_stop) is not None:
             self._lost()
             return True
-        if self.recognizer.detect_reward(image, runner.check_stop) is not None:
+        if self.recognizer.detect_session(image,runner.check_stop) is not None:
+            self._lost()
+            return True
+        if (self.recognizer.detect_reward(image, runner.check_stop) is not None
+                or reward_candidates(image)):
             self._return_pending()
             return True
         return False
 
     def _gameplay_visible(self, image):
         """Positive live-UI evidence, not just disappearance of the error popup."""
-        if modal_candidates(image) or self.recognizer.detect_reward(image,self.runner.check_stop) is not None:
+        if (modal_candidates(image) or reward_candidates(image) or session_candidates(image)
+                or self.recognizer.detect_reward(image,self.runner.check_stop) is not None):
             return False
         controller = self.runner.panel_controller
         if controller is None:
@@ -94,6 +105,27 @@ class ConnectionMonitor:
                 runner.state('reconnecting', CONNECTION_RETRY, self.policy.next_attempt_at)
                 runner.log(CONNECTION_RETRY)
                 runner.desktop.click(runner.handle, current.point, fresh.size)
+            return False
+        session = self.recognizer.detect_session(image,runner.check_stop)
+        if session is not None:
+            self._lost()
+            due = self.policy.due(self.clock())
+            # An expired-session response to an already issued reconnect is
+            # the next step of that attempt. A direct session expiry waits
+            # the ordinary five minutes. Never rapidly repeat this button.
+            if due or (self.policy.attempts > 0 and not self.session_input_issued):
+                runner.wait(.15)
+                fresh = runner.desktop.capture(runner.handle)
+                current = self.recognizer.detect_session(fresh,runner.check_stop)
+                if current != session:
+                    return False
+                runner.check_stop()
+                if due:
+                    self.policy.issued(self.clock())
+                self.session_input_issued = True
+                runner.log(CONNECTION_RETRY)
+                runner.state('reconnecting',CONNECTION_PENDING,self.policy.next_attempt_at)
+                runner.desktop.click(runner.handle,current.point,fresh.size)
             return False
         reward = self.recognizer.detect_reward(image, runner.check_stop)
         if reward is not None:
@@ -133,6 +165,7 @@ class ConnectionMonitor:
         runner.reset_after_reconnection()
         self.policy.restored()
         self.reward_input_issued = False
+        self.session_input_issued = False
         self.online_seen_at = None
         self.cycle_deadline = None
         runner.log(CONNECTION_RESTORED)

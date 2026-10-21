@@ -1,4 +1,48 @@
-# Version 1.4 public source status
+# Version 1.5 public source status
+
+Version 1.5 adds whole-message visual text features for tiny Traditional and
+Simplified Chinese disconnect/reward captions and Thai disconnect text, without reducing the
+general OCR confidence limits.
+An unreadable game error or reward overlay blocks inventory actions and cannot
+be treated as a restored connection. The exact expired-session message has its
+own two-frame confirmation before the game's ordinary restart.
+
+After an independently confirmed fresh descending Sort and complete inventory
+Top, a known tier below every selected tier can end the scan. An uncertain cell
+after that boundary needs no guessed tier. An earlier unknown cell, an observed
+ordering contradiction, a remaining selected item or a missing Sort/Top proof
+still prevents this shortcut. All visible cell geometry remains checked.
+Inventory Sort/scroll readback can wait up to twelve seconds for a temporary
+level-up banner to disappear. This sends no repeated item or Sort clicks;
+unconfirmed persistent occlusion still stops the operation, and Stop cancels
+the wait. Transfer confirmation retains its existing separate deadline.
+
+Settings includes the Steam guide, public GitHub repository and the author's
+Telegram link. Opening Settings does not open those destinations automatically.
+
+Six exact-scale native frame cues add narrow raw frame/gutter evidence for
+glowing T4-T6 items in a small window. Both opposite rails must pass raw RMSE10;
+all other opaque frame parts and each contributed gutter lane must match the
+same independently classified cue, using the existing symmetric raster
+normalization for glints. Several complete independent cues may contribute
+their own proved lanes; their frame parts are never mixed. The full grid and every separator segment still require
+their original checks. Other scales retain the canonical route. This is not a
+colour exemption or a relaxation of item, grid or input thresholds.
+
+Native observations include a complete small-window Traditional Chinese source
+reconnect with two confirmed T3 transfers, and an Italian expired-session restart
+followed by automatic panel opening and two T3 transfers. Thai disconnect text
+was also tested live after its specific fix; an ordinary Korean cycle with the
+native frame fix confirmed fifteen transfers and returned to the hourly timer.
+A Vietnamese reconnect on the current source then confirmed ten transfers and
+returned to the hourly timer. Simplified Chinese warning and reward recognition
+were additionally checked against authentic small-window frames.
+These separate cycles are not all one frozen-build acceptance. Additional language
+verification and installed executable acceptance are recorded separately; this
+source snapshot alone does not establish all-language or all-DPI native success.
+The isolated tests for this exact export are in PUBLIC_TEST_RESULT.json.
+
+## Earlier 1.4 observations (preserved)
 
 WoG Storage Helper 1.4.0 adds offline, message-specific automatic reconnection.
 The running scheduler checks for disconnections during the sorting countdown.

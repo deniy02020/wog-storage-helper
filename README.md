@@ -5,11 +5,11 @@ Helper automatically transfers your selected equipment and gems to storage on a 
 [Download for Windows — GitHub Releases](https://github.com/deniy02020/wog-storage-helper/releases/latest) ·
 [Steam guide](https://steamcommunity.com/sharedfiles/filedetails/?id=3818783491)
 
-This folder contains **version 1.4 source**. To install Helper, open **GitHub Releases** above and choose **WoGStorageHelperSetup.exe**. The source archive is for reviewing or building the code.
+This folder contains **version 1.5 source**. To install Helper, open **GitHub Releases** above and choose **WoGStorageHelperSetup.exe**. The source archive is for reviewing or building the code.
 
-## Version 1.4
+## Version 1.5
 
-Helper detects the game's lost-connection message while running and retries every five minutes. After rejoining, it closes Offline Rewards, checks the inventory again and resumes the sorting timer.
+Improves reconnection in small game windows and handles the game's expired-session response. Helper waits for the game to return before checking inventory and resuming its timer.
 
 Recognition runs locally. The installer includes the language models needed for all 17 game languages.
 

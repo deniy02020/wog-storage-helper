@@ -406,7 +406,8 @@ class InventoryHaloProofTests(unittest.TestCase):
         legacy=copy.deepcopy(self.document)
         legacy["schema"]=1
         legacy.pop("supplemental_models");legacy.pop("supplemental_tiers")
-        legacy["records"]=[r for r in legacy["records"] if r["image"].startswith("inventory_halo_T4_")]
+        native_names={name for cue in legacy.pop('native_models',[]) for name in cue['patches'].values()}
+        legacy["records"]=[r for r in legacy["records"] if r["image"].startswith("inventory_halo_T4_") and r['image'] not in native_names]
         names=verify_inventory_halo_resources(legacy,lambda name:(ASSETS/name).read_bytes())
         self.assertEqual(len(names),532)
 
@@ -540,6 +541,79 @@ class InventoryCapLaneTests(unittest.TestCase):
         self.assertTrue(all(lane.left >= viewport.left and lane.right <= viewport.right
                             and lane.top >= viewport.top and lane.bottom <= viewport.bottom
                             for lane in lanes))
+
+
+class NativeRasterHaloTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        cls.document=json.loads((ASSETS/'inventory_halos.json').read_bytes())
+        cls.model=InventoryHaloModels(ASSETS)
+
+    def scene(self,index):
+        scale,patches=self.model.native_models[index]
+        image=Image.new('RGB',(230,230),(17,21,29))
+        origin=(100,100);viewport=Rect(70,70,200,200)
+        for relative,pixels in patches.values():
+            image.paste(Image.fromarray(pixels.astype('uint8')),(origin[0]+relative.left,origin[1]+relative.top))
+        return image,origin,viewport,scale,patches
+
+    def test_each_native_cue_requires_complete_same_source_rails_and_gutters(self):
+        for index in range(len(self.model.native_models)):
+            image,origin,viewport,scale,patches=self.scene(index)
+            with self.subTest(index=index):
+                self.assertIsNotNone(self.model.match(np.asarray(image,dtype=np.float32),viewport,'full',origin,scale))
+            for label in ('frame_left','frame_right','frame_top','frame_bottom_left','frame_bottom_right'):
+                changed=image.copy();relative,_=patches[label]
+                changed.paste('black',relative.translated(*origin).as_box())
+                with self.subTest(index=index,damaged=label):
+                    self.assertIsNone(self.model.match(np.asarray(changed,dtype=np.float32),viewport,'full',origin,scale))
+
+    def test_changed_neighbor_lane_is_never_contributed_by_another_matching_lane(self):
+        for index in range(len(self.model.native_models)):
+            image,origin,viewport,scale,patches=self.scene(index)
+            relative,_=patches['halo_bottom']
+            changed=relative.translated(*origin)
+            image.paste('black',changed.as_box())
+            lanes=self.model.match(np.asarray(image,dtype=np.float32),viewport,'full',origin,scale)
+            self.assertIsNotNone(lanes)
+            self.assertNotIn(changed,lanes)
+            for label,(relative,_) in patches.items():
+                if label.startswith('halo_'):
+                    image.paste('black',relative.translated(*origin).as_box())
+            self.assertIsNone(self.model.match(np.asarray(image,dtype=np.float32),viewport,'full',origin,scale))
+
+    def test_small_corner_raster_glints_keep_both_opposite_raw_rails_mandatory(self):
+        image,origin,viewport,scale,patches=self.scene(0)
+        relative,pixels=patches['frame_top']
+        target=relative.translated(*origin)
+        glint=pixels.copy()+np.where(np.arange(pixels.shape[1])%2,18.,-18.)[None,:,None]
+        image.paste(Image.fromarray(np.clip(glint,0,255).astype('uint8')),(target.left,target.top))
+        self.assertIsNotNone(self.model.match(np.asarray(image,dtype=np.float32),viewport,'full',origin,scale))
+        for label in ('frame_left','frame_right'):
+            changed=image.copy();relative,_=patches[label]
+            changed.paste('black',relative.translated(*origin).as_box())
+            with self.subTest(raw_rail=label):
+                self.assertIsNone(self.model.match(np.asarray(changed,dtype=np.float32),viewport,'full',origin,scale))
+
+    def test_native_cues_do_not_authorize_an_unobserved_scale_or_a_partial_frame(self):
+        image,origin,viewport,scale,_=self.scene(0)
+        with patch.object(self.model,'rendered',return_value={}):
+            self.assertIsNone(self.model.match(np.asarray(image,dtype=np.float32),viewport,'full',origin,scale+.0001))
+            self.assertIsNone(self.model.match(np.asarray(image,dtype=np.float32),Rect(101,70,200,200),'full',origin,scale))
+            self.assertIsNone(self.model.match(np.zeros((230,230,3),dtype=np.float32),viewport,'full',origin,scale))
+
+    def test_native_catalog_rejects_missing_lanes_wrong_geometry_scale_and_tier_proof(self):
+        mutations=[]
+        for key,value in (('canonical_scale',True),('canonical_scale',.34),('canonical_scale',1.51),
+                          ('tier',True),('kind','cap'),('source_body_rect',[372,247,397,272]),
+                          ('source_classification',{'tier':6,'rmse':14.01,'margin':20.}),
+                          ('source_classification',{'tier':6,'rmse':0.,'margin':4.99})):
+            item=copy.deepcopy(self.document);item['native_models'][0][key]=value;mutations.append(item)
+        item=copy.deepcopy(self.document);item['native_models'][0]['patches'].pop('frame_right');mutations.append(item)
+        item=copy.deepcopy(self.document);item['native_models']*=7;mutations.append(item)
+        for item in mutations:
+            with self.assertRaises(ValueError):
+                verify_inventory_halo_resources(item,lambda name:(ASSETS/name).read_bytes())
 
 
 if __name__ == "__main__":

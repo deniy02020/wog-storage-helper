@@ -111,7 +111,11 @@ def certify_sorted_prefix(scan: GridScan, selected_tiers: Collection[int],
     native caller must independently provide that fresh epoch/position proof.
     No selected item may remain in this prefix. By default completion also
     needs a known tier BELOW the minimum selected tier, or an empty suffix.
-    A higher unselected tier alone cannot hide a lower selected tier. Validation
+    A higher unselected tier alone cannot hide a lower selected tier. Unknown
+    cells BEFORE a lower-tier boundary cannot certify completion. After that
+    boundary the externally proved fresh descending Sort already places them
+    below every selected tier; they need no guessed tier. Known contradictions
+    anywhere in the visible grid still invalidate the sorted order. Validation
     mode (require_boundary=False) checks the same prefix without claiming end.
     """
     try:
@@ -140,6 +144,12 @@ def certify_sorted_prefix(scan: GridScan, selected_tiers: Collection[int],
             empty_suffix = True
             continue
         tier = cell.tier
+        if (tier is None and (cell.empty is False or cell.empty is None)
+                and lower_sentinel and not empty_suffix):
+            # The boundary, not an unknown classification, proves exclusion.
+            # Do not use this predicate without its fresh Sort and full Top
+            # contract; the unsorted walk retains its unknown-cell semantics.
+            continue
         if (cell.empty is not False or empty_suffix
                 or isinstance(tier, bool) or not isinstance(tier, int) or not 1 <= tier <= 6
                 or tier > previous or tier in selected):
@@ -383,7 +393,8 @@ def run_inventory_walk(
                     return None
                 if not full_top:
                     return False
-            if eligible(final_top) or not final_top.scan.unknown_count or not pure_proof:
+            if (eligible(final_top) or not final_top.scan.unknown_count or not pure_proof
+                    or certify_sorted_prefix(final_top.scan,selected)):
                 return final_top
             if attempt == 2:
                 return final_top
@@ -486,7 +497,8 @@ def run_inventory_walk(
                     view = final_top
                     pass_unknown = bool(final_top.scan.unknown_count)
                     continue
-                if final_top.scan.unknown_count:
+                if (final_top.scan.unknown_count
+                        and not certify_sorted_prefix(final_top.scan,selected)):
                     return result("unknown")
                 if not certify_sorted_prefix(final_top.scan, selected, require_boundary=False):
                     # This shortcut relies on the fresh game's Sort epoch.

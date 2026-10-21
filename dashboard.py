@@ -13,6 +13,7 @@ import queue
 import re
 import sys
 import time
+import webbrowser
 import tkinter as tk
 from tkinter import ttk
 
@@ -31,6 +32,13 @@ from release_identity import display_version
 from runtime import FOCUS_WAITING, LAYOUT_WAITING, GRID_WAITING, PREFLIGHT_WAITING, INVENTORY_PENDING
 from i18n import (tr, set_locale, get_locale, LOCALE_NAMES, format_duration,
                   translate_message, LEGACY_TEXT_KEYS)
+
+
+SETTINGS_LINKS = (
+    ('settings.steam_guide','https://steamcommunity.com/sharedfiles/filedetails/?id=3818783491'),
+    ('settings.github','https://github.com/deniy02020/wog-storage-helper'),
+    ('settings.telegram','https://t.me/deniy02020'),
+)
 
 
 @dataclass(frozen=True)
@@ -171,8 +179,8 @@ class ProductApp(App):
         dialog = tk.Toplevel(self)
         dialog.title(tr("settings.title"))
         dialog.configure(background=BG,padx=24,pady=24)
-        dialog.geometry("470x270")
-        dialog.minsize(470,270)
+        dialog.geometry("470x360")
+        dialog.minsize(470,360)
         apply_icon(dialog)
         tokens = [dialog.after(150,lambda:dark_titlebar(dialog))]
         def on_destroy(event):
@@ -201,6 +209,13 @@ class ProductApp(App):
             self.show_journal()
         AnimatedButton(dialog,text=tr("journal.title"),height=44,radius=22,
             variant="secondary",command=journal,animations_enabled=self._animations_enabled).pack(fill="x")
+        links = tk.Frame(dialog,background=BG)
+        links.pack(fill="x",pady=(14,0))
+        for (key,url),width in zip(SETTINGS_LINKS,(172,104,114)):
+            AnimatedButton(links,text=tr(key),width=width,height=34,radius=17,
+                variant="ghost",font=("Segoe UI",9),
+                command=lambda destination=url:webbrowser.open_new_tab(destination),
+                animations_enabled=self._animations_enabled).pack(side="left",padx=(0,6))
         tk.Label(dialog,text=tr("about.version",version=display_version()),
             background=BG,foreground=MUTED,font=("Segoe UI",9)).pack(anchor="w",pady=(18,0))
         dialog.transient(self)

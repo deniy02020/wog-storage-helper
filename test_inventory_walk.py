@@ -341,6 +341,21 @@ class SortedPrefixTests(unittest.TestCase):
     def test_empty_hole_is_never_a_compacted_suffix(self):
         self.assertFalse(self.certificate([4, "empty", 2] + ["empty"] * 13))
 
+    def test_lower_boundary_makes_later_unknown_tiers_irrelevant_after_fresh_sort(self):
+        for uncertain in ('unknown','ambiguous'):
+            for selected in ((3,), (3,5,6), (4,6), (5,6)):
+                with self.subTest(uncertain=uncertain,selected=selected):
+                    labels = [2]*8+[uncertain]+[2]*3+[1]*4
+                    self.assertTrue(self.certificate(labels,selected))
+                    self.assertTrue(self.certificate(labels,selected,require_boundary=False))
+
+    def test_lower_boundary_never_excuses_earlier_unknown_or_later_contradiction(self):
+        for labels in (['unknown']+[2]*15, [4,'unknown']+[2]*14,
+                       [2,'unknown',4]+[2]*13, [2,'unknown',3]+[1]*13,
+                       [2,'empty','unknown']+['empty']*13):
+            with self.subTest(labels=labels):
+                self.assertFalse(self.certificate(labels))
+
     def test_selected_lower_tier_cannot_be_skipped_even_with_a_later_sentinel(self):
         self.assertFalse(self.certificate([4] * 8 + [3] * 4 + [2] * 4))
 
@@ -365,6 +380,15 @@ class InventoryWalkSortedTopRecoveryTests(unittest.TestCase):
     @staticmethod
     def full_top(observation):
         return certify_full_inventory_top(observation, Rect(100, 200, 140, 360), 8, 2, 1.)
+
+    def test_fresh_sorted_full_top_stops_at_lower_boundary_despite_later_unknown(self):
+        for uncertain in ('unknown','ambiguous'):
+            harness=WalkHarness([2]*8+[uncertain]+[2]*3+[1]*40,selected=(3,5,6))
+            result=harness.run(sorted_epoch=lambda:1,sorted_top=self.full_top,
+                sorted_boundary=lambda view:certify_sorted_prefix(view.scan,harness.selected))
+            self.assertTrue(result.complete)
+            self.assertNotIn('scroll',harness.events)
+            self.assertFalse(harness.transferred)
 
     @staticmethod
     def recovering_harness(fresh_labels, *, selected=(3, 4, 5, 6), epoch=2):

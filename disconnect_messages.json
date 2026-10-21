@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "source": "Read-only Locale_table, Net_Error_Fail_Reconnect and Net_Error_Check_Connection, game installation observed 2026-10-20. These strings identify only that specific disconnection dialog.",
+  "source": "Read-only Locale_table, Net_Error_Fail_Reconnect and Net_Error_Check_Connection, game installation observed 2026-10-20. These strings identify only that specific disconnection dialog. EXPIRED_SESSION is the exact fixed session-expiry text; its empty trailing placeholder is omitted. Error is the observed game dialog title. EXPIRED_SESSION is the exact fixed session-expiry text; its empty trailing placeholder is omitted. Error is the observed game dialog title.",
   "messages": {
     "ko": {
       "ocr": "kor",
@@ -8,7 +8,9 @@
       "body": "서버와의 연결이 끊어졌습니다. 네트워크 상태를 확인한 후 다시 시도해 주세요.",
       "reward_title": "오프라인 보상",
       "reward_last_login": "마지막 로그인",
-      "reward_duration": "자동 전투 시간"
+      "reward_duration": "자동 전투 시간",
+      "session_title": "Error",
+      "session_body": "접속 시간이 만료되었습니다. 다시 접속해 주세요."
     },
     "en-US": {
       "ocr": "eng",
@@ -16,7 +18,9 @@
       "body": "Disconnected from the server. Please check your network connection and try again.",
       "reward_title": "Offline Rewards",
       "reward_last_login": "Last Login",
-      "reward_duration": "Auto Battle Time"
+      "reward_duration": "Auto Battle Time",
+      "session_title": "Error",
+      "session_body": "Login session expired. Please log in again."
     },
     "ru": {
       "ocr": "rus",
@@ -24,7 +28,9 @@
       "body": "Соединение с сервером потеряно. Проверьте подключение к сети и повторите попытку.",
       "reward_title": "Офлайн-награды",
       "reward_last_login": "Последний вход",
-      "reward_duration": "Время автобоя"
+      "reward_duration": "Время автобоя",
+      "session_title": "Error",
+      "session_body": "Время сеанса истекло. Подключитесь снова."
     },
     "fr": {
       "ocr": "fra",
@@ -32,7 +38,9 @@
       "body": "La connexion au serveur a été interrompue. Vérifiez votre connexion réseau et réessayez.",
       "reward_title": "Récompenses hors ligne",
       "reward_last_login": "Dernière connexion",
-      "reward_duration": "Durée de combat auto"
+      "reward_duration": "Durée de combat auto",
+      "session_title": "Error",
+      "session_body": "La session a expiré. Reconnectez-vous."
     },
     "es": {
       "ocr": "spa",
@@ -40,7 +48,9 @@
       "body": "Se ha perdido la conexión con el servidor. Comprueba tu conexión de red e inténtalo de nuevo.",
       "reward_title": "Recompensas sin conexión",
       "reward_last_login": "Último inicio de sesión",
-      "reward_duration": "Tiempo de combate automático"
+      "reward_duration": "Tiempo de combate automático",
+      "session_title": "Error",
+      "session_body": "La sesión ha caducado. Vuelve a conectarte."
     },
     "it": {
       "ocr": "ita",
@@ -48,7 +58,9 @@
       "body": "La connessione al server è stata interrotta. Controlla la connessione di rete e riprova.",
       "reward_title": "Ricompense offline",
       "reward_last_login": "Ultimo accesso",
-      "reward_duration": "Tempo di combattimento automatico"
+      "reward_duration": "Tempo di combattimento automatico",
+      "session_title": "Error",
+      "session_body": "La sessione è scaduta. Riconnettiti."
     },
     "pl": {
       "ocr": "pol",
@@ -56,7 +68,9 @@
       "body": "Utracono połączenie z serwerem. Sprawdź połączenie sieciowe i spróbuj ponownie.",
       "reward_title": "Nagrody offline",
       "reward_last_login": "Ostatnie logowanie",
-      "reward_duration": "Czas automatycznej walki"
+      "reward_duration": "Czas automatycznej walki",
+      "session_title": "Error",
+      "session_body": "Sesja wygasła. Połącz się ponownie."
     },
     "de": {
       "ocr": "deu",
@@ -64,7 +78,9 @@
       "body": "Die Verbindung zum Server wurde unterbrochen. Überprüfe deine Netzwerkverbindung und versuche es erneut.",
       "reward_title": "Offline-Belohnungen",
       "reward_last_login": "Letzte Anmeldung",
-      "reward_duration": "Auto-Kampfzeit"
+      "reward_duration": "Auto-Kampfzeit",
+      "session_title": "Error",
+      "session_body": "Die Sitzung ist abgelaufen. Bitte erneut verbinden."
     },
     "pt-BR": {
       "ocr": "por",
@@ -72,7 +88,9 @@
       "body": "A conexão com o servidor foi perdida. Verifique sua conexão de rede e tente novamente.",
       "reward_title": "Recompensas offline",
       "reward_last_login": "Último login",
-      "reward_duration": "Tempo de batalha automática"
+      "reward_duration": "Tempo de batalha automática",
+      "session_title": "Error",
+      "session_body": "A sessão expirou. Conecte-se novamente."
     },
     "id": {
       "ocr": "ind",
@@ -80,7 +98,9 @@
       "body": "Koneksi ke server terputus. Periksa koneksi jaringan Anda, lalu coba lagi.",
       "reward_title": "Hadiah Offline",
       "reward_last_login": "Login Terakhir",
-      "reward_duration": "Waktu Auto Battle"
+      "reward_duration": "Waktu Auto Battle",
+      "session_title": "Error",
+      "session_body": "Sesi login telah berakhir. Silakan login kembali."
     },
     "th": {
       "ocr": "tha",
@@ -88,7 +108,9 @@
       "body": "การเชื่อมต่อกับเซิร์ฟเวอร์ถูกตัด โปรดตรวจสอบการเชื่อมต่อเครือข่ายแล้วลองอีกครั้ง",
       "reward_title": "รางวัลออฟไลน์",
       "reward_last_login": "เข้าสู่ระบบล่าสุด",
-      "reward_duration": "เวลาเล่นอัตโนมัติ"
+      "reward_duration": "เวลาเล่นอัตโนมัติ",
+      "session_title": "Error",
+      "session_body": "เซสชันเข้าสู่ระบบหมดอายุ กรุณาเข้าสู่ระบบอีกครั้ง"
     },
     "ja": {
       "ocr": "jpn",
@@ -96,7 +118,9 @@
       "body": "サーバーとの接続が切断されました。ネットワークの状態を確認してから、もう一度お試しください。",
       "reward_title": "オフライン報酬",
       "reward_last_login": "最終ログイン",
-      "reward_duration": "自動戦闘時間"
+      "reward_duration": "自動戦闘時間",
+      "session_title": "Error",
+      "session_body": "ログイン情報の有効期限が切れました。再度ログインしてください。"
     },
     "vi": {
       "ocr": "vie",
@@ -104,7 +128,9 @@
       "body": "Đã mất kết nối với máy chủ. Vui lòng kiểm tra kết nối mạng rồi thử lại.",
       "reward_title": "Phần thưởng ngoại tuyến",
       "reward_last_login": "Đăng nhập lần cuối",
-      "reward_duration": "Thời gian tự động chiến đấu"
+      "reward_duration": "Thời gian tự động chiến đấu",
+      "session_title": "Error",
+      "session_body": "Phiên kết nối đã hết hạn. Vui lòng kết nối lại."
     },
     "zh-CN": {
       "ocr": "chi_sim",
@@ -112,7 +138,9 @@
       "body": "与服务器的连接已断开。请检查网络连接后重试。",
       "reward_title": "离线奖励",
       "reward_last_login": "上次登录",
-      "reward_duration": "自动战斗时间"
+      "reward_duration": "自动战斗时间",
+      "session_title": "Error",
+      "session_body": "连接已过期。请重新连接。"
     },
     "tr": {
       "ocr": "tur",
@@ -120,7 +148,9 @@
       "body": "Sunucuyla bağlantı kesildi. Lütfen ağ bağlantınızı kontrol edip tekrar deneyin.",
       "reward_title": "Çevrimdışı Ödüller",
       "reward_last_login": "Son Giriş",
-      "reward_duration": "Otomatik Savaş Süresi"
+      "reward_duration": "Otomatik Savaş Süresi",
+      "session_title": "Error",
+      "session_body": "Oturum süresi doldu. Yeniden bağlanın."
     },
     "uk": {
       "ocr": "ukr",
@@ -128,7 +158,9 @@
       "body": "З’єднання із сервером втрачено. Перевірте підключення до мережі та спробуйте ще раз.",
       "reward_title": "Офлайн-нагороди",
       "reward_last_login": "Останній вхід",
-      "reward_duration": "Час автобою"
+      "reward_duration": "Час автобою",
+      "session_title": "Error",
+      "session_body": "Час сеансу минув. Підключіться знову."
     },
     "zh-TW": {
       "ocr": "chi_tra",
@@ -136,7 +168,9 @@
       "body": "與伺服器的連線已中斷。請檢查網路連線後再試一次。",
       "reward_title": "離線獎勵",
       "reward_last_login": "最後登入",
-      "reward_duration": "自動戰鬥時間"
+      "reward_duration": "自動戰鬥時間",
+      "session_title": "Error",
+      "session_body": "登入資訊已過期。請重新登入。"
     }
   }
 }

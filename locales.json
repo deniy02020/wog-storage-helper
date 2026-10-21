@@ -247,7 +247,10 @@
       "detail.connection_restored": "Соединение восстановлено. Проверяю инвентарь заново.",
       "detail.connection_pending": "Ожидаю возвращения в игру.",
       "detail.transfer_disconnected": "Соединение прервало перенос. Его результат не подтверждён; инвентарь будет проверен заново.",
-      "detail.offline_reward": "Закрываю окно офлайн-наград."
+      "detail.offline_reward": "Закрываю окно офлайн-наград.",
+      "settings.steam_guide": "Руководство Steam",
+      "settings.github": "GitHub",
+      "settings.telegram": "Telegram"
     },
     "en-US": {
       "app.title": "An orderly inventory",
@@ -491,7 +494,10 @@
       "detail.connection_restored": "Connection restored. Checking the inventory again.",
       "detail.connection_pending": "Waiting to return to the game.",
       "detail.transfer_disconnected": "The connection interrupted a transfer. Its result is unconfirmed; the inventory will be checked again.",
-      "detail.offline_reward": "Closing the offline rewards window."
+      "detail.offline_reward": "Closing the offline rewards window.",
+      "settings.steam_guide": "Steam guide",
+      "settings.github": "GitHub",
+      "settings.telegram": "Telegram"
     },
     "uk": {
       "app.title": "Порядок в інвентарі",
@@ -735,7 +741,10 @@
       "detail.connection_restored": "З’єднання відновлено. Перевіряю інвентар заново.",
       "detail.connection_pending": "Очікую повернення до гри.",
       "detail.transfer_disconnected": "З’єднання перервало перенесення. Його результат не підтверджено; інвентар буде перевірено заново.",
-      "detail.offline_reward": "Закриваю вікно офлайн-нагород."
+      "detail.offline_reward": "Закриваю вікно офлайн-нагород.",
+      "settings.steam_guide": "Посібник Steam",
+      "settings.github": "GitHub",
+      "settings.telegram": "Telegram"
     },
     "de": {
       "app.title": "Ordnung im Inventar",
@@ -979,7 +988,10 @@
       "detail.connection_restored": "Verbindung wiederhergestellt. Inventar wird erneut geprüft.",
       "detail.connection_pending": "Warte auf die Rückkehr ins Spiel.",
       "detail.transfer_disconnected": "Die Verbindung hat einen Transfer unterbrochen. Das Ergebnis ist unbestätigt; das Inventar wird erneut geprüft.",
-      "detail.offline_reward": "Fenster für Offline-Belohnungen wird geschlossen."
+      "detail.offline_reward": "Fenster für Offline-Belohnungen wird geschlossen.",
+      "settings.steam_guide": "Steam-Anleitung",
+      "settings.github": "GitHub",
+      "settings.telegram": "Telegram"
     },
     "fr": {
       "app.title": "Un inventaire bien rangé",
@@ -1223,7 +1235,10 @@
       "detail.connection_restored": "Connexion rétablie. Nouvelle vérification de l’inventaire.",
       "detail.connection_pending": "En attente du retour dans le jeu.",
       "detail.transfer_disconnected": "La connexion a interrompu un transfert. Son résultat n’est pas confirmé ; l’inventaire sera vérifié à nouveau.",
-      "detail.offline_reward": "Fermeture de la fenêtre des récompenses hors ligne."
+      "detail.offline_reward": "Fermeture de la fenêtre des récompenses hors ligne.",
+      "settings.steam_guide": "Guide Steam",
+      "settings.github": "GitHub",
+      "settings.telegram": "Telegram"
     },
     "es": {
       "app.title": "Orden en el inventario",
@@ -1467,7 +1482,10 @@
       "detail.connection_restored": "Conexión restablecida. Revisando el inventario de nuevo.",
       "detail.connection_pending": "Esperando el regreso al juego.",
       "detail.transfer_disconnected": "La conexión interrumpió una transferencia. El resultado no está confirmado; se revisará el inventario de nuevo.",
-      "detail.offline_reward": "Cerrando la ventana de recompensas sin conexión."
+      "detail.offline_reward": "Cerrando la ventana de recompensas sin conexión.",
+      "settings.steam_guide": "Guía de Steam",
+      "settings.github": "GitHub",
+      "settings.telegram": "Telegram"
     },
     "it": {
       "app.title": "Ordine nell’inventario",
@@ -1711,7 +1729,10 @@
       "detail.connection_restored": "Connessione ripristinata. Ricontrollo dell’inventario.",
       "detail.connection_pending": "In attesa di tornare nel gioco.",
       "detail.transfer_disconnected": "La connessione ha interrotto un trasferimento. Il risultato non è confermato; l’inventario verrà ricontrollato.",
-      "detail.offline_reward": "Chiusura della finestra delle ricompense offline."
+      "detail.offline_reward": "Chiusura della finestra delle ricompense offline.",
+      "settings.steam_guide": "Guida Steam",
+      "settings.github": "GitHub",
+      "settings.telegram": "Telegram"
     },
     "pt-BR": {
       "app.title": "Inventário em ordem",
@@ -1955,7 +1976,10 @@
       "detail.connection_restored": "Conexão restabelecida. Verificando o inventário novamente.",
       "detail.connection_pending": "Aguardando o retorno ao jogo.",
       "detail.transfer_disconnected": "A conexão interrompeu uma transferência. O resultado não foi confirmado; o inventário será verificado novamente.",
-      "detail.offline_reward": "Fechando a janela de recompensas offline."
+      "detail.offline_reward": "Fechando a janela de recompensas offline.",
+      "settings.steam_guide": "Guia do Steam",
+      "settings.github": "GitHub",
+      "settings.telegram": "Telegram"
     },
     "pl": {
       "app.title": "Porządek w ekwipunku",
@@ -2199,7 +2223,10 @@
       "detail.connection_restored": "Połączenie przywrócone. Ponowne sprawdzanie ekwipunku.",
       "detail.connection_pending": "Oczekiwanie na powrót do gry.",
       "detail.transfer_disconnected": "Połączenie przerwało przenoszenie. Wynik nie jest potwierdzony; ekwipunek zostanie sprawdzony ponownie.",
-      "detail.offline_reward": "Zamykanie okna nagród offline."
+      "detail.offline_reward": "Zamykanie okna nagród offline.",
+      "settings.steam_guide": "Poradnik Steam",
+      "settings.github": "GitHub",
+      "settings.telegram": "Telegram"
     },
     "id": {
       "app.title": "Kerapian inventaris",
@@ -2443,7 +2470,10 @@
       "detail.connection_restored": "Koneksi pulih. Memeriksa inventaris lagi.",
       "detail.connection_pending": "Menunggu kembali ke permainan.",
       "detail.transfer_disconnected": "Koneksi memutus pemindahan. Hasilnya belum dikonfirmasi; inventaris akan diperiksa lagi.",
-      "detail.offline_reward": "Menutup jendela hadiah offline."
+      "detail.offline_reward": "Menutup jendela hadiah offline.",
+      "settings.steam_guide": "Panduan Steam",
+      "settings.github": "GitHub",
+      "settings.telegram": "Telegram"
     },
     "vi": {
       "app.title": "Sắp xếp hành trang",
@@ -2687,7 +2717,10 @@
       "detail.connection_restored": "Đã kết nối lại. Đang kiểm tra túi đồ lần nữa.",
       "detail.connection_pending": "Đang chờ trở lại trò chơi.",
       "detail.transfer_disconnected": "Kết nối đã làm gián đoạn việc chuyển đồ. Chưa xác nhận được kết quả; túi đồ sẽ được kiểm tra lại.",
-      "detail.offline_reward": "Đang đóng cửa sổ phần thưởng ngoại tuyến."
+      "detail.offline_reward": "Đang đóng cửa sổ phần thưởng ngoại tuyến.",
+      "settings.steam_guide": "Hướng dẫn Steam",
+      "settings.github": "GitHub",
+      "settings.telegram": "Telegram"
     },
     "tr": {
       "app.title": "Envanteri düzenle",
@@ -2931,7 +2964,10 @@
       "detail.connection_restored": "Bağlantı yeniden kuruldu. Envanter tekrar kontrol ediliyor.",
       "detail.connection_pending": "Oyuna dönüş bekleniyor.",
       "detail.transfer_disconnected": "Bağlantı aktarımı yarıda kesti. Sonuç doğrulanamadı; envanter yeniden kontrol edilecek.",
-      "detail.offline_reward": "Çevrimdışı ödül penceresi kapatılıyor."
+      "detail.offline_reward": "Çevrimdışı ödül penceresi kapatılıyor.",
+      "settings.steam_guide": "Steam rehberi",
+      "settings.github": "GitHub",
+      "settings.telegram": "Telegram"
     },
     "th": {
       "app.title": "จัดระเบียบกระเป๋า",
@@ -3175,7 +3211,10 @@
       "detail.connection_restored": "เชื่อมต่อแล้ว กำลังตรวจสอบกระเป๋าอีกครั้ง",
       "detail.connection_pending": "กำลังรอกลับเข้าสู่เกม",
       "detail.transfer_disconnected": "การเชื่อมต่อขัดจังหวะการย้าย ยังไม่ยืนยันผล จะตรวจสอบกระเป๋าอีกครั้ง",
-      "detail.offline_reward": "กำลังปิดหน้าต่างรางวัลออฟไลน์"
+      "detail.offline_reward": "กำลังปิดหน้าต่างรางวัลออฟไลน์",
+      "settings.steam_guide": "คู่มือ Steam",
+      "settings.github": "GitHub",
+      "settings.telegram": "Telegram"
     },
     "ja": {
       "app.title": "所持品を整理",
@@ -3419,7 +3458,10 @@
       "detail.connection_restored": "接続が復旧しました。インベントリを再確認します。",
       "detail.connection_pending": "ゲームへの復帰を待っています。",
       "detail.transfer_disconnected": "接続切断で移動が中断されました。結果は未確認です。インベントリを再確認します。",
-      "detail.offline_reward": "オフライン報酬のウィンドウを閉じています。"
+      "detail.offline_reward": "オフライン報酬のウィンドウを閉じています。",
+      "settings.steam_guide": "Steamガイド",
+      "settings.github": "GitHub",
+      "settings.telegram": "Telegram"
     },
     "ko": {
       "app.title": "인벤토리 정리",
@@ -3663,7 +3705,10 @@
       "detail.connection_restored": "연결이 복구되었습니다. 인벤토리를 다시 확인합니다.",
       "detail.connection_pending": "게임으로 돌아가기를 기다립니다.",
       "detail.transfer_disconnected": "연결이 끊겨 아이템 이동이 중단되었습니다. 결과가 확인되지 않아 인벤토리를 다시 확인합니다.",
-      "detail.offline_reward": "오프라인 보상 창을 닫습니다."
+      "detail.offline_reward": "오프라인 보상 창을 닫습니다.",
+      "settings.steam_guide": "Steam 가이드",
+      "settings.github": "GitHub",
+      "settings.telegram": "Telegram"
     },
     "zh-CN": {
       "app.title": "整理背包",
@@ -3907,7 +3952,10 @@
       "detail.connection_restored": "连接已恢复。正在重新检查背包。",
       "detail.connection_pending": "正在等待返回游戏。",
       "detail.transfer_disconnected": "连接中断导致转移停止，结果尚未确认。将重新检查背包。",
-      "detail.offline_reward": "正在关闭离线奖励窗口。"
+      "detail.offline_reward": "正在关闭离线奖励窗口。",
+      "settings.steam_guide": "Steam 指南",
+      "settings.github": "GitHub",
+      "settings.telegram": "Telegram"
     },
     "zh-TW": {
       "app.title": "整理背包",
@@ -4151,7 +4199,10 @@
       "detail.connection_restored": "連線已恢復。正在重新檢查背包。",
       "detail.connection_pending": "正在等待返回遊戲。",
       "detail.transfer_disconnected": "連線中斷導致轉移停止，結果尚未確認。將重新檢查背包。",
-      "detail.offline_reward": "正在關閉離線獎勵視窗。"
+      "detail.offline_reward": "正在關閉離線獎勵視窗。",
+      "settings.steam_guide": "Steam 指南",
+      "settings.github": "GitHub",
+      "settings.telegram": "Telegram"
     }
   }
 }

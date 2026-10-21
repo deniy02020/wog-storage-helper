@@ -17,6 +17,7 @@ datas.append((str(assets / "neutral_panels.json"), "preset_assets"))
 datas.append((str(assets / "inventory_halos.json"), "preset_assets"))
 datas.append((str(root / "locales.json"), "."))
 datas.extend([(str(root/'disconnect_messages.json'), '.'),
+              (str(root/'disconnect_visual.json'), '.'),
               (str(root/'ocr_native_manifest.json'), '.')])
 datas.extend((str(path), 'ocr_models') for path in sorted((root/'ocr_models').iterdir()) if path.is_file())
 datas.append((str(root / "docs" / "STEAM_RELEASE.md"), "docs"))

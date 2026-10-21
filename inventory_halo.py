@@ -164,6 +164,50 @@ class InventoryHaloModels:
             raise ValueError("Both full and clipped-cap halo proofs are required")
         if generalized and tiers_seen!={5,6}:
             raise ValueError("Both declared supplemental halo tiers are required")
+        self.native_models = []
+        native = data.get('native_models', [])
+        if (not isinstance(native, list) or len(native)>32 or (native and not generalized)):
+            raise ValueError('Invalid native halo model collection')
+        for model in native:
+            if not isinstance(model,dict):
+                raise ValueError('Native halo model must be an object')
+            scale,tier=model.get('canonical_scale'),model.get('tier')
+            proof=model.get('source_classification')
+            body,cell=model.get('source_body_rect'),model.get('source_cell_rect')
+            if (type(scale) not in (int,float) or not math.isfinite(scale) or not .35<=scale<=1.5
+                    or type(tier) is not int or tier not in (4,5,6) or model.get('kind')!='full'
+                    or not isinstance(proof,dict) or type(proof.get('tier')) is not int or proof['tier']!=tier
+                    or any(type(proof.get(k)) not in (int,float) or not math.isfinite(proof[k]) for k in ('rmse','margin'))
+                    or not 0<=proof['rmse']<=14 or proof['margin']<5
+                    or not isinstance(body,list) or len(body)!=4 or any(type(v) is not int for v in body)
+                    or not isinstance(cell,list) or len(cell)!=4 or any(type(v) is not int for v in cell)
+                    or not isinstance(model.get('source_image'),str)
+                    or not re.fullmatch(r'[a-f0-9]{64}',str(model.get('source_sha256','')))):
+                raise ValueError('Native halo lacks independent complete-cell tier evidence')
+            body,cell=Rect(*body),Rect(*cell)
+            if (body.width!=round(60*scale) or body.height!=round(60*scale)
+                    or any(abs(v-65*scale)>1.1 for v in (cell.width,cell.height))
+                    or not cell.left<=body.left<body.right<=cell.right
+                    or not cell.top<=body.top<body.bottom<=cell.bottom):
+                raise ValueError('Native halo body contradicts its full cell')
+            patches=model.get('patches')
+            if not isinstance(patches,dict) or set(patches)!=set(FULL_OFFSETS):
+                raise ValueError('Native halo requires every complete frame and gutter lane')
+            selected={}
+            for label,name in patches.items():
+                if not isinstance(name,str) or not name.startswith(f'inventory_halo_T{tier}_'):
+                    raise ValueError('Native halo patch tier differs')
+                sample=self.samples.get(name)
+                relative=Rect(*(round(v*scale) for v in FULL_OFFSETS[label]))
+                expected=relative.translated(body.left,body.top)
+                record=by_name.get(name,{})
+                if (sample is None or sample.size!=(relative.width,relative.height)
+                        or record.get('source_image')!=model['source_image']
+                        or record.get('source_sha256')!=model['source_sha256']
+                        or tuple(record.get('source_rect',()))!=expected.as_box()):
+                    raise ValueError('Native halo patches mix sources or pixel geometry')
+                selected[label]=(relative,np.asarray(sample,dtype=np.float32))
+            self.native_models.append((round(scale,6),selected))
         self._rendered = {}
         self._normalized = {}
 
@@ -187,6 +231,71 @@ class InventoryHaloModels:
         return self._rendered[key]
 
     def match(self, image_array, viewport, kind, origin, scale):
+        # Native rasters retain the canonical raw bilateral veto before the
+        # same symmetric raster normalization. Each cue independently proves
+        # its entire frame; parts from different cues never prove a frame.
+        # Only individually matched gutter lanes can contribute evidence.
+        if kind=='full':
+            native_lanes=[]
+            for native_index,(native_scale,patches) in enumerate(getattr(self,'native_models',())):
+                if round(scale,6)!=native_scale:
+                    continue
+                frame_patches=sorted(((label,value) for label,value in patches.items()
+                    if not label.startswith('halo_')),
+                    key=lambda pair:pair[0] not in ('frame_left','frame_right'))
+                for label,(relative,sample) in frame_patches:
+                    target=relative.translated(*origin)
+                    if not (viewport.left<=target.left<target.right<=viewport.right
+                            and viewport.top<=target.top<target.bottom<=viewport.bottom
+                            and target.fits(image_array.shape[1],image_array.shape[0])):
+                        break
+                    actual=image_array[target.top:target.bottom,target.left:target.right]
+                    if float(np.sqrt(np.mean((sample-actual)**2)))>MAX_PATCH_RMSE:
+                        if label in ('frame_left','frame_right'):
+                            break
+                        key=('native',native_index,label)
+                        normalized=self._normalized.get(key)
+                        if normalized is None:
+                            normalized=_halo_raster(sample)
+                            if len(self._normalized)>=256:self._normalized.clear()
+                            self._normalized[key]=normalized
+                        if float(np.sqrt(np.mean((normalized-_halo_raster(actual))**2)))>MAX_PATCH_RMSE:
+                            break
+                else:
+                    # A neighboring item may change ONE glow lane. As with
+                    # clipped caps, contribute only independently matched raw
+                    # lanes on the SAME fully proved opaque frame. A missing
+                    # lane stays unproved and must pass the final grid check.
+                    lanes=[]
+                    for label,(relative,sample) in patches.items():
+                        if not label.startswith('halo_'):
+                            continue
+                        target=relative.translated(*origin)
+                        clipped=Rect(max(target.left,viewport.left),max(target.top,viewport.top),
+                                     min(target.right,viewport.right),min(target.bottom,viewport.bottom))
+                        if clipped.width<=0 or clipped.height<=0:
+                            continue
+                        sample=sample[clipped.top-target.top:clipped.bottom-target.top,
+                                      clipped.left-target.left:clipped.right-target.left]
+                        target=clipped
+                        if not target.fits(image_array.shape[1],image_array.shape[0]):
+                            continue
+                        actual=image_array[target.top:target.bottom,target.left:target.right]
+                        accepted=float(np.sqrt(np.mean((sample-actual)**2)))<=MAX_PATCH_RMSE
+                        if not accepted:
+                            key=('native',native_index,label,
+                                 clipped.top-(origin[1]+relative.top),clipped.bottom-(origin[1]+relative.top),
+                                 clipped.left-(origin[0]+relative.left),clipped.right-(origin[0]+relative.left))
+                            normalized=self._normalized.get(key)
+                            if normalized is None:
+                                normalized=_halo_raster(sample)
+                                if len(self._normalized)>=256:self._normalized.clear()
+                                self._normalized[key]=normalized
+                            accepted=float(np.sqrt(np.mean((normalized-_halo_raster(actual))**2)))<=MAX_PATCH_RMSE
+                        if accepted:lanes.append(target)
+                    native_lanes.extend(lanes)
+            if native_lanes:
+                return list(dict.fromkeys(native_lanes))
         rendered = self.rendered(kind, scale)
         surviving = np.ones(len(self.models[kind]), dtype=bool)
         halo_rects = []

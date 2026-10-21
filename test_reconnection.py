@@ -8,7 +8,8 @@ from unittest.mock import Mock
 from PIL import Image, ImageDraw
 
 from core import Rect
-from connection_vision import DisconnectRecognizer, DisconnectProof, modal_candidates, text_matches
+from connection_vision import (DisconnectRecognizer, DisconnectProof, modal_candidates,
+    session_candidates, text_matches)
 from connection_runtime import ConnectionMonitor
 from reconnection import ConnectionLost, ReconnectPolicy, RETRY_SECONDS, TRANSFER_INTERRUPTED
 
@@ -20,6 +21,14 @@ def modal(*, text_colour=(60, 60, 60)):
     draw.rectangle((8, 59, 392, 310), fill=(214, 210, 198))
     draw.rectangle((30, 260, 175, 298), fill=(137, 121, 121))
     draw.rectangle((215, 260, 365, 298), fill=(99, 131, 153))
+    return image
+
+
+def session_modal():
+    image = modal()
+    draw = ImageDraw.Draw(image)
+    draw.rectangle((8,240,392,310),fill=(214,210,198))
+    draw.rectangle((30,260,370,298),fill=(99,131,153))
     return image
 
 
@@ -135,7 +144,7 @@ class ConnectionMonitorTests(unittest.TestCase):
         self.proof = DisconnectProof(Rect(10,10,390,310), Rect(210,260,360,300),
                                      'ru', self.image.size, 'one-modal')
         self.recognizer = SimpleNamespace(detect=Mock(return_value=self.proof),
-                                          detect_reward=Mock(return_value=None), close=Mock())
+            detect_reward=Mock(return_value=None),detect_session=Mock(return_value=None),close=Mock())
         self.runner = SimpleNamespace(
             desktop=SimpleNamespace(capture=Mock(return_value=self.image), active=Mock(return_value=True),
                                     click=Mock(), idle_seconds=Mock(return_value=0)),
@@ -207,6 +216,22 @@ class ConnectionMonitorTests(unittest.TestCase):
         self.runner.reset_after_reconnection.assert_not_called()
         self.runner.desktop.click.assert_not_called()
 
+    def test_unreadable_reward_cannot_restore_game_seen_behind_it(self):
+        image = Image.new('RGB',(1100,760),'black')
+        draw = ImageDraw.Draw(image)
+        draw.rectangle((601,437,1068,720),fill=(214,210,198))
+        draw.rectangle((728,676,943,716),fill=(99,131,153))
+        self.runner.desktop.capture.return_value = image
+        self.recognizer.detect.return_value = None
+        self.recognizer.detect_reward.return_value = None
+        self.monitor.policy.lost(0)
+        self.assertFalse(self.monitor.step())
+        self.now = 30
+        self.assertFalse(self.monitor.step())
+        self.runner.reset_after_reconnection.assert_not_called()
+        self.runner.desktop.click.assert_not_called()
+        self.assertTrue(self.monitor.policy.disconnected)
+
     def test_offline_reward_is_closed_once_before_resuming_inventory(self):
         self.recognizer.detect.return_value = None
         self.recognizer.detect_reward.return_value = self.proof
@@ -263,6 +288,86 @@ class ConnectionMonitorTests(unittest.TestCase):
     def test_in_cycle_disconnect_uses_distinct_exception(self):
         with self.assertRaises(ConnectionLost): self.monitor.guard_frame(self.image)
         self.runner.desktop.click.assert_not_called()
+
+    def test_session_expiry_waits_five_minutes_when_it_starts_the_outage(self):
+        self.recognizer.detect.return_value = None
+        self.recognizer.detect_session.return_value = self.proof
+        self.assertFalse(self.monitor.step())
+        self.now = 299
+        self.monitor.step()
+        self.runner.desktop.click.assert_not_called()
+        self.now = 300
+        self.monitor.step()
+        self.runner.desktop.click.assert_called_once()
+        self.monitor.step()
+        self.runner.desktop.click.assert_called_once()
+
+    def test_session_response_after_reconnect_is_one_guarded_next_step(self):
+        self.monitor.policy.lost(0)
+        self.now = 300
+        self.monitor.step()
+        self.runner.desktop.click.assert_called_once()
+        self.recognizer.detect.return_value = None
+        self.recognizer.detect_session.return_value = self.proof
+        self.monitor.step()
+        self.assertEqual(self.runner.desktop.click.call_count,2)
+        self.monitor.step()
+        self.assertEqual(self.runner.desktop.click.call_count,2)
+        self.runner.reset_after_reconnection.assert_not_called()
+
+    def test_changed_session_before_input_cannot_restart_game(self):
+        self.recognizer.detect.return_value = None
+        self.monitor.policy.lost(0)
+        self.now = 300
+        self.recognizer.detect_session.side_effect = [self.proof,None]
+        self.monitor.step()
+        self.runner.desktop.click.assert_not_called()
+        self.assertEqual(self.monitor.policy.attempts,0)
+
+    def test_unrecognized_single_button_error_cannot_restore_background_headers(self):
+        self.recognizer.detect.return_value = None
+        self.runner.desktop.capture.return_value = session_modal()
+        self.monitor.policy.lost(0)
+        self.assertFalse(self.monitor.step())
+        self.now = 30
+        self.assertFalse(self.monitor.step())
+        self.runner.reset_after_reconnection.assert_not_called()
+        self.runner.desktop.click.assert_not_called()
+        with self.assertRaises(ConnectionLost):
+            self.monitor.guard_frame(session_modal())
+
+    def test_unrelated_confirmation_during_hourly_wait_does_not_reset_timer(self):
+        self.recognizer.detect.return_value = None
+        self.runner.desktop.capture.return_value = session_modal()
+        self.monitor.cycle_deadline = 3600
+        self.assertFalse(self.monitor.idle_probe())
+        self.assertFalse(self.monitor.policy.disconnected)
+        self.assertEqual(self.monitor.sort_wait_remaining(),3600)
+        self.runner.desktop.click.assert_not_called()
+
+
+class ExpiredSessionVisionTests(unittest.TestCase):
+    def test_full_catalog_message_and_error_title_required_for_all_locales(self):
+        messages = json.loads((Path(__file__).parent/'disconnect_messages.json').read_bytes())['messages']
+        for locale,model in messages.items():
+            with self.subTest(locale=locale):
+                def read(image,language):
+                    if language != model['ocr']: return 'unrelated',95
+                    return (model['session_title'] if image.height < 70 else model['session_body']),95
+                recognizer = DisconnectRecognizer(read_text=read)
+                self.addCleanup(recognizer.close)
+                self.assertEqual(recognizer.detect_session(session_modal()).locale,locale)
+
+    def test_unrelated_error_or_partial_session_text_never_authorizes_restart(self):
+        for body in ('Confirm','Session expired','Buy this item?',''):
+            def read(image,language):
+                return ('Error' if image.height < 70 else body),95
+            recognizer = DisconnectRecognizer(read_text=read)
+            self.addCleanup(recognizer.close)
+            self.assertIsNone(recognizer.detect_session(session_modal()))
+
+    def test_paired_confirmation_is_not_a_session_restart_target(self):
+        self.assertFalse(session_candidates(modal()))
 
 
 if __name__ == '__main__':

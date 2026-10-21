@@ -13,6 +13,11 @@ with the documented sentinel `private-source-withheld.png`; full game captures
 and player/session data are not included. Some page-glyph masks are explicitly
 synthetic in the source. Synthetic tests are labelled as such.
 
+`disconnect_visual.json` contains binary glyph features of complete fixed game
+messages and reward captions. It contains no player images, inventory contents
+or variable reward values. These game-derived text features retain the same
+separate rights and are used only to recognise those specific messages.
+
 Python/Tcl/Tk, NumPy, Pillow, OpenCV and PyInstaller retain their own licences.
 Authentic texts, component versions and checksums are in
 `THIRD_PARTY_NOTICES.txt` and `licenses/manifest.json`; they are not relabelled MIT.
