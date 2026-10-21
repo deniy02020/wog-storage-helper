@@ -37,7 +37,7 @@ TESTS = tuple(("test_core test_inventory_cycle test_inventory_scroller test_inve
     "test_inventory_bulk_scroll test_windows_scroll_burst test_windows_scroll test_windows "
     "test_time_picker test_app_timer test_app_startup test_automatic test_runtime_retry_budget "
     "test_runtime_lifecycle test_panels test_inventory_halo test_native_halo_tiers installer.test_build "
-    "test_storage_cycle test_i18n test_ui_journal test_runtime_walk_session test_auto_waiting_i18n "
+    "test_storage_cycle test_storage_native_digits test_i18n test_ui_journal test_runtime_walk_session test_auto_waiting_i18n "
     "test_runtime_sorted_batches test_runtime_sorted_top_raster test_runtime_inventory_bulk test_runtime test_session_logging test_runtime_preflight_recovery "
     "test_runtime_incomplete_outcomes test_runtime_walk_fresh_drop test_runtime_confirmed_input_boundary test_release_identity "
     "test_windows_signing installer.test_signing_build ci.test_pipeline "

@@ -19,6 +19,10 @@ the wait. Transfer confirmation retains its existing separate deadline.
 
 Settings includes the Steam guide, public GitHub repository and the author's
 Telegram link. Opening Settings does not open those destinations automatically.
+Storage page numerals also include complete authentic tiny selected-3 and
+inactive-5 rasters. These alternatives require whole-raster similarity .98;
+the general glyph, marker, ambiguity and sixth-page lower-bowl checks remain.
+The authentic five-page strip is recognized, including its purchase terminator.
 
 Six exact-scale native frame cues add narrow raw frame/gutter evidence for
 glowing T4-T6 items in a small window. Both opposite rails must pass raw RMSE10;

@@ -5,8 +5,9 @@ coordinates then come only from that storage header transform, never from the
 desktop or from the number of pages saved in an old user profile. A neutral
 marker alone is insufficient: each tile must contain its actual numeral.
 
-1--4 masks below are derived from genuine native game glyphs. 5/6 are bounded
-stroke prototypes, not claims that an account with those pages was observed.
+1--4 masks below are derived from genuine native game glyphs. Additional tiny
+3/5 masks are authentic small-window rasters. The original 5/6 stroke prototypes
+remain separate; no native sixth-page observation is claimed.
 No OCR service, desktop input, capture, settings write or font dependency is
 used here. Uncertain evidence raises StoragePagesUnknown; it is never "full".
 """
@@ -79,6 +80,15 @@ _GLYPHS = {
         "###....###", "###...###.", ".###..###.", ".#######..", "..#####..."),
 }
 
+# Whole actual glyphs, including every foreground pixel at the tiny native
+# raster. Product page-strip input SHA256
+# 632f3619ec1e5303f912a31825219f3ede83480615ac4f1ecac716473cf1dc18.
+# Selected 3 and inactive 5 at game window size 50%; no player information.
+_NATIVE_GLYPHS = {
+    3: ("..#..", ".####", "##.##", "..###", "..###", "##.##", ".####"),
+    5: ("####", "##..", "####", "#..#", "#..#", "####"),
+}
+
 
 def _tight_mask(mask: np.ndarray) -> np.ndarray:
     yy, xx = np.nonzero(mask)
@@ -99,6 +109,12 @@ def _glyph_models():
             for digit, rows in _GLYPHS.items()}
 
 
+@lru_cache(maxsize=1)
+def _native_glyph_models():
+    return {digit: _normalized(np.array([[pixel == "#" for pixel in row]
+        for row in rows], dtype=bool)) for digit, rows in _NATIVE_GLYPHS.items()}
+
+
 def _digit(mask: np.ndarray, expected: int) -> float:
     """A single positively identified numeral, with an ambiguity margin."""
     tight = _tight_mask(mask)
@@ -115,6 +131,15 @@ def _digit(mask: np.ndarray, expected: int) -> float:
         # matching evidence and cannot conceal an extra cursor stroke.
         scores[digit] = float(2 * np.minimum(normalized, model).sum()
                               / (normalized.sum() + model.sum()))
+        native = _native_glyph_models().get(digit)
+        if native is not None:
+            native_score=float(2*np.minimum(normalized,native).sum()
+                / (normalized.sum()+native.sum()))
+            # A tiny alternate cannot become a permissive coarse prototype.
+            # Only its nearly exact whole raster can add evidence; retain the
+            # original general glyph scores, aspect, bowl and ambiguity limits.
+            if native_score>=.98:
+                scores[digit]=max(scores[digit],native_score)
         # Bounding proportions keep the narrow 1 distinct from a blob.
         aspect = tight.shape[1] / tight.shape[0]
         target = len(_GLYPHS[digit][0]) / len(_GLYPHS[digit])

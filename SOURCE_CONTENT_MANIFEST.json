@@ -2,7 +2,7 @@
   "schema": 1,
   "version": "1.5.0",
   "author": "deniy",
-  "created_utc": "2026-10-21T00:02:17.537258+00:00",
+  "created_utc": "2026-10-21T00:31:01.706614+00:00",
   "status": "reviewable local source snapshot",
   "repository_url": "https://github.com/deniy02020/wog-storage-helper",
   "public_tests": [
@@ -25,6 +25,7 @@
     "test_native_halo_tiers",
     "installer.test_build",
     "test_storage_cycle",
+    "test_storage_native_digits",
     "test_i18n",
     "test_ui_journal",
     "test_runtime_walk_session",
@@ -11843,8 +11844,8 @@
     },
     {
       "path": "docs/STATE.md",
-      "bytes": 6261,
-      "sha256": "3678db7e1bbb497c06d5e0deb143efd9ba3a2cb6485c92dbd5deac4dd1af37e2",
+      "bytes": 6573,
+      "sha256": "a7b3348fa231aa4791b86621ce5a8fdfbf35709656ac675eaf44a808730e365f",
       "origin": "sanitized public source-kit template"
     },
     {
@@ -20724,8 +20725,8 @@
     },
     {
       "path": "release-kit/source-kit/prepare_source.py",
-      "bytes": 22692,
-      "sha256": "0fd6b92e6a2acf34b04ec2be4a3c9940f7583b5b0d192ddc502c32839b878af7",
+      "bytes": 22719,
+      "sha256": "ad2012a66257fe20cd6df8b75b91cd10f26a8cd02792f433eeec31860c1407d3",
       "origin": "sanitized public source-kit template"
     },
     {
@@ -20778,8 +20779,8 @@
     },
     {
       "path": "release-kit/source-kit/templates/docs/STATE.md",
-      "bytes": 6261,
-      "sha256": "3678db7e1bbb497c06d5e0deb143efd9ba3a2cb6485c92dbd5deac4dd1af37e2",
+      "bytes": 6573,
+      "sha256": "a7b3348fa231aa4791b86621ce5a8fdfbf35709656ac675eaf44a808730e365f",
       "origin": "sanitized public source-kit template"
     },
     {
@@ -20878,9 +20879,9 @@
     },
     {
       "path": "storage_pages.py",
-      "bytes": 15964,
-      "sha256": "542d941391c35ee9ab5e3dcc688217d6d9193a6ec0e083e44473ae82a8900daf",
-      "original_source_sha256": "c510f45ba74c33312017992d9a83c230bd5fa76b74485f163244f3a7be0bb8e0",
+      "bytes": 17181,
+      "sha256": "0bb6569b2d48928a5164ac424c04940f97ef959bd9cbb2b75c08ca6adbfdb398",
+      "original_source_sha256": "df3513a5320cd59f5ec43e70058efef361ab2ee1ad00dc215b404b95904c937d",
       "sanitized_fields": [
         "comment-only private reference filename"
       ]
@@ -21148,6 +21149,13 @@
       "bytes": 5766,
       "sha256": "12c3551f0f34c7bc41a837aa996634c9261e5a12a76d72ca973ac9ae460b5942",
       "original_source_sha256": "12c3551f0f34c7bc41a837aa996634c9261e5a12a76d72ca973ac9ae460b5942",
+      "sanitized_fields": []
+    },
+    {
+      "path": "test_storage_native_digits.py",
+      "bytes": 1529,
+      "sha256": "9a4894c24618591fbac495e5a7c784fd35924a9346d6f5202bff466b3f2ecb90",
+      "original_source_sha256": "9a4894c24618591fbac495e5a7c784fd35924a9346d6f5202bff466b3f2ecb90",
       "sanitized_fields": []
     },
     {
