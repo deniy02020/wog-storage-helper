@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "author": "deniy",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "images": [
     {
       "path": "preset_assets/adaptive_tier_background_001.png",
@@ -11551,6 +11551,906 @@
       "size": [
         2,
         41
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_541.png",
+      "sha256": "1bd5ac50356274210c330f06a65ff3cb3a88c86ca5a2993b2da7ad7b265e06e7",
+      "bytes": 245,
+      "format": "PNG",
+      "size": [
+        37,
+        3
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_542.png",
+      "sha256": "3bdbfd76d31bc68f5f8c2846666b430165ad06d3544e5714ef08c599b8233f5d",
+      "bytes": 177,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_543.png",
+      "sha256": "6a069b823e45d1073d4d22426e8998817d8ee3ce5df66af71535a0b5b4a4de85",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_544.png",
+      "sha256": "86133fb1b9fcd12c3ff01e8417ed7becf6c337c916a05f9fef5dff6cf7499552",
+      "bytes": 215,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_545.png",
+      "sha256": "f1266e8156916682fee52f6a0f0b7c6c290edd2d0add8584bbf1b2eabb5859cb",
+      "bytes": 235,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_546.png",
+      "sha256": "2b9c70a10ae17b0423824986a5d10d8aaf23a21feb8c84a48bc36372ae7ef851",
+      "bytes": 752,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_547.png",
+      "sha256": "2cdfb963728dff0c5f4920d7022f4cd232e029a83ef09171557f3f2f97b35966",
+      "bytes": 712,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_548.png",
+      "sha256": "51f65c52e139cda62350e2e2e2aab1a0dc97b348bb06003d5f72a1ab92a85614",
+      "bytes": 775,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_549.png",
+      "sha256": "eae9adf6092efcddc86bb6a0ad45b767d8077d231bed9231443fb1db66a05742",
+      "bytes": 711,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_550.png",
+      "sha256": "614b0150062c8d33df17888868bfcb4d27d3f664fe13e03de1deb2a7ead31cae",
+      "bytes": 245,
+      "format": "PNG",
+      "size": [
+        37,
+        3
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_551.png",
+      "sha256": "d7cfc31df69161dc78888fb80aef396c3075f48926c4d74937fe315a29ba6997",
+      "bytes": 171,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_552.png",
+      "sha256": "88725d604d2f6587d97dc8e25ae9f44e3c15ccb293db8fbbc2ac3ff54762a7b1",
+      "bytes": 179,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_553.png",
+      "sha256": "cc13b29a36fb8e003d03765fe0cc3ee622a6876d25fb9380f0337524428e81fe",
+      "bytes": 217,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_554.png",
+      "sha256": "9185a9a22cda6aa67ea0a34a1a8155685e9203b2ded2bd16f4511017d4de11fc",
+      "bytes": 188,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_555.png",
+      "sha256": "3df550f6f99063c551c5fb7099f05d49b51fa8eb36ee064f0865c7a446a96fb6",
+      "bytes": 493,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_556.png",
+      "sha256": "e26fbee561a15d1ee4aeb21a1d9bd8607c13610a75e876b2b049ed897325966f",
+      "bytes": 349,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_557.png",
+      "sha256": "e238273cf00f45a468002920e8dfa856fa50639f2fd434da2e875831207226b8",
+      "bytes": 672,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_558.png",
+      "sha256": "edd610fd61c78c31907b99055f60ace5f0ee26fd9c21bca23a027048c4f5af73",
+      "bytes": 375,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_559.png",
+      "sha256": "3169cfd37317af6ba1ce901558ebc021cdf5aabc54c373e04625f735eb527897",
+      "bytes": 256,
+      "format": "PNG",
+      "size": [
+        37,
+        3
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_560.png",
+      "sha256": "c0ee94b051192f91a87a550d11332a5dc20d3e2420d62857655c2d38e7b16a9b",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_561.png",
+      "sha256": "f8df0be8233ad5f75f45e905adbefa12adfec80d8edd60a40d2b21146f01a764",
+      "bytes": 152,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_562.png",
+      "sha256": "aa9749750504637dbca3f10d084c0874dc7189ded46d24aad5ec4554641d698c",
+      "bytes": 225,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_563.png",
+      "sha256": "ec527cee417df5dda7ba3d42bffc601bb333d61e15ff6ac68e700e5bad2bc748",
+      "bytes": 142,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_564.png",
+      "sha256": "5af20c7eec6b6edc21e15b16106a8fa670d432513951e6510f794a279139b91c",
+      "bytes": 263,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_565.png",
+      "sha256": "f8c784a8617d6b53ba1dd4759c8d1f5355b52dca51f92e6de2969be83000cfd6",
+      "bytes": 158,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_566.png",
+      "sha256": "70db42f82865869a7bff3503801aadc14fe08260f847c0729051eb51dceb557d",
+      "bytes": 456,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_567.png",
+      "sha256": "9e42ffe1a9645b4bfc1410193f57e6d20cd599fa0388196d681b24a9962192d2",
+      "bytes": 154,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_568.png",
+      "sha256": "828b572f3afac538beab18302ddb6e1af8d250a1748fec19b7951622a7b663a9",
+      "bytes": 245,
+      "format": "PNG",
+      "size": [
+        37,
+        3
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_569.png",
+      "sha256": "37650bcd2de6d48a124f86740eeeb8d0f097ec37642c570cd991f060294eee37",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_570.png",
+      "sha256": "6a5d5cde6c1e7c8ea566f62f4597282d7b597ae499bab4484da405cbeaf35805",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_571.png",
+      "sha256": "a0ec98091f38d1f5704eb6656e2616bf46733f9fd5995e3604d3b37a6ff35881",
+      "bytes": 222,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_572.png",
+      "sha256": "7f80a1998cdd9c905e40f1b86ae637c849d33f29ccb0c8ca3b852ec645db81c5",
+      "bytes": 232,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_573.png",
+      "sha256": "28118769466b651f237974e1c6218cdeac0abda7a5cd5dfcf22e9f36a242c2c7",
+      "bytes": 681,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_574.png",
+      "sha256": "2bca615e880dfcff642677093384a64095199ba29e68d29b82132c75fb284aae",
+      "bytes": 605,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_575.png",
+      "sha256": "86ac258bb1f2f3f5811f5773ef0b699eed9fe8a07202002fc21b9a0e7d3e2ae0",
+      "bytes": 678,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_576.png",
+      "sha256": "2d1df6316c222be05cc30054c662b9ebe717343bcd63cfc18feb298300e7a4fa",
+      "bytes": 803,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_577.png",
+      "sha256": "f376732a9aabfe76c2c7cc469df55632c24f03aa4adc43f22c946dd550d56922",
+      "bytes": 264,
+      "format": "PNG",
+      "size": [
+        37,
+        3
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_578.png",
+      "sha256": "bd3b79dfd36fa8ec17bb3db360d14d8c691a0a63f045d553500f25da0537fa7f",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_579.png",
+      "sha256": "165f5e45caa63c1224b0b48b8ac901d36ef40536b7817aa16b860e6e56e760c7",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_580.png",
+      "sha256": "9f12576f45d717c5823c52b170a234b760dd6929658878eff310a5df2af6bea2",
+      "bytes": 201,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_581.png",
+      "sha256": "c2d886bd96a1493fc09394eeeedd1a68f38de7a1502b5c752cd1ff41a2145eeb",
+      "bytes": 192,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_582.png",
+      "sha256": "c5c50111f4e4f12975140e004d1229477d6b8939edffdfde2985bc2c04abb960",
+      "bytes": 566,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_583.png",
+      "sha256": "6f19572163897bba5052d7ba144e25091a74bf58b8f21ef1bc7cf2cc539f1e75",
+      "bytes": 760,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_584.png",
+      "sha256": "c507bfe6a1a0a2d20ef36b6f8312b01a00e98fdab5ac9730d0cad72f7f47a6df",
+      "bytes": 654,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_585.png",
+      "sha256": "6709975f80bbd07e6e08d559bea642eb3ccd1861ab3f45a32b17f4b1d6c276a5",
+      "bytes": 367,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_586.png",
+      "sha256": "c01959fcf2f0ee84980100ab825f13b07709db88d139d089b00f108ffbd46318",
+      "bytes": 280,
+      "format": "PNG",
+      "size": [
+        37,
+        3
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_587.png",
+      "sha256": "605eed058eb52c418f3f6a0d0c45a89d05a2fcf45abe2f60eec1b3f17078d79e",
+      "bytes": 175,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_588.png",
+      "sha256": "1d5e52a165e92ef55d0a2808f6a01a2e7caf92514f7370d27234e7bc960e02cc",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_589.png",
+      "sha256": "839c9e7a2f77d8298c835ead2c25b89848cb9b3c4ee09e440fec214bd7ce9f4e",
+      "bytes": 226,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_590.png",
+      "sha256": "b290f25b0b66305562142970f09b4d1288e1787d9e3662fba175de9e14ad0c9e",
+      "bytes": 263,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_591.png",
+      "sha256": "b8c739e7a34b43d98f268ebbccda83c489ed0005210a88b7fd48c6e412346803",
+      "bytes": 674,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_592.png",
+      "sha256": "85a9aaa5509ba815747faae8c0b828a660cca3c27f870db82b9c80cc996e2078",
+      "bytes": 590,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_593.png",
+      "sha256": "09d474078e4e1fbc7ee18e16e48b7478f6bc3bde8729fd394a23c3af74b5a80f",
+      "bytes": 674,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_594.png",
+      "sha256": "442bababfa53c058df94b4ed4f0a4bea94c25f618804843d3e8bdf530cdbb554",
+      "bytes": 693,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_595.png",
+      "sha256": "3512f2caf2719c17a537c499c9dd91841fc0ca89173650cdb66f082dc5c836f7",
+      "bytes": 279,
+      "format": "PNG",
+      "size": [
+        37,
+        3
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_596.png",
+      "sha256": "534b13e5ccdf9534aa66fea89aef6538d4ae8a5e6d00b2fb531c908c94b06ee7",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_597.png",
+      "sha256": "d54f07bba051112713b87e01eafecbc6a83223ee92a563605e1fbeab1fede54f",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_598.png",
+      "sha256": "a6834836a88589258e5ebc064cb131eb34a882a72c3a92bea0054c011efa0cde",
+      "bytes": 210,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_599.png",
+      "sha256": "16198c84c6694cb13542085f9b413ae076df16ec895f08bf78d3c57949aef6b1",
+      "bytes": 230,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_600.png",
+      "sha256": "63bba60ff442d5158cbb397fe3e76a939839348115be852fd6ac5022ba371f45",
+      "bytes": 790,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_601.png",
+      "sha256": "b1024c7753b593c2f775b15b85313125554416f577540dbfbdf2349dc60dadaa",
+      "bytes": 729,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_602.png",
+      "sha256": "426f47534cae2e75120d117b98d439389f411556d1d1f619061f7b7e1fe04f75",
+      "bytes": 692,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_603.png",
+      "sha256": "3fb40426b7378c7d864b5b824deb2e2681745334a03dfe70b5457207b4b1c49a",
+      "bytes": 743,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_604.png",
+      "sha256": "2a8ec645f898e01fa815c3e8d2ede35d90f8b99798a7e3dfb52cc4354c3cb208",
+      "bytes": 292,
+      "format": "PNG",
+      "size": [
+        37,
+        3
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_605.png",
+      "sha256": "b41c525d9eeb54915cbeb91fd08b9a8549ffc745c92a911695f52c03c8df0f91",
+      "bytes": 183,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_606.png",
+      "sha256": "4f8fc72403515528d4ef6c889c703b50c9248ee1198ea63a8c9ed3e5fdd3fdef",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_607.png",
+      "sha256": "108c50e0a2d0198ff2bfc47eb4ab5d702ddfb1a8199dd5aa5d7614ae8d50fbb6",
+      "bytes": 201,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_608.png",
+      "sha256": "ab965035a23886664b933bc9aafd9a5c11ceae2fc2f4c840c8e6b5e6d03e3064",
+      "bytes": 242,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_609.png",
+      "sha256": "7232a110b15d4de15d7eced1a1c72ca85d73d20e0ea803b08dfaa6d722e3f36c",
+      "bytes": 768,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_610.png",
+      "sha256": "876b8d9f76d46447b0ea0eb00e84f205ea204816f90c9000b2ac71d092742639",
+      "bytes": 636,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_611.png",
+      "sha256": "b17875c44cf7dc3c3af8edb7bb75e0e34c4d17f65457188f1720bfabaa1e6919",
+      "bytes": 663,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T4_612.png",
+      "sha256": "f18b4d6ccb0d1de3dd970f856c71d2c755c64b74656149924c0fb28d4884bb80",
+      "bytes": 752,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T5_640.png",
+      "sha256": "fe9db1e4d2d7dff2f7c45c8fe32cf074c7b59e1d74ca1fa8d6bfc47251bf2784",
+      "bytes": 276,
+      "format": "PNG",
+      "size": [
+        37,
+        3
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T5_641.png",
+      "sha256": "9a8f30df1baba877daabfb223d29b3788cbb93e39ec38841849138e435b997e1",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T5_642.png",
+      "sha256": "d80613fcbaa8041365e72801798d9583999a9b615a9295b0957520227d63db54",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T5_643.png",
+      "sha256": "5e820f288a3a44a2493286ffb72bf8b030b8c0cb42a3117851ce54ea9f0043dc",
+      "bytes": 246,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T5_644.png",
+      "sha256": "dc0f71254b05477329e97557685463b0130231506bd9bd1c36efbe614553c5a5",
+      "bytes": 269,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T5_645.png",
+      "sha256": "e1062d06cd1d56f50b2033f1d30afa9ce1387693bce64438303fede53453fbae",
+      "bytes": 658,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T5_646.png",
+      "sha256": "1e6fa9f1ce78c93b6f08002ae7ed667d35a406e07aa45bf68eb2eec6d301000a",
+      "bytes": 659,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T5_647.png",
+      "sha256": "156970d5d6d0bd634e1cdd767ff7d832797defd2df5aef68d9dfd2138d37b44d",
+      "bytes": 734,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T5_648.png",
+      "sha256": "e35690d1ae8ce3b05fd8eccde4c6709c2c5474b5ea5af690a7a113d133d95959",
+      "bytes": 813,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T5_649.png",
+      "sha256": "68fd4bc4d3c93b2680c58f7fda757f23de13ea079bb3bc191b4c328a70d4c900",
+      "bytes": 278,
+      "format": "PNG",
+      "size": [
+        37,
+        3
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T5_650.png",
+      "sha256": "bfc2cd9b0771089eede4cf4967a093aba8ed8c9204db3ea2a389def95e8eb3b4",
+      "bytes": 185,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T5_651.png",
+      "sha256": "51a8177ce5ab1980810946df5dd2a45bdaeba755c37dcfd116a432bd5fa0cb6e",
+      "bytes": 165,
+      "format": "PNG",
+      "size": [
+        4,
+        9
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T5_652.png",
+      "sha256": "c0aebe3ccb92241147fa35f87ccc4096e7bf2ab8e571fb9ef459c3728f8a107f",
+      "bytes": 214,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T5_653.png",
+      "sha256": "88f683fba9ead43295b2c9c671f656c0566a7dae47d546998ff59d85983a5573",
+      "bytes": 193,
+      "format": "PNG",
+      "size": [
+        3,
+        36
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T5_654.png",
+      "sha256": "98a1a03722b51c6f3e0777ec3834930bc729f6d7ed8d3250d4129e6faa7487d7",
+      "bytes": 407,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T5_655.png",
+      "sha256": "aa6bffec2b2145592e4810df4a3e12eeb07de20ee5362654e6fa05ec05216460",
+      "bytes": 290,
+      "format": "PNG",
+      "size": [
+        84,
+        4
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T5_656.png",
+      "sha256": "b0075f9b6c8e0c2106fe2fd455f9eada5c7a3783bb1db54c1600f67547978ad9",
+      "bytes": 522,
+      "format": "PNG",
+      "size": [
+        4,
+        100
+      ]
+    },
+    {
+      "path": "preset_assets/inventory_halo_T5_657.png",
+      "sha256": "797ea63529b7f7d2ee95181256e647f440d9afaaacb57dc0b3996cbb4c83b995",
+      "bytes": 343,
+      "format": "PNG",
+      "size": [
+        4,
+        100
       ]
     }
   ],

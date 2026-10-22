@@ -81,18 +81,18 @@ class PublicResourceTests(unittest.TestCase):
         self.assertEqual(model["schema"], 2)
         self.assertEqual(model["tier"], 4)
         self.assertEqual(model["supplemental_tiers"], [5, 6])
-        self.assertEqual(len(names), 667)
-        self.assertEqual(len(model['native_models']),6)
+        self.assertEqual(len(names), 757)
+        self.assertEqual(len(model['native_models']),16)
         self.assertEqual(len(model["models"]), 128)
         self.assertEqual(len(model["supplemental_models"]), 9)
         self.assertEqual(sum(cue["tier"] == 5 for cue in model["supplemental_models"]), 7)
         self.assertEqual(sum(cue["tier"] == 6 for cue in model["supplemental_models"]), 2)
         self.assertEqual({name for name in names if name.startswith("inventory_halo_T4_")},
-                         {f"inventory_halo_T4_{index:03d}.png" for index in range(541)})
+                         {f"inventory_halo_T4_{index:03d}.png" for index in range(613)})
         self.assertEqual({name for name in names if name.startswith("inventory_halo_T6_")},
                          {f"inventory_halo_T6_{index:03d}.png" for index in range(532, 568)})
         self.assertEqual({name for name in names if name.startswith("inventory_halo_T5_")},
-                         {f"inventory_halo_T5_{index:03d}.png" for index in range(550, 640)})
+                         {f"inventory_halo_T5_{index:03d}.png" for index in range(550, 658)})
         for cue in [*model["supplemental_models"],*model['native_models']]:
             self.assertEqual(cue["source_image"], "private-source-withheld.png")
             self.assertEqual(cue["kind"], "full")

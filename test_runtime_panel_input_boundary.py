@@ -6,7 +6,7 @@ records clicks only; no native game capture, activation or input is performed.
 import copy
 from types import SimpleNamespace
 import unittest
-from unittest.mock import Mock
+from unittest.mock import Mock, patch
 
 from auto_layout import LayoutError, GridEvidenceError
 from input_activity import UserActivityInterrupted
@@ -214,6 +214,7 @@ class PanelInputBoundaryTests(PanelFixture, unittest.TestCase):
                 raise EndMonitor()
             runner.check_stop()
         runner.wait = wait
+        runner._wait_for_access = lambda seconds: wait(seconds)
         with self.assertRaises(EndMonitor):
             runner.monitor(3600)
         self.assertEqual(waits, [.2, .3, .2, .3, .2, 3600])
@@ -321,6 +322,7 @@ class PanelInputBoundaryTests(PanelFixture, unittest.TestCase):
                 raise EndMonitor()
             runner.check_stop()
         runner.wait = wait
+        runner._wait_for_access = lambda seconds: wait(seconds)
         with self.assertRaises(EndMonitor):
             runner.monitor(3600)
         self.assertEqual(waits, [.3, .3, 3600])
@@ -328,6 +330,33 @@ class PanelInputBoundaryTests(PanelFixture, unittest.TestCase):
         desktop.end_background_cycle.assert_not_called()
         runner._run_inventory_cycle_impl.assert_not_called()
         self.assertEqual(desktop.inputs, [])
+
+    def test_foreground_return_after_exhaustion_reacquires_without_hour_delay(self):
+        closed,opened=self.image(storage=False),self.image()
+        runner,desktop,controller=self.runner([closed]*12+[opened])
+        active=[True];tick=[1000.];attempts=[];waits=[]
+        desktop.active=lambda _handle:active[0]
+        desktop.idle_seconds=lambda:0.
+        original_click=desktop.click
+        def click(*args):
+            attempts.append(args)
+            if len(attempts)<=3:
+                active[0]=False
+                raise ForegroundWindowChanged('Before down',input_issued=False)
+            return original_click(*args)
+        desktop.click=click
+        def wait(seconds):
+            waits.append(seconds);tick[0]+=seconds
+            if seconds in (.3,1.):active[0]=True
+            if seconds==3600:raise EndMonitor()
+            runner.check_stop()
+        runner.wait=wait
+        with patch('runtime.time.monotonic',side_effect=lambda:tick[0]),self.assertRaises(EndMonitor):
+            runner.monitor(3600)
+        self.assertEqual(waits,[.2,.3,.2,.3,.2,1.,.2,.6,3600])
+        self.assertEqual(runner._run_inventory_cycle_impl.call_count,4)
+        self.assertEqual(len(self.clicks(desktop)),1)
+        self.assertFalse(controller.opening_input_pending)
 
     def test_stop_or_takeover_interrupts_opener_readback_before_confirmation(self):
         for takeover in (False, True):

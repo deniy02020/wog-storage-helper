@@ -36,6 +36,7 @@ INSTALLER_MODULES = tuple(("__init__ build core launcher license_resources unins
 TESTS = tuple(("test_core test_inventory_cycle test_inventory_scroller test_inventory_walk "
     "test_inventory_bulk_scroll test_windows_scroll_burst test_windows_scroll test_windows "
     "test_time_picker test_app_timer test_app_startup test_automatic test_runtime_retry_budget "
+    "test_runtime_access_wait test_grid_common_separator test_inventory_halo_columns "
     "test_runtime_lifecycle test_panels test_inventory_halo test_native_halo_tiers installer.test_build "
     "test_storage_cycle test_storage_native_digits test_i18n test_ui_journal test_runtime_walk_session test_auto_waiting_i18n "
     "test_runtime_sorted_batches test_runtime_sorted_top_raster test_runtime_inventory_bulk test_runtime test_session_logging test_runtime_preflight_recovery "
@@ -84,8 +85,8 @@ def policy():
     if document.get("schema") != 1 or document.get("author") != "deniy":
         raise ValueError("Unexpected reviewed source policy")
     records = {record["path"]: record for record in document["images"]}
-    if len(records) != 1027:
-        raise ValueError("Reviewed image allowlist must contain 1025 matching crops and 2 original icons")
+    if len(records) != 1117:
+        raise ValueError("Reviewed image allowlist must contain 1115 matching crops and 2 original icons")
     return document, records
 
 

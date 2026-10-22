@@ -181,6 +181,30 @@ class Runner:
             return self.wait(seconds)
         return monitor.wait_between_cycles(seconds)
 
+    def _wait_for_access(self, seconds):
+        """A genuine foreground return may end an exhausted access cooldown.
+
+        Observe only: never activate the game or issue input from this wait.
+        An already-active game does not reset a persistent cursor rejection;
+        its foreground must first leave and then return. Stop remains immediate.
+        """
+        deadline = time.monotonic() + seconds
+        was_inactive = not self.desktop.active(self.handle)
+        while True:
+            self.check_stop()
+            active = self.desktop.active(self.handle)
+            if not active:
+                was_inactive = True
+            elif was_inactive:
+                return True
+            alive = getattr(type(self.desktop), "is_alive", None)
+            if alive is not None and not alive(self.desktop, self.handle):
+                return False
+            remaining = deadline - time.monotonic()
+            if remaining <= 0:
+                return False
+            self.wait(min(1.0, remaining))
+
     def prepare_panels(self):
         """Re-anchor a cycle in memory; never rewrite calibration or trust flags."""
         if self.panel_controller is None:
@@ -1333,7 +1357,10 @@ class Runner:
                             exhausted = safe_failure_streak >= SAFE_QUICK_RETRY_ATTEMPTS
                             self.state("waiting" if exhausted else "paused", FOCUS_WAITING,
                                        time.monotonic() + interval if exhausted else None)
-                            self.wait(interval if exhausted else .3)
+                            returned = self._wait_for_access(interval) if exhausted else self.wait(.3)
+                            if returned:
+                                safe_failure_streak = 0
+                                access_hold = access_needs_return = False
                             continue
                         self.state("paused", FOCUS_WAITING,
                                    time.monotonic() + FOCUS_RETRY_SECONDS)
@@ -1469,7 +1496,10 @@ class Runner:
                 delay = interval if exhausted else .3
                 self.state("waiting" if exhausted else "paused", FOCUS_WAITING,
                            time.monotonic() + interval if exhausted else None)
-                self.wait(delay)
+                returned = self._wait_for_access(delay) if exhausted else self.wait(delay)
+                if returned:
+                    safe_failure_streak = 0
+                    access_hold = access_needs_return = False
                 continue
             quick_retry = ((layout_pending or preflight_pending)
                            and safe_failure_streak < SAFE_QUICK_RETRY_ATTEMPTS)

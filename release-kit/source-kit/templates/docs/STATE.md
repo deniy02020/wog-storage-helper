@@ -1,4 +1,25 @@
-# Version 1.5 public source status
+# Version 1.6 public source status
+
+Version 1.6 lets an actual foreground leave/return interrupt an exhausted access
+cooldown. This wait only observes window state; it never activates the game or
+sends input. A game that remains active does not reset a persistent cursor
+rejection. Existing user-input, pending-receipt, Stop and ten-minute idle guards
+remain in place.
+
+Inventory separator proof can use any one observed line that spans every cell
+segment at all supported scales. It cannot choose a different line per cell.
+Three or four raw columns can suggest missing frame-cue positions, but contribute
+no separator pixels. Complete same-source frame rails and individually matched
+gutter lanes must still restore the full grid proof. Ten additional exact-scale
+native T4/T5 cues contain narrow anonymous frame/gutter patches only.
+
+The reported full-scale inventory failure is reproduced on an original PNG
+provided by the user and passes with these changes. This is offline visual
+evidence, not installed executable acceptance. Separate installed acceptance is
+required before publication. Exact isolated test results are recorded in
+PUBLIC_TEST_RESULT.json; no all-DPI or all-language native claim is implied.
+
+## Earlier 1.5 observations (preserved)
 
 Version 1.5 adds whole-message visual text features for tiny Traditional and
 Simplified Chinese disconnect/reward captions and Thai disconnect text, without reducing the

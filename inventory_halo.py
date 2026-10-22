@@ -386,6 +386,33 @@ def verify_inventory_halo_resources(document, read_resource) -> set[str]:
     return set(model.samples)
 
 
+def _column_candidates(runs, width, columns, scale):
+    """Suggest missing positions from three raw columns; never add mask pixels.
+
+    These positions only select frame/halo patches to authenticate below.
+    The final original whole-grid and every-segment tests remain mandatory.
+    """
+    from auto_layout import LayoutError
+    observed=[run for run in runs if run[1]>max(2,round(4*scale))]
+    if not 3<=len(observed)<columns or any(b-a>math.ceil(10*scale) for a,b in observed):
+        raise LayoutError('Inventory halo lacks bounded raw column candidates')
+    centers=np.array([(a+b-1)/2 for a,b in observed])
+    expected=width/columns
+    indices=np.rint((centers+3*scale)/expected).astype(int)-1
+    if (np.any(indices<0) or np.any(indices>=columns)
+            or np.any(np.diff(indices)<1) or np.any(np.diff(indices)>3)):
+        raise LayoutError('Inventory halo raw column indices are ambiguous')
+    pitch,offset=np.polyfit(indices,centers,1)
+    if (abs(pitch-expected)>max(1.5*scale,expected*.025)
+            or np.max(abs(centers-(offset+pitch*indices)))>1.8*scale
+            or abs(offset+pitch*(columns-1)-(width-3*scale))>6*scale):
+        raise LayoutError('Inventory halo raw column candidates contradict the header')
+    known=dict(zip(indices,observed))
+    return [known[index] if index in known else
+            (round(offset+pitch*index),round(offset+pitch*index)+1)
+            for index in range(columns)]
+
+
 def prove_inventory_halo_mask(image, rect, rows, columns, gap_color, scale, mask, *, allow_shifted=False):
     """Return only model-supported gutter evidence, or reject the whole grid.
 
@@ -421,7 +448,13 @@ def prove_inventory_halo_mask(image, rect, rows, columns, gap_color, scale, mask
         # matched halo contributes pixels. Final full-grid proof is unchanged.
         x_support = np.stack([mask[rect.height*r//rows:rect.height*(r+1)//rows].mean(axis=0)
                               for r in range(rows)])
-        xs = column_lattice(_runs((x_support >= .78).sum(axis=0) >= 3))
+        observed = _runs((x_support >= .78).sum(axis=0) >= 3)
+        try:
+            xs = column_lattice(observed)
+        except LayoutError:
+            # No invented separator pixels: a missing column still has to be
+            # restored by complete same-cue frame AND gutter evidence below.
+            xs = _column_candidates(observed,rect.width,columns,scale)
     support = np.stack([mask[:, rect.width*c//columns:rect.width*(c+1)//columns].mean(axis=1)
                         for c in range(columns)])
     from inventory_viewport import _lattice, _merged_runs

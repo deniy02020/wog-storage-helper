@@ -477,16 +477,16 @@ def _measure_grid_mask(mask, rect, rows, columns, scale):
     # Validate each stripe segment, so a popup hiding one row or column cannot
     # be averaged away by the rest of a long border.
     for a, b in xs:
-        # At small native rasters an item halo may cover one edge pixel of a
-        # separator while its neighbouring pixel remains independently visible.
+        # An item halo may cover one edge pixel of a separator at any native
+        # scale while its neighbouring pixel remains independently visible.
         # Require ONE common observed line through EVERY segment, never pick a
         # different pixel per cell or manufacture separator evidence.
-        lines = range(a, b) if scale <= .5 else ((a + b - 1) // 2,)
+        lines = range(a, b)
         if not any(all(np.mean(mask[rect.height*r//rows:rect.height*(r+1)//rows, x]) >= .72
                        for r in range(rows)) for x in lines):
             raise LayoutError("A cell-border segment is occluded")
     for a, b in ys:
-        lines = range(a, b) if scale <= .5 else ((a + b - 1) // 2,)
+        lines = range(a, b)
         if not any(all(np.mean(mask[y, rect.width*c//columns:rect.width*(c+1)//columns]) >= .72
                        for c in range(columns)) for y in lines):
             raise LayoutError("A cell-border segment is occluded")

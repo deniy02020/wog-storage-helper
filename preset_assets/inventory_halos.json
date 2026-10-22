@@ -11427,6 +11427,1536 @@
         507,
         278
       ]
+    },
+    {
+      "image": "inventory_halo_T5_640.png",
+      "sha256": "fe9db1e4d2d7dff2f7c45c8fe32cf074c7b59e1d74ca1fa8d6bfc47251bf2784",
+      "dimensions": [
+        37,
+        3
+      ],
+      "pixels_sha256": "6bbf345b7a4bd1a1b6360c9130be2753dc876c788c7a2cd299a7a53901178c7b",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1787,
+        204,
+        1824,
+        207
+      ]
+    },
+    {
+      "image": "inventory_halo_T5_641.png",
+      "sha256": "9a8f30df1baba877daabfb223d29b3788cbb93e39ec38841849138e435b997e1",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "5295d13ce262578d91722ec8e1515f90900b578361dc5b2590a3272c9bfeee2e",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1781,
+        255,
+        1785,
+        264
+      ]
+    },
+    {
+      "image": "inventory_halo_T5_642.png",
+      "sha256": "d80613fcbaa8041365e72801798d9583999a9b615a9295b0957520227d63db54",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "3a959224e984dcd56bbf8d76a78e8e1474d94cadfbad408b5d3f5bd0a2c1dd1a",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1837,
+        255,
+        1841,
+        264
+      ]
+    },
+    {
+      "image": "inventory_halo_T5_643.png",
+      "sha256": "5e820f288a3a44a2493286ffb72bf8b030b8c0cb42a3117851ce54ea9f0043dc",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "9a2a2baaa3e45567d2dca08da99bd658c5bd78ae36d1bd435d1c45eca0bbd227",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1781,
+        216,
+        1784,
+        252
+      ]
+    },
+    {
+      "image": "inventory_halo_T5_644.png",
+      "sha256": "dc0f71254b05477329e97557685463b0130231506bd9bd1c36efbe614553c5a5",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "99c5475e267ad5cd1b5d3aff476f920d05f921785f309476491b7960f5e462ea",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1838,
+        216,
+        1841,
+        252
+      ]
+    },
+    {
+      "image": "inventory_halo_T5_645.png",
+      "sha256": "e1062d06cd1d56f50b2033f1d30afa9ce1387693bce64438303fede53453fbae",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "19dfcdb81edf399136a4a2f552bf1d7fb5a6c0a470a86b576aa96661d859f5b3",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1761,
+        200,
+        1845,
+        204
+      ]
+    },
+    {
+      "image": "inventory_halo_T5_646.png",
+      "sha256": "1e6fa9f1ce78c93b6f08002ae7ed667d35a406e07aa45bf68eb2eec6d301000a",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "dc4cd5fd998a68983ba71fd847fd66ca41acc18f2c6b40668ff0c5f19284718f",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1761,
+        264,
+        1845,
+        268
+      ]
+    },
+    {
+      "image": "inventory_halo_T5_647.png",
+      "sha256": "156970d5d6d0bd634e1cdd767ff7d832797defd2df5aef68d9dfd2138d37b44d",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "a3bbc901d90dd162fca30c75a55d55146cc21b24d2d0bed285fa2ead8bc2c735",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1777,
+        184,
+        1781,
+        284
+      ]
+    },
+    {
+      "image": "inventory_halo_T5_648.png",
+      "sha256": "e35690d1ae8ce3b05fd8eccde4c6709c2c5474b5ea5af690a7a113d133d95959",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "68129da214497fdfb3f2972b31844c30479c7f3e815549792a67d4d594e039a0",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1841,
+        184,
+        1845,
+        284
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_541.png",
+      "sha256": "1bd5ac50356274210c330f06a65ff3cb3a88c86ca5a2993b2da7ad7b265e06e7",
+      "dimensions": [
+        37,
+        3
+      ],
+      "pixels_sha256": "0f4a160637e9e0038d9a5e8c99f8c2311594898b9d264c807060293457ac9c67",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1852,
+        204,
+        1889,
+        207
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_542.png",
+      "sha256": "3bdbfd76d31bc68f5f8c2846666b430165ad06d3544e5714ef08c599b8233f5d",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "39750accdcdb193055304c0d5031c13871da604c0c823b3645c38a727d18bb16",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1846,
+        255,
+        1850,
+        264
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_543.png",
+      "sha256": "6a069b823e45d1073d4d22426e8998817d8ee3ce5df66af71535a0b5b4a4de85",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "d315caa17233d29021840992d0df8eb51c2280aa7a3d50a2bff5131f923d93d9",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1902,
+        255,
+        1906,
+        264
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_544.png",
+      "sha256": "86133fb1b9fcd12c3ff01e8417ed7becf6c337c916a05f9fef5dff6cf7499552",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "fbf07fd1eb9c750dcfdb691b6a1bbc10089f59ad65db0c53602a628f1fa1eff9",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1846,
+        216,
+        1849,
+        252
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_545.png",
+      "sha256": "f1266e8156916682fee52f6a0f0b7c6c290edd2d0add8584bbf1b2eabb5859cb",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "15d0d59904b1d0ffab92c0416c98a95d0cbb7632ace5e31897654c6c9cfacab3",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1903,
+        216,
+        1906,
+        252
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_546.png",
+      "sha256": "2b9c70a10ae17b0423824986a5d10d8aaf23a21feb8c84a48bc36372ae7ef851",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "7c6b8666cf9161dab22fa4214b434c29caa929c07bb00eb573c7efbde1b8e55d",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1826,
+        200,
+        1910,
+        204
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_547.png",
+      "sha256": "2cdfb963728dff0c5f4920d7022f4cd232e029a83ef09171557f3f2f97b35966",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "b438f6e3a43fe661565b36812d12f501057c89382e583962accdd09c8857651d",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1826,
+        264,
+        1910,
+        268
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_548.png",
+      "sha256": "51f65c52e139cda62350e2e2e2aab1a0dc97b348bb06003d5f72a1ab92a85614",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "172da19c103c726b62884182cfd971ad3cd5aae0f607f7d9948c857077b2907b",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1842,
+        184,
+        1846,
+        284
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_549.png",
+      "sha256": "eae9adf6092efcddc86bb6a0ad45b767d8077d231bed9231443fb1db66a05742",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "9034d0402df4a7f4043fd9e9192234901f339ae75af9aaae5b38b004b5acdb93",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1906,
+        184,
+        1910,
+        284
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_550.png",
+      "sha256": "614b0150062c8d33df17888868bfcb4d27d3f664fe13e03de1deb2a7ead31cae",
+      "dimensions": [
+        37,
+        3
+      ],
+      "pixels_sha256": "33338db297072ea6741f7d6fd7a71670b75eebdcd5bc11ea85ef3e0326693da7",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1917,
+        204,
+        1954,
+        207
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_551.png",
+      "sha256": "d7cfc31df69161dc78888fb80aef396c3075f48926c4d74937fe315a29ba6997",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "a19cfaeca4f84a6cd5b3ead3ae6e6ffee3893d38ce20155361a0a371bb6cb64e",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1911,
+        255,
+        1915,
+        264
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_552.png",
+      "sha256": "88725d604d2f6587d97dc8e25ae9f44e3c15ccb293db8fbbc2ac3ff54762a7b1",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "606eb6c647137b5360a206af6bc545392370e2bc0db792d0c5accd19f24b1de2",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1967,
+        255,
+        1971,
+        264
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_553.png",
+      "sha256": "cc13b29a36fb8e003d03765fe0cc3ee622a6876d25fb9380f0337524428e81fe",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "38c7955775ed204d321a1a900d824731fcdfa26140803137ace578bf5cc71722",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1911,
+        216,
+        1914,
+        252
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_554.png",
+      "sha256": "9185a9a22cda6aa67ea0a34a1a8155685e9203b2ded2bd16f4511017d4de11fc",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "090fc59ced93d22a3d837fee12fc458946c6611cd79a13bfbd33c4925af433d7",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1968,
+        216,
+        1971,
+        252
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_555.png",
+      "sha256": "3df550f6f99063c551c5fb7099f05d49b51fa8eb36ee064f0865c7a446a96fb6",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "424d41dda81f228c6d82d22d80a19901b8ef79b9579f74b830b1350a06ca83d2",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1891,
+        200,
+        1975,
+        204
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_556.png",
+      "sha256": "e26fbee561a15d1ee4aeb21a1d9bd8607c13610a75e876b2b049ed897325966f",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "0d791f1d52d68aa19ded35d76891ca045e274c3970b396da3927a670713d9710",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1891,
+        264,
+        1975,
+        268
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_557.png",
+      "sha256": "e238273cf00f45a468002920e8dfa856fa50639f2fd434da2e875831207226b8",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "f2216572169b0b5ea58aa913339d53e8ee7d351e6b043ae50619bf625f70fc75",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1907,
+        184,
+        1911,
+        284
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_558.png",
+      "sha256": "edd610fd61c78c31907b99055f60ace5f0ee26fd9c21bca23a027048c4f5af73",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "0932ce1ab6a001cfaef98727791f263fb69d7af1610753fd3dfb841dfc3a4209",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1971,
+        184,
+        1975,
+        284
+      ]
+    },
+    {
+      "image": "inventory_halo_T5_649.png",
+      "sha256": "68fd4bc4d3c93b2680c58f7fda757f23de13ea079bb3bc191b4c328a70d4c900",
+      "dimensions": [
+        37,
+        3
+      ],
+      "pixels_sha256": "af982f1c5d904005f8aef20e3c5e67083fa7e6efef20a29e8378847d50f93aaa",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1982,
+        204,
+        2019,
+        207
+      ]
+    },
+    {
+      "image": "inventory_halo_T5_650.png",
+      "sha256": "bfc2cd9b0771089eede4cf4967a093aba8ed8c9204db3ea2a389def95e8eb3b4",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "a08ba06ca376554ef0f4cc20751a8bbfd9786cdddab4faaf75754a2e02adf9d5",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1976,
+        255,
+        1980,
+        264
+      ]
+    },
+    {
+      "image": "inventory_halo_T5_651.png",
+      "sha256": "51a8177ce5ab1980810946df5dd2a45bdaeba755c37dcfd116a432bd5fa0cb6e",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "04daaa765a81b5a7632d4ad65695d8778d16c7ee60d210c652efed548627fac9",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        2032,
+        255,
+        2036,
+        264
+      ]
+    },
+    {
+      "image": "inventory_halo_T5_652.png",
+      "sha256": "c0aebe3ccb92241147fa35f87ccc4096e7bf2ab8e571fb9ef459c3728f8a107f",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "1af4b11f04f080b2c96885ec4db81ce69d3e950495d3be87c376268f7181e320",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1976,
+        216,
+        1979,
+        252
+      ]
+    },
+    {
+      "image": "inventory_halo_T5_653.png",
+      "sha256": "88f683fba9ead43295b2c9c671f656c0566a7dae47d546998ff59d85983a5573",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "68cf3b7544afebf41c23815200a54c71042e2f9de23e76543801e27957769273",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        2033,
+        216,
+        2036,
+        252
+      ]
+    },
+    {
+      "image": "inventory_halo_T5_654.png",
+      "sha256": "98a1a03722b51c6f3e0777ec3834930bc729f6d7ed8d3250d4129e6faa7487d7",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "359eee12556f0a7d61fdb12f592e643e311646ef9743126f68f7d54070c1dc82",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1956,
+        200,
+        2040,
+        204
+      ]
+    },
+    {
+      "image": "inventory_halo_T5_655.png",
+      "sha256": "aa6bffec2b2145592e4810df4a3e12eeb07de20ee5362654e6fa05ec05216460",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "b2d6f3d69fad33c362a13393ebbf76e366d9c2bc4cab35a593fb560320951e6c",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1956,
+        264,
+        2040,
+        268
+      ]
+    },
+    {
+      "image": "inventory_halo_T5_656.png",
+      "sha256": "b0075f9b6c8e0c2106fe2fd455f9eada5c7a3783bb1db54c1600f67547978ad9",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "14f37c3e07a1f36b47382ca7e855dc4cb4797f1a9c983a1d59cebfead5d5897f",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1972,
+        184,
+        1976,
+        284
+      ]
+    },
+    {
+      "image": "inventory_halo_T5_657.png",
+      "sha256": "797ea63529b7f7d2ee95181256e647f440d9afaaacb57dc0b3996cbb4c83b995",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "9f87073d616e92aed6d3ed996db2f193859ddcfe1ecb88759d7992cde59bf092",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        2036,
+        184,
+        2040,
+        284
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_559.png",
+      "sha256": "3169cfd37317af6ba1ce901558ebc021cdf5aabc54c373e04625f735eb527897",
+      "dimensions": [
+        37,
+        3
+      ],
+      "pixels_sha256": "9ef09082cfee60bc09ee62337892dede1de67cdc6ad1f980467fa640186c7e61",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        2047,
+        204,
+        2084,
+        207
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_560.png",
+      "sha256": "c0ee94b051192f91a87a550d11332a5dc20d3e2420d62857655c2d38e7b16a9b",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "5599d861a780bdb342c8d48edb15b360caff789a68b28354f9d6a0e22c4eb23f",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        2041,
+        255,
+        2045,
+        264
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_561.png",
+      "sha256": "f8df0be8233ad5f75f45e905adbefa12adfec80d8edd60a40d2b21146f01a764",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "ddc13e3c8c3f92aa9b2d82d6c153a12b74c6c2b16fac51c1e6a5fa855616e31c",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        2097,
+        255,
+        2101,
+        264
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_562.png",
+      "sha256": "aa9749750504637dbca3f10d084c0874dc7189ded46d24aad5ec4554641d698c",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "629c934fbc3e9073fddb3c107a442f44038100d29cd1570e35ae229045b8c5a8",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        2041,
+        216,
+        2044,
+        252
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_563.png",
+      "sha256": "ec527cee417df5dda7ba3d42bffc601bb333d61e15ff6ac68e700e5bad2bc748",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "506155a5f4c5d3a7b6ec0bea4131ceccd58b5facbcd4fb93f09691bd8fc7bb25",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        2098,
+        216,
+        2101,
+        252
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_564.png",
+      "sha256": "5af20c7eec6b6edc21e15b16106a8fa670d432513951e6510f794a279139b91c",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "677492d50a46f1f589799bad106fdc5d142004fcf26aaff9e4ec86c65495def1",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        2021,
+        200,
+        2105,
+        204
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_565.png",
+      "sha256": "f8c784a8617d6b53ba1dd4759c8d1f5355b52dca51f92e6de2969be83000cfd6",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "0f2beeec611f8d35cb87c911f8c57ecf634fe18f60dc69f7ee3b1345a0fcfc15",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        2021,
+        264,
+        2105,
+        268
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_566.png",
+      "sha256": "70db42f82865869a7bff3503801aadc14fe08260f847c0729051eb51dceb557d",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "8c6e52e35a307a1474d1a9fba2864d986d3f1f0188f883f4f27b61cf55064278",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        2037,
+        184,
+        2041,
+        284
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_567.png",
+      "sha256": "9e42ffe1a9645b4bfc1410193f57e6d20cd599fa0388196d681b24a9962192d2",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "f45edb5d67c0740fc08bf0bfce5b8f4027201a38f561f6cdca92500db40b418b",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        2101,
+        184,
+        2105,
+        284
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_568.png",
+      "sha256": "828b572f3afac538beab18302ddb6e1af8d250a1748fec19b7951622a7b663a9",
+      "dimensions": [
+        37,
+        3
+      ],
+      "pixels_sha256": "dd6c18bc83895c3c9ec173145c4b8e2e026d4c073d87153489683540bc616e03",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1787,
+        269,
+        1824,
+        272
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_569.png",
+      "sha256": "37650bcd2de6d48a124f86740eeeb8d0f097ec37642c570cd991f060294eee37",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "5b5e1bcfe61cefdd8e8964c4e5ec4e7d7715fd074a7bc4f1dd827572538db2ed",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1781,
+        320,
+        1785,
+        329
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_570.png",
+      "sha256": "6a5d5cde6c1e7c8ea566f62f4597282d7b597ae499bab4484da405cbeaf35805",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "db55f589ce56ddd378fa07c49d99d23a4298247960ebd3226de00abda0562fa4",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1837,
+        320,
+        1841,
+        329
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_571.png",
+      "sha256": "a0ec98091f38d1f5704eb6656e2616bf46733f9fd5995e3604d3b37a6ff35881",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "962b88450ebe594fb9c3ca6b09d0b5beddf5c62bf4e7649ab613de13f1f4f3ee",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1781,
+        281,
+        1784,
+        317
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_572.png",
+      "sha256": "7f80a1998cdd9c905e40f1b86ae637c849d33f29ccb0c8ca3b852ec645db81c5",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "cfa4fc64def9c9bb69544788fc3ccec5f2047572436f5d1cca1c2ad44e707761",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1838,
+        281,
+        1841,
+        317
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_573.png",
+      "sha256": "28118769466b651f237974e1c6218cdeac0abda7a5cd5dfcf22e9f36a242c2c7",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "644734970adf0b59c0c44026352efeee864ec9f09a7bca2e8ccb947622f12b21",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1761,
+        265,
+        1845,
+        269
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_574.png",
+      "sha256": "2bca615e880dfcff642677093384a64095199ba29e68d29b82132c75fb284aae",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "7a0d55b3d94cdab590f63ee79be28fe59f6cbba7e21f821facb970d47669a7c3",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1761,
+        329,
+        1845,
+        333
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_575.png",
+      "sha256": "86ac258bb1f2f3f5811f5773ef0b699eed9fe8a07202002fc21b9a0e7d3e2ae0",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "adbf43e73587faf2711be0fd4112c8fda74d44fa04d8edc26ecca83559ff9bd5",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1777,
+        249,
+        1781,
+        349
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_576.png",
+      "sha256": "2d1df6316c222be05cc30054c662b9ebe717343bcd63cfc18feb298300e7a4fa",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "c7ccc5ebf43c9c51dac57f292b63e3fce111d01ae5dbbc62bf53f72b5b20b6f3",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1841,
+        249,
+        1845,
+        349
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_577.png",
+      "sha256": "f376732a9aabfe76c2c7cc469df55632c24f03aa4adc43f22c946dd550d56922",
+      "dimensions": [
+        37,
+        3
+      ],
+      "pixels_sha256": "f5ffb3c73d0d6af408f58a3c53f7f6fd1cf440acae607a8725ab54316f7e4c09",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1852,
+        334,
+        1889,
+        337
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_578.png",
+      "sha256": "bd3b79dfd36fa8ec17bb3db360d14d8c691a0a63f045d553500f25da0537fa7f",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "8793a7d3126bb6f5282da091bb56a7630ca70c03cf724a4ab2c57d8675ce0529",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1846,
+        385,
+        1850,
+        394
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_579.png",
+      "sha256": "165f5e45caa63c1224b0b48b8ac901d36ef40536b7817aa16b860e6e56e760c7",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "c9aac34a31e677a7727dd1b27db06cbed761150c563be10a485fa8f62c144528",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1902,
+        385,
+        1906,
+        394
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_580.png",
+      "sha256": "9f12576f45d717c5823c52b170a234b760dd6929658878eff310a5df2af6bea2",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "c6392a61c7a5a12eff382a09f1a092ed659fe38096715181437c76dad1bae72e",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1846,
+        346,
+        1849,
+        382
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_581.png",
+      "sha256": "c2d886bd96a1493fc09394eeeedd1a68f38de7a1502b5c752cd1ff41a2145eeb",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "3281a83faf07e097d4e9d4df713663db0802a884f5cabb1e961c25f3e2cc0500",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1903,
+        346,
+        1906,
+        382
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_582.png",
+      "sha256": "c5c50111f4e4f12975140e004d1229477d6b8939edffdfde2985bc2c04abb960",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "b5add8e95e5a213adc8eb4437ac28c398d7c59a1dd70ab267a29823e7a2a70b3",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1826,
+        330,
+        1910,
+        334
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_583.png",
+      "sha256": "6f19572163897bba5052d7ba144e25091a74bf58b8f21ef1bc7cf2cc539f1e75",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "17b198af98f79332f5fb1d8fdcf9bbe73f7842ccd3203d48e9fbab62d36fdf82",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1826,
+        394,
+        1910,
+        398
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_584.png",
+      "sha256": "c507bfe6a1a0a2d20ef36b6f8312b01a00e98fdab5ac9730d0cad72f7f47a6df",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "b691440c3ea7a2f32e35fdf6b17d062776a9a4e77249115d33941037d5771187",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1842,
+        314,
+        1846,
+        414
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_585.png",
+      "sha256": "6709975f80bbd07e6e08d559bea642eb3ccd1861ab3f45a32b17f4b1d6c276a5",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "42f1bd4f9a7362554a00ecbac2aed87fbb55d27e6d8110057e5300536d286e84",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1906,
+        314,
+        1910,
+        414
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_586.png",
+      "sha256": "c01959fcf2f0ee84980100ab825f13b07709db88d139d089b00f108ffbd46318",
+      "dimensions": [
+        37,
+        3
+      ],
+      "pixels_sha256": "481cff35e5446d2b06f9c035276c81dde2de61e06b4882e38f349edd09e5f655",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1787,
+        399,
+        1824,
+        402
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_587.png",
+      "sha256": "605eed058eb52c418f3f6a0d0c45a89d05a2fcf45abe2f60eec1b3f17078d79e",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "9525ff096799b7411a6bd997b2948b7de9025faa9380fe2ae98220219134be00",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1781,
+        450,
+        1785,
+        459
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_588.png",
+      "sha256": "1d5e52a165e92ef55d0a2808f6a01a2e7caf92514f7370d27234e7bc960e02cc",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "765e0da48eee86614558fdb1bc1e2dee4f14093d496f34ba631696bdad23a287",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1837,
+        450,
+        1841,
+        459
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_589.png",
+      "sha256": "839c9e7a2f77d8298c835ead2c25b89848cb9b3c4ee09e440fec214bd7ce9f4e",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "eee11ef50797bb50cca64729c93b9c8fe6573bac47e8e371b4f3bd7c4ee98611",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1781,
+        411,
+        1784,
+        447
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_590.png",
+      "sha256": "b290f25b0b66305562142970f09b4d1288e1787d9e3662fba175de9e14ad0c9e",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "0eb7dc29d6e342894e93d161025f35e4ee5d664ed91cfe96a77f86e1c4f7b89b",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1838,
+        411,
+        1841,
+        447
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_591.png",
+      "sha256": "b8c739e7a34b43d98f268ebbccda83c489ed0005210a88b7fd48c6e412346803",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "19dd2a4d5b636a545bd905af60e7262b69ac0a1fdf44f84cc16120ef05795929",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1761,
+        395,
+        1845,
+        399
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_592.png",
+      "sha256": "85a9aaa5509ba815747faae8c0b828a660cca3c27f870db82b9c80cc996e2078",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "cbb64f66e70c532b3f619752472e736146bf3a0aa216b358a4d18dbc7c2e00f3",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1761,
+        459,
+        1845,
+        463
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_593.png",
+      "sha256": "09d474078e4e1fbc7ee18e16e48b7478f6bc3bde8729fd394a23c3af74b5a80f",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "d2172d1a454b79a2cceb8cc77fb1e95a8744aabdb9bd1485467fe0223d0c56f2",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1777,
+        379,
+        1781,
+        479
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_594.png",
+      "sha256": "442bababfa53c058df94b4ed4f0a4bea94c25f618804843d3e8bdf530cdbb554",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "82afe6ef4556b8cd2deb372009e94d7f53c0d7aabeae145336beaa37b28cdcf2",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1841,
+        379,
+        1845,
+        479
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_595.png",
+      "sha256": "3512f2caf2719c17a537c499c9dd91841fc0ca89173650cdb66f082dc5c836f7",
+      "dimensions": [
+        37,
+        3
+      ],
+      "pixels_sha256": "5417483e5ac16bc671636a3a5e16cb7d3fc4d3bde6d7a44f49f0ced34f20dedf",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1852,
+        399,
+        1889,
+        402
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_596.png",
+      "sha256": "534b13e5ccdf9534aa66fea89aef6538d4ae8a5e6d00b2fb531c908c94b06ee7",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "997ad4c260de2857d64dbae7debe94f5198b84d813c747fdf768787abc9c8a97",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1846,
+        450,
+        1850,
+        459
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_597.png",
+      "sha256": "d54f07bba051112713b87e01eafecbc6a83223ee92a563605e1fbeab1fede54f",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "6d03575bb54aa563d37cf4c4c168f67e9db8b175357a313941b9951328dcb689",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1902,
+        450,
+        1906,
+        459
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_598.png",
+      "sha256": "a6834836a88589258e5ebc064cb131eb34a882a72c3a92bea0054c011efa0cde",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "87120dfacbfad2bb5ea0c4515ac38227eb569db29a7304291354702041a00208",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1846,
+        411,
+        1849,
+        447
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_599.png",
+      "sha256": "16198c84c6694cb13542085f9b413ae076df16ec895f08bf78d3c57949aef6b1",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "56eeffa84563923b245c7c36c5a1a04b4ed66d8d26a3ac19f0c496782f77eb49",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1903,
+        411,
+        1906,
+        447
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_600.png",
+      "sha256": "63bba60ff442d5158cbb397fe3e76a939839348115be852fd6ac5022ba371f45",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "d76cbdb1950d3f7c1e6af61d4167c46f0c97efec850840cadea16d8f1b8866bf",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1826,
+        395,
+        1910,
+        399
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_601.png",
+      "sha256": "b1024c7753b593c2f775b15b85313125554416f577540dbfbdf2349dc60dadaa",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "6df29691a74607daeb4140c2b38905e8517d1be2021c1d2806817fe9fd46bf1d",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1826,
+        459,
+        1910,
+        463
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_602.png",
+      "sha256": "426f47534cae2e75120d117b98d439389f411556d1d1f619061f7b7e1fe04f75",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "d2190be2a0114502d9490fee83bc2ef9648e2ac4409c52399ebf246ea3987373",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1842,
+        379,
+        1846,
+        479
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_603.png",
+      "sha256": "3fb40426b7378c7d864b5b824deb2e2681745334a03dfe70b5457207b4b1c49a",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "1264630ef99b434f6a63929fae94e23b92c1d0825b4355114e931569b516cc52",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1906,
+        379,
+        1910,
+        479
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_604.png",
+      "sha256": "2a8ec645f898e01fa815c3e8d2ede35d90f8b99798a7e3dfb52cc4354c3cb208",
+      "dimensions": [
+        37,
+        3
+      ],
+      "pixels_sha256": "493946192dc4977f01d17826f2f1fdc754a54cdeb0bd982711962038509fbe7c",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1852,
+        464,
+        1889,
+        467
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_605.png",
+      "sha256": "b41c525d9eeb54915cbeb91fd08b9a8549ffc745c92a911695f52c03c8df0f91",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "0690d0140b6d1d02818f119f3a6d3082a1bb34f8ec510c2a8e02f48e1bbad3a9",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1846,
+        515,
+        1850,
+        524
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_606.png",
+      "sha256": "4f8fc72403515528d4ef6c889c703b50c9248ee1198ea63a8c9ed3e5fdd3fdef",
+      "dimensions": [
+        4,
+        9
+      ],
+      "pixels_sha256": "14f8298ad3371ec0f9175bc41641d3455a9b9faf7e88660acb63ac6a64b96f0e",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1902,
+        515,
+        1906,
+        524
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_607.png",
+      "sha256": "108c50e0a2d0198ff2bfc47eb4ab5d702ddfb1a8199dd5aa5d7614ae8d50fbb6",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "47139f12b6f3602980d57c4a7299d750a4ea6c3a1aade39162952a106acaadf3",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1846,
+        476,
+        1849,
+        512
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_608.png",
+      "sha256": "ab965035a23886664b933bc9aafd9a5c11ceae2fc2f4c840c8e6b5e6d03e3064",
+      "dimensions": [
+        3,
+        36
+      ],
+      "pixels_sha256": "6ff375834e5facf28cdcc6c882c42c8ce39431664c3ddfc5d040d74737154b1f",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1903,
+        476,
+        1906,
+        512
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_609.png",
+      "sha256": "7232a110b15d4de15d7eced1a1c72ca85d73d20e0ea803b08dfaa6d722e3f36c",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "76f54e2929f92ce567c4b6f2844f87c0390df14ca8524e9e5a678592004a75bc",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1826,
+        460,
+        1910,
+        464
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_610.png",
+      "sha256": "876b8d9f76d46447b0ea0eb00e84f205ea204816f90c9000b2ac71d092742639",
+      "dimensions": [
+        84,
+        4
+      ],
+      "pixels_sha256": "39b66fc0b2ac1c4f3ab9a7821640e51e426088c9398c0531398625df52c5f83c",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1826,
+        524,
+        1910,
+        528
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_611.png",
+      "sha256": "b17875c44cf7dc3c3af8edb7bb75e0e34c4d17f65457188f1720bfabaa1e6919",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "e108945e95c3fb6771f20f38d0710da1317affc1f66fe37b2d64181eef95603a",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1842,
+        444,
+        1846,
+        544
+      ]
+    },
+    {
+      "image": "inventory_halo_T4_612.png",
+      "sha256": "f18b4d6ccb0d1de3dd970f856c71d2c755c64b74656149924c0fb28d4884bb80",
+      "dimensions": [
+        4,
+        100
+      ],
+      "pixels_sha256": "f87974fbffda0c4ac0dc65026177cda899fd63bc757122fd072b3da857e916a5",
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_rect": [
+        1906,
+        444,
+        1910,
+        544
+      ]
     }
   ],
   "models": [
@@ -13491,6 +15021,356 @@
         "halo_bottom": "inventory_halo_T5_637.png",
         "halo_left": "inventory_halo_T5_638.png",
         "halo_right": "inventory_halo_T5_639.png"
+      }
+    },
+    {
+      "kind": "full",
+      "canonical_scale": 1.0,
+      "tier": 5,
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_body_rect": [
+        1781,
+        204,
+        1841,
+        264
+      ],
+      "source_cell_rect": [
+        1781,
+        204,
+        1846,
+        269
+      ],
+      "source_classification": {
+        "tier": 5,
+        "rmse": 3.6195318698883057,
+        "margin": 46.47926115989685
+      },
+      "patches": {
+        "frame_top": "inventory_halo_T5_640.png",
+        "frame_bottom_left": "inventory_halo_T5_641.png",
+        "frame_bottom_right": "inventory_halo_T5_642.png",
+        "frame_left": "inventory_halo_T5_643.png",
+        "frame_right": "inventory_halo_T5_644.png",
+        "halo_top": "inventory_halo_T5_645.png",
+        "halo_bottom": "inventory_halo_T5_646.png",
+        "halo_left": "inventory_halo_T5_647.png",
+        "halo_right": "inventory_halo_T5_648.png"
+      }
+    },
+    {
+      "kind": "full",
+      "canonical_scale": 1.0,
+      "tier": 4,
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_body_rect": [
+        1846,
+        204,
+        1906,
+        264
+      ],
+      "source_cell_rect": [
+        1846,
+        204,
+        1911,
+        269
+      ],
+      "source_classification": {
+        "tier": 4,
+        "rmse": 0.0,
+        "margin": 34.55328369140625
+      },
+      "patches": {
+        "frame_top": "inventory_halo_T4_541.png",
+        "frame_bottom_left": "inventory_halo_T4_542.png",
+        "frame_bottom_right": "inventory_halo_T4_543.png",
+        "frame_left": "inventory_halo_T4_544.png",
+        "frame_right": "inventory_halo_T4_545.png",
+        "halo_top": "inventory_halo_T4_546.png",
+        "halo_bottom": "inventory_halo_T4_547.png",
+        "halo_left": "inventory_halo_T4_548.png",
+        "halo_right": "inventory_halo_T4_549.png"
+      }
+    },
+    {
+      "kind": "full",
+      "canonical_scale": 1.0,
+      "tier": 4,
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_body_rect": [
+        1911,
+        204,
+        1971,
+        264
+      ],
+      "source_cell_rect": [
+        1911,
+        204,
+        1976,
+        269
+      ],
+      "source_classification": {
+        "tier": 4,
+        "rmse": 0.9211323857307434,
+        "margin": 32.60301846265793
+      },
+      "patches": {
+        "frame_top": "inventory_halo_T4_550.png",
+        "frame_bottom_left": "inventory_halo_T4_551.png",
+        "frame_bottom_right": "inventory_halo_T4_552.png",
+        "frame_left": "inventory_halo_T4_553.png",
+        "frame_right": "inventory_halo_T4_554.png",
+        "halo_top": "inventory_halo_T4_555.png",
+        "halo_bottom": "inventory_halo_T4_556.png",
+        "halo_left": "inventory_halo_T4_557.png",
+        "halo_right": "inventory_halo_T4_558.png"
+      }
+    },
+    {
+      "kind": "full",
+      "canonical_scale": 1.0,
+      "tier": 5,
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_body_rect": [
+        1976,
+        204,
+        2036,
+        264
+      ],
+      "source_cell_rect": [
+        1976,
+        204,
+        2041,
+        269
+      ],
+      "source_classification": {
+        "tier": 5,
+        "rmse": 4.84611701965332,
+        "margin": 44.85257148742676
+      },
+      "patches": {
+        "frame_top": "inventory_halo_T5_649.png",
+        "frame_bottom_left": "inventory_halo_T5_650.png",
+        "frame_bottom_right": "inventory_halo_T5_651.png",
+        "frame_left": "inventory_halo_T5_652.png",
+        "frame_right": "inventory_halo_T5_653.png",
+        "halo_top": "inventory_halo_T5_654.png",
+        "halo_bottom": "inventory_halo_T5_655.png",
+        "halo_left": "inventory_halo_T5_656.png",
+        "halo_right": "inventory_halo_T5_657.png"
+      }
+    },
+    {
+      "kind": "full",
+      "canonical_scale": 1.0,
+      "tier": 4,
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_body_rect": [
+        2041,
+        204,
+        2101,
+        264
+      ],
+      "source_cell_rect": [
+        2041,
+        204,
+        2106,
+        269
+      ],
+      "source_classification": {
+        "tier": 4,
+        "rmse": 1.180652141571045,
+        "margin": 39.488747119903564
+      },
+      "patches": {
+        "frame_top": "inventory_halo_T4_559.png",
+        "frame_bottom_left": "inventory_halo_T4_560.png",
+        "frame_bottom_right": "inventory_halo_T4_561.png",
+        "frame_left": "inventory_halo_T4_562.png",
+        "frame_right": "inventory_halo_T4_563.png",
+        "halo_top": "inventory_halo_T4_564.png",
+        "halo_bottom": "inventory_halo_T4_565.png",
+        "halo_left": "inventory_halo_T4_566.png",
+        "halo_right": "inventory_halo_T4_567.png"
+      }
+    },
+    {
+      "kind": "full",
+      "canonical_scale": 1.0,
+      "tier": 4,
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_body_rect": [
+        1781,
+        269,
+        1841,
+        329
+      ],
+      "source_cell_rect": [
+        1781,
+        269,
+        1846,
+        334
+      ],
+      "source_classification": {
+        "tier": 4,
+        "rmse": 0.550481915473938,
+        "margin": 33.257951617240906
+      },
+      "patches": {
+        "frame_top": "inventory_halo_T4_568.png",
+        "frame_bottom_left": "inventory_halo_T4_569.png",
+        "frame_bottom_right": "inventory_halo_T4_570.png",
+        "frame_left": "inventory_halo_T4_571.png",
+        "frame_right": "inventory_halo_T4_572.png",
+        "halo_top": "inventory_halo_T4_573.png",
+        "halo_bottom": "inventory_halo_T4_574.png",
+        "halo_left": "inventory_halo_T4_575.png",
+        "halo_right": "inventory_halo_T4_576.png"
+      }
+    },
+    {
+      "kind": "full",
+      "canonical_scale": 1.0,
+      "tier": 4,
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_body_rect": [
+        1846,
+        334,
+        1906,
+        394
+      ],
+      "source_cell_rect": [
+        1846,
+        334,
+        1911,
+        399
+      ],
+      "source_classification": {
+        "tier": 4,
+        "rmse": 0.0,
+        "margin": 35.13020706176758
+      },
+      "patches": {
+        "frame_top": "inventory_halo_T4_577.png",
+        "frame_bottom_left": "inventory_halo_T4_578.png",
+        "frame_bottom_right": "inventory_halo_T4_579.png",
+        "frame_left": "inventory_halo_T4_580.png",
+        "frame_right": "inventory_halo_T4_581.png",
+        "halo_top": "inventory_halo_T4_582.png",
+        "halo_bottom": "inventory_halo_T4_583.png",
+        "halo_left": "inventory_halo_T4_584.png",
+        "halo_right": "inventory_halo_T4_585.png"
+      }
+    },
+    {
+      "kind": "full",
+      "canonical_scale": 1.0,
+      "tier": 4,
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_body_rect": [
+        1781,
+        399,
+        1841,
+        459
+      ],
+      "source_cell_rect": [
+        1781,
+        399,
+        1846,
+        464
+      ],
+      "source_classification": {
+        "tier": 4,
+        "rmse": 0.6356416940689087,
+        "margin": 33.692838072776794
+      },
+      "patches": {
+        "frame_top": "inventory_halo_T4_586.png",
+        "frame_bottom_left": "inventory_halo_T4_587.png",
+        "frame_bottom_right": "inventory_halo_T4_588.png",
+        "frame_left": "inventory_halo_T4_589.png",
+        "frame_right": "inventory_halo_T4_590.png",
+        "halo_top": "inventory_halo_T4_591.png",
+        "halo_bottom": "inventory_halo_T4_592.png",
+        "halo_left": "inventory_halo_T4_593.png",
+        "halo_right": "inventory_halo_T4_594.png"
+      }
+    },
+    {
+      "kind": "full",
+      "canonical_scale": 1.0,
+      "tier": 4,
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_body_rect": [
+        1846,
+        399,
+        1906,
+        459
+      ],
+      "source_cell_rect": [
+        1846,
+        399,
+        1911,
+        464
+      ],
+      "source_classification": {
+        "tier": 4,
+        "rmse": 0.24618299305438995,
+        "margin": 35.306452199816704
+      },
+      "patches": {
+        "frame_top": "inventory_halo_T4_595.png",
+        "frame_bottom_left": "inventory_halo_T4_596.png",
+        "frame_bottom_right": "inventory_halo_T4_597.png",
+        "frame_left": "inventory_halo_T4_598.png",
+        "frame_right": "inventory_halo_T4_599.png",
+        "halo_top": "inventory_halo_T4_600.png",
+        "halo_bottom": "inventory_halo_T4_601.png",
+        "halo_left": "inventory_halo_T4_602.png",
+        "halo_right": "inventory_halo_T4_603.png"
+      }
+    },
+    {
+      "kind": "full",
+      "canonical_scale": 1.0,
+      "tier": 4,
+      "source_image": "private-source-withheld.png",
+      "source_sha256": "4d2aab1607767d5af82b51846d1ae88907e73081c41a834c81b3155dd3c25301",
+      "source_body_rect": [
+        1846,
+        464,
+        1906,
+        524
+      ],
+      "source_cell_rect": [
+        1846,
+        464,
+        1911,
+        529
+      ],
+      "source_classification": {
+        "tier": 4,
+        "rmse": 0.26590800285339355,
+        "margin": 35.496779680252075
+      },
+      "patches": {
+        "frame_top": "inventory_halo_T4_604.png",
+        "frame_bottom_left": "inventory_halo_T4_605.png",
+        "frame_bottom_right": "inventory_halo_T4_606.png",
+        "frame_left": "inventory_halo_T4_607.png",
+        "frame_right": "inventory_halo_T4_608.png",
+        "halo_top": "inventory_halo_T4_609.png",
+        "halo_bottom": "inventory_halo_T4_610.png",
+        "halo_left": "inventory_halo_T4_611.png",
+        "halo_right": "inventory_halo_T4_612.png"
       }
     }
   ]
