@@ -280,7 +280,11 @@ class PanelController:
             try:
                 matches = self.layout.locate_headers(image)
                 if self._parking_models():
-                    return self._blank_target(image, matches)[0]
+                    target = self._blank_target(image, matches)[0]
+                    self._activation_pixels = None if target is None else (
+                        image.size, target, image.crop(target.anchor_rect.as_box()).tobytes(),
+                        image.crop(target.rect.as_box()).tobytes())
+                    return target
                 found = [match.rect if match is not None else None for match in matches]
             except LayoutError:
                 return None
@@ -297,6 +301,17 @@ class PanelController:
             if rect is not None and rect.fits(*image.size):
                 return ActivationTarget(rect, pane)
         return None
+
+    def recheck_activation_target(self, image, target):
+        """Fresh exact caption AND blank pixels; no repeat global scale search."""
+        cached = getattr(self, '_activation_pixels', None)
+        if (cached is None or cached[:2] != (image.size, target)
+                or target.anchor_rect is None):
+            return None
+        if (image.crop(target.anchor_rect.as_box()).tobytes() != cached[2]
+                or image.crop(target.rect.as_box()).tobytes() != cached[3]):
+            return None
+        return target
 
     def locate_control(self, image, sample, max_error):
         if self.layout is not None:
@@ -446,6 +461,9 @@ class PanelController:
                 except LayoutError:
                     remaining = deadline - time.monotonic()
                     if remaining <= 0:
+                        if getattr(self.desktop, 'local_layout_diagnostics', False) is True:
+                            from layout_diagnostics import save_grid_failure
+                            save_grid_failure(self.directory, self.layout, image)
                         raise
                     self.wait(min(.1, remaining))
                     image = self.capture()  # Foreground/geometry/F8 remain strict.

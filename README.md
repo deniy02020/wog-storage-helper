@@ -2,21 +2,21 @@
 
 Helper automatically transfers your selected equipment and gems to storage on a timer.
 
-[Download for Windows — GitHub Releases](https://github.com/deniy02020/wog-storage-helper/releases/latest) ·
+[Download for Windows â€” GitHub Releases](https://github.com/deniy02020/wog-storage-helper/releases/latest) Â·
 [Steam guide](https://steamcommunity.com/sharedfiles/filedetails/?id=3818783491)
 
-This folder contains **version 1.6 source**. To install Helper, open **GitHub Releases** above and choose **WoGStorageHelperSetup.exe**. The source archive is for reviewing or building the code.
+This folder contains **version 1.7 source**. To install Helper, open **GitHub Releases** above and choose **WoGStorageHelperSetup.exe**. The source archive is for reviewing or building the code.
 
-## Version 1.6
+## Version 1.7
 
-Fixes long access pauses after returning to the game and improves inventory recognition when glowing item frames cover the separators between cells.
+Improves recognition of animated item frames and neighbouring glows. Prevents a temporary window-capture race from stopping the timer and speeds up safe background activation.
 
 Recognition runs locally. The installer includes the language models needed for all 17 game languages.
 
 ## Getting started
 
 1. Install Helper and open the game.
-2. Open Helper, choose the tiers and time between sorts. The defaults are T3–T6 and 30 minutes; choose 1 minute for a quick check.
+2. Open Helper, choose the tiers and time between sorts. The defaults are T3â€“T6 and 30 minutes; choose 1 minute for a quick check.
 3. Click **Start**. The first sort begins immediately, then the timer starts.
 
 While running, the view shows the countdown and **Stop**. You can also stop Helper with **F8**.

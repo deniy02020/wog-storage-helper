@@ -1,3 +1,28 @@
+# Version 1.7 public source status
+
+Version 1.7 separates bounded illumination changes from the spatial pattern of
+an authenticated item frame. Every frame part must match one complete cue;
+constant overlays, missing rails and unrelated hues cannot supply gutter proof.
+Neighbour-dependent overhangs are excluded. Individual gutter pixels can use
+the same item’s radial glow hue under bounded brightness/saturation changes.
+The existing whole-grid pitch and every-cell segment checks still apply.
+
+A countdown health capture that loses foreground or geometry before input now
+discards only that observation, retaining the original sort deadline. Uncertain
+accepted item/panel input remains terminal. Slow background header search is a
+proposal only; a new frame rechecks both exact static patches before any input.
+
+Recognition failures retain at most two bounded local grid crops for diagnosis.
+They contain no full desktop, character name or portrait and are never uploaded
+automatically. Diagnostics are excluded from source/release packages.
+
+Private current and older real-pixel replay is separate from synthetic exported
+tests. Installed executable acceptance remains necessary before publication.
+No exhaustive monitor/DPI claim is made. PUBLIC_TEST_RESULT.json records the
+exact isolated exported test run.
+
+## Earlier source status
+
 # Version 1.6 public source status
 
 Version 1.6 lets an actual foreground leave/return interrupt an exhausted access

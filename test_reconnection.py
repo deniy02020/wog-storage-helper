@@ -269,6 +269,33 @@ class ConnectionMonitorTests(unittest.TestCase):
         self.assertEqual(self.monitor.cycle_deadline, 3600)
         self.runner.desktop.click.assert_not_called()
 
+    def test_countdown_capture_race_discards_only_frame_and_preserves_deadline(self):
+        from windows import WindowGeometryChanged, ForegroundWindowChanged
+        for error in (WindowGeometryChanged(), ForegroundWindowChanged()):
+            with self.subTest(error=type(error).__name__):
+                self.now = 0
+                self.runner.desktop.capture.side_effect = [error, self.image]
+                self.monitor.wait_between_cycles(3600)
+                self.assertEqual(self.now, 20)
+                self.assertEqual(self.monitor.cycle_deadline, 3600)
+                self.assertTrue(self.monitor.policy.disconnected)
+                self.runner.desktop.click.assert_not_called()
+                self.monitor.policy.restored()
+
+    def test_countdown_does_not_hide_unconfirmed_input_or_generic_capture_failure(self):
+        from windows import WindowGeometryChanged
+        for issued, pending, error in ((True, False, WindowGeometryChanged()),
+                (False, True, WindowGeometryChanged()),
+                (False, False, WindowGeometryChanged(input_issued=True)),
+                (False, False, RuntimeError('capture failure'))):
+            with self.subTest(issued=issued, pending=pending, error=type(error).__name__):
+                self.runner._transfer_input_issued = issued
+                self.runner._panel_open_input_pending.return_value = pending
+                self.runner.desktop.capture.side_effect = error
+                with self.assertRaises(type(error)):
+                    self.monitor.idle_probe()
+        self.runner.desktop.click.assert_not_called()
+
     def test_active_user_in_other_app_is_never_captured_or_activated(self):
         self.runner.desktop.active.return_value = False
         self.monitor.wait_between_cycles(70)

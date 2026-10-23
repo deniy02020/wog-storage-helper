@@ -1,8 +1,8 @@
-"""Authenticated narrow T4/T5/T6 rails prove glow in grid gutters only.
+"""Authenticated narrow T4/T5/T6 frame patterns prove animated grid gutters.
 
 This is an alternate pixel proof, not a color exemption. Every accepted glow
-requires the same model's opaque frame rails AND gutter lanes on the current
-frame. Only those exact gutter rectangles can contribute separator evidence.
+requires the same model's complete frame pattern AND gutter evidence on the
+current frame. Only individually proved gutter pixels contribute evidence.
 Item icons, labels, centers and arbitrary pink pixels never establish a grid.
 """
 from __future__ import annotations
@@ -31,6 +31,60 @@ CAP_OFFSETS = {"frame_top": [6, 0, 43, 3], "halo_top": [-20, -4, 64, 0],
 BOTTOM_CAP_OFFSETS = {key: FULL_OFFSETS[key] for key in ("frame_bottom_left", "frame_bottom_right",
                                                       "halo_bottom", "halo_left", "halo_right")}
 MAX_PATCH_RMSE = 10.0
+
+
+def _frame_pattern_matches(sample, actual):
+    """Preserve spatial contrast under bounded RGB lighting/contrast changes.
+
+    Neighbour glow is rendered over the opaque frame too. A uniform overlay
+    cannot pass: both images must retain the reference's textured contrast and
+    every pixel participates in the same RMSE10 spatial-pattern comparison.
+    """
+    offset = (actual-sample).mean(axis=(0, 1))
+    reference = sample-sample.mean(axis=(0, 1), keepdims=True)
+    observed = actual-actual.mean(axis=(0, 1), keepdims=True)
+    energy = float(np.sum(reference*reference))
+    contrast = float(np.sum(reference*observed))/max(energy, 1.)
+    return (np.max(np.abs(offset)) <= 40
+            and .65 <= contrast <= 1.5
+            and np.mean(np.std(sample, axis=(0, 1))) >= 8
+            and np.mean(np.std(actual, axis=(0, 1))) >= 8
+            and float(np.sqrt(np.mean((observed-reference*contrast)**2))) <= MAX_PATCH_RMSE)
+
+
+def _frame_rail_matches(sample, actual):
+    """A vertical metal rail retains its cross-section under a glow gradient.
+
+    Remove only the row-wise illumination shared by its three columns. Every
+    cross-section and RGB channel still participates. Flat/covered rails have
+    no surviving cross-section contrast and cannot supply geometry evidence.
+    """
+    reference = sample-sample.mean(axis=1, keepdims=True)
+    observed = actual-actual.mean(axis=1, keepdims=True)
+    shift = actual.mean(axis=1)-sample.mean(axis=1)
+    gain = np.sum(reference*observed, axis=(0, 1))/np.maximum(np.sum(reference*reference, axis=(0, 1)), 1.)
+    return (np.max(np.abs(shift)) <= 80
+            and bool(np.all((gain >= .25) & (gain <= 1.5))) and float(np.sqrt(np.mean(reference**2))) >= 8
+            and float(np.sqrt(np.mean(observed**2))) >= 8
+            and float(np.sqrt(np.mean((observed-reference*gain)**2))) <= MAX_PATCH_RMSE)
+
+
+def _halo_chroma_pixels(sample, actual, gap_color):
+    """Glow brightness/saturation may pulse while an opaque frame stays put.
+
+    This alternate proof is only used AFTER that same cue's whole opaque frame
+    and both side-rail patterns match. It contributes individual four-pixel gutter
+    pixels, never frame/center pixels. Dark overlays and unrelated hues fail.
+    """
+    background = np.asarray(gap_color, dtype=np.float32)
+    source, observed = sample-background, actual-background
+    source_chroma = source-source.mean(axis=2, keepdims=True)
+    observed_chroma = observed-observed.mean(axis=2, keepdims=True)
+    energy = np.sum(source_chroma*source_chroma, axis=2)
+    gain = np.sum(source_chroma*observed_chroma, axis=2)/np.maximum(energy, 1.)
+    residual = np.max(np.abs(observed_chroma-source_chroma*gain[..., None]), axis=2)
+    return ((energy >= 144) & (gain >= .25) & (gain <= 4)
+            & (residual <= 6) & (observed.min(axis=2) >= -6))
 
 
 def _halo_raster(array):
@@ -230,9 +284,9 @@ class InventoryHaloModels:
             self._rendered[key] = values
         return self._rendered[key]
 
-    def match(self, image_array, viewport, kind, origin, scale):
-        # Native rasters retain the canonical raw bilateral veto before the
-        # same symmetric raster normalization. Each cue independently proves
+    def match(self, image_array, viewport, kind, origin, scale, *, gap_color=None):
+        # Native rasters require both side-rail patterns before any gutter
+        # contribution. Each cue independently proves
         # its entire frame; parts from different cues never prove a frame.
         # Only individually matched gutter lanes can contribute evidence.
         if kind=='full':
@@ -250,8 +304,11 @@ class InventoryHaloModels:
                             and target.fits(image_array.shape[1],image_array.shape[0])):
                         break
                     actual=image_array[target.top:target.bottom,target.left:target.right]
-                    if float(np.sqrt(np.mean((sample-actual)**2)))>MAX_PATCH_RMSE:
+                    if (float(np.sqrt(np.mean((sample-actual)**2)))>MAX_PATCH_RMSE
+                            and not _frame_pattern_matches(sample, actual)):
                         if label in ('frame_left','frame_right'):
+                            if _frame_rail_matches(sample, actual):
+                                continue
                             break
                         key=('native',native_index,label)
                         normalized=self._normalized.get(key)
@@ -259,8 +316,11 @@ class InventoryHaloModels:
                             normalized=_halo_raster(sample)
                             if len(self._normalized)>=256:self._normalized.clear()
                             self._normalized[key]=normalized
-                        if float(np.sqrt(np.mean((normalized-_halo_raster(actual))**2)))>MAX_PATCH_RMSE:
-                            break
+                        observed_normalized = _halo_raster(actual)
+                        difference = observed_normalized-normalized
+                        if float(np.sqrt(np.mean(difference**2)))>MAX_PATCH_RMSE:
+                            if not _frame_pattern_matches(normalized, observed_normalized):
+                                break
                 else:
                     # A neighboring item may change ONE glow lane. As with
                     # clipped caps, contribute only independently matched raw
@@ -271,8 +331,19 @@ class InventoryHaloModels:
                         if not label.startswith('halo_'):
                             continue
                         target=relative.translated(*origin)
+                        # Overhangs include neighbouring icons and NEW badges.
+                        # They cannot be authenticated by this item's frame.
+                        # Prove only the lane alongside this same opaque body;
+                        # the unchanged whole-grid check still needs corners
+                        # and neighbours to supply their own pixel evidence.
+                        body = round(60*scale)
+                        own = (Rect(origin[0], target.top, origin[0]+body, target.bottom)
+                               if label in ('halo_top', 'halo_bottom') else
+                               Rect(target.left, origin[1], target.right, origin[1]+body))
                         clipped=Rect(max(target.left,viewport.left),max(target.top,viewport.top),
                                      min(target.right,viewport.right),min(target.bottom,viewport.bottom))
+                        clipped=Rect(max(clipped.left,own.left),max(clipped.top,own.top),
+                                     min(clipped.right,own.right),min(clipped.bottom,own.bottom))
                         if clipped.width<=0 or clipped.height<=0:
                             continue
                         sample=sample[clipped.top-target.top:clipped.bottom-target.top,
@@ -292,7 +363,26 @@ class InventoryHaloModels:
                                 if len(self._normalized)>=256:self._normalized.clear()
                                 self._normalized[key]=normalized
                             accepted=float(np.sqrt(np.mean((normalized-_halo_raster(actual))**2)))<=MAX_PATCH_RMSE
-                        if accepted:lanes.append(target)
+                        if accepted:
+                            lanes.append(target)
+                        elif gap_color is not None:
+                            from auto_layout import _runs
+                            visible = _halo_chroma_pixels(sample, actual, gap_color)
+                            # A shared gutter can contain the neighbour's glow
+                            # in the reference. The opposite edge of THIS SAME
+                            # authenticated item supplies its radial hue too.
+                            opposite = {'halo_left': 'halo_right', 'halo_right': 'halo_left',
+                                        'halo_top': 'halo_bottom', 'halo_bottom': 'halo_top'}[label]
+                            alternate = patches[opposite][1]
+                            alternate = np.flip(alternate, axis=1 if label in ('halo_left', 'halo_right') else 0)
+                            full_target = relative.translated(*origin)
+                            alternate = alternate[target.top-full_target.top:target.bottom-full_target.top,
+                                                  target.left-full_target.left:target.right-full_target.left]
+                            visible |= _halo_chroma_pixels(alternate, actual, gap_color)
+                            for y, line in enumerate(visible):
+                                lanes.extend(Rect(target.left+a, target.top+y,
+                                                  target.left+b, target.top+y+1)
+                                             for a, b in _runs(line))
                     native_lanes.extend(lanes)
             if native_lanes:
                 return list(dict.fromkeys(native_lanes))
@@ -517,8 +607,9 @@ def prove_inventory_halo_mask(image, rect, rows, columns, gap_color, scale, mask
                 "cap" if base_y+60*scale > rect.height else "full")
         base = (rect.left + round(col*rect.width/columns), rect.top + round(base_y))
         best = None
-        for dy in range(-radius, radius+1):
-            for dx in range(-radius, radius+1):
+        offsets = sorted(range(-radius, radius+1), key=lambda value: (abs(value), value))
+        for dy in offsets:
+            for dx in offsets:
                 origin = base[0]+dx, base[1]+dy
                 if kind == "cap":
                     # A cap is a CLIPPED cell, never part of the subsequently
@@ -530,7 +621,7 @@ def prove_inventory_halo_mask(image, rect, rows, columns, gap_color, scale, mask
                         continue
                 elif origin[1]+round(60*scale) > rect.bottom+1:
                     continue
-                lanes = models.match(pixels, rect, kind, origin, scale)
+                lanes = models.match(pixels, rect, kind, origin, scale, gap_color=gap_color)
                 if lanes is not None:
                     best = lanes
                     break

@@ -88,6 +88,8 @@ def _physical_api(method):
 
 
 class WindowsDesktop:
+    local_layout_diagnostics = True
+
     def __init__(self):
         if os.name != "nt":
             raise RuntimeError("Этот помощник запускается в Windows 10/11.")
@@ -503,16 +505,21 @@ class WindowsDesktop:
         first, box, captured_at = self._capture_activation_pixels(handle, token, identity, guard)
         target = self._validated_activation_target(target_reader(first), first.size)
         self._activation_context(handle, token, identity, guard, box)
-        if target is None or time.monotonic() - captured_at > 2.0:
+        recheck = getattr(getattr(target_reader, '__self__', None), 'recheck_activation_target', None)
+        bound_patch = target is not None and getattr(target, 'anchor_rect', None) is not None
+        fast_recheck = bound_patch and callable(recheck)
+        # An expensive search is only a proposal. This route obtains another
+        # fresh frame and exactly rechecks both patches before any cursor/input.
+        if target is None or (not fast_recheck and time.monotonic() - captured_at > 2.0):
             denied.diagnostics["activation_stage"] = 1  # Missing/expired visible header; no input.
             raise denied
-        bound_patch = getattr(target, "anchor_rect", None) is not None
         local = target.rect.center
         if not bound_patch:
             # Preserve the original heading-only evidence order.
             self._position_cursor(box[0] + local[0], box[1] + local[1])
         second, _, captured_at = self._capture_activation_pixels(handle, token, identity, guard, box)
-        again = self._validated_activation_target(target_reader(second), second.size)
+        again = self._validated_activation_target(
+            recheck(second, target) if fast_recheck else target_reader(second), second.size)
         self._activation_context(handle, token, identity, guard, box)
         if again != target or time.monotonic() - captured_at > 2.0:
             denied.diagnostics["activation_stage"] = 2  # Heading changed/covered; no button.

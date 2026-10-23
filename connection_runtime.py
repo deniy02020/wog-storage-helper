@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import time
+from windows import WindowGeometryChanged
 
 from connection_vision import DisconnectRecognizer, modal_candidates, reward_candidates, session_candidates
 from reconnection import (ConnectionLost, ReconnectPolicy, HEALTH_POLL_SECONDS,
@@ -58,7 +59,18 @@ class ConnectionMonitor:
         runner = self.runner
         if not runner.desktop.active(runner.handle):
             return False
-        image = runner.desktop.capture(runner.handle)
+        try:
+            image = runner.desktop.capture(runner.handle)
+        except WindowGeometryChanged as error:
+            # This observer sends no input. A lost foreground/resize race
+            # discards only this observation, preserving the sort deadline.
+            # Never hide an uncertain earlier item/panel mouse receipt.
+            if (error.input_issued is not False
+                    or getattr(runner, '_transfer_input_issued', False)
+                    or runner._panel_open_input_pending()):
+                raise
+            runner.check_stop()
+            return False
         if self.recognizer.detect(image, runner.check_stop) is not None:
             self._lost()
             return True

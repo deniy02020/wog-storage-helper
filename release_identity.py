@@ -4,7 +4,7 @@ from __future__ import annotations
 import os
 import re
 
-DEFAULT_RELEASE_VERSION = "1.6.0"
+DEFAULT_RELEASE_VERSION = "1.7.0"
 PRODUCT_NAME = "WoG Storage Helper"
 AUTHOR = "deniy"
 EXECUTABLES = {

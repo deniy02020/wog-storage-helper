@@ -28,7 +28,7 @@ GENERATED = {MANIFEST, "SOURCE_SHA256SUMS.txt", "PUBLIC_TEST_RESULT.json"}
 MODULES = tuple(("adaptive_tiers app app_startup auto_layout autocalibration core dashboard game_identity "
     "gearlabel helper_config i18n input_activity instance neutral_panels inventory_cycle inventory_motion_policy "
     "inventory_samples inventory_scroller inventory_viewport inventory_walk inventory_halo package_release panels "
-    "paths runtime release_identity session_logging windows_signing storage_cycle storage_pages supplemental_tiers ui_brand ui_filters ui_journal "
+    "paths runtime release_identity session_logging layout_diagnostics windows_signing storage_cycle storage_pages supplemental_tiers ui_brand ui_filters ui_journal "
     "reconnection connection_vision connection_runtime ocr_resources ocr_native_api "
     "ui_theme ui_time_picker ui_vault_motion ui_widgets windows").split())
 INSTALLER_MODULES = tuple(("__init__ build core launcher license_resources uninstall_launcher "
@@ -36,7 +36,7 @@ INSTALLER_MODULES = tuple(("__init__ build core launcher license_resources unins
 TESTS = tuple(("test_core test_inventory_cycle test_inventory_scroller test_inventory_walk "
     "test_inventory_bulk_scroll test_windows_scroll_burst test_windows_scroll test_windows "
     "test_time_picker test_app_timer test_app_startup test_automatic test_runtime_retry_budget "
-    "test_runtime_access_wait test_grid_common_separator test_inventory_halo_columns "
+    "test_runtime_access_wait test_grid_common_separator test_inventory_halo_columns test_glow_phase test_layout_diagnostics test_activation_focus test_start "
     "test_runtime_lifecycle test_panels test_inventory_halo test_native_halo_tiers installer.test_build "
     "test_storage_cycle test_storage_native_digits test_i18n test_ui_journal test_runtime_walk_session test_auto_waiting_i18n "
     "test_runtime_sorted_batches test_runtime_sorted_top_raster test_runtime_inventory_bulk test_runtime test_session_logging test_runtime_preflight_recovery "
